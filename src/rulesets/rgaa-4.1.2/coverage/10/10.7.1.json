@@ -1,0 +1,92 @@
+{
+  "test": "10.7.1",
+  "requirements": [
+    {
+      "id": "focus-visible",
+      "statement": "For each element that receives focus, taking focus is visible.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.7.1",
+          "line": 1,
+          "quote": "Pour chaque élément recevant le focus, la prise de focus vérifie-t-elle une de ces conditions"
+        },
+        {
+          "source": "methodology",
+          "test": "10.7.1",
+          "quote": "vérifier que l’indication visuelle de la prise de focus est présente (en agissant sur le contour ou le fond ou les deux) et est suffisamment contrastée (ratio de contraste égal ou supérieur à 3:1)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "native-style-kept",
+          "statement": "The browser's native focus style is neither removed nor degraded.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.7.1",
+              "line": 2,
+              "quote": "Le style du focus natif du navigateur n’est pas supprimé ou dégradé ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Prise de focus",
+              "quote": "l’indication visuelle du focus du navigateur ne doit pas être supprimée ou dégradée"
+            }
+          ]
+        },
+        {
+          "id": "author-style-visible",
+          "statement": "A focus style defined by the author is visible and sufficiently contrasted.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.7.1",
+              "line": 3,
+              "quote": "Un style du focus défini par l’auteur est visible."
+            },
+            {
+              "source": "glossary",
+              "entry": "Prise de focus",
+              "quote": "sauf si un style du focus défini par l’auteur est visible et suffisamment contrasté au regard du critère 3.3."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/10-7-focus-no-visual-change",
+      "requirement": "focus-visible",
+      "routes": ["native-style-kept", "author-style-visible"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard"],
+  "rationale": {
+    "text": "The test accepts two routes: the native focus style kept intact, or an author style that is visible. Deciding that a style is degraded, visible enough, or contrasted at 3:1 against the right colours is judgment in general, so the entry cannot be full. One fault is mechanical and falsifies both routes at once: focusing an element by keyboard changes nothing at all on screen. If the browser's native style were kept, it would paint a ring; if the author had a visible style, something would change. The custom check takes a screenshot of the viewport with the element focused by Tab and one after removing focus, and faults the element when the two are identical. To keep that fault sound it first proves, on a reference button, that the browser paints focus rings in this setup, and it abstains when the element is partly outside the viewport, very small, transparent or clipped (where the native ring might be invisible without having been removed), when focus did not stay on the element, and for frames and embedded media. Its scope is partial: it follows only the Tab order, not elements that take focus only from a pointer. No axe rule is tagged. The entry is fail_only. Applicability is judgment: elements can be made focusable by script and the glossary includes focus given by pointer, so the absence of any element receiving focus is not certain from static code. Needs lists keyboard, since the check needs the keyboard pass.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "10.7",
+        "quote": "pour chaque élément recevant le focus, la prise de focus est-elle visible"
+      },
+      {
+        "source": "glossary",
+        "entry": "Prise de focus",
+        "quote": "En atteignant l’élément par la touche tabulation ou majuscule + tabulation ;"
+      },
+      {
+        "source": "methodology",
+        "test": "10.7.1",
+        "quote": "Si c’est le cas pour chaque élément susceptible de recevoir le focus, **le test est validé**."
+      }
+    ]
+  }
+}
