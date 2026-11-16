@@ -9,3 +9,6 @@ node_modules/
 # Scratch work
 work/
 .DS_Store
+
+# Agent worktrees
+.claude/worktrees/
