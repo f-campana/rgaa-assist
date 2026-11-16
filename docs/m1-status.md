@@ -14,7 +14,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 | 3 | Schemas and the ruleset contract, then freeze | Done and frozen 2026-11-16, `ca5c92b`. 144 tests pass. Design notes and the orchestrator's review: `docs/m1/contract-notes.md`. |
 | 4 | Implementation of derivation, reduction and effective level by one agent, contract tests by another, both after the freeze | In flight: two Opus builders, see below. |
 | 5 | Table of axe rules per RGAA test, and theme packets for entry writers | Done 2026-11-16, merged as `aa4cdd9`. 67 rules, 40 tests, as the spec says. `pnpm packets` writes 13 packets, 595 KB in all; theme 1 is 121 KB, so split it between writers by criterion. |
-| 6 | Pilot of about 12 entries, usage projection | Not started |
+| 6 | Pilot of 14 entries, usage projection | Guide and brief written. Not launched: after step 4. |
 | 7 | Entries by theme | Not started |
 | 8 | Check-in at 65%, with Codex's cross-check | Not started |
 | 9 | Minimum useful set | Not started |
@@ -22,15 +22,16 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-Two Opus builders, launched 2026-11-16 about 17:00 UTC at Fabien's instruction, without waiting for the window to reset: the implementer (`docs/m1/brief-implementation.md`) and the contract-test writer (`docs/m1/brief-contract-tests.md`). Each is in its own worktree under `.claude/worktrees/` and was told to commit after each function or test file, because the usage limit may interrupt it. If one was cut off and did not resume, its commits are on its `worktree-agent-…` branch: check `git worktree list` and `git log` there, then relaunch a builder on what is left.
+Two Opus builders, relaunched 2026-11-16 21:02 UTC: the implementer (`docs/m1/brief-implementation.md`) and the contract-test writer (`docs/m1/brief-contract-tests.md`). The first launch at 17:00 UTC was cut off by the 5-hour limit before either wrote anything, and left no branch. Each works in its own worktree under `.claude/worktrees/` and commits as it goes.
+
+If a builder is cut off again: `git worktree list` and `git branch --list` show whether it left commits. If it did, relaunch a builder on what is left. If not, relaunch it from the brief.
 
 ## Next, in order
 
-1. Done: the validator is merged.
-2. Done: both launched (see above).
-3. Merge both. Run `pnpm test`. A failing contract test is either an implementation bug or a wrong test: decide from the spec, never by editing the expected result to fit. Send fixes back to the agent that owns the file.
-4. Write `docs/m1/entry-guide.md` for entry writers (rules of the kickoff brief, the schema, the 1.1.6 reference in `tests/fixtures/entry-1.1.6.json`, how to cite, when to abstain, the check registry).
-5. Pilot: about 12 entries over three themes, by Opus, from criterion packets. Measure usage per entry and project the total before going on.
+1. Merge both builders. Run `pnpm test`. A failing contract test is either an implementation bug or a wrong test: decide from the spec, never by editing an expected result to fit. Send fixes back to the agent that owns the file.
+2. Launch the pilot: one Opus builder, high effort, `isolation: worktree`, brief `docs/m1/brief-pilot.md` (14 entries, criteria 2.1, 2.2, 4.1, 6.2, 7.3, 8.3, 8.4, 10.7, 11.1). The guide it follows is `docs/m1/entry-guide.md`.
+3. Review the 14 entries against the packets. Note the usage the pilot took and project it to 258 entries in `docs/cost-log.md`. If the projection passes the ceiling, stop and ask Fabien.
+4. Fix the guide from the pilot's feedback, then write the remaining entries criterion by criterion, a few builders at a time, each owning different theme folders. `checks.json` is shared: keep it sorted by id and resolve merges by taking both sides.
 
 ## Decisions taken by the orchestrator
 
