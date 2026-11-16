@@ -107,3 +107,12 @@ Codex's re-check found the five earlier findings resolved and three new defects 
 - **What was approved.** The text Codex re-checked and found ready, with no blocking defect: `docs/spec.md` sha256 `f31c72b358a3a46a8d04999aa92ca59c8cc475659b04078a40a5951b8d3d7403`. After approval the file changed only in status lines (header, the Spec row in 14.1, one line in 17.1).
 - **Three notes from that re-check go into the M1 brief, not the spec:** validate inputs before deriving a result; raising an entry after a manual demotion needs the specified approver and is never restored from an old record; a check-version suspension restores only the level already authorised.
 - **M1 start.** Not before the weekly reset of Saturday 2026-11-21 16:00 UTC. On 2026-11-15 the Fable weekly limit was at 100% and the all-models weekly limit at 61%, from other work. M1 needs a week where that allowance is kept for it.
+## M1 start (2026-11-16)
+
+Fabien used a limit reset on 2026-11-16, because it would have expired the next day, and started M1 that day. This replaces "not before 2026-11-21" above. Baseline at 16:08 UTC: weekly all-models 45%, weekly Fable 2%. Both windows still end on 2026-11-21 16:00 UTC.
+
+- **M1 ceiling counted from the baseline (Q38, amends the M1 ceiling).** The all-models limit did not start at zero, so the ceiling is counted from the 45% baseline: check-in at 65% all-models, stop at 85%. Fable still stops at 50% of its weekly limit. If M1 does not fit, it continues after the next reset.
+- **Orchestrator after Fable (Q39, amends the roles of Q21 and Q24).** Fabien reports that Fable 5.2 is available only until 2026-11-16 (not verified by Claude). If it becomes unavailable, Opus 5.5 at high effort takes over as orchestrator and continues from the brief, the cost log and the bridge. Opus keeps writing entries, and Codex's cross-check remains the independent check on them. The Fable 50% stop then no longer applies.
+- **Commits.** Authorised for the whole of M1: builders commit on their own branches in their own worktrees, and the orchestrator merges to main after reviewing the diff. No remote, no push.
+- **Downloads.** Authorised: `criteres.json`, `glossaire.json` and `methodologies.json` from `DISIC/accessibilite.numerique.gouv.fr` at commit `ca4019f95073b6cbd2482a16e9f12b52d8de678d`, and axe-core 4.14.0 from npm. Anything else needs a new yes.
+- **Correction.** The third official file is `methodologies.json`. The spec and the brief said `methodologie.json`.

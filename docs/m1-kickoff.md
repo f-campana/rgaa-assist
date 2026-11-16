@@ -20,13 +20,14 @@ You are starting milestone M1 of rgaa-assist. You split the work, brief the buil
 
 No engine, no browser, no reports, no corpus cases. Those are M2 and later.
 
-## Before any work: confirm with Fabien
+## Confirmed with Fabien on 2026-11-16
 
-Ask once, at the start, and wait for the answers.
+M1 started that day. `docs/m1-status.md` says where it stands now: read it before anything else if you are taking over.
 
-1. **The weekly reset has passed**, and he agrees M1 starts now. Read the plan usage and record both weekly figures in `docs/cost-log.md` as the baseline.
-2. **Commits.** The repo has one commit, made on 2026-11-16 with the approved documents, so builders can work in their own worktrees. Ask whether he authorises commits during the build. No remote, no push.
-3. **Official data.** Ask for his yes to fetch three files from `DISIC/accessibilite.numerique.gouv.fr` at commit `ca4019f95073b6cbd2482a16e9f12b52d8de678d`: `RGAA/criteres.json`, `glossaire.json`, `methodologie.json`. Also the rule metadata of axe-core 4.14.0. Anything else to download needs a new yes.
+1. **Start and baseline.** He used a limit reset and started M1. Baseline in `docs/cost-log.md`: weekly all-models 45%, weekly Fable 2%. The ceilings are counted from that baseline (Q38, below).
+2. **Commits.** Authorised for the whole of M1: builders commit on their own branches in their own worktrees, and the orchestrator merges to main after reviewing the diff. No remote, no push.
+3. **Official data.** Authorised and fetched: `criteres.json`, `glossaire.json` and `methodologies.json` from `DISIC/accessibilite.numerique.gouv.fr` at commit `ca4019f95073b6cbd2482a16e9f12b52d8de678d`. axe-core 4.14.0 from npm is authorised too. Anything else to download needs a new yes.
+4. **If Fable 5.2 becomes unavailable (Q39),** Opus 5.5 at high effort takes over as orchestrator, under this same brief.
 
 ## Order of work
 
@@ -74,7 +75,7 @@ One point the spec leaves open: most custom checks do not exist yet. Keep a regi
 
 | Role | Model | In M1 |
 |---|---|---|
-| Orchestrator | Fable 5.2, high | You. Briefs, diff review, gate, logs. |
+| Orchestrator | Fable 5.2, high. Opus 5.5, high, if Fable is unavailable (Q39). | You. Briefs, diff review, gate, logs. |
 | Core builder | Opus 5.5, medium to high | Schemas, contract, contract tests, coverage entries. |
 | Module builder | Sonnet 5.5, low to medium | Vendoring the official data, the table of axe rules per RGAA test, the script that validates entries against the schema. |
 | Reviewer | Codex | Cross-checks entries. Reviews the gate. Edits nothing in this repo. |
@@ -92,9 +93,10 @@ One point the spec leaves open: most custom checks do not exist yet. Keep a regi
 
 ## Budget and stops (spec 14.3)
 
-- **Stop when the weekly all-models limit reaches 40%.**
-- **Stop if the Fable weekly limit passes 50%.**
-- **Check-in when all-models reaches 20%.** Pause the builders, then report to Fabien:
+- The figures below are counted from the 45% all-models baseline (Q38).
+- **Stop when the weekly all-models limit reaches 85%.**
+- **Stop if the Fable weekly limit passes 50%.** This no longer applies if Opus orchestrates (Q39).
+- **Check-in when all-models reaches 65%.** Pause the builders, then report to Fabien:
   - how many of the 258 entries are done (under half means stop and re-split the work);
   - the result of Codex's cross-check of the entries written so far, with errors counted by kind of entry: axe-linked, several routes, needs state or keyboard or media, structural applicability, other;
   - the usage so far, by role.

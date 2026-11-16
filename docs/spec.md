@@ -3,7 +3,8 @@
 **Status:** approved by Fabien on 2026-11-15, as draft 0.4. Nothing is built. The text Codex re-checked has sha256 `f31c72b358a3…`; this file differs from it only in the status lines changed on approval (this header, the Spec row in 14.1, one line in 17.1).
 **Changes from 0.3:** three corrections after Codex's re-check of 0.3: the approval hash (G1), how facts about a requirement are combined (G2), and the logged-out guarantee. It also records decision Q37: the pre-M1 model check is shelved (14.3, 17.1). Draft 0.3 had answered the re-check of 0.2 (F1 to F5, Q35, Q36), and draft 0.2 the first review (R1 to R9, Q29 to Q34). Section 18 maps each finding to the text that answers it.
 **Next:** M1, started from `docs/m1-kickoff.md` after a weekly reset (14.3). Any later change to this spec goes through the orchestrator and, where it touches a decision, through Fabien (14.4).
-**Inputs:** `docs/decisions.md` (decisions Q1 to Q37). Where this spec and that file disagree, the decisions file wins and the disagreement is a defect in this spec.
+**Amended after approval, on 2026-11-16, by Fabien's decisions:** the M1 ceiling is counted from the usage baseline (Q38, 14.3). Opus 5.5 takes over as orchestrator if Fable 5.2 becomes unavailable (Q39, 14.2). The third official data file is named `methodologies.json` (13). Codex has not re-checked these lines.
+**Inputs:** `docs/decisions.md` (decisions Q1 to Q39). Where this spec and that file disagree, the decisions file wins and the disagreement is a defect in this spec.
 
 ---
 
@@ -677,7 +678,7 @@ Not in v1: the remediation list (next after v1), a pre-filled audit workbook, th
 - TypeScript on Node, the current active LTS, pinned. One package, managed with pnpm.
 - Playwright and `@axe-core/playwright` for examination. Vitest for unit and contract tests.
 - Schemas (sample file, run file, coverage map, corpus case, evaluation summary) are defined once and used for both validation and types.
-- The official `criteres.json`, `glossaire.json` and `methodologie.json` are vendored with their source commit and attribution (Licence Ouverte 2.0). Licence terms are checked per reused asset, not assumed for a whole repository.
+- The official `criteres.json`, `glossaire.json` and `methodologies.json` are vendored with their source commit and attribution (Licence Ouverte 2.0). Licence terms are checked per reused asset, not assumed for a whole repository.
 
 ```
 src/
@@ -733,11 +734,13 @@ Rules:
 - **Results are checked, not trusted.** The orchestrator reads diffs and test output. An agent's own report is not evidence.
 - **Builders never see `corpus/acceptance/`.**
 - M1 and M2 run as a Claude Code session with spawned agents (Q24). Whether to script later milestones is decided after M2.
+- **If Fable 5.2 becomes unavailable (Q39),** Opus 5.5 at high effort takes over as orchestrator and continues from the kickoff brief, `docs/m1-status.md`, the cost log and the bridge. Opus keeps writing entries. Codex's cross-check remains the independent check on them.
 
 ### 14.3 Cost (Q2, Q4, Q24)
 
 - The build runs on Fabien's Claude subscription. Plan limits are hard: when one is reached, agents stop until it resets.
 - **M1:** starts just after a weekly reset. Stops at 40% of the weekly all-models limit, with a check-in at 20% where the orchestrator reports how many of the 258 entries are done. Under half means stop and re-split. Stops if the Fable weekly limit passes 50%. If M1 does not fit, it continues after the next reset.
+  - **As run (Q38).** M1 started on 2026-11-16 with the all-models limit already at 45%. The ceiling is counted from that baseline: check-in at 65%, stop at 85%. The Fable stop is unchanged, and no longer applies if Opus orchestrates (Q39).
 - **Whether Opus writes entries well enough is measured inside M1 (Q37).** At the 20% check-in, Codex cross-checks the entries written so far, and the orchestrator reports the errors found, by kind of entry. If the figures suggest the entries are not good enough, the orchestrator stops and asks Fabien. Changing who writes entries is his decision (14.4). No separate comparison of models runs before M1.
 - M2's ceiling is set from M1's measured use.
 - `docs/cost-log.md` gets one line per milestone and role: model, effort, tokens, share of plan used, API-equivalent cost for comparison.
