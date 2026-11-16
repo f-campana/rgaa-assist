@@ -1,0 +1,119 @@
+{
+  "test": "8.3.1",
+  "requirements": [
+    {
+      "id": "default-language-present",
+      "statement": "The page indicates its default language with the lang and/or xml:lang attribute, either on the html element or on every text element or one of its parents.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.3.1",
+          "line": 1,
+          "quote": "Pour chaque page web, l’indication de langue par défaut vérifie-t-elle une de ces conditions"
+        },
+        {
+          "source": "glossary",
+          "entry": "Langue par défaut",
+          "quote": "Indication de la langue de traitement principale du document qui peut être présente sur l’élément racine html ou sur chaque élément de la page concerné via les attributs lang et/ou xml:lang"
+        }
+      ],
+      "routes": [
+        {
+          "id": "html-element-lang",
+          "statement": "The html element carries the language indication, with the attribute or attributes the document type calls for: lang for HTML up to 4.01 and HTML5, lang and xml:lang for XHTML 1.0 served as text/html, xml:lang for XHTML 1.0 served as application/xhtml+xml and for XHTML 1.1.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "8.3.1",
+              "line": 2,
+              "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée pour l’élément `html`"
+            },
+            {
+              "source": "methodology",
+              "test": "8.3.1",
+              "quote": "Soit au moyen de l’attribut lang sur la balise html si le code est du HTML5 ou du HTML4 ;"
+            },
+            {
+              "source": "methodology",
+              "test": "8.3.1",
+              "quote": "Soit au moyen des attributs lang et xml:lang sur la balise html si le code est du XHTML 1.0 ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Langue par défaut",
+              "quote": "Pour XHTML 1.0 servi en \"application/xhtml+xml\" : attribut xml:lang obligatoire, attribut lang recommandé ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Langue par défaut",
+              "quote": "Pour XHTML 1.1 : attribut xml:lang obligatoire, attribut lang non supporté ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Langue par défaut",
+              "quote": "Pour HTML5 : attribut lang obligatoire."
+            }
+          ]
+        },
+        {
+          "id": "every-text-element-lang",
+          "statement": "Every text element carries the language indication itself or through one of its parent elements.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "8.3.1",
+              "line": 3,
+              "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée sur chaque élément de texte ou sur l’un des éléments parents."
+            },
+            {
+              "source": "methodology",
+              "test": "8.3.1",
+              "quote": "Sinon, vérifier la présence d’une indication de langue sur chaque élément de texte ou l’un de ses parents."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/html-has-lang",
+      "requirement": "default-language-present",
+      "routes": ["html-element-lang"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/8-3-default-lang-present",
+      "requirement": "default-language-present",
+      "routes": ["html-element-lang", "every-text-element-lang"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "full",
+  "enabled": "none",
+  "applicability": "structural",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement with two routes: the indication on the html element, or on every text element or a parent of it. Nothing in it asks for judgment: whether an attribute is present on an element, and which elements hold text, are facts of the DOM. The methodology and glossary say which attribute each document type needs (lang for HTML, both for XHTML 1.0 served as text/html, xml:lang for XHTML 1.1 and XHTML served as XML); the document type is known from the doctype and the served content type. axe's html-has-lang is evidence only: it looks only at the html element, so a page that uses the second route gets a fault although it meets the test. The custom check examines both routes for the whole page. It answers no_fault only when the html element carries the attributes its document type calls for, with a non-empty value, or when every text element is covered that way. Its fault is a page whose html element has neither lang nor xml:lang, and where some rendered text in the body has no lang or xml:lang on itself or any ancestor: both routes then fail, whatever the document type, so the fault proves the test fails. The check abstains where the text leaves room: an empty attribute (it could be read as a missing indication under this test or an invalid code under 8.4), an attribute that does not fit the document type (the wording says and/or, the methodology names one per type), and text outside the body such as the page title, which may or may not be a text element. With those abstentions the entry is full. Applicability is structural: the test applies to every page, so the check never reports inapplicable. Needs is empty: attributes are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "8.3",
+        "quote": "Dans chaque page web, la langue par défaut est-elle présente"
+      },
+      {
+        "source": "methodology",
+        "test": "8.3.1",
+        "quote": "Si c’est le cas, **le test est validé**."
+      },
+      {
+        "source": "glossary",
+        "entry": "Langue par défaut",
+        "quote": "Pour XHTML 1.0 servi en \"text/html\" : attribut lang et xml:lang obligatoires ;"
+      }
+    ]
+  }
+}
