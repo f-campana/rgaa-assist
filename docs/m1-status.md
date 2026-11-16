@@ -12,7 +12,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 | 1 | Vendor the official data, verify counts | Done 2026-11-16. 13, 106, 258. In `src/rulesets/rgaa-4.1.2/official/`. |
 | 2 | Package scaffold (pnpm, TypeScript, Vitest, axe-core 4.14.0 pinned) | Done 2026-11-16, merged as `0868bb4`. zod 4.6.7, typescript 7.0.2, vitest 5.1.0. |
 | 3 | Schemas and the ruleset contract, then freeze | Done and frozen 2026-11-16, `ca5c92b`. 144 tests pass. Design notes and the orchestrator's review: `docs/m1/contract-notes.md`. |
-| 4 | Implementation of derivation, reduction and effective level by one agent, contract tests by another, both after the freeze | Briefs written (`brief-implementation.md`, `brief-contract-tests.md`). **Not launched:** waiting for the 5-hour window to reset at 21:00 UTC on 2026-11-16. |
+| 4 | Implementation of derivation, reduction and effective level by one agent, contract tests by another, both after the freeze | In flight: two Opus builders, see below. |
 | 5 | Table of axe rules per RGAA test, and theme packets for entry writers | Done 2026-11-16, merged as `aa4cdd9`. 67 rules, 40 tests, as the spec says. `pnpm packets` writes 13 packets, 595 KB in all; theme 1 is 121 KB, so split it between writers by criterion. |
 | 6 | Pilot of about 12 entries, usage projection | Not started |
 | 7 | Entries by theme | Not started |
@@ -22,12 +22,12 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-Nothing. The validator, the `criterion_title` citation source and the packets by criterion were merged on 2026-11-16 (161 tests pass). `pnpm validate-coverage --missing` lists the tests with no entry; `pnpm packets` writes 13 theme packets and 106 criterion packets, the largest about 36 KB.
+Two Opus builders, launched 2026-11-16 about 17:00 UTC at Fabien's instruction, without waiting for the window to reset: the implementer (`docs/m1/brief-implementation.md`) and the contract-test writer (`docs/m1/brief-contract-tests.md`). Each is in its own worktree under `.claude/worktrees/` and was told to commit after each function or test file, because the usage limit may interrupt it. If one was cut off and did not resume, its commits are on its `worktree-agent-…` branch: check `git worktree list` and `git log` there, then relaunch a builder on what is left.
 
 ## Next, in order
 
 1. Done: the validator is merged.
-2. After the window resets, launch in parallel, each with `isolation: worktree`: the implementer (Opus, medium effort, `docs/m1/brief-implementation.md`) and the contract-test writer (Opus, high effort, `docs/m1/brief-contract-tests.md`). The prompt only needs to point at the brief.
+2. Done: both launched (see above).
 3. Merge both. Run `pnpm test`. A failing contract test is either an implementation bug or a wrong test: decide from the spec, never by editing the expected result to fit. Send fixes back to the agent that owns the file.
 4. Write `docs/m1/entry-guide.md` for entry writers (rules of the kickoff brief, the schema, the 1.1.6 reference in `tests/fixtures/entry-1.1.6.json`, how to cite, when to abstain, the check registry).
 5. Pilot: about 12 entries over three themes, by Opus, from criterion packets. Measure usage per entry and project the total before going on.
