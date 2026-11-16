@@ -48,3 +48,11 @@ Written by the core builder (Opus 5.5) on 2026-11-16. For the agents who impleme
 - **The registry lives inside the RGAA 4.1.2 folder,** as the brief asked, while 5.1 says checks belong to no ruleset. A second ruleset would need its own copy or a move to a shared file.
 - **Approval roles are names, not identities.** The log proves what was recorded, not who recorded it. Git history is the only audit trail.
 - **Refinements run on partly invalid data** (Zod 4 continues after some errors), so one bad field can produce a second, derived message. Validation is still correct; messages may be redundant.
+
+## Orchestrator's review, 2026-11-16
+
+- **Reasons.** Confirmed: no reason on `passed`, `failed` or `not_applicable` (spec 8.2). The comment in spec 8.5 is the slip. To report to Fabien at the gate.
+- **Missing process step, amended.** A step that is a sample page always contributes its own result. Only a step that is not a sample page is replaced by a `not_tested` item. As first written, a step whose `initial` target was not established lost a failure found on one of its declared states, which spec 8.2 forbids. The doc comments in `shared/reduce.ts` and `schema/run.ts` carry the amended rule.
+- **To add:** the criterion title as a sixth citation source.
+- **Accepted as written:** everything else, including the strict reading that an unlogged lowering of `enabled` runs as `none`.
+- **The contract is frozen** from the commit that adds this section. Changes go through the orchestrator.

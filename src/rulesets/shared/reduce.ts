@@ -54,15 +54,21 @@ export function reduceSet(
  *    page, in sample order. If none, the result equals level 2, with
  *    `pages: [page]` and `missingSteps: []`. Otherwise `pages` is the union of
  *    those processes' steps, in order of first appearance, without
- *    duplicates. A step is *missing* when it is not a sample page, or when
- *    its `<step>/initial` target was not established. The set holds, for each
- *    step: one item
- *    `{ status: not_tested, reasons: [target_not_established], complete: false, notRun: [] }`
- *    when the step is missing, else the step's level-2 result.
- *    `missingSteps` lists the missing steps in `pages` order. When it is not
- *    empty, `complete` is false. So step 1 failed and step 2 missing gives
- *    `failed`, incomplete; step 1 passed and step 2 missing gives
- *    `not_tested`.
+ *    duplicates. The set holds, for each step: when the step is not a sample
+ *    page, one item
+ *    `{ status: not_tested, reasons: [target_not_established], complete: false, notRun: [] }`;
+ *    otherwise the step's level-2 result, always. A step that is a sample
+ *    page is never replaced by a synthetic item: its level-2 result already
+ *    holds `not_tested` for each target that was not established, and it
+ *    keeps a `failed` found on another of its targets (8.2: a known fault
+ *    still gives `failed`). `missingSteps` lists, in `pages` order, the steps
+ *    that are not sample pages and the steps whose `<step>/initial` target
+ *    was not established. When it is not empty, `complete` is false. So step
+ *    1 failed and step 2 missing gives `failed`, incomplete; step 1 passed
+ *    and step 2 missing gives `not_tested`; and a step whose `initial` target
+ *    was not established but whose declared state failed contributes
+ *    `failed`.
+ *    (Amended by the orchestrator on 2026-11-16, before the freeze.)
  * 4. **Criterion on the sample** (`criterionOnSample`): for each criterion,
  *    over the level-3 results of every sample page. `pages` lists them in
  *    sample order.

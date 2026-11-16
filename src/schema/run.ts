@@ -317,9 +317,11 @@ export const CriterionOnPageSchema = z
  * Level 3: a criterion on a page, process-aware. For a page in a process, over
  * the level-2 results of every page of that process (of every process that
  * lists it). For a page in no process, the same as level 2 with `processes`
- * empty. A declared step that is missing from the sample or whose `initial`
- * target was not established counts as one `not_tested` result
- * (`target_not_established`) and is named in `missingSteps`.
+ * empty. A declared step that is not a sample page counts as one `not_tested`
+ * result (`target_not_established`). A step that is a sample page always
+ * contributes its level-2 result, so a fault found on one of its states is
+ * never hidden. `missingSteps` names the steps that are not sample pages and
+ * those whose `initial` target was not established.
  */
 export const CriterionOnPageInProcessSchema = z
   .strictObject({
