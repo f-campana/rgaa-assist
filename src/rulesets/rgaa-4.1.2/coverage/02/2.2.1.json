@@ -1,0 +1,87 @@
+{
+  "test": "2.2.1",
+  "requirements": [
+    {
+      "id": "frame-title-relevant",
+      "statement": "For each frame (<iframe> or <frame>) that has a title attribute, the content of that attribute is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "2.2.1",
+          "line": 1,
+          "quote": "Pour chaque cadre (balise `<iframe>` ou `<frame>`) ayant un attribut `title`, le contenu de cet attribut est-il pertinent"
+        },
+        {
+          "source": "methodology",
+          "test": "2.2.1",
+          "quote": "Pour chaque cadre pourvu d’un attribut `title`, vérifier que son contenu est pertinent"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-describes-content",
+          "statement": "The title lets the user know the nature of the content shown through the frame.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Titre de cadre",
+              "quote": "permettant de connaître la nature du contenu diffusé via le cadre"
+            }
+          ]
+        },
+        {
+          "id": "generic-technical-title",
+          "statement": "For a frame used only for technical operations, whose remote service gives no title or a non-relevant one, a generic mention is accepted.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Titre de cadre",
+              "quote": "Si ces cadres sont dépourvus de titre de cadre fournis par le service distant, ou si les titres de cadres sont jugés non pertinents, des mentions génériques peuvent être utilisées"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "hidden-technical-frame",
+          "statement": "A frame used only for technical operations is hidden from assistive technologies with aria-hidden=\"true\", where that does not hinder its functioning; criterion 2.2 is then not applicable to it.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Titre de cadre",
+              "quote": "Si cela ne gêne pas le fonctionnement de ce type de cadre, il est possible de les rendre indisponibles aux technologies d’assistance en utilisant l’attribut WAI-ARIA aria-hidden=\"true\". Dans ce cas le critère 2.1 et le critère 2.2 seront non applicables."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/frame-title-unique",
+      "requirement": "frame-title-relevant",
+      "routes": ["title-describes-content"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Relevance is judgment: whether a title tells the user what the frame shows cannot be decided by code. The glossary adds a second accepted form, a generic mention for purely technical frames, and the aria-hidden exception, and both turn on whether a frame is technical, which is also judgment. axe's frame-title-unique faults frames that share a title. That is a hint, not a failure: two frames may show the same kind of content, and the glossary's generic mentions for technical frames may legitimately repeat. It only looks at frames whose title is non-empty, so its scope is partial, and axe 4.14.0 itself marks its faults for review (reviewOnFail). The link is evidence only and the entry stays at none. One case looked mechanical, a title attribute that is empty, but the same defect could be read as a missing frame title under 2.1.1 rather than an irrelevant one here, so it is not claimed as a failure of this test. Applicability is judgment, because frames hidden under the exception leave the criterion not applicable only through a judgment. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "2.2",
+        "quote": "ce titre de cadre est-il pertinent"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de cadre",
+        "quote": "des mentions génériques peuvent être utilisées, par exemple title=\"contenus techniques Facebook\"."
+      }
+    ]
+  }
+}
