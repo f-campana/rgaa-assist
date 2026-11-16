@@ -11,8 +11,8 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 |---|---|---|
 | 1 | Vendor the official data, verify counts | Done 2026-11-16. 13, 106, 258. In `src/rulesets/rgaa-4.1.2/official/`. |
 | 2 | Package scaffold (pnpm, TypeScript, Vitest, axe-core 4.14.0 pinned) | Done 2026-11-16, merged as `0868bb4`. zod 4.6.7, typescript 7.0.2, vitest 5.1.0. |
-| 3 | Schemas and the ruleset contract, then freeze | In flight: Opus, brief `docs/m1/brief-schemas.md` |
-| 4 | Implementation of derivation, reduction and effective level by one agent, contract tests by another, both after the freeze | Not started |
+| 3 | Schemas and the ruleset contract, then freeze | Done and frozen 2026-11-16, `ca5c92b`. 144 tests pass. Design notes and the orchestrator's review: `docs/m1/contract-notes.md`. |
+| 4 | Implementation of derivation, reduction and effective level by one agent, contract tests by another, both after the freeze | Briefs written (`brief-implementation.md`, `brief-contract-tests.md`). **Not launched:** waiting for the 5-hour window to reset at 21:00 UTC on 2026-11-16. |
 | 5 | Table of axe rules per RGAA test, and theme packets for entry writers | Done 2026-11-16, merged as `aa4cdd9`. 67 rules, 40 tests, as the spec says. `pnpm packets` writes 13 packets, 595 KB in all; theme 1 is 121 KB, so split it between writers by criterion. |
 | 6 | Pilot of about 12 entries, usage projection | Not started |
 | 7 | Entries by theme | Not started |
@@ -22,9 +22,15 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-One builder (schemas, Opus), launched 2026-11-16 16:16 UTC, in its own worktree under `.claude/worktrees/`. When it reports: read its diff, run `pnpm test` and `pnpm typecheck`, merge to main, remove the worktree.
+One Sonnet builder, launched 2026-11-16 about 16:45 UTC: the entry validator, a sixth citation source and packets by criterion (`docs/m1/brief-validator.md`).
 
-After the schemas merge: review them hard, since they freeze. Then launch three agents in parallel: the implementer (Opus), the contract-test writer (Opus, must not read the implementation), and the entry validator script (Sonnet). Then write `docs/m1/entry-guide.md` and run the pilot of about 12 entries.
+## Next, in order
+
+1. Review and merge the validator when it reports.
+2. After the window resets, launch in parallel, each with `isolation: worktree`: the implementer (Opus, medium effort, `docs/m1/brief-implementation.md`) and the contract-test writer (Opus, high effort, `docs/m1/brief-contract-tests.md`). The prompt only needs to point at the brief.
+3. Merge both. Run `pnpm test`. A failing contract test is either an implementation bug or a wrong test: decide from the spec, never by editing the expected result to fit. Send fixes back to the agent that owns the file.
+4. Write `docs/m1/entry-guide.md` for entry writers (rules of the kickoff brief, the schema, the 1.1.6 reference in `tests/fixtures/entry-1.1.6.json`, how to cite, when to abstain, the check registry).
+5. Pilot: about 12 entries over three themes, by Opus, from criterion packets. Measure usage per entry and project the total before going on.
 
 ## Decisions taken by the orchestrator
 
@@ -39,6 +45,10 @@ Also logged on the bridge, channel `rgaa-assist`.
 - Entry writers work from generated theme packets (`pnpm packets`, into the gitignored `work/packets/`), not from the raw files.
 
 ## Findings to report at the gate
+
+- Spec 8.5 says a reason is required "unless passed or failed", but 8.2 gives no reason list for `not_applicable`. The contract follows 8.2.
+- The contract's first draft hid a failure in one corner of the process rule (a step whose page as loaded was not established but whose declared state failed). Found in the orchestrator's review and amended before the freeze.
+- An unlogged lowering of `enabled` makes an entry run as `none`, not at the lower level. Stricter than the spec's wording, and safe.
 
 - One glossary anchor in the official data resolves to nothing: `#table-descriptions-techniques`, in a technical note of criterion 5.1. The other 115 resolve. The packet for theme 5 lists it.
 

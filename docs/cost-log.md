@@ -22,3 +22,10 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 |---|---|---|---|---|
 | 2026-11-16 16:08 | Baseline | 45% | 2% | |
 | 2026-11-16 16:17 | Start decisions, data vendored, scaffold merged, two builders launched | 48% | 7% | 5-hour window at 41%. The orchestrator's own setup is most of this. |
+| 2026-11-16 16:42 | Schemas and contract merged, reviewed and frozen; axe table and packets merged | 54% | 11% | 5-hour window at 83%. The Opus schemas builder used about 300k tokens, the two Sonnet builders about 80k and 110k. |
+
+### What day 1 says about cost
+
+- One full 5-hour window is worth about 13 points of the weekly all-models limit.
+- M1's allowance of 40 points is therefore about three full windows. Day 1 used 9 points.
+- The orchestrator on Fable is expensive: each of its review turns costs several points of a 5-hour window. Keep its turns few.
