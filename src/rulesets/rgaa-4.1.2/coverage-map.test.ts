@@ -25,12 +25,12 @@ function rulesetDir(files: Record<string, unknown>): string {
 }
 
 describe("coverage map loader", () => {
-  it("loads the committed RGAA 4.1.2 map: no entry yet, empty registry and log", () => {
+  // M1 gate: the committed map loads without a problem, nothing is enabled and nothing is approved.
+  it("loads the committed RGAA 4.1.2 map: valid, nothing enabled, empty approval log", () => {
     const r = loadCoverageMap(official);
-    expect(r.ok).toBe(true);
+    expect(r.ok ? [] : r.problems).toEqual([]);
     if (r.ok) {
-      expect(r.map.entries.size).toBe(0);
-      expect(r.map.checks.checks).toEqual([]);
+      expect([...r.map.entries.values()].filter((e) => e.enabled !== "none").map((e) => e.test)).toEqual([]);
       expect(r.map.approvals.events).toEqual([]);
     }
   });
