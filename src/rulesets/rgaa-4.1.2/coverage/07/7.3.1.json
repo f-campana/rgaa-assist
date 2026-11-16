@@ -1,0 +1,180 @@
+{
+  "test": "7.3.1",
+  "requirements": [
+    {
+      "id": "keyboard-operable",
+      "statement": "Each element with a script-controlled event handler, or another element in the page that performs the same action, can be reached and operated with the keyboard.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.3.1",
+          "line": 1,
+          "quote": "Chaque élément possédant un gestionnaire d’événement contrôlé par un script vérifie-t-il une de ces conditions (hors cas particuliers)"
+        },
+        {
+          "source": "methodology",
+          "test": "7.3.1",
+          "quote": "Vérifier que l’élément est accessible au moyen du clavier :"
+        },
+        {
+          "source": "methodology",
+          "test": "7.3.1",
+          "quote": "Sinon, vérifier qu’un élément accessible par le clavier permettant de réaliser la même action est présent dans la page."
+        }
+      ],
+      "routes": [
+        {
+          "id": "element-keyboard",
+          "statement": "The element itself is reachable with Tab and activated with Enter, or, for a complex action, usable with other keys such as the arrow keys.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.3.1",
+              "line": 2,
+              "quote": "L’élément est accessible par le clavier et tout dispositif de pointage"
+            },
+            {
+              "source": "methodology",
+              "test": "7.3.1",
+              "quote": "Il est atteignable avec la touche de tabulation (tab) ;"
+            },
+            {
+              "source": "methodology",
+              "test": "7.3.1",
+              "quote": "Si l’élément gère une action complexe, il est utilisable avec le clavier (généralement avec les touches de direction)."
+            }
+          ]
+        },
+        {
+          "id": "equivalent-keyboard-element",
+          "statement": "Another element in the page, reachable and operable with the keyboard, performs the same action.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.3.1",
+              "line": 3,
+              "quote": "Un élément accessible par le clavier et tout dispositif de pointage permettant de réaliser la même action est présent dans la page."
+            }
+          ]
+        },
+        {
+          "id": "documented-shortcuts",
+          "statement": "Where focus handling is too complex for Tab, arrow keys and Enter, keyboard shortcuts make the component usable, provided they are documented, work, and respect criterion 12.10.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "Dans ce cas, la mise à disposition de raccourcis clavier peut être la seule solution pour rendre le composant utilisable."
+            },
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "Le critère ne peut être considéré comme conforme qu’à la condition que les raccourcis clavier utilisés soient correctement documentés, qu’ils soient fonctionnels et qu’ils respectent le critère 12.10."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "no-universal-equivalent",
+          "statement": "The functionality depends on an event handler with no universal equivalent, such as free-hand drawing; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "7.3",
+              "quote": "la fonctionnalité dépend de l’utilisation d’un gestionnaire d’événement sans équivalent universel ; par exemple, une application de dessin à main levée ne pourra pas être rendue contrôlable au clavier. Dans ces situations, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pointer-operable",
+      "statement": "Each element with a script-controlled event handler, or another element in the page that performs the same action, can be reached and operated with any pointing device.",
+      "citations": [
+        {
+          "source": "methodology",
+          "test": "7.3.1",
+          "quote": "Vérifier que l’élément est accessible par tout dispositif de pointage (souris, toucher, stylet…)."
+        },
+        {
+          "source": "methodology",
+          "test": "7.3.1",
+          "quote": "Sinon, vérifier qu’un élément accessible au moyen d’un dispositif de pointage et permettant de réaliser la même action est présent dans la page."
+        }
+      ],
+      "routes": [
+        {
+          "id": "element-pointer",
+          "statement": "The element itself can take focus and be activated with a pointer press.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.3.1",
+              "line": 2,
+              "quote": "L’élément est accessible par le clavier et tout dispositif de pointage"
+            },
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "lorsque l’utilisateur peut enclencher, indifféremment, l’action prévue par le composant d’interface par une pression du pointeur ou la touche entrée du clavier"
+            }
+          ]
+        },
+        {
+          "id": "equivalent-pointer-element",
+          "statement": "Another element in the page, usable with a pointing device, performs the same action.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.3.1",
+              "line": 3,
+              "quote": "permettant de réaliser la même action est présent dans la page."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "no-universal-equivalent-pointer",
+          "statement": "The functionality depends on an event handler with no universal equivalent; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "7.3",
+              "quote": "Il existe une gestion de cas particuliers lorsque la fonctionnalité dépend de l’utilisation d’un gestionnaire d’événement sans équivalent universel"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/7-3-handler-not-focusable",
+      "requirement": "keyboard-operable",
+      "routes": ["element-keyboard"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard"],
+  "rationale": {
+    "text": "The wording lists two conditions, the element itself or an equivalent element, each usable by keyboard and by pointer. The methodology checks keyboard and pointer separately, each with its own fallback to an equivalent element, so I split the test into a keyboard requirement and a pointer requirement. That is the more permissive reading, which claims less. The glossary adds documented keyboard shortcuts as a way to make a component keyboard-usable. Nothing here can be resolved by code. Whether another element performs the same action is judgment. Whether a complex widget is usable with the arrow keys, and whether shortcuts are documented and working, needs keyboard work and judgment. The particular case, a handler with no universal equivalent, is judgment too, and it has no mechanical precondition a check could rule out. No axe rule is tagged. I registered one evidence check: elements with a pointer or keyboard listener attached directly to them that Tab cannot reach. Its fault only shows the first keyboard route fails for that element; an equivalent element or shortcuts may exist, so it is evidence only and partial (listeners delegated to an ancestor cannot be attributed). The entry stays at none. Applicability is judgment: code sees directly attached listeners but not which elements a delegated listener serves, and the particular case needs judgment. Needs lists keyboard, since the methodology reaches and activates elements with Tab, Enter and the arrow keys. Pointer testing is also required but has no prerequisite of its own.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "7.3.1",
+        "quote": "Retrouver dans le document, tous les éléments sur lesquels est implémenté un gestionnaire d’événements JavaScript (par exemple click, focus, mouseover, blur, keydown, touch…)."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "7.3",
+        "quote": "Chaque script est-il contrôlable par le clavier et par tout dispositif de pointage (hors cas particuliers)"
+      }
+    ]
+  }
+}

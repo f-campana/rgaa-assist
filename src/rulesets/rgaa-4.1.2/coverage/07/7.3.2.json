@@ -1,0 +1,76 @@
+{
+  "test": "7.3.2",
+  "requirements": [
+    {
+      "id": "focus-not-removed",
+      "statement": "No script removes focus from an element that receives it.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.3.2",
+          "line": 1,
+          "quote": "Un script ne doit pas supprimer le focus d’un élément qui le reçoit. Cette règle est-elle respectée (hors cas particuliers)"
+        },
+        {
+          "source": "methodology",
+          "test": "7.3.2",
+          "quote": "Activer, l’un après l’autre, tous les éléments capables de recevoir le focus."
+        }
+      ],
+      "routes": [
+        {
+          "id": "focus-kept",
+          "statement": "After an element receives focus, no script function removes that focus.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.3.2",
+              "quote": "Vérifier que le focus n’est pas supprimé via une fonctionnalité JavaScript."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "no-universal-equivalent",
+          "statement": "The functionality depends on an event handler with no universal equivalent, such as free-hand drawing; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "7.3",
+              "quote": "la fonctionnalité dépend de l’utilisation d’un gestionnaire d’événement sans équivalent universel ; par exemple, une application de dessin à main levée ne pourra pas être rendue contrôlable au clavier. Dans ces situations, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/7-3-focus-removed",
+      "requirement": "focus-not-removed",
+      "routes": ["focus-kept"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard"],
+  "rationale": {
+    "text": "The test has one requirement: once an element receives focus, a script must not remove it. The particular case of criterion 7.3 can make the criterion not applicable, and deciding it needs judgment with no mechanical precondition to rule it out. So no check can examine every route and exception, no link can mean failure, and the entry stays at none. The two axe rules tagged for this test are not linked. frame-focusable-content faults a frame with tabindex=-1 that holds focusable content, and scrollable-region-focusable faults a scrollable region that the keyboard cannot reach. Both are about focus not reaching content, not about a script removing focus once received, so neither examines the route, and a link would have to name a route they do not look at. I registered one evidence check instead: during a keyboard pass, it notes elements that lose focus to the document body shortly after receiving it, with no user action. It is partial: it follows only the Tab order, not elements focusable by pointer alone, and it abstains when focus moves to another element, since whether moving focus counts as removing it is not settled by the text. Applicability is judgment because of the particular case. Needs lists keyboard: the methodology gives focus to every focusable element in turn.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "7.3.2",
+        "quote": "Si c’est le cas, **le test est validé**."
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "7.3",
+        "quote": "Dans ces situations, le critère est non applicable."
+      }
+    ]
+  }
+}
