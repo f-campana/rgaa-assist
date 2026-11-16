@@ -1,0 +1,99 @@
+{
+  "test": "2.1.1",
+  "requirements": [
+    {
+      "id": "frame-has-title",
+      "statement": "Each frame (an <iframe> or <frame> element) has a title attribute.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "2.1.1",
+          "line": 1,
+          "quote": "Chaque cadre (balise `<iframe>` ou `<frame>`) a-t-il un attribut `title`"
+        },
+        {
+          "source": "methodology",
+          "test": "2.1.1",
+          "quote": "Pour chaque cadre, vérifier qu’il possède un attribut"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-attribute",
+          "statement": "The frame element carries a title attribute.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "2.1.1",
+              "line": 1,
+              "quote": "a-t-il un attribut `title`"
+            },
+            {
+              "source": "glossary",
+              "entry": "Titre de cadre",
+              "quote": "Contenu de l’attribut title de la balise <iframe> ou <frame>"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "hidden-technical-frame",
+          "statement": "A frame used only for technical operations is hidden from assistive technologies with aria-hidden=\"true\", where that does not hinder its functioning; criterion 2.1 is then not applicable to it.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Titre de cadre",
+              "quote": "Certains cadres servent uniquement à des opérations techniques"
+            },
+            {
+              "source": "glossary",
+              "entry": "Titre de cadre",
+              "quote": "Si cela ne gêne pas le fonctionnement de ce type de cadre, il est possible de les rendre indisponibles aux technologies d’assistance en utilisant l’attribut WAI-ARIA aria-hidden=\"true\". Dans ce cas le critère 2.1 et le critère 2.2 seront non applicables."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/frame-title",
+      "requirement": "frame-has-title",
+      "routes": ["title-attribute"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/2-1-frame-title-attribute",
+      "requirement": "frame-has-title",
+      "routes": ["title-attribute", "hidden-technical-frame"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test asks one thing of every frame: a title attribute. The only way out is the glossary's note on technical frames hidden with aria-hidden=\"true\", which makes the criterion not applicable. That exception has a mechanical precondition (the aria-hidden attribute) and a judgment part (the frame is purely technical, and hiding it does not hinder it). axe's frame-title is evidence only: it accepts aria-label, aria-labelledby and role none or presentation, which the test does not accept; it faults a frame whose title is empty, which the wording does not clearly reject; and it skips frames with a negative tabindex, so its scope is partial. The custom check examines every frame element. Its fault is a frame with no title attribute, rendered, and not hidden with aria-hidden: the route is missing and the exception cannot apply, because it needs aria-hidden. So the fault proves the test fails, and the entry is fail_only. It is not full: whether a hidden untitled frame is a technical one needs judgment, and the check answers cannot_tell there. Two readings I was unsure of make the check abstain rather than fault: a title attribute that is empty (the wording asks for the attribute, the glossary calls the title its content), and an untitled frame that is not rendered (no official text says whether such a frame counts). Applicability is judgment because frames hidden under the exception make the criterion not applicable only through that judgment. Needs is empty: the attribute is read on the page as loaded.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "2.1.1",
+        "quote": "Si c’est le cas pour chaque cadre, **le test est validé**."
+      },
+      {
+        "source": "glossary",
+        "entry": "Cadre",
+        "quote": "Cadre en ligne : élément HTML (balise <iframe>) permettant d’afficher un contenu dans la page web dans laquelle il est implémenté."
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de cadre",
+        "quote": "Dans ce cas le critère 2.1 et le critère 2.2 seront non applicables."
+      }
+    ]
+  }
+}
