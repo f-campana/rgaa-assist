@@ -12,7 +12,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 | 1 | Vendor the official data, verify counts | Done 2026-11-16. 13, 106, 258. In `src/rulesets/rgaa-4.1.2/official/`. |
 | 2 | Package scaffold (pnpm, TypeScript, Vitest, axe-core 4.14.0 pinned) | Done 2026-11-16, merged as `0868bb4`. zod 4.6.7, typescript 7.0.2, vitest 5.1.0. |
 | 3 | Schemas and the ruleset contract, then freeze | Done and frozen 2026-11-16, `ca5c92b`. 144 tests pass. Design notes and the orchestrator's review: `docs/m1/contract-notes.md`. |
-| 4 | Implementation of derivation, reduction and effective level by one agent, contract tests by another, both after the freeze | Implementation merged. Contract tests merged: 180 of 185 pass, 5 fixture fixes in flight. |
+| 4 | Implementation of derivation, reduction and effective level by one agent, contract tests by another, both after the freeze | Done 2026-11-16. Implementation and 185 contract tests merged; all 386 tests pass. |
 | 5 | Table of axe rules per RGAA test, and theme packets for entry writers | Done 2026-11-16, merged as `aa4cdd9`. 67 rules, 40 tests, as the spec says. `pnpm packets` writes 13 packets, 595 KB in all; theme 1 is 121 KB, so split it between writers by criterion. |
 | 6 | Pilot of 14 entries, usage projection | Guide and brief written. Not launched: after step 4. |
 | 7 | Entries by theme | Not started |
@@ -22,7 +22,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-One Opus builder (the contract-test writer, resumed at 21:15 UTC on 2026-11-16) is fixing five fixtures in `tests/contract/`. Main is red until its fix is merged: 381 of 386 tests pass. The five failures are test bugs, checked by the orchestrator: four lowered `candidate` together with `enabled` (the helper defaults one to the other), which changes the entry hash; one used the same test id for two entries. The implementation is right in all five.
+Nothing. The fixture fix was merged on 2026-11-16 at 21:25 UTC: 386 tests pass, typecheck is clean, and no expected result was changed. Step 4 is done.
 
 ## Stopped for Fabien, 2026-11-16 21:17 UTC
 
@@ -30,7 +30,7 @@ All-models is at 63%, two points under the check-in at 65%, and no entry is writ
 
 ## Next, in order
 
-1. Merge the fixture fix. `pnpm test` must be fully green.
+1. Done: the fixture fix is merged and `pnpm test` is fully green.
 2. Launch the pilot when Fabien says so: one Opus builder, high effort, `isolation: worktree`, brief `docs/m1/brief-pilot.md` (14 entries). The guide it follows is `docs/m1/entry-guide.md`.
 3. Review the 14 entries against the packets. Project the pilot's usage to 258 entries in `docs/cost-log.md`.
 4. Ask Codex to cross-check the pilot entries (bridge, channel `rgaa-assist`, then Fabien prompts Codex).
