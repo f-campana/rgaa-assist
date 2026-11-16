@@ -1,5 +1,13 @@
-import type { ApprovalLog, CoverageEntry, EffectiveLevelRecord, EvaluationSummary } from "../../schema/index.ts";
-import { NotImplementedError } from "./not-implemented.ts";
+import { entryHash, levelRank, minLevel, requiredApprovers } from "../../schema/index.ts";
+import type {
+  ApprovalEvent,
+  ApprovalLog,
+  CoverageEntry,
+  EffectiveLevelBlock,
+  EffectiveLevelRecord,
+  EvaluationSummary,
+  Level,
+} from "../../schema/index.ts";
 
 export interface EffectiveLevelInput {
   entry: CoverageEntry;
@@ -54,6 +62,52 @@ export interface EffectiveLevelInput {
  * The result's `test` and `enabled` are copied from the entry.
  */
 export function effectiveLevel(input: EffectiveLevelInput): EffectiveLevelRecord {
-  void input;
-  throw new NotImplementedError("effectiveLevel");
+  const { entry, approvals, evaluation, checkVersions } = input;
+  const hash = entryHash(entry);
+  const events = approvals.events.filter((e) => e.test === entry.test).sort((a, b) => a.seq - b.seq);
+
+  // The last approval, and the events after it.
+  let lastIndex = -1;
+  events.forEach((e, i) => {
+    if (e.kind === "approval") lastIndex = i;
+  });
+  const approval = lastIndex < 0 ? undefined : (events[lastIndex] as ApprovalEvent);
+  const contentDiffers = approval !== undefined && approval.entryHash !== hash;
+  const approversInsufficient =
+    approval !== undefined && !requiredApprovers(entry, approval.level).every((r) => approval.approvers.some((a) => a.role === r));
+
+  let authorised: Level = "none";
+  if (approval !== undefined && !contentDiffers && !approversInsufficient) {
+    authorised = approval.level;
+    for (const e of events.slice(lastIndex + 1)) {
+      if (e.kind === "demotion") authorised = minLevel(authorised, e.level);
+    }
+  }
+
+  const blocked = (blockedBy: EffectiveLevelBlock): EffectiveLevelRecord => ({
+    test: entry.test,
+    enabled: entry.enabled,
+    authorised,
+    effective: "none",
+    blockedBy,
+  });
+
+  if (entry.enabled === "none") return blocked("not_enabled");
+  if (approval === undefined) return blocked("no_approval");
+  if (contentDiffers) return blocked("approved_content_differs");
+  if (approversInsufficient) return blocked("approvers_insufficient");
+  if (entry.enabled !== authorised) return blocked("enabled_mismatch");
+
+  const measurement = evaluation?.entries.find((m) => m.test === entry.test);
+  if (measurement === undefined || measurement.entryHash !== hash || levelRank(measurement.level) < levelRank(authorised)) {
+    return blocked("not_measured");
+  }
+  const linked = [...new Set(entry.links.map((l) => l.check))];
+  if (linked.some((c) => checkVersions[c] === undefined)) return blocked("check_version_unknown");
+  if (linked.some((c) => measurement.checkVersions[c] === undefined || measurement.checkVersions[c] !== checkVersions[c])) {
+    return blocked("check_version_changed");
+  }
+  if (measurement.cases.length === 0 || measurement.cases.some((c) => !c.matched)) return blocked("corpus_cases_failing");
+
+  return { test: entry.test, enabled: entry.enabled, authorised, effective: authorised, blockedBy: null };
 }
