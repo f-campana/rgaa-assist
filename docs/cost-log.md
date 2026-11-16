@@ -24,9 +24,12 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-16 16:17 | Start decisions, data vendored, scaffold merged, two builders launched | 48% | 7% | 5-hour window at 41%. The orchestrator's own setup is most of this. |
 | 2026-11-16 16:42 | Schemas and contract merged, reviewed and frozen; axe table and packets merged | 54% | 11% | 5-hour window at 83%. The Opus schemas builder used about 300k tokens, the two Sonnet builders about 80k and 110k. |
 | 2026-11-16 21:02 | 5-hour window reset; two Opus builders relaunched after being cut off at 17:00 | 56% | 13% | The cut-off launch cost about 2 points and produced nothing. |
+| 2026-11-16 21:17 | Implementation and contract tests merged; 180 of 185 contract tests pass, 5 have wrong fixtures and are being fixed | 63% | 22% | 5-hour window at 54%. Builders: about 173k and 233k tokens. |
 
 ### What day 1 says about cost
 
 - One full 5-hour window is worth about 13 points of the weekly all-models limit.
 - M1's allowance of 40 points is therefore about three full windows. Day 1 used 9 points.
 - The orchestrator on Fable is expensive: each of its review turns costs several points of a 5-hour window. Keep its turns few.
+- **The orchestrator is the largest single cost.** By 21:17 UTC M1 had used 18 points of the all-models limit, and the Fable limit had moved 20 points. This thread carries a context of over 300k tokens, and every turn pays for it again. A fresh orchestrator session that starts from `docs/m1-status.md` would cost far less per turn.
+- **The check-in at 65% arrives with no entry written.** The foundations (schemas, contract, implementation, contract tests, tooling, guide) took 18 of the 40 points.
