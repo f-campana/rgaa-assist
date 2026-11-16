@@ -1,0 +1,91 @@
+{
+  "test": "11.1.2",
+  "requirements": [
+    {
+      "id": "field-has-id",
+      "statement": "Each form field associated with a <label> element that has a for attribute has an id attribute.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.1.2",
+          "line": 1,
+          "quote": "Chaque champ de formulaire associé à une balise `<label>` ayant un attribut `for`, vérifie-t-il ces conditions"
+        }
+      ],
+      "routes": [
+        {
+          "id": "id-present",
+          "statement": "The field has an id attribute.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.1.2",
+              "line": 2,
+              "quote": "Le champ de formulaire possède un attribut `id` ;"
+            },
+            {
+              "source": "methodology",
+              "test": "11.1.2",
+              "quote": "Le champ de formulaire possède un attribut `id` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "for-matches-id",
+      "statement": "The value of the label's for attribute equals the value of the associated field's id attribute.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.1.2",
+          "line": 3,
+          "quote": "La valeur de l’attribut `for` est égale à la valeur de l’attribut `id` du champ de formulaire associé."
+        }
+      ],
+      "routes": [
+        {
+          "id": "for-equals-id",
+          "statement": "The label's for value is the field's id value.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.1.2",
+              "quote": "La valeur de l’attribut `for` de l’élément `<label>` est égale à la valeur de l’attribut `id`."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-1-label-for-target",
+      "requirement": "for-matches-id",
+      "routes": ["for-equals-id"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "structural",
+  "needs": [],
+  "rationale": {
+    "text": "The test sets two conditions that must both hold for each field associated with a <label> that has a for attribute: the field has an id, and the for value equals it. The difficulty is the word associated. When for and id match, the conditions hold by construction. When they do not, code cannot tell which field the label was meant for: that depends on what the label says and where it sits, which is judgment. The same defect could also be read as a field with no label under 11.1.1 rather than a broken association here. So no fault can be pinned on a field of this test, and the entry stays at none. No axe rule is tagged. I registered one evidence check: labels whose for value matches no id at all in their document or shadow tree. Such a label is tied to nothing, which points the auditor to the field it was probably meant for. Applicability is structural: if no <label> in the page has a for attribute, no field can be associated with one, and that absence is certain from the DOM. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.1.2",
+        "quote": "Retrouver dans le document les champs de formulaire associé à un élément `<label>` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "11.1.2",
+        "quote": "Si c’est le cas pour champ de formulaire, **le test est validé**."
+      }
+    ]
+  }
+}

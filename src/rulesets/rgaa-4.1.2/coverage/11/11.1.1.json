@@ -1,0 +1,186 @@
+{
+  "test": "11.1.1",
+  "requirements": [
+    {
+      "id": "field-has-label",
+      "statement": "Each form field meets one of the listed labelling conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.1.1",
+          "line": 1,
+          "quote": "Chaque champ de formulaire vérifie-t-il une de ces conditions"
+        },
+        {
+          "source": "methodology",
+          "test": "11.1.1",
+          "quote": "Pour chaque champ de formulaire, vérifier que le champ de formulaire :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "aria-labelledby-passage",
+          "statement": "The field has an aria-labelledby attribute referencing an identified text passage: one or more passages whose id values are unique in the page.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.1.1",
+              "line": 2,
+              "quote": "Le champ de formulaire possède un attribut WAI-ARIA `aria-labelledby` référençant un passage de texte identifié"
+            },
+            {
+              "source": "glossary",
+              "entry": "Passage de texte lié par `aria-labelledby` ou `aria-describedby`",
+              "quote": "Il s’agit d’un ou de plusieurs passages de texte identifiés par des id dont la valeur est unique dans la page"
+            }
+          ]
+        },
+        {
+          "id": "aria-label",
+          "statement": "The field has an aria-label attribute.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.1.1",
+              "line": 3,
+              "quote": "Le champ de formulaire possède un attribut WAI-ARIA `aria-label`"
+            }
+          ]
+        },
+        {
+          "id": "label-for",
+          "statement": "A <label> element with a for attribute is associated with the field.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.1.1",
+              "line": 4,
+              "quote": "Une balise `<label>` ayant un attribut `for` est associée au champ de formulaire"
+            }
+          ]
+        },
+        {
+          "id": "title-attribute",
+          "statement": "The field has a title attribute.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.1.1",
+              "line": 5,
+              "quote": "Le champ de formulaire possède un attribut `title`"
+            }
+          ]
+        },
+        {
+          "id": "adjacent-button-hidden-label",
+          "statement": "An adjacent button gives the field a visible label, and a visually hidden <label>, or an aria-label, aria-labelledby or title attribute, gives it an accessible name.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.1.1",
+              "line": 6,
+              "quote": "Un bouton adjacent au champ de formulaire lui fournit une étiquette visible et un élément `<label>` visuellement caché ou un attribut WAI-ARIA `aria-label`, `aria-labelledby` ou `title` lui fournit un nom accessible."
+            }
+          ]
+        },
+        {
+          "id": "implicit-label",
+          "statement": "A <label> element without a for attribute contains the field. The test lines name only a label with for, but the glossary's definition of a label accepts the <label> element without that condition; listed so that no fault rests on excluding it.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "Par l’utilisation d’une balise <label> ;"
+            },
+            {
+              "source": "criterion_title",
+              "criterion": "11.1",
+              "quote": "Chaque champ de formulaire a-t-il une étiquette"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "not-a-field",
+          "statement": "Inputs of type submit, reset, hidden, image and button, <button> elements and elements with role=\"button\" are not form fields.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Champ de saisie de formulaire",
+              "quote": "Les objets de formulaires et rôle WAI-ARIA suivants ne sont pas considérés comme des champs de formulaires :"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/label",
+      "requirement": "field-has-label",
+      "routes": ["aria-labelledby-passage", "aria-label", "label-for", "title-attribute", "implicit-label"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/select-name",
+      "requirement": "field-has-label",
+      "routes": ["aria-labelledby-passage", "aria-label", "label-for", "title-attribute", "implicit-label"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/aria-input-field-name",
+      "requirement": "field-has-label",
+      "routes": ["aria-labelledby-passage", "aria-label", "title-attribute"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/aria-progressbar-name",
+      "requirement": "field-has-label",
+      "routes": ["aria-labelledby-passage", "aria-label", "title-attribute"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/aria-meter-name",
+      "requirement": "field-has-label",
+      "routes": ["aria-labelledby-passage", "aria-label", "title-attribute"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/11-1-field-label-mechanism",
+      "requirement": "field-has-label",
+      "routes": ["aria-labelledby-passage", "aria-label", "label-for", "title-attribute", "adjacent-button-hidden-label", "implicit-label", "not-a-field"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test lists five conditions, any one of which labels a field. The glossary's label entry also names the <label> element without requiring for, so I added a sixth route for a label that contains the field: claiming less is safer than failing a field an auditor may accept. The five axe rules are evidence only, each with partial scope. label and select-name cover only native inputs, textareas and selects; they accept a placeholder, which no route accepts, and role none or presentation, so their clean result proves nothing; and they fault an empty aria-label or a label with no text, which literally has the attribute or the label, so their fault proves nothing either. aria-input-field-name, aria-progressbar-name and aria-meter-name cover only some ARIA roles, and role=meter is not in the glossary's list of field roles. The custom check's fault is narrow: a field, as the glossary lists them, that is rendered and exposed to assistive technologies and has no aria-labelledby, no aria-label, no title, no associated label and no label ancestor. Every route needs at least one of these, the adjacent-button route included, so such a field meets none and the test fails. Everything else is cannot_tell, including empty values and broken references, which could be read as a missing label here or an irrelevant one under 11.2. The check does not decide options, optgroups, datalists, or the roles option, checkbox, radio and switch, which can take a name from their content (not a route the test names), nor a combobox wrapping a text input; so its scope is partial. The entry is fail_only, not full, because the adjacent-button route needs judgment (a visible label given by a button next to the field). Applicability is judgment: the glossary includes ARIA roles whose presence code can see, but also options and similar elements on which the test is unclear. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.1.1",
+        "quote": "Si c’est le cas pour champ de formulaire, **le test est validé**."
+      },
+      {
+        "source": "glossary",
+        "entry": "Étiquette de champ de formulaire",
+        "quote": "L’étiquette peut être associée au champ de formulaire de plusieurs manières :"
+      },
+      {
+        "source": "glossary",
+        "entry": "Champ de saisie de formulaire",
+        "quote": "Les balises possédant un rôle WAI-ARIA permettant de restituer un champ de formulaire sont également couvertes par cette définition :"
+      }
+    ]
+  }
+}

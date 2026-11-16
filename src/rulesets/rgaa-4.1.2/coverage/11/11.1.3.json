@@ -1,0 +1,81 @@
+{
+  "test": "11.1.3",
+  "requirements": [
+    {
+      "id": "unseen-label-has-help",
+      "statement": "Each form field whose label is not visible or not near it (hidden, or given by aria-label), or not adjacent to it (given by aria-labelledby), meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.1.3",
+          "line": 1,
+          "quote": "Chaque champ de formulaire ayant une étiquette dont le contenu n’est pas visible ou à proximité (masqué, `aria-label`) ou qui n’est pas accolé au champ (`aria-labelledby`), vérifie-t-il une de ses conditions"
+        },
+        {
+          "source": "glossary",
+          "entry": "Accolés (étiquette et champ accolés)",
+          "quote": "Il faut que l’étiquette et son champ soient visuellement proches de manière à ce que la relation entre les deux ne puisse pas prêter à confusion."
+        }
+      ],
+      "routes": [
+        {
+          "id": "understandable-title",
+          "statement": "The field has a title attribute whose content makes clear what input is expected.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.1.3",
+              "line": 2,
+              "quote": "Le champ de formulaire possède un attribut `title` dont le contenu permet de comprendre la nature de la saisie attendue ;"
+            }
+          ]
+        },
+        {
+          "id": "passage-visible-on-focus",
+          "statement": "A text passage adjacent to the field, which becomes visible when the field takes focus, makes clear what input is expected.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.1.3",
+              "line": 3,
+              "quote": "Le champ de formulaire est accompagné d’un passage de texte accolé au champ qui devient visible à la prise de focus permettant de comprendre la nature de la saisie attendue ;"
+            }
+          ]
+        },
+        {
+          "id": "visible-adjacent-passage",
+          "statement": "A visible text passage adjacent to the field makes clear what input is expected.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.1.3",
+              "line": 4,
+              "quote": "Le champ de formulaire est accompagné d’un passage de texte visible accolé au champ permettant de comprendre la nature de la saisie attendue."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard"],
+  "rationale": {
+    "text": "Every part of this test is judgment. Which fields it applies to depends on whether a label is visible, near the field, or adjacent to it, and the glossary defines adjacent as visually close enough that the relation cannot be confused. Each route requires a text that lets the user understand the expected input, which only a reader can judge. No axe rule is tagged, and no deterministic check could resolve a route or prove a failure: a field with no title and no nearby text might still have help that appears on focus, or the field might be outside the test because its label is in fact visible and adjacent. The entry has no link and stays at none. Applicability is judgment for the same reasons. Needs lists keyboard, because one route is a passage that becomes visible when the field takes focus.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.1.3",
+        "quote": "Retrouver dans le document les champs de formulaire dont l’étiquette n’est pas visible ou à proximité (masquée, utilisation de l’attribut aria-label) ou n’est pas accolée au champ (utilisation de l’attribut `aria-labelledby`) ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Accolés (étiquette et champ accolés)",
+        "quote": "visuellement proches"
+      }
+    ]
+  }
+}
