@@ -22,11 +22,11 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-One Sonnet builder, launched 2026-11-16 about 16:45 UTC: the entry validator, a sixth citation source and packets by criterion (`docs/m1/brief-validator.md`).
+Nothing. The validator, the `criterion_title` citation source and the packets by criterion were merged on 2026-11-16 (161 tests pass). `pnpm validate-coverage --missing` lists the tests with no entry; `pnpm packets` writes 13 theme packets and 106 criterion packets, the largest about 36 KB.
 
 ## Next, in order
 
-1. Review and merge the validator when it reports.
+1. Done: the validator is merged.
 2. After the window resets, launch in parallel, each with `isolation: worktree`: the implementer (Opus, medium effort, `docs/m1/brief-implementation.md`) and the contract-test writer (Opus, high effort, `docs/m1/brief-contract-tests.md`). The prompt only needs to point at the brief.
 3. Merge both. Run `pnpm test`. A failing contract test is either an implementation bug or a wrong test: decide from the spec, never by editing the expected result to fit. Send fixes back to the agent that owns the file.
 4. Write `docs/m1/entry-guide.md` for entry writers (rules of the kickoff brief, the schema, the 1.1.6 reference in `tests/fixtures/entry-1.1.6.json`, how to cite, when to abstain, the check registry).
