@@ -1,4 +1,4 @@
-// Builds work/packets/theme-NN.md from the vendored official data and the axe
+// Builds work/packets/theme-NN.md and work/packets/by-criterion/<criterion>.md from the vendored official data and the axe
 // table. Official text is reproduced exactly; nothing is interpreted.
 // An axe tag only says a rule is relevant to a test, never that it decides it.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -65,8 +65,11 @@ function block(label: string, text: string): string {
   return `${label}\n\n${f}text\n${text}\n${f}\n`;
 }
 
+/** Folder, inside the packets folder, of the packets by criterion. */
+export const CRITERION_DIR = "by-criterion";
+
 export interface PacketSet {
-  /** file name -> content */
+  /** path relative to the packets folder -> content. Theme packets, then `by-criterion/<id>.md`. */
   files: Map<string, string>;
   /** theme number -> anchors that no glossary title maps to */
   unresolved: Map<number, string[]>;
@@ -83,80 +86,94 @@ export function buildPackets(): PacketSet {
   const files = new Map<string, string>();
   const unresolved = new Map<number, string[]>();
 
-  for (const topic of criteres.topics) {
-    const used = new Set<string>();
-    const out: string[] = [];
+  /** The body of one criterion: its texts, its tests. Adds the anchors it links to `used`. */
+  function criterionBody(topicNumber: number, c: Criterium, used: Set<string>): { body: string[]; testCount: number } {
     const body: string[] = [];
-    let testCount = 0;
+    const cid = `${topicNumber}.${c.number}`;
+    const testCount = Object.keys(c.tests).length;
+    for (const a of anchorsIn(c.title)) used.add(a);
+    body.push(`## Criterion ${cid}\n`);
+    body.push(block(`Title (criteres.json ${cid} title):`, c.title));
+    for (const [path, t] of noteTexts(c.particularCases)) {
+      for (const a of anchorsIn(t)) used.add(a);
+      body.push(block(`Particular case ${path} (criteres.json ${cid} particularCases ${path}):`, t));
+    }
+    for (const [path, t] of noteTexts(c.technicalNote)) {
+      for (const a of anchorsIn(t)) used.add(a);
+      body.push(block(`Technical note ${path} (criteres.json ${cid} technicalNote ${path}):`, t));
+    }
+    body.push(block(`References (criteres.json ${cid} references):`, JSON.stringify(c.references, null, 2)));
 
-    for (const { criterium: c } of topic.criteria) {
-      const cid = `${topic.number}.${c.number}`;
-      testCount += Object.keys(c.tests).length;
-      for (const a of anchorsIn(c.title)) used.add(a);
-      body.push(`## Criterion ${cid}\n`);
-      body.push(block(`Title (criteres.json ${cid} title):`, c.title));
-      for (const [path, t] of noteTexts(c.particularCases)) {
-        for (const a of anchorsIn(t)) used.add(a);
-        body.push(block(`Particular case ${path} (criteres.json ${cid} particularCases ${path}):`, t));
-      }
-      for (const [path, t] of noteTexts(c.technicalNote)) {
-        for (const a of anchorsIn(t)) used.add(a);
-        body.push(block(`Technical note ${path} (criteres.json ${cid} technicalNote ${path}):`, t));
-      }
+    for (const [n, lines] of Object.entries(c.tests)) {
+      const tid = `${cid}.${n}`;
+      body.push(`### Test ${tid}\n`);
+      lines.forEach((line, i) => {
+        for (const a of anchorsIn(line)) used.add(a);
+        body.push(block(`Wording line ${i + 1} (criteres.json ${tid} line ${i + 1}):`, line));
+      });
+      const m = methodologies[tid];
       body.push(
-        block(`References (criteres.json ${cid} references):`, JSON.stringify(c.references, null, 2)),
+        m === undefined
+          ? `Methodology (methodologies.json ${tid}): none\n`
+          : block(`Methodology (methodologies.json ${tid}):`, m),
       );
-
-      for (const [n, lines] of Object.entries(c.tests)) {
-        const tid = `${cid}.${n}`;
-        body.push(`### Test ${tid}\n`);
-        lines.forEach((line, i) => {
-          for (const a of anchorsIn(line)) used.add(a);
-          body.push(block(`Wording line ${i + 1} (criteres.json ${tid} line ${i + 1}):`, line));
-        });
-        const m = methodologies[tid];
+      const ruleIds = axe.testIndex[tid] ?? [];
+      if (ruleIds.length === 0) {
+        body.push(`axe-core rules tagged for ${tid}: none\n`);
+      } else {
         body.push(
-          m === undefined
-            ? `Methodology (methodologies.json ${tid}): none\n`
-            : block(`Methodology (methodologies.json ${tid}):`, m),
+          `axe-core rules tagged for ${tid} (axe-rules.json, axe-core ${axe.axeVersion}). A tag says the rule is relevant to this test; it does not say the rule decides it.\n`,
         );
-        const ruleIds = axe.testIndex[tid] ?? [];
-        if (ruleIds.length === 0) {
-          body.push(`axe-core rules tagged for ${tid}: none\n`);
-        } else {
+        for (const id of ruleIds) {
+          const r = axeById.get(id)!;
           body.push(
-            `axe-core rules tagged for ${tid} (axe-rules.json, axe-core ${axe.axeVersion}). A tag says the rule is relevant to this test; it does not say the rule decides it.\n`,
+            `- \`${r.id}\`: ${r.help} (best-practice: ${r.bestPractice ? "yes" : "no"}; experimental: ${r.experimental ? "yes" : "no"}; enabled by default: ${r.enabledByDefault ? "yes" : "no"})`,
           );
-          for (const id of ruleIds) {
-            const r = axeById.get(id)!;
-            body.push(
-              `- \`${r.id}\`: ${r.help} (best-practice: ${r.bestPractice ? "yes" : "no"}; experimental: ${r.experimental ? "yes" : "no"}; enabled by default: ${r.enabledByDefault ? "yes" : "no"})`,
-            );
-          }
-          body.push("");
         }
+        body.push("");
       }
     }
+    return { body, testCount };
+  }
 
+  /** The unresolved-anchor list, the body and the glossary section shared by both packet kinds. */
+  function assemble(head: string[], body: string[], used: Set<string>, scope: string): { text: string; missing: string[] } {
     const missing = [...used].filter((a) => !byAnchor.has(a)).sort();
-    unresolved.set(topic.number, missing);
-
-    out.push(`# Theme ${topic.number}: ${topic.topic}\n`);
-    out.push(`Criteria: ${topic.criteria.length}. Tests: ${testCount}.\n`);
+    const out = [...head];
     if (missing.length > 0) {
       out.push("Unresolved glossary anchors (no glossary title maps to them):\n");
       for (const a of missing) out.push(`- \`#${a}\``);
       out.push("");
     }
     out.push(...body);
-    out.push("## Glossary entries linked from this theme\n");
+    out.push(`## Glossary entries linked from this ${scope}\n`);
     const entries = glossary.filter((g) => used.has(anchorOf(g.title)));
     if (entries.length === 0) out.push("None.\n");
     for (const g of entries) {
       out.push(block(`glossaire.json "${g.title}" (anchor #${anchorOf(g.title)}), title:`, g.title));
       out.push(block(`glossaire.json "${g.title}" body:`, g.body));
     }
-    files.set(`theme-${String(topic.number).padStart(2, "0")}.md`, `${out.join("\n")}\n`);
+    return { text: `${out.join("\n")}\n`, missing };
+  }
+
+  for (const topic of criteres.topics) {
+    const used = new Set<string>();
+    const body: string[] = [];
+    let testCount = 0;
+    for (const { criterium: c } of topic.criteria) {
+      const cid = `${topic.number}.${c.number}`;
+      const cUsed = new Set<string>();
+      const r = criterionBody(topic.number, c, cUsed);
+      for (const a of cUsed) used.add(a);
+      body.push(...r.body);
+      testCount += r.testCount;
+      const head = [`# Criterion ${cid} (theme ${topic.number}: ${topic.topic})\n`, `Tests: ${r.testCount}.\n`];
+      files.set(`${CRITERION_DIR}/${cid}.md`, assemble(head, r.body, cUsed, "criterion").text);
+    }
+    const head = [`# Theme ${topic.number}: ${topic.topic}\n`, `Criteria: ${topic.criteria.length}. Tests: ${testCount}.\n`];
+    const { text, missing } = assemble(head, body, used, "theme");
+    unresolved.set(topic.number, missing);
+    files.set(`theme-${String(topic.number).padStart(2, "0")}.md`, text);
   }
   return { files, unresolved };
 }
@@ -164,6 +181,7 @@ export function buildPackets(): PacketSet {
 export function writePackets(dir: string): PacketSet {
   const set = buildPackets();
   mkdirSync(dir, { recursive: true });
+  mkdirSync(join(dir, CRITERION_DIR), { recursive: true });
   for (const [name, content] of set.files) writeFileSync(join(dir, name), content);
   return set;
 }

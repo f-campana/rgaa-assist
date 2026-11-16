@@ -71,12 +71,20 @@ export const MethodologyCitationSchema = z.strictObject({
   quote: QuoteSchema,
 });
 
+/** The title of a criterion, in `criteres.json`. */
+export const CriterionTitleCitationSchema = z.strictObject({
+  source: z.literal("criterion_title"),
+  criterion: CriterionIdSchema,
+  quote: QuoteSchema,
+});
+
 export const CitationSchema = z.discriminatedUnion("source", [
   TestCitationSchema,
   ParticularCasesCitationSchema,
   TechnicalNoteCitationSchema,
   GlossaryCitationSchema,
   MethodologyCitationSchema,
+  CriterionTitleCitationSchema,
 ]);
 export type Citation = z.infer<typeof CitationSchema>;
 

@@ -1,6 +1,6 @@
-import { mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, sep } from "node:path";
 import { afterAll, describe, expect, it } from "vitest";
 import { anchorOf, anchorsIn, noteTexts, writePackets } from "../scripts/build-packets.ts";
 
@@ -23,13 +23,18 @@ const glossary = (
 ).glossary;
 const known = new Set(glossary.map((g) => anchorOf(g.title)));
 
+const themeFiles = (m: Map<string, string>) => new Map([...m].filter(([k]) => !k.includes("/")));
+
 const dirs: string[] = [];
 function generate(): Map<string, string> {
   const dir = mkdtempSync(join(tmpdir(), "rgaa-packets-"));
   dirs.push(dir);
   writePackets(dir);
   const out = new Map<string, string>();
-  for (const name of readdirSync(dir).sort()) out.set(name, readFileSync(join(dir, name), "utf8"));
+  for (const name of readdirSync(dir, { recursive: true, encoding: "utf8" }).sort()) {
+    const p = join(dir, name);
+    if (statSync(p).isFile()) out.set(name.split(sep).join("/"), readFileSync(p, "utf8"));
+  }
   return out;
 }
 afterAll(() => {
@@ -37,7 +42,7 @@ afterAll(() => {
 });
 
 describe("theme packets", () => {
-  const first = generate();
+  const first = themeFiles(generate());
 
   it("writes theme-01 to theme-13", () => {
     expect([...first.keys()]).toEqual(
@@ -46,7 +51,9 @@ describe("theme packets", () => {
   });
 
   it("is identical when generated twice", () => {
-    expect(generate()).toEqual(first);
+    const again = generate();
+    expect(themeFiles(again)).toEqual(first);
+    expect(again).toEqual(generate());
   });
 
   it("has every test id in exactly one packet", () => {
@@ -124,6 +131,48 @@ describe("theme packets", () => {
           expect(text.includes(`- \`#${a}\``), `${a} listed as unresolved`).toBe(true);
         }
       }
+    }
+  });
+});
+
+describe("criterion packets", () => {
+  const all = generate();
+  const crit = new Map([...all].filter(([k]) => k.startsWith("by-criterion/")));
+  const criteria = criteres.topics.flatMap((t) => t.criteria.map((c, ci) => ({ id: `${t.number}.${ci + 1}`, c: c.criterium })));
+
+  it("writes one packet per criterion, and keeps the theme packets", () => {
+    expect([...crit.keys()].sort()).toEqual(criteria.map((c) => `by-criterion/${c.id}.md`).sort());
+    expect(themeFiles(all).size).toBe(13);
+  });
+
+  it("has every test id in exactly one criterion packet", () => {
+    for (const { id: cid, c } of criteria) {
+      for (const n of Object.keys(c.tests)) {
+        const id = `${cid}.${n}`;
+        const heading = `\n### Test ${id}\n`;
+        const holders = [...crit.entries()].filter(([, text]) => text.includes(heading));
+        expect(holders.map(([name]) => name), id).toEqual([`by-criterion/${cid}.md`]);
+        expect(holders[0]![1].split(heading).length - 1, id).toBe(1);
+      }
+    }
+  });
+
+  it("holds the criterion's own texts and only the glossary entries it links to", () => {
+    for (const { id, c } of criteria) {
+      const text = crit.get(`by-criterion/${id}.md`)!;
+      expect(text.includes(`\n${c.title}\n`), `${id} title`).toBe(true);
+      const anchors = new Set<string>();
+      for (const t of [
+        c.title,
+        ...noteTexts(c.particularCases).map(([, t]) => t),
+        ...noteTexts(c.technicalNote).map(([, t]) => t),
+        ...Object.values(c.tests).flat(),
+      ]) {
+        for (const a of anchorsIn(t)) anchors.add(a);
+      }
+      const bodies = [...text.matchAll(/^glossaire\.json "(.*)" body:$/gm)].map((m) => m[1]!);
+      const expected = glossary.filter((g) => anchors.has(anchorOf(g.title))).map((g) => g.title);
+      expect(bodies, id).toEqual(expected);
     }
   });
 });

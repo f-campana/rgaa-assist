@@ -43,6 +43,13 @@ describe("citations against the official text", () => {
     expect(check({ source: "glossary", entry: "image objet", quote: "Image" })).toMatch(/no glossary entry/);
   });
 
+  it("reads a criterion title as stored or in plain-text form", () => {
+    expect(check({ source: "criterion_title", criterion: "1.1", quote: "[image porteuse d’information](#image-porteuse-d-information)" })).toBeNull();
+    expect(check({ source: "criterion_title", criterion: "1.1", quote: "Chaque image porteuse d’information a-t-elle une alternative textuelle ?" })).toBeNull();
+    expect(check({ source: "criterion_title", criterion: "1.1", quote: "Chaque image porteuse d'information" })).toMatch(/not found verbatim in title of criterion 1.1/);
+    expect(check({ source: "criterion_title", criterion: "99.9", quote: "x" })).toMatch(/no criterion/);
+  });
+
   it("reads a methodology", () => {
     expect(check({ source: "methodology", test: "1.1.6", quote: "Vérifier que l’élément `<object>` est pourvu d’un attribut WAI-ARIA `role=\"img\"` ;" })).toBeNull();
   });

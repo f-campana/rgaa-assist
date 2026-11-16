@@ -8,6 +8,7 @@
  *   item on its own, all joined with "\n".
  * - `glossary`: the body of the entry with that exact title.
  * - `methodology`: the test's methodology.
+ * - `criterion_title`: the criterion's title.
  *
  * Each text is offered in two forms: as stored, and its plain-text form
  * (`markdownTextForm` for criteres and methodologies, `htmlTextForm` for the
@@ -50,6 +51,11 @@ export function citationSourceForms(official: OfficialData, c: Citation): { ok: 
       const text = blocksText(blocks);
       return { ok: true, forms: [text, markdownTextForm(text)] };
     }
+    case "criterion_title": {
+      const cr = official.criteria.get(c.criterion);
+      if (cr === undefined) return { ok: false, error: `no criterion ${c.criterion}` };
+      return { ok: true, forms: [cr.title, markdownTextForm(cr.title)] };
+    }
     case "glossary": {
       const g = official.glossary.get(c.entry);
       if (g === undefined) return { ok: false, error: `no glossary entry titled ${JSON.stringify(c.entry)}` };
@@ -78,6 +84,8 @@ function describe(c: Citation): string {
       return `particular cases of ${c.criterion}`;
     case "technical_note":
       return `technical note of ${c.criterion}`;
+    case "criterion_title":
+      return `title of criterion ${c.criterion}`;
     case "glossary":
       return `glossary entry ${JSON.stringify(c.entry)}`;
     case "methodology":
