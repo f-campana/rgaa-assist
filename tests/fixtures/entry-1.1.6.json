@@ -1,0 +1,89 @@
+{
+  "test": "1.1.6",
+  "requirements": [
+    {
+      "id": "object-alternative",
+      "statement": "Each image object that carries information meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.6",
+          "line": 1,
+          "quote": "porteuse d’information](#image-porteuse-d-information), vérifie-t-elle une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "text-alternative-and-role",
+          "statement": "The object has a text alternative and role=\"img\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.6",
+              "line": 2,
+              "quote": "La balise `<object>` possède une alternative textuelle et un attribut `role=\"img\"`"
+            }
+          ]
+        },
+        {
+          "id": "adjacent-link",
+          "statement": "The object is immediately followed by an adjacent link or button to alternative content.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.6",
+              "line": 3,
+              "quote": "L’élément `<object>` est immédiatement suivi d’un [lien ou bouton adjacent](#lien-ou-bouton-adjacent)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "le lien ou bouton doit se situer juste avant ou juste après l’élément auquel il est adjacent"
+            }
+          ]
+        },
+        {
+          "id": "replace-mechanism",
+          "statement": "A mechanism lets the user replace the object with alternative content.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.6",
+              "line": 4,
+              "quote": "Un mécanisme permet à l’utilisateur de remplacer l’élément `<object>` par un contenu alternatif."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/object-alt",
+      "requirement": "object-alternative",
+      "routes": ["text-alternative-and-role"],
+      "scope": "whole",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Test 1.1.6 accepts three conditions. axe's object-alt examines only the first, so its fault proves nothing on its own and no check here resolves the requirement.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "1.1.6",
+        "quote": "Si au moins une alternative textuelle est trouvée, **le test est validé** ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Image objet",
+        "quote": "Image incorporée ou générée par une balise <object>."
+      }
+    ]
+  }
+}
