@@ -14,7 +14,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 | 3 | Schemas and the ruleset contract, then freeze | Done and frozen 2026-11-16, `ca5c92b`. 144 tests pass. Design notes and the orchestrator's review: `docs/m1/contract-notes.md`. |
 | 4 | Implementation of derivation, reduction and effective level by one agent, contract tests by another, both after the freeze | Done 2026-11-16. Implementation and 185 contract tests merged; all 386 tests pass. |
 | 5 | Table of axe rules per RGAA test, and theme packets for entry writers | Done 2026-11-16, merged as `aa4cdd9`. 67 rules, 40 tests, as the spec says. `pnpm packets` writes 13 packets, 595 KB in all; theme 1 is 121 KB, so split it between writers by criterion. |
-| 6 | Pilot of 14 entries, usage projection | Guide and brief written. Not launched: after step 4. |
+| 6 | Pilot of 14 entries, usage projection | Done 2026-11-16, merged as `51880bb`. Projection in the cost log. |
 | 7 | Entries by theme | Not started |
 | 8 | Check-in at 65%, with Codex's cross-check | Not started |
 | 9 | Minimum useful set | Not started |
@@ -22,19 +22,26 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-Nothing. The fixture fix was merged on 2026-11-16 at 21:25 UTC: 386 tests pass, typecheck is clean, and no expected result was changed. Step 4 is done.
+Nothing on the Claude side. **Codex has been asked to cross-check the 14 pilot entries** (bridge message of 2026-11-16, channel `rgaa-assist`). Fabien has to prompt Codex. Its report will be in `~/Documents/Codex/2026-11-12/rgaa-independent-spec-review/outputs/` or on the bridge.
 
-## Stopped for Fabien, 2026-11-16 21:17 UTC
+## Check-in, 2026-11-16 22:35 UTC
 
-All-models is at 63%, two points under the check-in at 65%, and no entry is written. The pilot is **not launched**. Waiting for his decision on how to continue (see the cost log).
+All-models at 67%, past the 65% check-in. 14 of 258 entries are written: 8 `none`, 5 `fail_only`, 1 `full` (8.3.1). All validate; 386 tests pass. Under half the entries, so the rule says stop and re-split. Reported to Fabien with the projection in `docs/cost-log.md`. **No more entries until he decides.**
+
+## Rulings the pilot asked for
+
+Taken by the orchestrator, to confirm with Codex's cross-check before the guide is changed:
+
+1. **`full` with a check that abstains.** Spec 6.2 allows it: a resolving check answers `cannot_tell` where it cannot resolve. So a test may be `full` when its check decides the mechanical cases and abstains on exactly the judgment cases, provided the boundary between the two is itself mechanical. The guide's sentence "nothing in the test needs judgment" is stricter than the spec and will be corrected. The pilot applied the strict reading to 2.1.1 and 6.2.1, which is safe: they can be raised later.
+2. **One defect that fits two tests** (empty `title` under 2.1 or 2.2, empty `lang` under 8.3 or 8.4, and so on). No official text assigns it, so the entries abstain in both and keep the fault as evidence. Stays that way: cite or abstain.
+3. **Hidden elements.** No official text says whether elements that are not rendered or are `aria-hidden` count. Checks abstain on them. Stays that way.
+4. **Open, for Codex and then Fabien:** `scope: whole` for a check that looks at every element but abstains on some; a tagged axe rule that examines no route (left out, explained in the rationale); what `applicability` means for a test that always applies.
 
 ## Next, in order
 
-1. Done: the fixture fix is merged and `pnpm test` is fully green.
-2. Launch the pilot when Fabien says so: one Opus builder, high effort, `isolation: worktree`, brief `docs/m1/brief-pilot.md` (14 entries). The guide it follows is `docs/m1/entry-guide.md`.
-3. Review the 14 entries against the packets. Project the pilot's usage to 258 entries in `docs/cost-log.md`.
-4. Ask Codex to cross-check the pilot entries (bridge, channel `rgaa-assist`, then Fabien prompts Codex).
-5. Fix the guide from the pilot's feedback, then write the remaining entries criterion by criterion. `checks.json` is shared: keep it sorted by id and resolve merges by taking both sides.
+1. Read Codex's cross-check. Count its findings by kind of entry: axe-linked, several routes, needs state or keyboard or media, structural applicability, other. Send corrections to an Opus builder.
+2. Correct `docs/m1/entry-guide.md` from the pilot's feedback and Codex's findings (the rulings above, the no-break space in one glossary title, how to record an axe rule that examines no route).
+3. Write the remaining 244 entries as Fabien decides, criterion by criterion. Brief pattern: `docs/m1/brief-pilot.md`. `checks.json` is shared: keep it sorted by id and resolve merges by taking both sides.
 
 ## Decisions taken by the orchestrator
 
