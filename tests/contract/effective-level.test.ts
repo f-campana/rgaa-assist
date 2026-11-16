@@ -116,28 +116,28 @@ describe("approval covers content (6.3, Q36)", () => {
 describe("lowering is free with a logged demotion", () => {
   it("full lowered to fail_only, logged: runs at fail_only", () => {
     const full = entry(FL);
-    const lowered = entry({ ...FL, enabled: "fail_only" });
+    const lowered = entry({ ...FL, candidate: "full", enabled: "fail_only" });
     const r = run(lowered, log(approve(full, "full", ROLES.all), demote(full, "fail_only")), summary(measurement(full)));
     expect(r).toEqual({ test: "1.1.1", enabled: "fail_only", authorised: "fail_only", effective: "fail_only", blockedBy: null });
   });
 
   it("full lowered to none, logged: runs as none, not_enabled", () => {
     const full = entry(FL);
-    const lowered = entry({ ...FL, enabled: "none" });
+    const lowered = entry({ ...FL, candidate: "full", enabled: "none" });
     const r = run(lowered, log(approve(full, "full", ROLES.all), demote(full, "none")));
     expect(r).toEqual({ test: "1.1.1", enabled: "none", authorised: "none", effective: "none", blockedBy: "not_enabled" });
   });
 
   it("an unlogged lowering runs as none (enabled_mismatch)", () => {
     const full = entry(FL);
-    const lowered = entry({ ...FL, enabled: "fail_only" });
+    const lowered = entry({ ...FL, candidate: "full", enabled: "fail_only" });
     const r = run(lowered, log(approve(full, "full", ROLES.all)), summary(measurement(full)));
     expect(r).toMatchObject({ authorised: "full", effective: "none", blockedBy: "enabled_mismatch" });
   });
 
   it("the lowest demotion after the approval caps it: a later demotion to a higher level raises nothing", () => {
     const full = entry(FL);
-    const atFailOnly = entry({ ...FL, enabled: "fail_only" });
+    const atFailOnly = entry({ ...FL, candidate: "full", enabled: "fail_only" });
     const r = run(atFailOnly, log(approve(full, "full", ROLES.all), demote(full, "none"), demote(full, "fail_only")));
     expect(r).toMatchObject({ authorised: "none", effective: "none", blockedBy: "enabled_mismatch" });
   });
@@ -178,7 +178,7 @@ describe("raising after a demotion needs the approver again", () => {
   });
 
   it("a new approval at a lower level replaces the old one: the last approval fixes the level", () => {
-    const e = entry({ ...FL, enabled: "fail_only" });
+    const e = entry({ ...FL, candidate: "full", enabled: "fail_only" });
     expect(run(e, log(approve(e, "full", ROLES.all), approve(e, "fail_only", ROLES.pair)))).toMatchObject({
       authorised: "fail_only",
       effective: "fail_only",
@@ -220,7 +220,7 @@ describe("approver roles (6.3)", () => {
   });
 
   it("fail_only: orchestrator and codex together; fabien alone is not enough", () => {
-    const e = entry({ ...FL, enabled: "fail_only" });
+    const e = entry({ ...FL, candidate: "full", enabled: "fail_only" });
     const m = summary(measurement(e, { level: "fail_only" }));
     expect(run(e, log(approve(e, "fail_only", ROLES.pair)), m)).toMatchObject({ authorised: "fail_only", effective: "fail_only" });
     expect(run(e, log(approve(e, "fail_only", ROLES.all)), m)).toMatchObject({ effective: "fail_only" });
@@ -232,7 +232,7 @@ describe("approver roles (6.3)", () => {
   it("the roles are judged against the approved level, not the demoted one", () => {
     // Approved at full by fabien alone on an entry with a failure link: never valid,
     // and a demotion to fail_only does not make it valid.
-    const e = entry({ ...FL, enabled: "fail_only" });
+    const e = entry({ ...FL, candidate: "full", enabled: "fail_only" });
     expect(run(e, log(approve(e, "full", ROLES.fabien), demote(e, "fail_only")))).toMatchObject({
       authorised: "none",
       effective: "none",
@@ -261,7 +261,7 @@ describe("check-version suspension (6.3: checks are pinned too)", () => {
 
   it("it never rises above the authorised level, so it never undoes a demotion", () => {
     const full = entry(FL);
-    const lowered = entry({ ...FL, enabled: "fail_only" });
+    const lowered = entry({ ...FL, candidate: "full", enabled: "fail_only" });
     const approvals = log(approve(full, "full", ROLES.all), demote(full, "fail_only"));
     const newMeasurement = summary(measurement(lowered, { level: "full", checkVersions: { "custom/res": "2.0.0" } }));
     expect(run(lowered, approvals, newMeasurement, { "custom/res": "2.0.0" })).toMatchObject({
@@ -311,7 +311,7 @@ describe("check-version suspension (6.3: checks are pinned too)", () => {
 
 describe("blockedBy: each code", () => {
   it("not_enabled", () => {
-    const e = entry({ ...KB, enabled: "none" });
+    const e = entry({ ...KB, candidate: "full", enabled: "none" });
     expect(run(e, log(approve(e, "full", ROLES.fabien)))).toEqual({
       test: "1.1.1",
       enabled: "none",
@@ -361,7 +361,7 @@ describe("blockedBy: each code", () => {
   });
 
   it("a measurement above the authorised level is enough", () => {
-    const e = entry({ ...FL, enabled: "fail_only" });
+    const e = entry({ ...FL, candidate: "full", enabled: "fail_only" });
     expect(run(e, log(approve(e, "fail_only", ROLES.pair)), summary(measurement(e, { level: "full" })))).toMatchObject({
       effective: "fail_only",
     });
@@ -402,13 +402,13 @@ describe("blockedBy: the first rule that applies wins", () => {
   };
 
   it("not_enabled before no_approval", () => {
-    const e = entry({ ...KB, enabled: "none" });
+    const e = entry({ ...KB, candidate: "full", enabled: "none" });
     expect(run(e, log(), null, {})).toMatchObject({ authorised: "none", blockedBy: "not_enabled" });
   });
 
   it("not_enabled before approved_content_differs", () => {
     const approved = entry(KB);
-    const changed = entry({ ...KB, needs: [], enabled: "none" });
+    const changed = entry({ ...KB, needs: [], candidate: "full", enabled: "none" });
     expect(run(changed, log(approve(approved, "full", ROLES.fabien)))).toMatchObject({ authorised: "none", blockedBy: "not_enabled" });
   });
 
