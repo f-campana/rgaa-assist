@@ -26,6 +26,7 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-16 21:02 | 5-hour window reset; two Opus builders relaunched after being cut off at 17:00 | 56% | 13% | The cut-off launch cost about 2 points and produced nothing. |
 | 2026-11-16 21:17 | Implementation and contract tests merged; 180 of 185 contract tests pass, 5 have wrong fixtures and are being fixed | 63% | 22% | 5-hour window at 54%. Builders: about 173k and 233k tokens. |
 | 2026-11-16 22:35 | Pilot of 14 entries merged (Opus, high effort, about 288k tokens) | 67% | 24% | 5-hour window at 81%. |
+| 2026-11-16 23:15 | Codex's cross-check read and verified; decisions Q40 to Q42; guide corrected; handover written | 68% | 26% | 5-hour window at about 90%. |
 
 ### What day 1 says about cost
 

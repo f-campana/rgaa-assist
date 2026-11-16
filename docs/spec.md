@@ -4,7 +4,8 @@
 **Changes from 0.3:** three corrections after Codex's re-check of 0.3: the approval hash (G1), how facts about a requirement are combined (G2), and the logged-out guarantee. It also records decision Q37: the pre-M1 model check is shelved (14.3, 17.1). Draft 0.3 had answered the re-check of 0.2 (F1 to F5, Q35, Q36), and draft 0.2 the first review (R1 to R9, Q29 to Q34). Section 18 maps each finding to the text that answers it.
 **Next:** M1, started from `docs/m1-kickoff.md` after a weekly reset (14.3). Any later change to this spec goes through the orchestrator and, where it touches a decision, through Fabien (14.4).
 **Amended after approval, on 2026-11-16, by Fabien's decisions:** the M1 ceiling is counted from the usage baseline (Q38, 14.3). Opus 5.5 takes over as orchestrator if Fable 5.2 becomes unavailable (Q39, 14.2). The third official data file is named `methodologies.json` (13). Codex has not re-checked these lines.
-**Inputs:** `docs/decisions.md` (decisions Q1 to Q39). Where this spec and that file disagree, the decisions file wins and the disagreement is a defect in this spec.
+**Amended on 2026-11-17, by Fabien's decision Q40:** `applicability` gains a third value, `always` (6.1, 8.3, 10.4), after Codex's cross-check of the pilot entries. Decisions Q41 and Q42 change how M1 is run, not this text.
+**Inputs:** `docs/decisions.md` (decisions Q1 to Q42). Where this spec and that file disagree, the decisions file wins and the disagreement is a defect in this spec.
 
 ---
 
@@ -127,7 +128,7 @@ The coverage map is the tool's central claim about what it can and cannot conclu
 | `links` | One per contributing check and requirement (6.2). |
 | `candidate` | What the entry argues the tool could conclude: `none`, `fail_only` or `full`. |
 | `enabled` | What the tool is allowed to conclude today. Never more than `candidate`. |
-| `applicability` | `structural` when "not applicable" follows from the absence of certain elements in the whole examined scope. Otherwise `judgment`. |
+| `applicability` | `structural` when "not applicable" follows from the absence of certain elements in the whole examined scope. `always` when the test applies to every page, so the tool never says "not applicable" for it (Q40). Otherwise `judgment`. |
 | `needs` | Prerequisites: any of `state`, `keyboard`, `media`, `model`, `assistive_tech`. |
 | `rationale` | Why, citing the official test wording and glossary entries used. |
 
@@ -385,7 +386,7 @@ The engine records these facts for each requirement. They are independent: sever
    - a prerequisite in `needs` was not met for this target in this run (`prerequisite_unmet`);
    - a requirement has a dispute (`checks_disagree`);
    - a requirement is unresolved (`alternative_unresolved` or `cannot_tell`).
-4. Otherwise `not_applicable` if every requirement is inapplicable and applicability is `structural`. With `judgment` applicability it is `needs_review` (`judgment_required`).
+4. Otherwise `not_applicable` if every requirement is inapplicable and applicability is `structural`. With `judgment` applicability it is `needs_review` (`judgment_required`). With `always` applicability it is `needs_review` (`cannot_tell`): a check answered `inapplicable` for a test that applies to every page.
 5. Otherwise `passed`: every requirement is satisfied or inapplicable, and at least one is satisfied.
 
 The finding keeps every fact of every requirement (`requirementFacts`, 8.5), so an error or a dispute that did not decide the status is still visible.
@@ -600,7 +601,7 @@ For each link and each enabled entry, a full table of expected against actual re
 1. **Every case returns exactly its expected status**, for enabled entries and links and for engine cases. A check that answers "needs review" everywhere fails this.
 2. **It follows that all four counts of 10.3 are zero on the corpus.** No tolerance excuses a mismatch on a labelled case (Q35). This is reported as "0 of n cases on corpus X", never as a guarantee beyond that corpus.
 3. **A mismatch has three honest fixes:** correct the check, demote the entry or the link, or correct the label under the rule in 10.5.
-4. **Coverage of branches.** An entry enabled `full` has at least one valid, one invalid and, where applicability is structural, one inapplicable case. Where a requirement has several routes, it has one valid case per route and one case that is invalid by one route and valid by another. A link with `faultMeans: failure` has its promised faults.
+4. **Coverage of branches.** An entry enabled `full` has at least one valid, one invalid and, where applicability is structural, one inapplicable case. An `always` entry has no inapplicable case, because none can exist (Q40). Where a requirement has several routes, it has one valid case per route and one case that is invalid by one route and valid by another. A link with `faultMeans: failure` has its promised faults.
    - **A resolving check also has a mixed pair.** Two elements that are valid by different routes: expected `passed`. One valid element beside one with no valid route: expected `failed` when the link proves failure, `needs_review` otherwise, and never `passed`. A check that only finds some valid element fails the second case.
 5. **The minimum useful set** (6.4) is fully enabled and meets points 1 to 4.
 

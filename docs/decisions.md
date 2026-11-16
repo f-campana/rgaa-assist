@@ -116,3 +116,11 @@ Fabien used a limit reset on 2026-11-16, because it would have expired the next 
 - **Commits.** Authorised for the whole of M1: builders commit on their own branches in their own worktrees, and the orchestrator merges to main after reviewing the diff. No remote, no push.
 - **Downloads.** Authorised: `criteres.json`, `glossaire.json` and `methodologies.json` from `DISIC/accessibilite.numerique.gouv.fr` at commit `ca4019f95073b6cbd2482a16e9f12b52d8de678d`, and axe-core 4.14.0 from npm. Anything else needs a new yes.
 - **Correction.** The third official file is `methodologies.json`. The spec and the brief said `methodologie.json`.
+## After Codex's cross-check of the M1 pilot (2026-11-17)
+
+M1 passed its check-in at 67% all-models with 14 of 258 entries written (the pilot). Codex cross-checked them (report `rgaa-m1-pilot-51880bb-independent-review.md` in its outputs folder): four findings in three entries, two of them unsupported claims (8.3.1 `full`, 10.7.1 `fail_only`), one wrong reason for abstaining (2.2.1), one gap in the contract. Claude verified all four and accepts them. Both over-claims were entries the writer had listed as its least sure.
+
+- **Applicability `always` (Q40, amends spec 6.1, 8.3 and 10.4).** A test that applies to every page gets `applicability: always`. The tool never says "not applicable" for it, and no inapplicable corpus case is required. If a check answers `inapplicable` for such a test, the result is "needs review".
+- **Remaining entries (Q41, answers Q37).** After the three entries are corrected and Codex has re-checked them, the remaining 244 entries are written by Opus 5.5 at high effort, as in the pilot. The entry guide gains the pilot's lessons, including: a writer lowers any claim it doubts. Work runs to the 85% stop this week and continues after the reset of 2026-11-21.
+- **Orchestrator (Q42, applies Q39 now).** A fresh Opus 5.5 session at high effort orchestrates from `docs/m1-status.md`. The planning thread on Fable cost about one point of the weekly limit per turn because of its long history.
+- **Rulings corrected by Codex.** Each test is judged on its own: a defect that fits two tests is not left unclaimed for that reason. `full` is allowed when a resolving check abstains on exactly the judgment cases (spec 6.2). Hidden elements are not a general exemption.

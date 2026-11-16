@@ -7,5 +7,5 @@ An audit assistant for RGAA. It examines a sample of web pages in a real browser
 - [docs/spec.md](docs/spec.md): the specification
 - [docs/m1-kickoff.md](docs/m1-kickoff.md): the brief that governs M1
 - [docs/m1-status.md](docs/m1-status.md): where M1 stands
-- [docs/decisions.md](docs/decisions.md): the decisions it is built on (Q1 to Q39)
+- [docs/decisions.md](docs/decisions.md): the decisions it is built on (Q1 to Q42)
 - [docs/cost-log.md](docs/cost-log.md): plan usage per milestone
