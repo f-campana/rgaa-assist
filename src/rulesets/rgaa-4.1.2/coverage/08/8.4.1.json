@@ -1,0 +1,113 @@
+{
+  "test": "8.4.1",
+  "requirements": [
+    {
+      "id": "code-valid",
+      "statement": "The default language code is valid: its part before the first hyphen is a 2-letter ISO 639-1 code or a 3-letter code of ISO 639-2 or a later part.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.4.1",
+          "line": 2,
+          "quote": "Le code de langue est valide ;"
+        },
+        {
+          "source": "methodology",
+          "test": "8.4.1",
+          "quote": "Valide (conforme à la norme ISO 639-1 ou ISO 639-2 et suivantes) ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "iso-639-code",
+          "statement": "The part of the code before the hyphen is an ISO 639-1 code of 2 characters or an ISO 639-2 (or later) code of 3 characters; what follows the hyphen is left to the author.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Code de langue",
+              "quote": "Code de 2 caractères (ISO 639-1) ou 3 caractères (ISO 639-2 et suivants) permettant d’indiquer la langue d’un document ou d’un passage de texte."
+            },
+            {
+              "source": "glossary",
+              "entry": "Code de langue",
+              "quote": "[option] est une indication laissée à l’appréciation de l’auteur."
+            },
+            {
+              "source": "glossary",
+              "entry": "Code de langue",
+              "quote": "L’indication du code de langue ne concerne que la partie [code] avant le tiret."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "code-relevant",
+      "statement": "The default language code indicates the main language of the document.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.4.1",
+          "line": 3,
+          "quote": "Le code de langue est pertinent."
+        }
+      ],
+      "routes": [
+        {
+          "id": "matches-main-language",
+          "statement": "The code names the language the document is mainly written in.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.4.1",
+              "quote": "Et pertinent (qui indique la langue principale du document)."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/html-lang-valid",
+      "requirement": "code-valid",
+      "routes": ["iso-639-code"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/8-4-default-lang-code-valid",
+      "requirement": "code-valid",
+      "routes": ["iso-639-code"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test sets two conditions that must both hold: the code is valid, and it is relevant. Relevance means the code names the main language of the document, which needs reading the page, so that requirement has no link and the entry cannot be full. Validity is mechanical: the glossary says only the part before the hyphen counts, and it must be a 2-letter ISO 639-1 code or a 3-letter code from ISO 639-2 or a later part. axe's html-lang-valid is evidence only. I ran the language list shipped in axe-core 4.14.0: it rejects fra, eng and deu, which are valid ISO 639-2 codes, so its fault does not prove the code invalid under RGAA. The custom check compares the code on the html element with the full ISO 639 lists (parts 1, 2 both forms, 3 and 5), so its fault means the code is in none of them and the validity condition fails. I place that fault under this test and not under 8.3.1 because this test names validity as its own condition; a page with an invalid code still has a language indication. The check's scope is partial: when the default language is given on each text element instead of on html, it does not examine those codes and answers cannot_tell. It also abstains on an empty value or one with surrounding spaces, which could be read as a missing indication under 8.3.1. The entry is fail_only. Applicability is judgment: a page has no default language only when no element carries one, and whether an empty attribute counts as one is not settled by the text. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "8.4",
+        "quote": "Pour chaque page web ayant une langue par défaut, le code de langue est-il pertinent"
+      },
+      {
+        "source": "test",
+        "test": "8.4.1",
+        "line": 1,
+        "quote": "Pour chaque page web ayant une langue par défaut, le code de langue vérifie-t-il ces conditions"
+      },
+      {
+        "source": "methodology",
+        "test": "8.4.1",
+        "quote": "Si c’est le cas, **le test est validé**."
+      }
+    ]
+  }
+}
