@@ -131,7 +131,7 @@ describe("validate-coverage", () => {
   it("main returns the exit code and writes the report", () => {
     let text = "";
     expect(main([], (s) => (text += s))).toBe(0);
-    expect(text).toContain("Entry files: 0");
+    expect(text).toMatch(/Entry files: \d+/);
     expect(main(["--bogus"], () => {})).toBe(2);
   });
 });

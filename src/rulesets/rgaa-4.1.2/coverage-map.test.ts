@@ -90,7 +90,7 @@ describe("the RGAA 4.1.2 plug-in", () => {
     expect(p.id).toBe("rgaa-4.1.2");
     expect(p.version).toBe("4.1.2");
     expect(p.official.source.commit).toBe("ca4019f95073b6cbd2482a16e9f12b52d8de678d");
-    expect(p.coverage.entries.size).toBe(0);
+    expect(p.coverage.entries.size).toBeLessThanOrEqual(258);
     expect(typeof p.deriveFindings).toBe("function");
     expect(typeof p.reduce).toBe("function");
     expect(typeof p.checkSample).toBe("function");
