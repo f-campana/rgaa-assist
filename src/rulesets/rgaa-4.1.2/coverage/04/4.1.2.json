@@ -1,0 +1,277 @@
+{
+  "test": "4.1.2",
+  "requirements": [
+    {
+      "id": "media-alternative",
+      "statement": "Each prerecorded video-only media that needs it, outside the particular cases, has an alternative in one of the accepted forms.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.1.2",
+          "line": 1,
+          "quote": "Chaque média temporel pré-enregistré seulement vidéo vérifie-t-il, si nécessaire, l’une de ces conditions (hors cas particuliers)"
+        },
+        {
+          "source": "methodology",
+          "test": "4.1.2",
+          "quote": "Retrouver dans le document les médias temporels (éléments `<video>` ou `<object>`) seulement vidéo qui nécessitent une transcription textuelle"
+        }
+      ],
+      "routes": [
+        {
+          "id": "audio-version-via-adjacent-link",
+          "statement": "An audio-only alternative version exists and is reachable through an adjacent link or button.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.1.2",
+              "line": 2,
+              "quote": "Il existe une version alternative « audio seulement » accessible via un lien ou bouton adjacent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "Le lien ou bouton doit être adjacent visuellement dans la représentation graphique (CSS activé) et dans le code HTML."
+            },
+            {
+              "source": "glossary",
+              "entry": "Version alternative « audio seulement »",
+              "quote": "La version « audio seulement » doit contenir toutes les informations visuelles importantes de la vidéo."
+            }
+          ]
+        },
+        {
+          "id": "adjacent-audio-version",
+          "statement": "A clearly identifiable audio-only alternative version is adjacent to the media.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.1.2",
+              "line": 3,
+              "quote": "Il existe une version alternative « audio seulement » adjacente clairement identifiable"
+            },
+            {
+              "source": "glossary",
+              "entry": "Version alternative « audio seulement »",
+              "quote": "La version « audio seulement » doit contenir toutes les informations visuelles importantes de la vidéo."
+            }
+          ]
+        },
+        {
+          "id": "transcript-via-adjacent-link",
+          "statement": "A text transcript exists and is reachable through an adjacent link or button.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.1.2",
+              "line": 4,
+              "quote": "Il existe une transcription textuelle accessible via un lien ou bouton adjacent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "Le lien ou bouton doit être adjacent visuellement dans la représentation graphique (CSS activé) et dans le code HTML."
+            },
+            {
+              "source": "glossary",
+              "entry": "Transcription textuelle (média temporel)",
+              "quote": "Contenu textuel associé à un média temporel par la technique appropriée"
+            }
+          ]
+        },
+        {
+          "id": "adjacent-transcript",
+          "statement": "A clearly identifiable text transcript is adjacent to the media.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.1.2",
+              "line": 5,
+              "quote": "Il existe une transcription textuelle adjacente clairement identifiable"
+            },
+            {
+              "source": "glossary",
+              "entry": "Transcription textuelle (média temporel)",
+              "quote": "la transcription textuelle doit se situer à l’extérieur de la balise <object>."
+            }
+          ]
+        },
+        {
+          "id": "synchronised-audio-description",
+          "statement": "A synchronised audio description exists.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.1.2",
+              "line": 6,
+              "quote": "Il existe une audiodescription synchronisée"
+            },
+            {
+              "source": "glossary",
+              "entry": "Audiodescription synchronisée (média temporel)",
+              "quote": "L’audiodescription doit être synchronisée avec le média temporel par un dispositif applicatif lié au lecteur lui-même ou fourni par le développement par exemple avec JavaScript."
+            }
+          ]
+        },
+        {
+          "id": "audio-described-version-via-adjacent-link",
+          "statement": "An alternative version with synchronised audio description is reachable through an adjacent link or button.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.1.2",
+              "line": 7,
+              "quote": "Il existe une version alternative avec une audiodescription synchronisée accessible via un lien ou bouton adjacent."
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "Le lien ou bouton doit être adjacent visuellement dans la représentation graphique (CSS activé) et dans le code HTML."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "decorative-media",
+          "statement": "The media is decorative: it carries no information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé à des fins décoratives (c’est-à-dire qu’il n’apporte aucune information)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "media-is-alternative",
+          "statement": "The media is itself an alternative to content of the page, such as a sign-language video or a spoken version of a text.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est lui-même une alternative à un contenu de la page (une vidéo en langue des signes ou la vocalisation d’un texte, par exemple)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "enlarged-version",
+          "statement": "The media is used to give access to an enlarged version.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé pour accéder à une version agrandie"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "captcha",
+          "statement": "The media is used as a CAPTCHA.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé comme un CAPTCHA"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "test-defeated",
+          "statement": "The media is part of a test that would become useless if the transcript, captions or audio description were given.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "fait partie d’un test qui deviendrait inutile si la transcription textuelle, les sous-titres synchronisés ou l’audiodescription étaient communiqués"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "public-sector-2019-2020",
+          "statement": "For State services, local authorities and their institutions: the media was published between 23 September 2019 and 23 September 2020 on a site created since 23 September 2018.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "si le média temporel a été publié entre le 23 septembre 2019 et le 23 septembre 2020 sur un site internet, intranet ou extranet créé depuis le 23 septembre 2018, il est exempté de l’obligation d’accessibilité"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "private-sector-before-2020",
+          "statement": "For the private-law persons named in article 47 of the law of 11 February 2005: the media was published before 23 September 2020.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "si le média temporel a été publié avant le 23 septembre 2020, il est exempté de l’obligation d’accessibilité"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "Test 4.1.2 accepts six routes for a video-only media: an audio-only version or a text transcript, each either adjacent or behind an adjacent link or button, a synchronised audio description, or an audio-described version behind an adjacent link or button. The entry stays at none. No axe rule is tagged for this test and no deterministic check is registered: every route is a judgment. Whether a text is a transcript of this media (all that is said, and the descriptive information, in order), whether a passage is clearly identifiable, and whether an audio description is present and synchronised can only be decided by watching or listening and comparing. A check that finds no link, button or text next to a media element would not prove a failure either, because the synchronised audio description route can live inside the player, and the seven particular cases (decorative media, an alternative to page content, a CAPTCHA, publication dates, and others) need judgment or facts the page does not hold. Applicability is judgment: deciding that a media element is prerecorded, which kind of media it is, and whether an alternative is needed (si nécessaire) cannot be done from the markup, and the glossary also counts media played through svg, canvas or a plugin. Needs lists media, because the kind of media and the content of any alternative are known only once the media plays.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.1",
+        "quote": "a-t-il, si nécessaire, une transcription textuelle ou une audiodescription (hors cas particuliers)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Média temporel (type son, vidéo et synchronisé)",
+        "quote": "Média temporel seulement vidéo : images ou photos en mouvement ou en séquence"
+      },
+      {
+        "source": "glossary",
+        "entry": "Média temporel (type son, vidéo et synchronisé)",
+        "quote": "les gif animés, les animations d’images réalisées par JavaScript ou CSS ne sont pas considérés comme étant des médias temporels."
+      }
+    ]
+  }
+}
