@@ -965,7 +965,7 @@ describe("inputs are validated first, and a rejected call derives nothing", () =
   });
 
   it("entry_invalid: an entry with no requirement", () => {
-    const raw = rawEntry({ enabled: "none" });
+    const raw = rawEntry({ test: "1.1.2", enabled: "none" });
     raw.requirements = [];
     const rs = rejected(
       deriveRaw({ target: target(), observations: [], entries: [{ entry: good(), level: "full" }, { entry: raw, level: "none" }] }),
