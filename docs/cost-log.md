@@ -21,3 +21,4 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | When (UTC) | After | All models | Fable | Notes |
 |---|---|---|---|---|
 | 2026-11-16 16:08 | Baseline | 45% | 2% | |
+| 2026-11-16 16:17 | Start decisions, data vendored, scaffold merged, two builders launched | 48% | 7% | 5-hour window at 41%. The orchestrator's own setup is most of this. |
