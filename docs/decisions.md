@@ -1,0 +1,109 @@
+# RGAA audit-assistant tool: settled decisions
+
+Status: grilling in progress (Fabien + Claude), 2026-11-12. Codex reviews. Nothing here is built yet.
+
+## Settled (round 1)
+- **Purpose.** Primary: personal tool for Fabien's own projects and client sites. Secondary: possibly a product for others later, only if the tool proves good. (Q1: a or d, door open to b.)
+- **Deliverable.** The tool is the goal. Cost per role is logged lightly as a by-product. The orchestration experiment is not a deliverable and must not shape the spec. (Q2)
+- **Claim boundary.** Hard rule in the spec: the tool is an audit assistant. Every report states what was covered, what was not, and that it is not a compliance declaration. (Q3a)
+- **Open follow-up on Q3.** Fabien would value an autonomous verdict (Q3b) if the product path happens. Whether that is possible or legally meaningful is being researched. Design must not foreclose it.
+- **Budget.** Soft cost ceiling per milestone, not one total. RGAA 5 (December 2026) is context, not a deadline: the ruleset is a versioned adapter. (Q4)
+- **Repo and review.** New repo under ~/Documents with its own bridge channel. Codex is the independent reviewer of the spec and milestone gates. Claude agents implement. No two tools edit the same files. (Q5)
+- **Where decisions live.** This bridge doc now. Copied into the repo's docs/ when the repo exists. (Q6)
+## Settled (round 2)
+- **Verdict (Q7).** Verdict-ready, verdict-disabled. The evidence model records per-criterion confidence and can be compared against human audits (the seeded-fault corpus needs that harness anyway). The tool issues no verdict in v1. Evidence: automation covers about 20-40% of criteria, the official rate is a human audit on a sample, so a full autonomous verdict is not supported today.
+- **Rulesets (Q8).** Neutral core, each ruleset a plug-in: RGAA 4.1.2 now, RGAA 5 and WCAG 2.2 AA later. Same evidence serves all.
+- **Scope of examination (Q9).** Live rendered pages by URL, real browser, first. Source analysis may come later as an extra evidence source.
+- **Sample (Q10).** The human supplies the URLs. The tool checks coverage (home, contact, one page per template, etc.) and warns. No crawler in v1.
+- **Model use (Q11).** Provider-neutral LLM interface, one provider wired first, plus a "no model" mode where judgment criteria stay "needs review".
+- **Build vs reuse (Q12).** From scratch on axe-core and Playwright. Output compatible with ARA import. ARA is the place to finish an audit. Claude to check licence and export format of ARA, the official kit, Asqatasun, cegape/audit-rgaa before the spec.
+- **v1 outputs (Q13).** Per-criterion grid with evidence, JSON, human-readable report. Remediation list next. Statement draft waits (it implies a compliance claim, see Q3).
+## Settled (round 3)
+- **Interfaces (Q14).** CLI and library first. MCP server in the same milestone as the "no model" mode (thin wrapper). Skill last, once behaviour is stable.
+- **Stack (Q15).** TypeScript on Node, one package.
+- **States (Q16).** The sample file can describe steps to reach a state; each state is its own audited item. Small step language: navigate, click, fill, press a key, set viewport. In v1.
+- **Auth (Q17).** Saved browser session supplied by Fabien (Playwright storage state), in v1. The tool never stores or types a password; reports redact session data.
+- **Evaluation (Q18).** Reuse public sources first (W3C ACT test cases, W3C before/after demo), then write only the planted faults those do not cover. v1 bar: zero "fine" answers on a known-faulty case for deterministic criteria; false-alarm tolerance set after the first numbers. Comparison with one real human audit comes after v1, when the verdict question reopens.
+- **Repo (Q19).** Working name `rgaa-assist`, private, licence undecided until the product path is real.
+- **First real test (Q20).** The PremiumShot site. Regime per project (RGAA vs European accessibility directive) to be checked by Claude and corrected by Fabien.
+## Settled (round 4)
+- **Spec authorship (Q21).** Claude drafts from this doc; Fable at high effort stress-tests, rewrites and defines the evidence model; Codex reviews; Fabien approves before any build.
+- **Milestones (Q22).** M1 coverage map of the 106 criteria + data shapes (evidence, finding, status, confidence). M2 engine (real browser, axe-core, criterion findings), run on one PremiumShot page. M3 steps/states, saved sessions, sample coverage check. M4 outputs (grid with evidence, JSON, human report, ARA-compatible export). M5 evaluation corpus and v1 bar, starts alongside M2 and gates every later milestone. M6 provider-neutral LLM interface, "no model" mode, MCP server. M7 skill.
+- **Approvals (Q23).** Fabien approves three times: the spec, M1 (coverage map), final v1. Codex reviews every gate independently. Fable passes the others on tests, corpus numbers and diff review, one short summary per milestone.
+- **Orchestration (Q24).** Claude Code session with Fable spawning Opus and Sonnet agents in separate worktrees, for M1 and M2. Small ceiling for M1 (guess: a few tens of dollars), revisited with the measured number before M2. Scripted workflow reconsidered after M2.
+- **Hard stops for Fable (Q25).** (1) any change to this doc; (2) any ambiguity touching the claim boundary; (3) a ceiling reached; (4) the same gate failed twice; (5) a source (RGAA text, criteria data, library licence) differing from what the spec assumed. Everything else Fable decides and logs on the bridge.
+- **Regime of Fabien's own sites (Q20 follow-up).** Fabien is sole owner, no turnover, no headcount. Not Article 47 (public sector or companies at or above 250M EUR turnover). Likely outside the European Accessibility Act via the microenterprise exemption for services; to confirm, not legal advice. For client sites the regime is the client's and is recorded per project in the sample file as "regime to confirm" unless stated. The tool is used as a quality practice, not a compliance claim.
+## Settled (round 5)
+- **Language (Q26).** Criterion names and test wording in French, as the official RGAA text gives them. Report prose language set per run, English by default, French available. Code, spec and logs in English.
+- **Model use and privacy (Q27).** Claude wired first. Sending page content to a model is off by default and enabled per project in the sample file. The report states which content went to which model. "No model" mode is the default, so nothing leaves the machine unless asked.
+- **Out of scope for v1 (Q28).** Real screen reader or other assistive-tech testing (those criteria stay "needs review"); browsers other than Chromium; real devices (mobile = viewport only); documents (PDF, Office), downloads, video/audio beyond what the page exposes; native mobile apps; crawling; accessibility statements; any verdict; a graphical interface.
+
+## Status
+Grilling frontier empty as of 2026-11-12. Waiting for Fabien's explicit confirmation of shared understanding. Nothing is built; spec draft and kickoff brief not started.
+
+## Facts Claude still has to verify while drafting the spec (not decisions)
+- Sampling and template rules against the official DINUM audit kit (currently from commercial sources).
+- Licence and export format of ARA, the official audit kit, Asqatasun, cegape/audit-rgaa; licence and currency of criteres.json (RGAA data).
+- Asqatasun "117 of 257 tests" figure from the ChatGPT thread.
+- Whether Fable 5.2 benchmark claims hold (Anthropic-reported only).
+## Confirmed
+Fabien confirmed shared understanding on 2026-11-12. The "grilling in progress" line at the top is superseded.
+
+## After confirmation
+- Repo created at ~/Documents/rgaa-assist (git initialised, nothing committed, no remote). This doc is mirrored there as docs/decisions.md.
+- Spec draft 0.1 is at ~/Documents/rgaa-assist/docs/spec.md and as bridge doc `spec.md` in the rgaa-assist channel. Awaiting Codex review, then Fabien's approval.
+- **Finding against Q12:** ARA has a CSV export but no audit import (DISIC/Ara source; issue 665 closed as duplicate, May 2025). "Compatible with ARA's import" cannot be met as written. The spec writes the grid in ARA's export layout and raises this as open question OQ1 for Fabien.
+- Sampling rules verified against the official text: mandatory pages when they exist, added pages by service type and distinct template, plus at least 10% random pages. No page count is prescribed.
+## Settled after the spec draft (2026-11-12)
+- **Q12 amended (OQ1).** ARA has no audit import, so "compatible with ARA's import" is replaced by: v1 writes the grid as CSV in the layout of ARA's export, and the human finishes the audit by hand from the HTML report. A pre-filled official audit spreadsheet is the first candidate after v1, only once checked that its built-in formulas would not display a conformance rate (not yet verified). No use of ARA's web API without DINUM's agreement.
+- **M1 ceiling (OQ4).** 50 USD, with a check-in at 25 USD where Fable reports how many of the 258 coverage entries are done; under half means stop and re-split. Estimate, not a measurement. Open: whether the build runs on API billing or a subscription; on a subscription the ceiling is a share of the weekly limit and the API-equivalent cost is logged for comparison only.
+- **Drafting choices (spec 17.2).** All nine confirmed: no rate computed at all; a model only suggests and never changes a status; confidence is measured accuracy on the corpus; "passed" and "not applicable" only on tests the coverage map marks full; sample file is JSON with absentKinds; one self-contained HTML report; a failed step marks the target "not tested" and the run continues; aggregation policy belongs to the ruleset plug-in; no recording of human review decisions in v1.
+- **Still open:** OQ2 (a "wait for" step, decided at M3 if needed) and OQ3 (false-alarm limit, set after M2's numbers).
+- **Pending edit:** the spec still shows these as open. It is held unchanged while Codex reviews draft 0.1, and will be updated with the review's outcome in one pass.
+- **Billing.** The build runs on Fabien's Claude subscription (Pro plan, extra usage off), not API billing. Plan limits are hard: when a window is full the agents stop until it resets. The 50 USD figure is kept only as an API-equivalent log for comparison.
+- **Proposed, not yet confirmed:** express the M1 ceiling as plan usage. Start M1 just after a weekly reset; stop at 40% of the weekly all-models limit, check-in at 20%; stop if the Fable weekly limit passes 50%. Whether M1 fits inside that is unknown until the check-in.
+- **M1 ceiling confirmed (2026-11-12), replaces the "proposed" line above.** M1 starts just after a weekly reset. It stops at 40% of the weekly all-models limit, with a check-in at 20% (Fable reports how many of the 258 coverage entries are done; under half means stop and re-split). It also stops if the Fable weekly limit passes 50%. If M1 does not fit, it continues after the next reset. The 50 USD API-equivalent figure is logged for comparison only.
+## Settled after Codex's independent review of spec 0.1 (2026-11-12)
+Review: ~/Documents/Codex/2026-11-12/rgaa-independent-spec-review/outputs/rgaa-spec-0.1-independent-review.md. Findings R1 to R9 accepted and applied in spec draft 0.2.
+- **Final v1 acceptance (Q29).** v1 is labelled experimental. Before final approval, a small single-arm trial: Fabien audits three PremiumShot pages with the tool, times it, and notes for each reviewed criterion whether the evidence let him decide, plus the effort of carrying results to the final medium. Pass criteria are written down before the trial. A passing trial supports only a narrow statement about this reviewer, these pages.
+- **Who validates RGAA interpretations (Q30).** Three layers: every corpus label and coverage entry cites the official test wording and glossary, and anything not derivable from that text stays "needs review"; Codex cross-checks the labels; Fabien spot-checks at M1. A paid auditor is considered only if the product path opens. Recorded as the weakest point of the project.
+- **State postconditions (Q31, closes OQ2).** An `expect` field (a visible element and/or a URL) is required for every state other than the initial one and for every page behind a login. If it is not met, the target is "not tested". The step language stays at five actions (Q16 unchanged).
+- **What M1 approval authorises (Q32).** Demotions are free. A new ability to say "failed" is delegated to Fable and Codex, with corpus cases. A new ability to say "passed" or "not applicable" comes back to Fabien, batched at milestone gates.
+- **Capture on authenticated pages (Q33).** Screenshots off by default on authenticated pages, enabled per page. Chosen regions can be masked. Content from authenticated pages goes to a model only with a second, separate switch.
+- **Minimum useful set (Q34).** Named at M1 as part of the coverage map. The corpus is split into a working set and a held-back acceptance set. The false-alarm limit is frozen before the acceptance set is first run.
+
+## Corrections to facts recorded earlier
+- "Automation covers about 20-40% of criteria" (Q7) is an estimate from commercial sources, not a measured figure for this tool.
+- The Asqatasun "117 of 257 tests" figure is published by ADULLACT in a dataset hosted on data.gouv.fr. It is not a government benchmark.
+- ARA's API is documented locally (Swagger in its backend README). What is missing is a supported third-party contract for the hosted service. The constraint "no use without DINUM's agreement" stands as a project choice.
+- Article 47's scope is wider than "public sector and companies at or above 250M EUR": some private bodies with a public-service mission are covered too. Fabien's own classification stays an assumption from the facts he gave; no client classification follows from it.
+- The official audit spreadsheet contains conformity-rate formulas (Codex, structural inspection of the ODS). A pre-filled copy would display a rate, so any future workbook must be an adapted one with those calculations removed.
+- The official method allows self-evaluation as well as third-party evaluation.
+## After Codex's re-check of draft 0.2 (2026-11-14)
+
+Codex's re-check found five remaining defects in spec draft 0.2 (F1 to F5). All five held when checked against the text. Fabien answered "All as recommended".
+
+- **False-alarm limit (Q35, amends Q18 and Q34).** On the corpus, every labelled case must return exactly its expected status, so false alarms there are zero and no tolerance applies. The adjustable limit moves to the trial: it counts the "failed" results Fabien judges wrong on the three real pages, and is set with the other trial criteria before M7. The M2 step "Fabien sets the false-alarm limit" is removed.
+- **What an approval covers (Q36, tightens Q32).** Approval attaches to an entry's content (its requirements, links and applicability), not to its level. Any change to an enabled entry other than a demotion needs the same approval again: Fabien for "passed" and "not applicable", Fable and Codex for "failed".
+- **Drafting choices confirmed with the revision (spec 0.3).**
+  - Checks combine by "and" only. When a requirement accepts several routes, one check must examine all of them before the tool may say "passed" (F1).
+  - The saved session is loaded only for pages marked `authenticated`. All other pages are examined logged out. The Q33 protections follow the session actually loaded (F3).
+  - `expect` is also evaluated on the page as loaded. A state whose expectation is already met there is "not tested" (F4).
+  - A missing process step counts as "not tested" in the normal ordering and does not override a failure (F5).
+  - The trial's claim is limited to what Fabien observed on the three pages.
+## After Codex's re-check of draft 0.3 (2026-11-15)
+
+Codex's re-check found the five earlier findings resolved and three new defects in text added by 0.3 (G1, G2 and one overstated sentence). All three held. Fabien answered "Yes, revise to 0.4". No decision is reopened.
+
+- **Approval hash (G1, applies Q36 as written).** An approval covers every field of the entry, including the test id, `needs` and the rationale. Only the `enabled` level is outside the hash, because the approval records it.
+- **Check versions (Claude's addition, accepted with the revision).** An enabled entry runs as `none` when a linked check differs from the version its corpus cases were measured on, until those cases pass again. This needs no new approval from Fabien, because the entry did not change.
+- **Combining checks (G2).** Errors and disagreements are kept as separate facts for each requirement. The test is derived in a fixed order: proven failure, then error, then disagreement or unresolved evidence, then the positive results.
+- **Login (narrows a claim, within Q17).** The saved session is the only supported way to be logged in. Addresses that carry a credential, one-time login links and login steps are unsupported in v1. The tool guarantees only that no saved session is loaded on other pages.
+- **Pre-M1 Fable-versus-Opus check.** Drafted on 2026-11-14 (bridge doc `m1-ab-check-draft.md`, channel `rgaa-assist`) and reviewed by Codex. Not run and not decided. Claude recommends shelving it and answering the question inside M1.
+- **Pre-M1 model check shelved (Q37, 2026-11-15).** Fabien answered "Yes, shelve it". The Fable-versus-Opus check in `m1-ab-check-draft.md` is not run. Its question is answered inside M1: Opus writes the entries as planned, Codex cross-checks the entries written so far at the 20% check-in, and the orchestrator reports the errors by kind of entry. The roles stay as decided. Changing who writes entries remains Fabien's decision. This supersedes the "not run and not decided" line above.
+## Spec approval (2026-11-15)
+
+- **Fabien approved the specification** ("Approve the spec"), as draft 0.4. This is the first of his three approvals. The M1 coverage map and final v1 remain his to approve, as do all new abilities to say "passed" or "not applicable" (Q32, Q36).
+- **What was approved.** The text Codex re-checked and found ready, with no blocking defect: `docs/spec.md` sha256 `f31c72b358a3a46a8d04999aa92ca59c8cc475659b04078a40a5951b8d3d7403`. After approval the file changed only in status lines (header, the Spec row in 14.1, one line in 17.1).
+- **Three notes from that re-check go into the M1 brief, not the spec:** validate inputs before deriving a result; raising an entry after a manual demotion needs the specified approver and is never restored from an old record; a check-version suspension restores only the level already authorised.
+- **M1 start.** Not before the weekly reset of Saturday 2026-11-21 16:00 UTC. On 2026-11-15 the Fable weekly limit was at 100% and the all-models weekly limit at 61%, from other work. M1 needs a week where that allowance is kept for it.
