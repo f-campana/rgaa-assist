@@ -1,0 +1,130 @@
+{
+  "test": "6.2.1",
+  "requirements": [
+    {
+      "id": "link-has-content-name",
+      "statement": "Each link has a name (intitulé) given by its content, between its opening and closing tags.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "6.2.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque lien a-t-il un intitulé entre `<a>` et `</a>`"
+        },
+        {
+          "source": "methodology",
+          "test": "6.2.1",
+          "quote": "Pour chaque lien, vérifier que le contenu de l’élément `<a>` (ou d’un élément pourvu d’un attribut WAI-ARIA `role=link`) contient un intitulé (texte ou alternative)"
+        },
+        {
+          "source": "glossary",
+          "entry": "Lien",
+          "quote": "Balise <a> possédant un attribut href ;"
+        },
+        {
+          "source": "glossary",
+          "entry": "Lien",
+          "quote": "Balise possédant un attribut WAI-ARIA role=\"link\" et dont l’action de navigation est prise en charge par un script."
+        }
+      ],
+      "routes": [
+        {
+          "id": "text-content",
+          "statement": "The link contains text, in itself or in its child elements.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "6.2.1",
+              "quote": "contient un intitulé (texte ou alternative)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Intitulé (ou nom accessible) de lien",
+              "quote": "du texte contenu dans les éléments enfants du lien."
+            }
+          ]
+        },
+        {
+          "id": "image-alternative",
+          "statement": "The link contains one or more images (img, role=\"img\", object, canvas or svg) whose text alternative gives the name.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Intitulé (ou nom accessible) de lien",
+              "quote": "le « nom accessible » correspond au texte constitué à partir de l’alternative textuelle d’une ou plusieurs images dans le lien du type :"
+            }
+          ]
+        },
+        {
+          "id": "svg-title-or-text",
+          "statement": "For an SVG link, a <title> element that is a direct child of the link, or the text of one or more <text> elements in it, gives the name.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Intitulé (ou nom accessible) de lien",
+              "quote": "Sinon, contenu de l’élément <title> enfant direct du lien ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Intitulé (ou nom accessible) de lien",
+              "quote": "Sinon, contenu texte d’un ou plusieurs éléments <text>."
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien",
+              "quote": "Balise <a> possédant un attribut xlink:href en SVG 1.1."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "anchor-not-link",
+          "statement": "An <a> element used as an anchor, without href, is not a link and is not concerned.",
+          "citations": [
+            {
+              "source": "technical_note",
+              "criterion": "6.2",
+              "quote": "Une ancre n’est pas un lien même si pendant longtemps l’élément `<a>` a servi de support à cette technique. Elle n’est donc pas concernée par le présent critère."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/link-name",
+      "requirement": "link-has-content-name",
+      "routes": ["text-content", "image-alternative"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/6-2-link-content-name",
+      "requirement": "link-has-content-name",
+      "routes": ["text-content", "image-alternative", "svg-title-or-text", "anchor-not-link"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording asks for the name between <a> and </a>, and the methodology checks the content of the element for text or an alternative. So the routes are the forms of content the glossary lists: text, image alternatives, and for SVG links a <title> child or <text> elements. Anchors without href are excluded by the technical note. axe's link-name is evidence only. It accepts aria-label, aria-labelledby and title, which are not content, so its clean result proves nothing. Its fault proves nothing for sure either: I could not confirm that its subtree text counts every image alternative the glossary counts (svg, object, canvas), and it skips role=link elements and SVG xlink:href links, so its scope is partial. The custom check computes the name from content only. Its fault is narrow: an <a> with href, rendered and exposed to assistive technologies, whose content gives no name, and which has no aria-label, aria-labelledby or title either. Such a link has no name at all, under the wording and under the glossary's note that a link without content fails 6.2, so the fault proves the test fails. A link whose only name is an attribute is cannot_tell: the wording rejects it, but I did not want a failure to rest on that reading alone. The entry is fail_only and not full, because one kind of element the test covers, an element with role=link, is a link only when a script handles its navigation, and code cannot decide that; the check abstains on such elements when their content gives no name. Applicability is judgment for the same reason. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "Note 4 : lorsqu’un lien ne comporte aucun contenu, il sera non conforme au regard du critère 10.2 et du critère 6.2."
+      },
+      {
+        "source": "methodology",
+        "test": "6.2.1",
+        "quote": "Si c’est le cas pour chaque lien, **le test est validé**."
+      }
+    ]
+  }
+}
