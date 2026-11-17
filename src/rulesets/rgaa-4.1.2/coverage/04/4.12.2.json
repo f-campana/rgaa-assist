@@ -1,0 +1,104 @@
+{
+  "test": "4.12.2",
+  "requirements": [
+    {
+      "id": "functions-activable",
+      "statement": "For each non-temporal media, each of its functions can be activated with the keyboard and any pointing device, or a function in the page that performs the same action can.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.12.2",
+          "line": 1,
+          "quote": "Pour chaque média non temporel, chaque fonctionnalité vérifie-t-elle une de ces conditions"
+        },
+        {
+          "source": "methodology",
+          "test": "4.12.2",
+          "quote": "Retrouver dans le document les médias non temporels pourvus de fonctionnalités de contrôle"
+        }
+      ],
+      "routes": [
+        {
+          "id": "function-activable",
+          "statement": "The action of the function can be triggered, either way, by a press of the pointer or the Enter key; for components such as sliders, other keys such as the arrow keys may be used.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.12.2",
+              "line": 2,
+              "quote": "La fonctionnalité est activable par le clavier et tout dispositif de pointage ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "est activable au clavier et par tout dispositif de pointage lorsque l’utilisateur peut enclencher, indifféremment, l’action prévue par le composant d’interface par une pression du pointeur ou la touche entrée du clavier"
+            },
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "Dans ces situations, d’autres touches (comme les touches de direction) peuvent être utilisées."
+            }
+          ]
+        },
+        {
+          "id": "equivalent-function-activable",
+          "statement": "A function present in the page that performs the same action is activable with the keyboard and any pointing device.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.12.2",
+              "line": 3,
+              "quote": "Une fonctionnalité activable par le clavier et tout dispositif de pointage permettant de réaliser la même action est présente dans la page."
+            }
+          ]
+        },
+        {
+          "id": "documented-shortcuts",
+          "statement": "Where the technology makes focus handling too complex or unstable for Tab, arrow and Enter keys alone, keyboard shortcuts perform the function, provided they are correctly documented, work, and meet criterion 12.10.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "Dans ce cas, la mise à disposition de raccourcis clavier peut être la seule solution pour rendre le composant utilisable."
+            },
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "Le critère ne peut être considéré comme conforme qu’à la condition que les raccourcis clavier utilisés soient correctement documentés, qu’ils soient fonctionnels et qu’ils respectent le critère 12.10."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "keyboard",
+    "state"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with three routes for each function of a non-temporal media: the function itself can be activated with the keyboard and with any pointing device, another function in the page performs the same action and can, or, where focus handling is too complex for the usual keys, documented working keyboard shortcuts perform it (the glossary note on keyboard access). The glossary defines activable as triggering the action with a pointer press or the Enter key, other keys such as arrows being allowed for sliders. Deciding this needs a keyboard pass and judgment. Which elements are the functions of a non-temporal media such as an interactive map or an application is not marked in the code, and content drawn in a canvas or a plugin exposes no elements at all. Whether another function in the page performs the same action, and whether shortcuts are documented, needs reading. So even a control that cannot be activated by keyboard is not a mechanical fault: an equivalent may exist elsewhere. No axe rule is tagged for this test and no check is registered, so there are no links and the entry stays at none. The check custom/7-3-handler-not-focusable, registered for 7.3.1, finds elements with pointer or key listeners that are not in the focus order; it is not linked, because it does not know whether an element is a function of a media, and its fault says nothing about the equivalent-function and shortcut routes. Applicability is judgment: whether an element is a non-temporal media with control functions cannot be decided from the markup with certainty. Needs lists keyboard, because the methodology asks whether each function can be activated by keyboard, and state, because the functions of an interactive media often appear only after interaction.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.12",
+        "quote": "est-elle contrôlable par le clavier et tout dispositif de pointage"
+      },
+      {
+        "source": "glossary",
+        "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+        "quote": "Dans le référentiel, l’expression « contrôlable par le clavier et tout dispositif de pointage » se rapporte également à la présente définition."
+      },
+      {
+        "source": "test",
+        "test": "4.12.2",
+        "line": 1,
+        "quote": "chaque fonctionnalité vérifie-t-elle une de ces conditions"
+      }
+    ]
+  }
+}
