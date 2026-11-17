@@ -23,7 +23,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 ## In flight
 
 - Step 3 is done: Codex's focused confirmation of `67d2938` is clean (`rgaa-m1-final-67d2938-focused-confirmation.md`). Entry writing is cleared under Q41.
-- Step 4, batch 1: builder A (1.1, 1.5; 10 tests) and builder B (8.1, 8.2, 8.5 to 8.10; 11 tests) running in parallel since 2026-11-17 13:40 and 13:50 UTC. 11.2 to 11.5 next.
+- Step 4, batch 1: builder A merged (`ad72cdb`): 10 entries, 9 `none`, 1 `fail_only` (1.1.3). Builder B (8.1, 8.2, 8.5 to 8.10; 11 tests) running. 11.2 to 11.5 next. Entries now 24 of 258.
 
 ## Where M1 stands, 2026-11-17
 
@@ -56,6 +56,9 @@ Also logged on the bridge, channel `rgaa-assist`.
 - Entry writers work from generated theme packets (`pnpm packets`, into the gitignored `work/packets/`), not from the raw files.
 
 ## Findings to report at the gate
+
+- Builder A: `needs` applies to a whole test, but the glossary makes assistive technology a condition of one route (Note 6 of "Alternative textuelle (image)": a `title` alternative is confirmed with assistive technology). Writers put it in the rationale as a reason no 1.1 entry can be `full`. A guide rule on route-conditional needs would settle it.
+- Builder A added to 1.1.1, 1.1.5 to 1.1.8 the exceptions for an image that is the only content of a link or a button (notes of "Image porteuse d'information"), and gave axe `object-alt` scope `partial` on 1.1.6. Both lower claims; neither contradicts spec 6.1 and 6.2.
 
 - The pilot's cross-check: the two entries that over-claimed were the two the writer listed as least sure. The guide now tells writers to lower any claim they doubt.
 - The orchestrator read 8.3.1 before Codex did and did not see the hole in its list of texts. Its own review is not a substitute for the cross-check.
