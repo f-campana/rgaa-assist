@@ -1,0 +1,63 @@
+{
+  "test": "4.6.2",
+  "requirements": [
+    {
+      "id": "audio-description-relevant",
+      "statement": "For each synchronized media that has a synchronized audio description, the audio description is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.6.2",
+          "line": 1,
+          "quote": "Pour chaque média temporel synchronisé ayant une audiodescription synchronisée, celle-ci est-elle pertinente"
+        },
+        {
+          "source": "methodology",
+          "test": "4.6.2",
+          "quote": "vérifier que l’audiodescription synchronisée est pertinente"
+        }
+      ],
+      "routes": [
+        {
+          "id": "describes-voiceable-visual-information",
+          "statement": "The audio description gives all the visual information that can be voiced in the gaps of the main soundtrack, embedded text in particular: actions, characters, scene changes and text shown on screen.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "4.6.2",
+              "quote": "toutes les informations visuelles qu’il est possible de vocaliser dans les blancs de la bande son principale sont présentes, les textes incrustés notamment"
+            },
+            {
+              "source": "glossary",
+              "entry": "Audiodescription synchronisée (média temporel)",
+              "quote": "l’audiodescription d’une vidéo fournit de l’information à propos des actions, des personnages, des changements de scènes, du texte apparaissant à l’écran et d’autres contenus visuels."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The test asks whether an existing audio description is relevant. The methodology says what relevant means: all the visual information that can be voiced in the gaps of the main soundtrack is present, embedded text in particular, and the glossary lists actions, characters, scene changes and on-screen text. Comparing a narration with the images it describes is judgment and needs the media to play. No axe rule is tagged for this test and no deterministic check can decide it, so there are no links and the entry stays at none. A media without an audio description is outside this test (it belongs to criterion 4.5). Criterion 4.6 has no particular cases. Applicability is judgment: whether a media has an audio description cannot be decided from the markup, since HTML has no element that marks one reliably. Needs lists media.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.6",
+        "quote": "ayant une audiodescription synchronisée, celle-ci est-elle pertinente"
+      },
+      {
+        "source": "glossary",
+        "entry": "Audiodescription synchronisée (média temporel)",
+        "quote": "Narration ajoutée (via un fichier son) à une piste sonore pour décrire les détails visuels importants"
+      }
+    ]
+  }
+}
