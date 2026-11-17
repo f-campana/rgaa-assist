@@ -23,7 +23,8 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 ## In flight
 
 - Batch 1 merged: builder A (`ad72cdb`, 1.1 and 1.5) and builder B (`2123b43`, 8.1, 8.2, 8.5 to 8.10). Entries: 35 of 258 (none 24, fail_only 10, full 1: 8.5.1). 414 tests pass.
-- Batch 2: builder D merged (`a6fe2a4`, theme 9: 9 entries). Entries: 44 of 258 (none 31, fail_only 12, full 1). Builder C (11.2 to 11.5) running.
+- Batch 2 merged: builder D (`a6fe2a4`, theme 9) and builder C (`16bac2a`, 11.2 to 11.5). Entries: 56 of 258 (none 40, fail_only 15, full 1). 94 check records, sorted, no duplicates.
+- Batch 3 launched 2026-11-17 14:40 UTC at 91% weekly: builders E (theme 3) and F (theme 5). The weekly limit may cut them; they commit per criterion and resume after Fabien's limit reset.
 
 ## Where M1 stands, 2026-11-17
 
@@ -59,6 +60,8 @@ Also logged on the bridge, channel `rgaa-assist`.
 
 - Builder B's claims, for the cross-check: 8.5.1 `full` (fault only when no HTML title exists anywhere; passed only on a first title in head with a letter or digit; frames abstain); 8.2.1 `fail_only` on duplicate ids, hidden elements included; 8.10.1 `fail_only` faults right-to-left text with no `dir` ancestor, a single Arabic name in French text included, by the wording « chaque texte », where an auditor following WCAG H56 might not; 8.10.2 `fail_only` treats `dir="auto"` as not « conforme (rtl ou ltr) ». Builder B listed 8.10.1 among its least sure, against the guide's rule; the orchestrator kept it because the doubt is about auditors' practice, not the official text. Codex should rule.
 - Builder D's claims, for the cross-check: 9.1.2 `fail_only` treats an empty, exposed `<hx>` as a heading whose content cannot be relevant; 9.2.1 `fail_only` through two checks, one of which (`custom/9-2-main-missing`) faults a page with no `<main>` by reading the glossary's « Cette zone est unique dans la page » as "every page has one". Builder D listed that check as its least sure; it offers `evidence_only` as the fallback, which would keep 9.2.1 at `fail_only` through `custom/9-2-main-multiple-shown`. Codex should rule.
+- Builder C's claims, for the cross-check: 11.2.1, 11.2.2, 11.2.3 `fail_only`, each on an empty label mechanism (`<label>`, `title`, `aria-label`) that is the field's only one, read as failing 11.2.x because 11.1.1 asks only for presence. 11.2.4 stays `none`: the glossary does not say whether an empty referenced element is a « passage de texte ». Check that this reason is not "another test owns it".
+- Schema limits reported by builder C: no prerequisite expresses a multi-page comparison (11.3.2); one check returns one page result, so it cannot serve two requirements over different elements.
 - Builder D linked axe list rules to 9.3.2 though axe does not tag them for it (evidence only). The guide allows links on an argued basis; an axe tag justifies a link but is not required.
 - Tests 8.1.1 to 8.1.3 turn on the served source, which v1 does not read (spec 15, Q9). They stay `none`.
 

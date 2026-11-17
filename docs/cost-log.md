@@ -34,6 +34,7 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-17 11:45 | Q43 applied (Opus medium about 100k, Sonnet medium about 92k tokens); 8.3.1 and 11.1.1 corrected (Opus high, about 152k tokens); focused re-check requested | 77% | n/a | 5-hour window at 38%. |
 | 2026-11-17 13:40 | 8.3.1 witness fix merged (Sonnet medium, about 84k tokens); Codex's confirmation clean; entries builder A launched (Opus high, 10 tests) | 80% | n/a | 5-hour window at 62%. The corrections cycle cost about 11 points of the weekly limit in all. |
 | 2026-11-17 14:15 | Batch 1 merged: builder A (Opus high, about 232k tokens, 10 entries), builder B (Opus high, about 257k tokens plus a run cut by the 5-hour limit, 11 entries); 85% stop lifted (Q44) | 86% | n/a | About 6 points for 21 entries: 0.29 point per entry. 5-hour window at 12% after its reset. |
+| 2026-11-17 14:40 | Batch 2 merged: builders C (Opus high, about 237k tokens, 12 entries) and D (Opus high, about 210k tokens, 9 entries); batch 3 launched | 91% | n/a | About 5 points for 21 entries: 0.24 point per entry. |
 
 ### What day 1 says about cost
 
