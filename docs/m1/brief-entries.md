@@ -25,8 +25,12 @@ The orchestrator's prompt tells you which builder you are.
 | 2 (merged) | D | 9.1, 9.2, 9.3, 9.4 | 9 | `09/` |
 | 3 (merged) | E | 3.1, 3.2, 3.3 | 15 | `03/` |
 | 3 (merged) | F | 5.1 to 5.8 | 15 | `05/` |
-| 4 | G | 4.2 to 4.13 | 22 | `04/` |
-| 4 | H | 13.1 to 13.12 | 21 | `13/` |
+| 4 (merged) | G | 4.2 to 4.13 | 22 | `04/` |
+| 4 (merged) | H | 13.1 to 13.12 | 21 | `13/` |
+| 5 | I | 1.2, 1.3, 1.4 | 22 | `01/` |
+| 5 | J | 6.1, 7.1, 7.2, 7.4, 7.5 | 14 | `06/`, `07/` |
+| 6 | K | 1.6, 1.7, 1.8, 1.9 | 27 | `01/` |
+| 6 | L | 10.1 to 10.6, 10.8 | 14 | `10/` |
 
 Test 1.1.6 is the spec's reference case (spec 6.1 and 6.2). An entry that contradicts it is wrong.
 

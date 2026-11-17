@@ -26,7 +26,8 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 - Batch 2 merged: builder D (`a6fe2a4`, theme 9) and builder C (`16bac2a`, 11.2 to 11.5). Entries: 56 of 258 (none 40, fail_only 15, full 1). 94 check records, sorted, no duplicates.
 - Batch 3 merged: builder E (`c17318a`, theme 3) and builder F (`6497c3e`, theme 5), all 30 at `none`. Entries: 86 of 258 (none 70, fail_only 15, full 1).
 - Batch 4 merged: builder G (`307da9a`, 4.2 to 4.13) and builder H (`7fd2308`, theme 13). Entries: 129 of 258 (none 112, fail_only 16, full 1). 414 tests pass; 96 check records, sorted, no duplicates.
-- Paused 2026-11-17 15:00 UTC at 97% weekly and 94% of the 5-hour window. Nothing running.
+- Paused 2026-11-17 15:00 UTC at 97% weekly. Fabien used his limit reset at 15:20 UTC: weekly all-models back to 1%, still ending 2026-11-21 16:00 UTC.
+- Batches 5 and 6 launched together at 15:20 UTC: builders I, J, K, L.
 - Remaining 129 tests, proposed batches once usage allows, two builders at a time:
   - batch 5: I, 1.2 to 1.4 (22); J, 6.1, 7.1, 7.2, 7.4, 7.5 (14);
   - batch 6: K, 1.6 to 1.9 (27); L, 10.1 to 10.6, 10.8 (14);
