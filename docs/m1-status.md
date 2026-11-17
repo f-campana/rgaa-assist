@@ -25,7 +25,13 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 - Batch 1 merged: builder A (`ad72cdb`, 1.1 and 1.5) and builder B (`2123b43`, 8.1, 8.2, 8.5 to 8.10). Entries: 35 of 258 (none 24, fail_only 10, full 1: 8.5.1). 414 tests pass.
 - Batch 2 merged: builder D (`a6fe2a4`, theme 9) and builder C (`16bac2a`, 11.2 to 11.5). Entries: 56 of 258 (none 40, fail_only 15, full 1). 94 check records, sorted, no duplicates.
 - Batch 3 merged: builder E (`c17318a`, theme 3) and builder F (`6497c3e`, theme 5), all 30 at `none`. Entries: 86 of 258 (none 70, fail_only 15, full 1).
-- Batch 4: builder G merged (`307da9a`, 4.2 to 4.13: 22 entries, all `none`). Entries: 108 of 258 (none 92, fail_only 15, full 1). Builder H (theme 13) running.
+- Batch 4 merged: builder G (`307da9a`, 4.2 to 4.13) and builder H (`7fd2308`, theme 13). Entries: 129 of 258 (none 112, fail_only 16, full 1). 414 tests pass; 96 check records, sorted, no duplicates.
+- Paused 2026-11-17 15:00 UTC at 97% weekly and 94% of the 5-hour window. Nothing running.
+- Remaining 129 tests, proposed batches once usage allows, two builders at a time:
+  - batch 5: I, 1.2 to 1.4 (22); J, 6.1, 7.1, 7.2, 7.4, 7.5 (14);
+  - batch 6: K, 1.6 to 1.9 (27); L, 10.1 to 10.6, 10.8 (14);
+  - batch 7: M, 10.9 to 10.14 (16); N, 11.6 to 11.13 (19);
+  - batch 8: O, theme 12 (19).
 
 ## Where M1 stands, 2026-11-17
 
@@ -66,6 +72,7 @@ Also logged on the bridge, channel `rgaa-assist`.
 - Builder E (theme 3, all `none`): the glossary says a doubled means makes criterion 3.1 « non applicable », the methodology says the test is « validé »; E followed the methodology (no effect at `none`). E linked axe `color-contrast` to the untagged 3.2.2 to 3.2.4 as evidence only, and added `media` to 3.2.1 to 3.2.4 (text in videos is in scope by the glossary).
 - Builder F (theme 5, all `none`): data and layout tables are defined by purpose, so no table is surely in scope. F put `assistive_tech` in `needs` on tests where the glossary counts an ARIA table only « lorsqu'il est correctement restitué par les technologies d'assistance »; that need depends on the page, which `needs` cannot express. 5.1.1 keeps `aria-describedby` as a route (methodology) although the technical note says it lacks support.
 - Builder G (4.2 to 4.13, all `none`): 4.3.2 has a resolving check (every `<track>` is `kind=captions`) but was lowered to `none`, because "passed" would also be given where the test does not apply (a live, video-only or decorative media). The contract cannot say "this requirement holds whether or not the test applies". No prerequisite covers examining another page, such as the target of an "alternative" link (4.8.1, 4.8.2). The 4.3.2 methodology spells `kind="caption"`, which HTML does not define; G followed the wording, `captions`.
+- Builder H (theme 13): 13.2.1 `fail_only` through `custom/13-2-window-opened-without-action` (a window opened during load, before any engine action, verified by `navigator.userActivation.hasBeenActive`; scope partial). 13.1.2 stays `none`: its particular case makes even an immediate redirect « non applicable » by judgment. `needs` has no prerequisite for a second screen orientation (13.9.1), touch gestures (13.10), device motion (13.12) or downloaded files analysed with outside tools (13.3.1, 13.4.1).
 - Builder D linked axe list rules to 9.3.2 though axe does not tag them for it (evidence only). The guide allows links on an argued basis; an axe tag justifies a link but is not required.
 - Tests 8.1.1 to 8.1.3 turn on the served source, which v1 does not read (spec 15, Q9). They stay `none`.
 
