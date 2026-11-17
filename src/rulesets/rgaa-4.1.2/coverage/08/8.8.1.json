@@ -1,0 +1,125 @@
+{
+  "test": "8.8.1",
+  "requirements": [
+    {
+      "id": "change-code-valid",
+      "statement": "For each change of language, the language code is valid.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.8.1",
+          "line": 2,
+          "quote": "Le code de langue est valide ;"
+        },
+        {
+          "source": "test",
+          "test": "8.8.1",
+          "line": 1,
+          "quote": "Pour chaque page web, le code de langue de chaque changement de langue vérifie-t-il ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "iso-639-code",
+          "statement": "The part of the indication before the first hyphen is a valid two-letter (ISO 639-1) or three-letter (ISO 639-2 and later) language code.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Code de langue",
+              "quote": "Code de 2 caractères (ISO 639-1) ou 3 caractères (ISO 639-2 et suivants)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Code de langue",
+              "quote": "L’indication du code de langue ne concerne que la partie [code] avant le tiret."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "multilingual-attribute-valid",
+          "statement": "An attribute value that holds passages in several languages.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Changement de langue",
+              "quote": "Lorsque l’attribut contient plusieurs passages de texte dans des langues différentes, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "change-code-relevant",
+      "statement": "For each change of language, the language code is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.8.1",
+          "line": 3,
+          "quote": "Le code de langue est pertinent."
+        }
+      ],
+      "routes": [
+        {
+          "id": "code-matches-text",
+          "statement": "The code names the language the passage is written in.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.8.1",
+              "quote": "L’indication de langue est pertinente."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "multilingual-attribute-relevant",
+          "statement": "An attribute value that holds passages in several languages.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Changement de langue",
+              "quote": "Lorsque l’attribut contient plusieurs passages de texte dans des langues différentes, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/valid-lang",
+      "requirement": "change-code-valid",
+      "routes": ["iso-639-code"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Two requirements: the code of each change of language is valid, and it is relevant. Relevance is judgment: whether a code names the language a passage is written in needs recognising that language. Validity looks mechanical, since the glossary reduces it to the part before the first hyphen being an ISO 639 code, but which elements it applies to is not. The methodology examines \"chaque passage de texte validé au test 8.7.1\": passages written in a language other than the default one that carry an indication, after 8.7's particular cases (proper nouns, dictionary words, submitted terms and the rest) have been set aside. An element with an invalid lang value, such as lang=\"fr_FR\" around French text on a French page, or lang=\"english\" around a proper noun, holds no such passage, so under the methodology this test says nothing about it; under a looser reading of the wording, every lang attribute is a change of language and the fault stands. A fault on an element is proof only when its text is a foreign passage outside the particular cases, which is judgment, so no failure is claimed. axe's valid-lang compares the value of every lang and xml:lang attribute below html with axe's own list of language codes. It looks at more elements than this test covers and its list may not match ISO 639 exactly, so it gets the weakest reading: it examines the validity route only, on part of the scope, and its fault is evidence. The exception from the glossary (an attribute holding several languages makes the criterion not applicable) is listed on both requirements because the glossary entry is linked from this test's wording. What would raise it: an official ruling that every lang attribute that differs from the inherited language is a change of language whatever its text, after which a check like custom/8-4-default-lang-code-valid applied to elements below html could carry a failure link. Applicability is judgment: the test does not apply to a page with no change of language, and deciding that needs 8.7.1's judgment. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "8.8.1",
+        "quote": "Pour chaque passage de texte validé au test 8.7.1, vérifier que :"
+      },
+      {
+        "source": "glossary",
+        "entry": "Code de langue",
+        "quote": "[code] représente un code de langue valide sur 2 ou 3 caractères ;"
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "8.8",
+        "quote": "le code de langue de chaque changement de langue est-il valide et pertinent ?"
+      }
+    ]
+  }
+}
