@@ -1,0 +1,56 @@
+{
+  "test": "12.5.1",
+  "requirements": [
+    {
+      "id": "search-access-identical",
+      "statement": "In each set of pages, the site search engine is reached from an identical feature.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.5.1",
+          "line": 1,
+          "quote": "Dans chaque ensemble de pages, le moteur de recherche est-il accessible à partir d’une fonctionnalité identique ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "same-means-as-other-page",
+          "statement": "Compared with the client-side generated source of another page of the same set, the means of access to the search engine, a form or an interface element giving access to the form, is the same.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.5.1",
+              "quote": "Comparer le code source (généré côté client) des deux pages et vérifier que le moyen d’accès au moteur de recherche est toujours le même (un champ de formulaire, par exemple) ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Moteur de recherche (interne à un site web)",
+              "quote": "Zone donnant accès directement (formulaire) ou indirectement (élément d’interface donnant accès au formulaire) au moteur de recherche"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test compares two pages: the methodology picks another page of the same set and compares the means of access to the search engine in their generated source. A check runs on one target and sees one page, so it cannot make that comparison. Identifying the search engine also needs judgment: the glossary means the one engine that searches the whole site, not a search restricted to a catalogue or a section, and code cannot tell the two apart from markup. Which pages form a set is established by the human. No axe rule is tagged and no custom check is registered. The entry is none. Applicability is judgment: a site without a search engine makes the test not applicable, and whether a search field is the site's search engine needs judgment. Needs is empty: the missing input is another page of the set, which no prerequisite covers.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "12.5.1",
+        "quote": "Choisir une page de l’échantillon appartenant au même ensemble que la page en cours d’audit ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Moteur de recherche (interne à un site web)",
+        "quote": "Attention à ne pas confondre cette zone de recherche, unique dans le site, avec tout autre moteur de recherche permettant par exemple de faire des recherches sur une partie restreinte du site"
+      }
+    ]
+  }
+}

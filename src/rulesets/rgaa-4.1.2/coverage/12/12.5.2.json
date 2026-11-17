@@ -1,0 +1,51 @@
+{
+  "test": "12.5.2",
+  "requirements": [
+    {
+      "id": "search-access-same-place",
+      "statement": "In each set of pages, the feature leading to the site search engine is at the same place in the presentation.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.5.2",
+          "line": 1,
+          "quote": "Dans chaque ensemble de pages, la fonctionnalité vers le moteur de recherche est-elle située à la même place dans la présentation ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "same-place-as-other-page",
+          "statement": "Compared visually with another page of the same set, the means of access to the search engine is at the same place.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.5.2",
+              "quote": "Comparer visuellement les deux pages et vérifier que le moyen d’accès au moteur de recherche est toujours à la même place dans la présentation ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test compares two pages: the methodology picks another page of the same set and compares them visually. A check runs on one target and sees one page, so it cannot make that comparison. Identifying the search engine also needs judgment: the glossary means the one engine that searches the whole site, not a search restricted to a part of it. Which pages form a set is established by the human. No axe rule is tagged and no custom check is registered. The entry is none. Applicability is judgment: a site without a search engine makes the test not applicable, and whether a search field is the site's search engine needs judgment. Needs is empty: the missing input is another page of the set, which no prerequisite covers.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "12.5.2",
+        "quote": "Choisir une page de l’échantillon appartenant au même ensemble que la page en cours d’audit ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Moteur de recherche (interne à un site web)",
+        "quote": "au moteur de recherche qui permet d’effectuer des recherches sur les contenus de l’ensemble du site."
+      }
+    ]
+  }
+}
