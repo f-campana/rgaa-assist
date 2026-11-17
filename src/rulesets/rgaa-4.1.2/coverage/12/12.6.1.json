@@ -1,0 +1,135 @@
+{
+  "test": "12.6.1",
+  "requirements": [
+    {
+      "id": "zone-reachable-or-avoidable",
+      "statement": "On each page where they are present, each of the header, main navigation, main content, footer and search engine zones meets at least one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.6.1",
+          "line": 1,
+          "quote": "Dans chaque page web où elles sont présentes, la zone d’en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche respectent-elles au moins une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "12.6.1",
+          "quote": "Si c’est le cas pour chaque zone de regroupement de contenus, **le test est validé**."
+        }
+      ],
+      "routes": [
+        {
+          "id": "landmark-role",
+          "statement": "The zone has a WAI-ARIA landmark role matching its nature: banner for the header, navigation for the main menu, main for the main content, contentinfo for the footer, search for the search engine.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.6.1",
+              "line": 2,
+              "quote": "La zone possède un rôle WAI-ARIA de type landmark correspondant à sa nature ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Landmarks",
+              "quote": "Les rôles doivent être définis dans le document en fonction de la nature de la zone"
+            }
+          ]
+        },
+        {
+          "id": "descriptive-heading",
+          "statement": "The zone has a heading whose content lets the user understand the nature of the zone's content.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.6.1",
+              "line": 3,
+              "quote": "La zone possède un titre dont le contenu permet de comprendre la nature du contenu de la zone ;"
+            },
+            {
+              "source": "methodology",
+              "test": "12.6.1",
+              "quote": "Soit possède un titre de hiérarchie dont le contenu permet de comprendre la nature du contenu de la zone ;"
+            }
+          ]
+        },
+        {
+          "id": "hide-button",
+          "statement": "The zone can be hidden with a button that directly precedes it in source order.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.6.1",
+              "line": 4,
+              "quote": "La zone peut être masquée par le biais d’un bouton précédent directement la zone dans l’ordre du code source ;"
+            }
+          ]
+        },
+        {
+          "id": "skip-link",
+          "statement": "The zone can be skipped with a skip link that directly precedes it in source order.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.6.1",
+              "line": 5,
+              "quote": "La zone peut être évitée par le biais d’un lien d’évitement précédent directement la zone dans l’ordre du code source ;"
+            }
+          ]
+        },
+        {
+          "id": "quick-access-link",
+          "statement": "The zone can be reached with a quick-access link that is visible, or else visible when it takes focus by tabbing.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.6.1",
+              "line": 6,
+              "quote": "La zone peut être atteinte par le biais d’un lien d’accès rapide visible ou, à défaut, visible à la prise de focus."
+            },
+            {
+              "source": "methodology",
+              "test": "12.6.1",
+              "quote": "Soit peut être atteinte au moyen d’un lien d’accès rapide soit visible par défaut, soit visible à la prise de focus lors d’une tabulation."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard", "state"],
+  "rationale": {
+    "text": "The test applies to five kinds of zone where they are present, and finding them is judgment. The glossary defines each by its content and purpose: the header is at the top and usually holds the title or a logo, the main content holds the page's substantive information, the footer holds site information such as the legal notice, and the search engine is the one that searches the whole site. It warns that the header and footer zones are not simply what an HTML header or footer element marks, and that the main content can be hard to determine. A fault would need a witness that is surely one of these zones, and code cannot name one without judgment; an element that already carries a landmark role is the case where the first route may hold. Each route needs judgment or interaction as well. The first needs the role to match the zone's nature. The second needs a heading whose content conveys the zone's nature, a judgment of meaning. The third needs a button that actually hides the zone, which only activating it shows. The fourth and fifth need a link that skips or reaches the zone, and the fifth one that is visible or becomes visible when focused by tabbing. No axe rule is tagged and no custom check is registered: none could decide a route, or a fault, without deciding first which zones exist. The entry is none. Applicability is judgment, since whether each zone is present is judgment. Needs is keyboard, for the quick-access link that must be visible when focused by tabbing and for links that must be followed, and state, for the content after a hide button is activated.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Zone d’en-tête",
+        "quote": "Attention à ne pas confondre cette zone d’en-tête, unique dans le site, avec tout contenu pouvant être balisé en HTML5 avec l’élément <header>."
+      },
+      {
+        "source": "glossary",
+        "entry": "Zone de contenu principal",
+        "quote": "Elle peut être difficile à déterminer sur certaines pages particulières, comme la page d’accueil."
+      },
+      {
+        "source": "glossary",
+        "entry": "Zone de pied de page",
+        "quote": "Attention à ne pas confondre cette zone de pied de page, unique dans le site, avec tout contenu pouvant être balisé en HTML5 avec l’élément <footer>."
+      },
+      {
+        "source": "methodology",
+        "test": "12.6.1",
+        "quote": "Retrouver dans le document les zones de regroupement de contenus (zones d’en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche) ;"
+      },
+      {
+        "source": "methodology",
+        "test": "12.6.1",
+        "quote": "visible à la prise de focus lors d’une tabulation"
+      }
+    ]
+  }
+}
