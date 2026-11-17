@@ -1,0 +1,256 @@
+{
+  "test": "4.2.1",
+  "requirements": [
+    {
+      "id": "audio-transcript-relevant",
+      "statement": "For each prerecorded audio-only media that has a text transcript, outside the particular cases, the transcript is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.2.1",
+          "line": 1,
+          "quote": "Pour chaque média temporel pré-enregistré seulement audio, ayant une transcription textuelle, celle-ci est-elle pertinente (hors cas particuliers)"
+        },
+        {
+          "source": "methodology",
+          "test": "4.2.1",
+          "quote": "Pour chaque média temporel seulement audio, vérifier que transcription textuelle est pertinente"
+        }
+      ],
+      "routes": [
+        {
+          "id": "transcript-relevant",
+          "statement": "The transcript gives, in chronological order, everything said in the media and all the descriptive information needed for an equivalent understanding.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Transcription textuelle (média temporel)",
+              "quote": "La totalité de ce qui y est exprimé oralement"
+            },
+            {
+              "source": "glossary",
+              "entry": "Transcription textuelle (média temporel)",
+              "quote": "Toutes les informations descriptives nécessaires à une compréhension équivalente de l’action."
+            },
+            {
+              "source": "glossary",
+              "entry": "Transcription textuelle (média temporel)",
+              "quote": "Ces informations textuelles doivent être présentées dans l’ordre chronologique de leur apparition dans le média temporel."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "decorative-media",
+          "statement": "The media is decorative: it carries no information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé à des fins décoratives (c’est-à-dire qu’il n’apporte aucune information)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.2",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "media-is-alternative",
+          "statement": "The media is itself an alternative to content of the page, such as a sign-language video or a spoken version of a text.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est lui-même une alternative à un contenu de la page (une vidéo en langue des signes ou la vocalisation d’un texte, par exemple)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.2",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "enlarged-version",
+          "statement": "The media is used to give access to an enlarged version.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé pour accéder à une version agrandie"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.2",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "captcha",
+          "statement": "The media is used as a CAPTCHA.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé comme un CAPTCHA"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.2",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "test-defeated",
+          "statement": "The media is part of a test that would become useless if the transcript, captions or audio description were given.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "fait partie d’un test qui deviendrait inutile si la transcription textuelle, les sous-titres synchronisés ou l’audiodescription étaient communiqués"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.2",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "public-sector-2019-2020",
+          "statement": "For State services, local authorities and their institutions: the media was published between 23 September 2019 and 23 September 2020 on a site created since 23 September 2018.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "si le média temporel a été publié entre le 23 septembre 2019 et le 23 septembre 2020 sur un site internet, intranet ou extranet créé depuis le 23 septembre 2018, il est exempté de l’obligation d’accessibilité"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.2",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "private-sector-before-2020",
+          "statement": "For the private-law persons named in article 47 of the law of 11 February 2005: the media was published before 23 September 2020.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "si le média temporel a été publié avant le 23 septembre 2020, il est exempté de l’obligation d’accessibilité"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.2",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The test asks whether the transcript of each prerecorded audio-only media is relevant. The glossary defines a transcript as giving everything said and all the descriptive information needed, in chronological order. Comparing a text with what a recording says is judgment: it needs someone to listen and read. No axe rule is tagged for this test, and no deterministic check can decide relevance, so there are no links and the entry stays at none. A missing transcript is not a fault here: it makes this test not applicable to the media and belongs to criterion 4.1. The particular cases of criterion 4.1 apply to this criterion by their own text and are listed as exceptions; all of them need judgment or facts the page does not hold (decorative use, publication date). Applicability is judgment: whether a media is prerecorded, audio-only and has a transcript cannot be decided from the markup with certainty. Needs lists media, because the content of the recording is known only once it plays.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.2",
+        "quote": "celles-ci sont-elles pertinentes (hors cas particuliers)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Transcription textuelle (média temporel)",
+        "quote": "La totalité de ce qui y est exprimé oralement"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "4.1",
+        "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+      }
+    ]
+  }
+}
