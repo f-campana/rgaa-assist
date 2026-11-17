@@ -1,0 +1,156 @@
+{
+  "test": "3.2.5",
+  "requirements": [
+    {
+      "id": "mechanism-text-contrast",
+      "statement": "In each mechanism that displays a compliant contrast ratio, the contrast between the text and its background colour is high enough, outside the particular cases of the criterion.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "3.2.5",
+          "line": 1,
+          "quote": "le rapport de contraste entre le texte et la couleur d’arrière-plan est-il suffisamment élevé"
+        },
+        {
+          "source": "methodology",
+          "test": "3.2.5",
+          "quote": "Pour chacun de ces mécanismes, vérifier que le rapport de contraste entre le texte et la couleur d’arrière-plan est suffisamment élevé"
+        }
+      ],
+      "routes": [
+        {
+          "id": "sufficient-contrast",
+          "statement": "The texts of the mechanism have a contrast high enough; the glossary asks the mechanism's own design to conform to criterion 3.2 without relying on a mechanism itself.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "3.2.5",
+              "line": 1,
+              "quote": "le rapport de contraste entre le texte et la couleur d’arrière-plan est-il suffisamment élevé"
+            },
+            {
+              "source": "glossary",
+              "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+              "quote": "Le design de ce composant d’interface devra être conforme au critère 3.2 et au critère 3.3 sans avoir recours lui-même à un mécanisme permettant d’afficher un rapport de contraste conforme."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "logo-or-brand",
+          "statement": "The text is part of a logo or of the brand name of an organisation or a company.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Le texte fait partie d’un logo ou d’un nom de marque d’un organisme ou d’une société"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Dans ces situations, les critères sont non applicables pour ces éléments"
+            }
+          ]
+        },
+        {
+          "id": "decorative-text",
+          "statement": "The text or the image of text is purely decorative.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Le texte ou l’image de texte est purement décoratif"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Dans ces situations, les critères sont non applicables pour ces éléments"
+            }
+          ]
+        },
+        {
+          "id": "non-essential-text-in-image",
+          "statement": "The text is part of an image that conveys information, but the text itself brings no essential information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Le texte fait partie d’une image véhiculant une information mais le texte lui-même n’apporte aucune information essentielle"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Dans ces situations, les critères sont non applicables pour ces éléments"
+            }
+          ]
+        },
+        {
+          "id": "inactive-component",
+          "statement": "The text or image of text is part of an interface element on which no action is possible, such as a disabled button.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Le texte ou l’image de texte fait partie d’un élément d’interface sur lequel aucune action n’est possible"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Dans ces situations, les critères sont non applicables pour ces éléments"
+            }
+          ]
+        },
+        {
+          "id": "text-in-pictured-object",
+          "statement": "The text is part of something shown in an image or a video (a sign, a poster), which the contrast measure does not concern.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Contraste",
+              "quote": "Les textes présents dans les éléments d’une image ou d’une vidéo (par exemple un écriteau, une affiche…) ne sont pas concernés."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test applies to each mechanism that displays a compliant contrast ratio, an interface component whose activation changes the appearance of the site or page so that contents show with enough contrast. Finding one is judgment: code cannot tell a contrast switch from any other button without reading its label and trying it, and the glossary also asks that it keep contents and functions identical, which is judgment. The wording asks whether the contrast is \"suffisamment élevé\" and gives no threshold. The glossary says the component's design must conform to criterion 3.2 without relying on a mechanism itself, which points to the thresholds of 3.2.1 to 3.2.4, but the test does not say whether it examines the component's own texts or the texts the mechanism displays once activated. The entry states the requirement in the test's words and leaves that reading open. The particular cases of criterion 3.2 apply to the criterion's tests, so they are listed as exceptions; the glossary's limit on text pictured in images and videos is listed too, because the criterion's title links that glossary entry. No axe rule is tagged for this test. axe's color-contrast measures text but cannot tell which component is a mechanism, so its result says nothing about this test; it is not linked. No custom check is registered for the same reason. The candidate is none, with no link. Applicability is judgment: whether a page holds a mechanism cannot be decided by code. Needs is state: the mechanism's effect is seen only once it is activated, and the component may sit inside a settings panel that must be opened first.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "3.2.5",
+        "line": 1,
+        "quote": "Dans le mécanisme qui permet d’afficher un rapport de contraste conforme"
+      },
+      {
+        "source": "glossary",
+        "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+        "quote": "Ce mécanisme doit conserver à l’identique les contenus et les fonctionnalités du site ou de la page qu’il modifie."
+      },
+      {
+        "source": "glossary",
+        "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+        "quote": "Le design de ce composant d’interface devra être conforme au critère 3.2 et au critère 3.3"
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "3.2",
+        "quote": "le contraste entre la couleur du texte et la couleur de son arrière-plan est-il suffisamment élevé (hors cas particuliers)"
+      },
+      {
+        "source": "methodology",
+        "test": "3.2.5",
+        "quote": "Si c’est le cas pour chaque mécanisme, **le test est validé**."
+      }
+    ]
+  }
+}

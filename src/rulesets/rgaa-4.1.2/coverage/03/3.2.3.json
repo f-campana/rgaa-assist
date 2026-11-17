@@ -1,0 +1,188 @@
+{
+  "test": "3.2.3",
+  "requirements": [
+    {
+      "id": "large-text-contrast",
+      "statement": "Each text and image of text that is not bold and is rendered at 24px or more, outside the particular cases, has a contrast ratio of at least 3:1 with its background, or can be displayed with that ratio by a mechanism.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "3.2.3",
+          "line": 1,
+          "quote": "le texte et le texte en image sans effet de graisse d’une taille restituée supérieure ou égale à 24px vérifient-ils une de ces conditions (hors cas particuliers)"
+        },
+        {
+          "source": "methodology",
+          "test": "3.2.3",
+          "quote": "Pour chacun de ces textes, vérifier que"
+        },
+        {
+          "source": "glossary",
+          "entry": "Contraste",
+          "quote": "la mesure de contraste concerne le texte, le texte en image, le texte et le texte en image dans les animations, le texte de sous-titrage et le texte incrusté dans les vidéos"
+        }
+      ],
+      "routes": [
+        {
+          "id": "ratio-3",
+          "statement": "The contrast ratio between the text and its background, computed with the glossary's formula, is at least 3:1.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "3.2.3",
+              "line": 2,
+              "quote": "Le rapport de contraste entre le texte et son arrière-plan est de 3:1, au moins"
+            },
+            {
+              "source": "glossary",
+              "entry": "Contraste",
+              "quote": "Le rapport de contraste est basé sur la différence de luminance relative entre l’arrière-plan et le premier plan selon la règle : (L1 + 0,05) / (L2 + 0,05)"
+            }
+          ]
+        },
+        {
+          "id": "mechanism",
+          "statement": "A mechanism, an interface component whose activation changes the appearance of the site or page, lets the user display the text with a ratio of at least 3:1.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "3.2.3",
+              "line": 3,
+              "quote": "Un mécanisme permet à l’utilisateur d’afficher le texte avec un rapport de contraste de 3:1, au moins."
+            },
+            {
+              "source": "glossary",
+              "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+              "quote": "Composant d’interface dont l’activation permet de modifier l’apparence du site ou de la page de manière à afficher les contenus avec un ratio de contraste suffisant."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "logo-or-brand",
+          "statement": "The text is part of a logo or of the brand name of an organisation or a company.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Le texte fait partie d’un logo ou d’un nom de marque d’un organisme ou d’une société"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Dans ces situations, les critères sont non applicables pour ces éléments"
+            }
+          ]
+        },
+        {
+          "id": "decorative-text",
+          "statement": "The text or the image of text is purely decorative.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Le texte ou l’image de texte est purement décoratif"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Dans ces situations, les critères sont non applicables pour ces éléments"
+            }
+          ]
+        },
+        {
+          "id": "non-essential-text-in-image",
+          "statement": "The text is part of an image that conveys information, but the text itself brings no essential information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Le texte fait partie d’une image véhiculant une information mais le texte lui-même n’apporte aucune information essentielle"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Dans ces situations, les critères sont non applicables pour ces éléments"
+            }
+          ]
+        },
+        {
+          "id": "inactive-component",
+          "statement": "The text or image of text is part of an interface element on which no action is possible, such as a disabled button.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Le texte ou l’image de texte fait partie d’un élément d’interface sur lequel aucune action n’est possible"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.2",
+              "quote": "Dans ces situations, les critères sont non applicables pour ces éléments"
+            }
+          ]
+        },
+        {
+          "id": "text-in-pictured-object",
+          "statement": "The text is part of something shown in an image or a video (a sign, a poster), which the contrast measure does not concern.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Contraste",
+              "quote": "Les textes présents dans les éléments d’une image ou d’une vidéo (par exemple un écriteau, une affiche…) ne sont pas concernés."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/color-contrast",
+      "requirement": "large-text-contrast",
+      "routes": [
+        "ratio-3"
+      ],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The test has one requirement: every text and image of text that is not bold and is rendered at 24px or more meets one of two routes, a ratio of at least 3:1 with its background, or a mechanism that displays it with that ratio, unless a particular case of the criterion or the glossary's limit applies. The first route is computable for HTML text whose background code can resolve, with the formula the glossary gives. It is not computable for text in images, where code cannot find the text, its size or its background without reading the picture. The second route blocks any claim. The glossary defines the mechanism as an interface component whose activation changes the appearance of the site or the page so that contents show with enough contrast. The wording does not require it to be on the page examined: a switch on another page of the site, or inside a settings dialog, that changes the site's appearance meets the route. Code cannot list every such component, nor tell what activating one does to every text, without judgment. So no check can rule the route out, and a text measured below the threshold never proves that the test fails. The exceptions are judgment too: whether a text is part of a logo or a brand name, purely decorative, inessential inside an informative image, or part of something pictured in an image or a video depends on meaning. Only the inactive-component case is partly mechanical (a disabled attribute), and the particular case gives a disabled button as an example, not as the whole case. axe's color-contrast computes the ratio of each element's text colour to the background behind it with the WCAG formula, which is the one the glossary gives and cites. It examines HTML text and the text of form fields; it never examines text in images or canvas, nor captions drawn by a video player or text in video frames. It skips disabled controls and inert content and the labels of disabled controls. It returns incomplete, not a fault, when the background cannot be computed (an image, a gradient, an overlapping element, a pseudo-element). It knows nothing of logos, decorative text or a mechanism. It reads the computed font-size, so a text scaled by a CSS transform is measured at its specified size, not as displayed. Its faults are not sorted by test: a page's faults mix texts of every size and weight, so a fault linked here may concern a text that belongs to another test of the criterion. The rule is tagged by axe for 3.2.1 only. It is linked here because it measures the same thing with this test's threshold for these texts: for text it counts as not bold (font-weight below 700) at 18pt or more after rounding up (from about 23.99px), it expects 3:1. The wording does not define \"sans effet de graisse\": a text of weight 600 is not bold for axe, and a reader who counts it as bold would place it under 3.2.4, with the same 3:1 threshold. The link therefore examines only the ratio route, for part of the texts: scope partial, fault evidence only. No custom check is registered. One that measures contrast with this test's own thresholds would sort texts more exactly than axe, but its fault would still be evidence only, because of the mechanism route and the exceptions, and it could never answer no_fault for text in images. What would raise the entry: an official reading that the mechanism must be on the page and can be recognised by code, together with a witness rule that keeps only texts surely outside every exception (ordinary visible body text, as in 8.3.1, not in a link, a header, an image or a component). The second half is within reach of code; the first is not in the official text. The candidate is none. Applicability is judgment: whether a page holds text of this size and weight outside the particular cases depends on text in images, which code cannot find, and on exceptions that need judgment. Needs is media: the glossary counts caption text and text embedded in videos and animations, which is seen only when the media plays.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "3.2.3",
+        "line": 3,
+        "quote": "Un mécanisme permet à l’utilisateur d’afficher le texte"
+      },
+      {
+        "source": "glossary",
+        "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+        "quote": "Composant d’interface dont l’activation permet de modifier l’apparence du site ou de la page"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "3.2",
+        "quote": "Le texte ou l’image de texte est purement décoratif"
+      },
+      {
+        "source": "glossary",
+        "entry": "Contraste",
+        "quote": "le texte de sous-titrage et le texte incrusté dans les vidéos"
+      },
+      {
+        "source": "methodology",
+        "test": "3.2.3",
+        "quote": "Si c’est le cas pour chaque texte, **le test est validé**."
+      }
+    ]
+  }
+}
