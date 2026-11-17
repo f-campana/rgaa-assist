@@ -88,12 +88,15 @@ import { unmetPrerequisites } from "./prerequisites.ts";
  *    f. if a requirement is unresolved: `alternative_unresolved` if some
  *       unresolved requirement has a link that reports `fault`; else
  *       `cannot_tell` if some unresolved requirement has a resolving link that
- *       reports `cannot_tell`; else `alternative_unresolved`.
+ *       reports `cannot_tell`; else `alternative_unresolved`;
+ *    g. `cannot_tell` if `applicability` is `always` and any requirement is
+ *       inapplicable: a check answered `inapplicable` for a test that applies
+ *       to every page (Q40, Q43). Judged per requirement, from its
+ *       `inapplicable` fact, so an advisory observation alone never triggers it.
  * 4. If every requirement is inapplicable: `not_applicable` when
  *    `applicability` is `structural`; `needs_review` with reason
- *    `judgment_required` when it is `judgment`; `needs_review` with reason
- *    `cannot_tell` when it is `always`, because a check answered
- *    `inapplicable` for a test that applies to every page (Q40).
+ *    `judgment_required` when it is `judgment`. An `always` entry never
+ *    reaches this rule with an inapplicable requirement (3g).
  * 5. Otherwise `passed` (every requirement is satisfied or inapplicable, and
  *    at least one is satisfied).
  * `model_disabled` is reserved for model-judged work (M6) and never produced here.
@@ -282,10 +285,13 @@ function deriveOne(
     if (unmetPrerequisites(entry.needs, target).length > 0) return "prerequisite_unmet";
     if (any("dispute")) return "checks_disagree";
     const unresolved = states.filter((r) => r.facts.has("unresolved"));
-    if (unresolved.length === 0) return undefined;
-    if (unresolved.some((r) => r.links.some((l) => outcome(l) === "fault"))) return "alternative_unresolved";
-    if (unresolved.some((r) => r.links.some((l) => resolving(l) && outcome(l) === "cannot_tell"))) return "cannot_tell";
-    return "alternative_unresolved";
+    if (unresolved.length > 0) {
+      if (unresolved.some((r) => r.links.some((l) => outcome(l) === "fault"))) return "alternative_unresolved";
+      if (unresolved.some((r) => r.links.some((l) => resolving(l) && outcome(l) === "cannot_tell"))) return "cannot_tell";
+      return "alternative_unresolved";
+    }
+    if (entry.applicability === "always" && any("inapplicable")) return "cannot_tell";
+    return undefined;
   };
 
   // Step 4: the test.
@@ -303,10 +309,11 @@ function deriveOne(
     reason = needsReviewReason();
     if (reason !== undefined) status = "needs_review";
     else if (states.every((r) => r.facts.has("inapplicable"))) {
+      // An `always` entry never gets here with an inapplicable requirement (3g).
       if (entry.applicability === "structural") status = "not_applicable";
       else {
         status = "needs_review";
-        reason = entry.applicability === "always" ? "cannot_tell" : "judgment_required";
+        reason = "judgment_required";
       }
     } else status = "passed";
   }
