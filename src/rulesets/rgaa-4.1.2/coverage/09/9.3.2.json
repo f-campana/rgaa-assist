@@ -1,0 +1,130 @@
+{
+  "test": "9.3.2",
+  "requirements": [
+    {
+      "id": "ordered-list-structured",
+      "statement": "Information grouped visually as an ordered list is structured as a list by one of the accepted markups.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.3.2",
+          "line": 1,
+          "quote": "les informations regroupées visuellement sous forme de liste ordonnée vérifient-elles une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "9.3.2",
+          "quote": "Retrouver dans le document les éléments regroupés visuellement sous la forme d’une liste ordonnée ;"
+        },
+        {
+          "source": "glossary",
+          "entry": "Listes",
+          "quote": "La présence d’un marqueur visuel permettant de faire comprendre qu’il s’agit d’une liste ordonnée par exemple un chiffre, une lettre grecque, etc."
+        }
+      ],
+      "routes": [
+        {
+          "id": "ol-li",
+          "statement": "The list uses the HTML <ol> and <li> elements.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "9.3.2",
+              "line": 2,
+              "quote": "La liste utilise les balises HTML `<ol>` et `<li>` ;"
+            }
+          ]
+        },
+        {
+          "id": "aria-list-listitem",
+          "statement": "The list uses elements with role=\"list\" and role=\"listitem\"; where the whole list is not in the DOM at the time of consultation, aria-setsize and aria-posinset may be needed.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "9.3.2",
+              "line": 3,
+              "quote": "La liste utilise les attributs WAI-ARIA `role=\"list\"` et `role=\"listitem\"`."
+            },
+            {
+              "source": "glossary",
+              "entry": "Listes",
+              "quote": "Il est également possible de structurer les listes à l’aide des attributs WAI-ARIA role=\"list\" et role=\"listitem\" pour les listes ordonnées et non ordonnées."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "9.3",
+              "quote": "peuvent nécessiter l’utilisation des attributs WAI-ARIA `aria-setsize` et `aria-posinset` dans le cas où l’ensemble de la liste n’est pas disponible via le DOM généré au moment de la consultation"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "ordered-series-needs-no-list",
+          "statement": "Not every list needs a list structure, for example a series of terms separated by commas.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Listes",
+              "quote": "Attention cependant toutes les listes ne nécessitent pas obligatoirement une structure de liste, par exemple une série de termes séparés par une virgule."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/list",
+      "requirement": "ordered-list-structured",
+      "routes": ["ol-li"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/listitem",
+      "requirement": "ordered-list-structured",
+      "routes": ["ol-li"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/aria-required-children",
+      "requirement": "ordered-list-structured",
+      "routes": ["aria-list-listitem"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/aria-required-parent",
+      "requirement": "ordered-list-structured",
+      "routes": ["aria-list-listitem"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to information grouped visually as an ordered list, and finding it is judgment. The glossary counts a visible marker such as a number or a Greek letter, but also a series of items with the same form, nature and behaviour and no marker, and it says that not every list needs a list structure. Code cannot tell which runs of content are ordered lists, nor whether a series needs no structure. Two routes are accepted: <ol> with <li>, or role=\"list\" with role=\"listitem\"; the glossary confirms the ARIA route for ordered lists. The technical note says that tree, tablist, menu, combobox and listbox roles are not equivalent to a list. The candidate is none. axe tags no rule for this test, but four rules tagged for 9.3.1 examine ordered lists the same way, so they are linked here as evidence only, each with scope partial: none of them finds visual lists without list markup. axe's list faults a <ul> or <ol> whose direct children are not all <li>, script or template, and listitem faults an <li> outside a list; both look only at the first route's markup. aria-required-children faults, among many roles, a role=\"list\" without listitem children, and aria-required-parent a role=\"listitem\" outside a list; both look only at the second route's markup. Their faults show list markup with a defect, but whether the content is an ordered list under this test, and whether a stray child means the list no longer uses the accepted elements, is judgment, so no fault proves failure. Applicability is judgment, because whether the page holds information grouped visually as an ordered list cannot be decided by code. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "9.3.2",
+        "quote": "Si c’est le cas pour chaque liste ordonnée, **le test est validé**."
+      },
+      {
+        "source": "technical_note",
+        "criterion": "9.3",
+        "quote": "ne sont pas équivalents à une liste HTML `<ul>` ou `<ol>`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Listes",
+        "quote": "les différentes étapes d’une procédure sont une liste d’éléments ordonnés"
+      }
+    ]
+  }
+}

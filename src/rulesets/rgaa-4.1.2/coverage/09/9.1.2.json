@@ -1,0 +1,81 @@
+{
+  "test": "9.1.2",
+  "requirements": [
+    {
+      "id": "heading-content-relevant",
+      "statement": "The content of each heading (<hx> element, or element with role=\"heading\" and aria-level) is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.1.2",
+          "line": 1,
+          "quote": "le contenu de chaque titre (balise `<hx>` ou balise possédant un attribut WAI-ARIA `role=\"heading\"` associé à un attribut WAI-ARIA `aria-level`) est-il pertinent ?"
+        },
+        {
+          "source": "methodology",
+          "test": "9.1.2",
+          "quote": "Pour chaque titre identifié au test 9.1.1, vérifier que son contenu est pertinent ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "relevant-content",
+          "statement": "The heading's content is relevant.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "9.1.2",
+              "line": 1,
+              "quote": "le contenu de chaque titre"
+            },
+            {
+              "source": "methodology",
+              "test": "9.1.2",
+              "quote": "Si c’est le cas pour chaque titre, **le test est validé**."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/9-1-heading-empty",
+      "requirement": "heading-content-relevant",
+      "routes": ["relevant-content"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "structural",
+  "needs": [],
+  "rationale": {
+    "text": "Relevance of a heading's content is judgment: the wording says pertinent and no glossary entry says what makes a heading's content relevant. The test has one requirement and one route, and no exception. One case is mechanical under this test's own text: a heading with no content at all. The wording applies to each heading and names the markup that makes one, an <hx> element or an element with role=\"heading\" and aria-level, and the glossary defines a heading the same way. An empty <hx> is still an <hx>, and assistive technologies expose it as a heading with nothing in it. Empty content cannot be relevant content, so the only route fails and there is no exception to fall back on. A custom check faults a page on such a witness, and abstains on every case where the heading's content, or its status as a heading, could be read otherwise. A witness is an h1 to h6 element of the top-level document (shadow trees included), or an element there with a role=\"heading\" token and an aria-level that is a positive integer, that is exposed in the accessibility tree with the heading role and is not ignored; that has no text node with a character other than ASCII whitespace and no descendant element other than br and wbr; that has no aria-label, aria-labelledby, aria-owns or title attribute; whose own CSS content and whose ::before and ::after generate no content; that shows no CSS background image; and whose computed accessible name is empty. Abstentions: an element with role=\"heading\" and no valid aria-level, since the wording does not say whether it is a heading; an empty heading that is not rendered, hidden with aria-hidden, inert or otherwise not exposed, since this test gives no exception for hidden headings and does not say whether they count; a heading holding an image, an empty link or any other element, since its content may be carried by that element; a heading with a label attribute, generated content or a background image, since its content may be given another way; text made only of invisible or no-break characters; and headings in framed documents, since the wording does not say whether a framed document is part of the page here. The check never answers no_fault. It looks at every heading of the page and decides or abstains on each by a stated rule, so its scope is whole, and its fault means failure. The entry is fail_only, not full: relevance is judgment. No axe rule is tagged for this test. axe's empty-heading, a best-practice rule, is not registered or linked: the custom check is narrower where the official text is open. Whether test 9.1.1 or 9.1.3 also fails for the same element is decided by their own wording and does not change this one. Applicability is structural, as for 9.1.1: when the page holds no <hx> element and no element with a heading role anywhere, hidden or not, there is no heading whose content could be judged. Needs is empty.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "9.1.2",
+        "line": 1,
+        "quote": "Dans chaque page web, le contenu de chaque titre"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre",
+        "quote": "Élément HTML (balise h) à 6 niveaux de hiérarchie"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "9.1",
+        "quote": "l’utilisation du rôle WAI-ARIA `heading` est compatible avec l’accessibilité"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre",
+        "quote": "les titres visuellement cachés via CSS sont considérés comme présents"
+      }
+    ]
+  }
+}

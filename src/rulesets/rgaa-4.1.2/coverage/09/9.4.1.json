@@ -1,0 +1,56 @@
+{
+  "test": "9.4.1",
+  "requirements": [
+    {
+      "id": "short-quote-in-q",
+      "statement": "Each short (inline) quotation uses a <q> element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.4.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque citation courte utilise-t-elle une balise `<q>` ?"
+        },
+        {
+          "source": "methodology",
+          "test": "9.4.1",
+          "quote": "Retrouver dans le document les citations courtes (ou en ligne) ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "q-element",
+          "statement": "The quotation is structured with a <q> element.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.4.1",
+              "quote": "Pour chaque citation, vérifier que la citation est structurée au moyen d’un élément `<q>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to each short quotation, and finding quotations is judgment: no glossary entry defines one, and whether a passage repeats someone else's words depends on its meaning. One route is accepted, a <q> element. Code can see <q> elements, but not the quotations that lack one, so no check can show that every quotation uses it, and no element is surely a quotation without markup. A check flagging text between quotation marks was considered and not registered: quotation marks also enclose titles, terms and irony, and a quotation may have none, so its result would carry little evidence either way. No axe rule is tagged for this test. The wording asks only that quotations use <q>; whether <q> is used for something that is not a quotation is outside it. The candidate is none, with no link. Applicability is judgment, because whether the page holds a short quotation cannot be decided by code. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "9.4",
+        "quote": "Dans chaque page web, chaque citation est-elle correctement indiquée ?"
+      },
+      {
+        "source": "methodology",
+        "test": "9.4.1",
+        "quote": "Si c’est le cas pour chaque citation courte, **le test est validé**."
+      }
+    ]
+  }
+}

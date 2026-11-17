@@ -1,0 +1,93 @@
+{
+  "test": "9.1.3",
+  "requirements": [
+    {
+      "id": "heading-text-marked-up",
+      "statement": "Each passage of text that constitutes a heading is structured as a heading with one of the accepted markups.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.1.3",
+          "line": 1,
+          "quote": "chaque passage de texte constituant un titre est-il structuré à l’aide d’une balise `<hx>` ou d’une balise possédant un attribut WAI-ARIA `role=\"heading\"` associé à un attribut WAI-ARIA `aria-level` ?"
+        },
+        {
+          "source": "methodology",
+          "test": "9.1.3",
+          "quote": "Si c’est le cas pour chaque titre, **le test est validé**."
+        }
+      ],
+      "routes": [
+        {
+          "id": "hx-element",
+          "statement": "The heading is an <hx> element, x being a number from 1 to 6.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.1.3",
+              "quote": "Soit il est structuré au moyen d’une balise `<hx>` (“x” désignant une valeur numérique comprise entre 1 et 6);"
+            }
+          ]
+        },
+        {
+          "id": "aria-heading-level",
+          "statement": "The heading is an element with role=\"heading\" and an aria-level attribute whose value is a number.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.1.3",
+              "quote": "Soit il est structuré au moyen d’une balise possédant un attribut WAI-ARIA `role=\"heading\"` et un attribut WAI-ARIA `aria-level=x` (“x” désignant une valeur numérique)."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "9.1",
+              "quote": "WAI-ARIA permet de définir des titres via le rôle `heading` et l’attribut `aria-level` (indication du niveau de titre)."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/p-as-heading",
+      "requirement": "heading-text-marked-up",
+      "routes": ["hx-element", "aria-heading-level"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/9-1-heading-role-without-level",
+      "requirement": "heading-text-marked-up",
+      "routes": ["hx-element", "aria-heading-level"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to each passage of text that constitutes a heading, and finding those passages is judgment: the methodology starts from the headings identified in test 9.1.1, and whether a bold line, a large paragraph or a styled div is a heading depends on what it means on the page. Two routes are accepted: an <hx> element, or an element with role=\"heading\" and a numeric aria-level. No check can say which texts are headings, so no fault proves the test fails and no clean result proves it passes. The candidate is none. axe's p-as-heading is tagged and linked as evidence only, although axe marks it experimental and off by default: it is the only tool-side hint that a paragraph styled like a heading lacks heading markup. It looks only at <p> elements, skips any element whose role is already heading, and guesses from weight, size and italics compared with the following paragraphs, so its fault does not prove the paragraph is a heading and its clean result says nothing about other elements. It examines whether a <p> uses either markup, so it names both routes, with scope partial. A custom check is linked the same way: it lists elements with a role=\"heading\" token that are not <hx> and have no aria-level, or one whose value is not a positive integer. The author marked such an element as a heading, but it meets neither route as the methodology words them. Whether the element really is a passage of text constituting a heading is still judgment, for example a role put on a large container by mistake, so its fault is evidence only and its scope partial. Applicability is judgment: whether any text on the page constitutes a heading cannot be decided by code. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "9.1.3",
+        "quote": "Pour chaque titre identifié au test 9.1.1, vérifier que :"
+      },
+      {
+        "source": "test",
+        "test": "9.1.3",
+        "line": 1,
+        "quote": "chaque passage de texte constituant un titre"
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "9.1",
+        "quote": "l’utilisation appropriée de titres"
+      }
+    ]
+  }
+}

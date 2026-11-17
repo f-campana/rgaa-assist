@@ -1,0 +1,56 @@
+{
+  "test": "9.4.2",
+  "requirements": [
+    {
+      "id": "block-quote-in-blockquote",
+      "statement": "Each block quotation uses a <blockquote> element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.4.2",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque bloc de citation utilise-t-il une balise `<blockquote>` ?"
+        },
+        {
+          "source": "methodology",
+          "test": "9.4.2",
+          "quote": "Retrouver dans le document les blocs de citation ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "blockquote-element",
+          "statement": "The block quotation is structured with a <blockquote> element.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.4.2",
+              "quote": "Pour chaque bloc de citation, vérifier que le bloc de citation est structuré au moyen d’un élément `<blockquote>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to each block quotation, and finding quotations is judgment: no glossary entry defines one, and whether a block of text repeats someone else's words depends on its meaning, not on its styling. One route is accepted, a <blockquote> element. Code can see <blockquote> elements, but not the block quotations that lack one, so no check can show that every block quotation uses it, and no unmarked block is surely a quotation. An indented or italic block, or one between large quotation marks, may or may not be a quotation, so a check based on styling would carry little evidence and none is registered. No axe rule is tagged for this test. The wording asks only that block quotations use <blockquote>; whether <blockquote> is used for something else, such as indentation, is outside it. The candidate is none, with no link. Applicability is judgment, because whether the page holds a block quotation cannot be decided by code. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "9.4",
+        "quote": "Dans chaque page web, chaque citation est-elle correctement indiquée ?"
+      },
+      {
+        "source": "methodology",
+        "test": "9.4.2",
+        "quote": "Si c’est le cas pour chaque bloc de citation, **le test est validé**."
+      }
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "test": "9.3.1",
+  "requirements": [
+    {
+      "id": "unordered-list-structured",
+      "statement": "Information grouped visually as an unordered list is structured as a list by one of the accepted markups.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.3.1",
+          "line": 1,
+          "quote": "les informations regroupées visuellement sous forme de liste non ordonnée vérifient-elles une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "9.3.1",
+          "quote": "Retrouver dans le document les éléments regroupés visuellement sous la forme d’une liste non ordonnée ;"
+        },
+        {
+          "source": "glossary",
+          "entry": "Listes",
+          "quote": "La présence d’une série d’éléments se suivant visuellement les uns les autres, avec une forme visuelle, une nature et un fonctionnement identique, mais sans avoir directement de marqueur visuel de liste (non ordonnée ou ordonnée), par exemple un menu de navigation."
+        }
+      ],
+      "routes": [
+        {
+          "id": "ul-li",
+          "statement": "The list uses the HTML <ul> and <li> elements.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "9.3.1",
+              "line": 2,
+              "quote": "La liste utilise les balises HTML `<ul>` et `<li>` ;"
+            }
+          ]
+        },
+        {
+          "id": "aria-list-listitem",
+          "statement": "The list uses elements with role=\"list\" and role=\"listitem\"; where the whole list is not in the DOM at the time of consultation, aria-setsize and aria-posinset may be needed.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "9.3.1",
+              "line": 3,
+              "quote": "La liste utilise les attributs WAI-ARIA `role=\"list\"` et `role=\"listitem\"`."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "9.3",
+              "quote": "peuvent nécessiter l’utilisation des attributs WAI-ARIA `aria-setsize` et `aria-posinset` dans le cas où l’ensemble de la liste n’est pas disponible via le DOM généré au moment de la consultation"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "unordered-series-needs-no-list",
+          "statement": "Not every list needs a list structure, for example a series of terms separated by commas.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Listes",
+              "quote": "Attention cependant toutes les listes ne nécessitent pas obligatoirement une structure de liste, par exemple une série de termes séparés par une virgule."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/list",
+      "requirement": "unordered-list-structured",
+      "routes": ["ul-li"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/listitem",
+      "requirement": "unordered-list-structured",
+      "routes": ["ul-li"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/aria-required-children",
+      "requirement": "unordered-list-structured",
+      "routes": ["aria-list-listitem"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/aria-required-parent",
+      "requirement": "unordered-list-structured",
+      "routes": ["aria-list-listitem"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to information grouped visually as an unordered list, and finding it is judgment. The glossary counts a visible marker such as a dash or a bullet, but also a series of items that follow each other with the same form, nature and behaviour and no marker at all, such as a navigation menu; and it says that not every list needs a list structure, for example terms separated by commas. Code cannot tell which runs of content are such lists, nor whether a series is one that needs no structure. Two routes are accepted: <ul> with <li>, or role=\"list\" with role=\"listitem\". The technical note adds that tree, tablist, menu, combobox and listbox roles are not equivalent to a list, so they meet neither route. The candidate is none. The four tagged axe rules are linked as evidence only, each with scope partial, since none of them finds visual lists that have no list markup. axe's list faults a <ul> or <ol> whose direct children are not all <li>, script or template, and listitem faults an <li> outside a list. Both look only at the first route's markup. Their faults show a list built from that markup with a defect, but whether the content is an unordered list under this test, and whether a stray child means the list no longer uses <ul> and <li>, is judgment, so neither fault proves failure. They also examine <ol>, which belongs to test 9.3.2. aria-required-children faults, among many roles, a role=\"list\" without listitem children, and aria-required-parent a role=\"listitem\" outside a list. They look only at the second route's markup, with the same limits; axe also marks an empty role=\"list\" for review rather than as a fault, which fits the technical note's case of a list not fully in the DOM. Applicability is judgment, because whether the page holds information grouped visually as an unordered list cannot be decided by code. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Listes",
+        "quote": "La présence d’un marqueur visuel permettant de faire comprendre qu’il s’agit d’une liste non ordonnée par exemple"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "9.3",
+        "quote": "ne sont pas équivalents à une liste HTML `<ul>` ou `<ol>`"
+      },
+      {
+        "source": "methodology",
+        "test": "9.3.1",
+        "quote": "Si c’est le cas pour chaque liste non ordonnée, **le test est validé**."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "9.3",
+        "quote": "chaque liste est-elle correctement structurée"
+      }
+    ]
+  }
+}
