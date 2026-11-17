@@ -1,0 +1,93 @@
+{
+  "test": "13.1.4",
+  "requirements": [
+    {
+      "id": "session-limit-controllable",
+      "statement": "Each process that limits the duration of a session meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.1.4",
+          "line": 1,
+          "quote": "Pour chaque page web, chaque procédé limitant le temps d’une session vérifie-t-il une de ces conditions (hors cas particuliers) ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "remove-limit",
+          "statement": "The user can remove the time limit.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.4",
+              "line": 2,
+              "quote": "L’utilisateur peut supprimer la limite de temps"
+            }
+          ]
+        },
+        {
+          "id": "extend-limit",
+          "statement": "The user can extend the time limit.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.4",
+              "line": 3,
+              "quote": "L’utilisateur peut augmenter la limite de temps"
+            }
+          ]
+        },
+        {
+          "id": "twenty-hours",
+          "statement": "The time before the session ends is at least twenty hours.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.4",
+              "line": 4,
+              "quote": "La limite de temps avant la fin de la session est de vingt heures au moins."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "essential-time-limit",
+          "statement": "The time limit is essential, notably when it could not be removed without fundamentally changing the content or its functions; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.1",
+              "quote": "Il existe une gestion de cas particuliers lorsque la limite de temps est essentielle, notamment lorsqu’elle ne pourrait pas être supprimée sans changer fondamentalement le contenu ou les fonctionnalités liées au contenu."
+            },
+            {
+              "source": "methodology",
+              "test": "13.1.4",
+              "quote": "lorsque la limite de temps est essentielle, notamment lorsqu'elle ne pourrait pas être supprimée sans changer fondamentalement le contenu ou les fonctionnalités liées au contenu, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test has one requirement with three routes and one exception. A session limit is usually enforced by the server, for example after authentication as the methodology says, and its length is not visible in the page: code cannot measure it, cannot tell whether the user can remove or extend it, and cannot judge whether it is essential. So no check is linked and the entry is none. No axe rule is tagged for this test. Applicability is judgment: whether the page is under a session limit at all cannot be read from the page. Needs is state: session limits concern pages reached after authentication or other interaction, and an extend or remove mechanism has to be operated to be tried.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.1.4",
+        "quote": "Retrouver dans le document les procédés limitant le temps d’une session (par exemple, après une authentification)"
+      },
+      {
+        "source": "methodology",
+        "test": "13.1.4",
+        "quote": "Soit la présence d’un mécanisme permet à l’utilisateur d’augmenter la limite de temps"
+      }
+    ]
+  }
+}
