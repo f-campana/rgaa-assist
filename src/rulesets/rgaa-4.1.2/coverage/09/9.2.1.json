@@ -1,0 +1,329 @@
+{
+  "test": "9.2.1",
+  "requirements": [
+    {
+      "id": "header-zone-in-header",
+      "statement": "The page's header zone is structured with a <header> element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.2.1",
+          "line": 2,
+          "quote": "La zone d’en-tête de la page est structurée via une balise `<header>` ;"
+        },
+        {
+          "source": "glossary",
+          "entry": "Zone d’en-tête",
+          "quote": "Zone située en haut du document et contenant généralement le titre du document, un logo, un slogan…"
+        }
+      ],
+      "routes": [
+        {
+          "id": "header-element",
+          "statement": "A <header> element structures the header zone.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.2.1",
+              "quote": "Vérifier que la zone d’en-tête est structurée au moyen d’un élément `<header>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "header-not-html5-doctype",
+          "statement": "The doctype declared in the page is not the HTML5 doctype: the criterion is not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "9.2",
+              "quote": "Lorsque le doctype déclaré dans la page n’est pas le doctype HTML5, ce critère est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav-zones-in-nav",
+      "statement": "The main and secondary navigation zones are structured with a <nav> element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.2.1",
+          "line": 3,
+          "quote": "Les zones de navigation principales et secondaires sont structurées via une balise `<nav>` ;"
+        },
+        {
+          "source": "glossary",
+          "entry": "Menu et barre de navigation",
+          "quote": "Liste de liens permettant une navigation spécifique dans le site, dans une rubrique ou dans une collection de pages."
+        }
+      ],
+      "routes": [
+        {
+          "id": "nav-element",
+          "statement": "A <nav> element structures each main and secondary navigation zone.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.2.1",
+              "quote": "Vérifier que les zones de navigation principales et secondaires sont structurées au moyen d’un élément `<nav>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "nav-not-html5-doctype",
+          "statement": "The doctype declared in the page is not the HTML5 doctype: the criterion is not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "9.2",
+              "quote": "Lorsque le doctype déclaré dans la page n’est pas le doctype HTML5, ce critère est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nav-reserved",
+      "statement": "The <nav> element is used only to structure main and secondary navigation zones.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.2.1",
+          "line": 4,
+          "quote": "La balise `<nav>` est réservée à la structuration des zones de navigation principales et secondaires ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "nav-only-for-navigation",
+          "statement": "Every <nav> element of the page structures a main or secondary navigation zone.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.2.1",
+              "quote": "Vérifier que l’élément `<nav>` n’est pas utilisé en dehors de la structuration des zones de navigation principales et secondaires ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "nav-reserved-not-html5-doctype",
+          "statement": "The doctype declared in the page is not the HTML5 doctype: the criterion is not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "9.2",
+              "quote": "Lorsque le doctype déclaré dans la page n’est pas le doctype HTML5, ce critère est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "main-zone-in-main",
+      "statement": "The main content zone is structured with a <main> element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.2.1",
+          "line": 5,
+          "quote": "La zone de contenu principal est structurée via une balise `<main>` ;"
+        },
+        {
+          "source": "glossary",
+          "entry": "Zone de contenu principal",
+          "quote": "Zone contenant les principaux contenus de la page"
+        },
+        {
+          "source": "glossary",
+          "entry": "Zone de contenu principal",
+          "quote": "Cette zone est unique dans la page."
+        }
+      ],
+      "routes": [
+        {
+          "id": "main-element",
+          "statement": "A <main> element structures the main content zone.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.2.1",
+              "quote": "Vérifier que la zone de contenu principal est structurée au moyen d’un élément `<main>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "main-zone-not-html5-doctype",
+          "statement": "The doctype declared in the page is not the HTML5 doctype: the criterion is not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "9.2",
+              "quote": "Lorsque le doctype déclaré dans la page n’est pas le doctype HTML5, ce critère est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "single-visible-main",
+      "statement": "The document uses a single visible <main> element: other <main> elements, if any, are hidden from users and assistive technologies.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.2.1",
+          "line": 6,
+          "quote": "La structure du document utilise une balise `<main>` visible unique ;"
+        },
+        {
+          "source": "technical_note",
+          "criterion": "9.2",
+          "quote": "il ne peut y avoir en permanence qu’une seule balise visible et lisible par les technologies d’assistances"
+        }
+      ],
+      "routes": [
+        {
+          "id": "one-main-shown",
+          "statement": "Exactly one <main> element is visible; any other carries the hidden attribute, or is hidden from assistive technologies by a style, keeping in mind that a style alone does not keep the visible <main> unique when style sheets are disabled.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.2.1",
+              "quote": "Si le document possède plusieurs éléments `<main>`, vérifier qu’un seul de ces éléments est visible (les autres occurrences de l’élément sont pourvues d’un attribut `hidden`) ;"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "9.2",
+              "quote": "les autres devant disposer d’un attribut `hidden` ou d’un style permettant de les masquer aux technologies d’assistances"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "9.2",
+              "quote": "l’utilisation d’un style seul restera insuffisante pour assurer l’unicité d’une balise `<main>` visible en cas de désactivation des feuilles de styles"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "single-main-not-html5-doctype",
+          "statement": "The doctype declared in the page is not the HTML5 doctype: the criterion is not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "9.2",
+              "quote": "Lorsque le doctype déclaré dans la page n’est pas le doctype HTML5, ce critère est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "footer-zone-in-footer",
+      "statement": "The page's footer zone is structured with a <footer> element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.2.1",
+          "line": 7,
+          "quote": "La zone de pied de page est structurée via une balise `<footer>`."
+        },
+        {
+          "source": "glossary",
+          "entry": "Zone de pied de page",
+          "quote": "Il s’agit des informations concernant le fonctionnement du site ou les informations légales."
+        }
+      ],
+      "routes": [
+        {
+          "id": "footer-element",
+          "statement": "A <footer> element structures the footer zone.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.2.1",
+              "quote": "Vérifier que la zone de pied de page est structurée au moyen d’un élément `<footer>`."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "footer-not-html5-doctype",
+          "statement": "The doctype declared in the page is not the HTML5 doctype: the criterion is not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "9.2",
+              "quote": "Lorsque le doctype déclaré dans la page n’est pas le doctype HTML5, ce critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/9-2-main-missing",
+      "requirement": "main-zone-in-main",
+      "routes": ["main-element", "main-zone-not-html5-doctype"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    },
+    {
+      "check": "custom/9-2-main-multiple-shown",
+      "requirement": "single-visible-main",
+      "routes": ["one-main-shown", "single-main-not-html5-doctype"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording lists six conditions that must all hold, so each is a requirement. The particular case makes the criterion not applicable when the declared doctype is not the HTML5 doctype; it is listed as an exception on each requirement. Four requirements need judgment: which part of a page is its header zone, its navigation zones or its footer zone, and whether a given <nav> holds a main or secondary navigation, cannot be decided by code. The glossary itself warns that the header and footer zones are not to be confused with any content marked up with <header> or <footer>. The wording names elements only, <header>, <nav>, <main> and <footer>; it accepts no ARIA role in their place, unlike the wording of 9.1 and 9.3. Two cases are mechanical, and each has a custom check whose fault means failure. First, a page with the HTML5 doctype and no <main> element at all. The glossary says the main content zone holds the page's principal content and is unique in the page, so a page that shows content has one, and with no <main> element anywhere it is not structured by one: the requirement on the main content zone fails, and the doctype exception does not apply. The check custom/9-2-main-missing faults only when the doctype is surely the HTML5 doctype, no <main> element exists in the document or its shadow trees, no element has a main role (the check stays out of that case although the wording does not accept it), the page has no rendered frame, object or embed that could hold the content, and some visible, exposed text with a letter lies outside header, footer, nav, aside and dialog elements and their role equivalents. Every other case is cannot_tell. Second, two <main> elements shown at once. The wording asks for a single visible <main>; the technical note allows others only when they carry the hidden attribute or a style that hides them from assistive technologies, and the methodology names only the hidden attribute. Two <main> elements without the hidden attribute, both exposed in the accessibility tree, both rendered with full opacity and with visible text inside the page, break the requirement under every reading. The check custom/9-2-main-multiple-shown faults only then; a <main> that is transparent, clipped, off the page, in a shadow tree, or carries the hidden attribute while shown, is not counted, and the result is cannot_tell. Neither check answers no_fault. Both read the doctype first: no declared doctype gives cannot_tell, since the particular case does not say whether a page without one falls under it; a declared doctype other than the HTML5 one (name html, no public identifier, no system identifier or about:legacy-compat) gives inapplicable. So each link names its requirement's route and exception, looks at the whole page, and its fault means failure. The entry is fail_only. It is not full: four requirements are judgment. axe's region rule is tagged but not linked: it is best-practice, it asks that all content sit in some landmark, and it accepts ARIA landmark roles in place of the elements the wording names, so it examines none of the six conditions. Applicability is judgment: not applicable follows from the declared doctype, and when the page declares no doctype the text leaves open whether the particular case applies. Needs is empty: the elements, the doctype, styles and the accessibility tree are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "9.2.1",
+        "line": 1,
+        "quote": "la structure du document vérifie-t-elle ces conditions (hors cas particuliers) ?"
+      },
+      {
+        "source": "methodology",
+        "test": "9.2.1",
+        "quote": "Si c’est le cas pour chaque zone de contenu, **le test est validé**."
+      },
+      {
+        "source": "glossary",
+        "entry": "Zone d’en-tête",
+        "quote": "Attention à ne pas confondre cette zone d’en-tête, unique dans le site, avec tout contenu pouvant être balisé en HTML5 avec l’élément <header>."
+      },
+      {
+        "source": "glossary",
+        "entry": "Zone de pied de page",
+        "quote": "Attention à ne pas confondre cette zone de pied de page, unique dans le site, avec tout contenu pouvant être balisé en HTML5 avec l’élément <footer>."
+      },
+      {
+        "source": "glossary",
+        "entry": "Zone de contenu principal",
+        "quote": "Cette zone est unique dans la page."
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "9.2",
+        "quote": "Lorsque le doctype déclaré dans la page n’est pas le doctype HTML5, ce critère est non applicable."
+      }
+    ]
+  }
+}
