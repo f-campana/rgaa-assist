@@ -23,7 +23,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 ## In flight
 
 - Batch 1 merged: builder A (`ad72cdb`, 1.1 and 1.5) and builder B (`2123b43`, 8.1, 8.2, 8.5 to 8.10). Entries: 35 of 258 (none 24, fail_only 10, full 1: 8.5.1). 414 tests pass.
-- Batch 2 launched 2026-11-17 14:15 UTC: builders C (11.2 to 11.5) and D (theme 9).
+- Batch 2: builder D merged (`a6fe2a4`, theme 9: 9 entries). Entries: 44 of 258 (none 31, fail_only 12, full 1). Builder C (11.2 to 11.5) running.
 
 ## Where M1 stands, 2026-11-17
 
@@ -58,6 +58,8 @@ Also logged on the bridge, channel `rgaa-assist`.
 ## Findings to report at the gate
 
 - Builder B's claims, for the cross-check: 8.5.1 `full` (fault only when no HTML title exists anywhere; passed only on a first title in head with a letter or digit; frames abstain); 8.2.1 `fail_only` on duplicate ids, hidden elements included; 8.10.1 `fail_only` faults right-to-left text with no `dir` ancestor, a single Arabic name in French text included, by the wording « chaque texte », where an auditor following WCAG H56 might not; 8.10.2 `fail_only` treats `dir="auto"` as not « conforme (rtl ou ltr) ». Builder B listed 8.10.1 among its least sure, against the guide's rule; the orchestrator kept it because the doubt is about auditors' practice, not the official text. Codex should rule.
+- Builder D's claims, for the cross-check: 9.1.2 `fail_only` treats an empty, exposed `<hx>` as a heading whose content cannot be relevant; 9.2.1 `fail_only` through two checks, one of which (`custom/9-2-main-missing`) faults a page with no `<main>` by reading the glossary's « Cette zone est unique dans la page » as "every page has one". Builder D listed that check as its least sure; it offers `evidence_only` as the fallback, which would keep 9.2.1 at `fail_only` through `custom/9-2-main-multiple-shown`. Codex should rule.
+- Builder D linked axe list rules to 9.3.2 though axe does not tag them for it (evidence only). The guide allows links on an argued basis; an axe tag justifies a link but is not required.
 - Tests 8.1.1 to 8.1.3 turn on the served source, which v1 does not read (spec 15, Q9). They stay `none`.
 
 - Builder A: `needs` applies to a whole test, but the glossary makes assistive technology a condition of one route (Note 6 of "Alternative textuelle (image)": a `title` alternative is confirmed with assistive technology). Writers put it in the rationale as a reason no 1.1 entry can be `full`. A guide rule on route-conditional needs would settle it.
