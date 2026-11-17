@@ -1,0 +1,97 @@
+{
+  "test": "10.1.1",
+  "requirements": [
+    {
+      "id": "no-presentation-elements",
+      "statement": "The generated source of the page holds none of the elements used for presentation: basefont, big, blink, center, font, marquee, s, strike and tt, and u when the doctype does not correspond to HTML 5.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.1.1",
+          "line": 1,
+          "quote": "les balises servant à la présentation de l’information ne doivent pas être présentes dans le code source généré des pages"
+        },
+        {
+          "source": "methodology",
+          "test": "10.1.1",
+          "quote": "Vérifier l’absence des éléments de présentation `<basefont>`, `<big>`, `<blink>`, `<center>`, `<font>`, `<marquee>`, `<s>`, `<strike>`, `<tt>` ;"
+        },
+        {
+          "source": "glossary",
+          "entry": "Présentation de l’information",
+          "quote": "Les éléments (basefont, big, blink, center, font, marquee, s, strike et tt)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "elements-absent",
+          "statement": "None of the listed elements is present in the generated source.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.1.1",
+              "quote": "Si c’est le cas, **le test est validé**."
+            },
+            {
+              "source": "glossary",
+              "entry": "Présentation de l’information",
+              "quote": "La présentation de l’information doit être réalisée via CSS."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "u-in-html5",
+          "statement": "A u element is allowed when the document's doctype corresponds to HTML 5.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.1.1",
+              "quote": "Vérifier l’absence de l’élément `<u>` uniquement si le DOCTYPE du document ne correspond pas à HTML 5 ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Présentation de l’information",
+              "quote": "L’élément <u> est interdit uniquement si le DOCTYPE du document ne correspond pas à HTML 5."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/10-1-presentation-elements",
+      "requirement": "no-presentation-elements",
+      "routes": ["elements-absent", "u-in-html5"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "full",
+  "enabled": "none",
+  "applicability": "always",
+  "needs": [],
+  "rationale": {
+    "text": "The test forbids presentation elements in the generated source of the page, and the methodology and glossary name them: basefont, big, blink, center, font, marquee, s, strike and tt, plus u when the doctype does not correspond to HTML 5. Presence of an element in the DOM is a fact code reads without judgment, so the entry can be full. The wording speaks of presence in the generated source, not of rendering, so a hidden element counts: a center element with display none is still present in the generated source. That is why the check does not abstain on hidden elements, unlike checks whose tests are about what is shown. The custom check reads the DOM of the page as loaded. It faults the page when the top-level document, outside shadow trees, holds an HTML element with one of the nine names, or a u element under a doctype that names an HTML version before HTML 5. The fault proves failure: the only exception is u under an HTML 5 doctype, which the check never faults. It abstains, by stated rules, where the text leaves the case open: a u element with no doctype or an unrecognised one; an element with one of these names in another namespace, such as the SVG font element, which is not the HTML presentation element; listed elements inside a shadow tree, a framed document, template content or noscript text, since the wording does not say whether those belong to the page's generated source; any shadow root or framed document it cannot read. It also abstains when the page holds multicol, nobr or spacer: the HTML standard lists them with the RGAA elements as obsolete presentational elements. The methodology validates the test once its list is absent, so no_fault after checking the list is supported by the official text; the abstention is a margin against a broader reading of the wording's \"balises servant à la présentation\", and it costs only a needs review on rare pages. Otherwise it answers no_fault, having examined the whole document. Both outcomes can occur, so the one route and the one exception can each come out passed: a page without the elements, and an HTML 5 page with a u element. The link covers the route and the exception for the whole page, so it is resolving and its fault means failure. No axe rule is tagged. Applicability is always: every page has a generated source, and the check never answers inapplicable. Needs is empty: the DOM is read on the page as loaded.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.1",
+        "line": 1,
+        "quote": "Dans chaque page web, les balises servant à la présentation de l’information ne doivent pas être présentes dans le code source généré des pages."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "10.1",
+        "quote": "des feuilles de styles sont-elles utilisées pour contrôler la présentation de l’information"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "sont interdits."
+      }
+    ]
+  }
+}

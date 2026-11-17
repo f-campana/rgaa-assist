@@ -1,0 +1,61 @@
+{
+  "test": "10.3.1",
+  "requirements": [
+    {
+      "id": "unstyled-order-comprehensible",
+      "statement": "With style sheets disabled, the order in which the content is implemented keeps the information comprehensible: the order of elements is logical and the reading sequence is coherent.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.3.1",
+          "line": 1,
+          "quote": "Dans chaque page web, l’information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?"
+        },
+        {
+          "source": "methodology",
+          "test": "10.3.1",
+          "quote": "Vérifier que l’ordre dans lequel les contenus sont implémentés ne pose pas de problème de compréhension ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "logical-coherent-order",
+          "statement": "The content read in source order is legible (its elements are in a logical order) and coherent (the reading sequence is coherent).",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Compréhensible (ordre de lecture)",
+              "quote": "Un contenu compréhensible est lisible (l’ordre des éléments est logique) et cohérent (l’enchaînement de la lecture est cohérent)."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test asks whether the information stays comprehensible once style sheets are disabled, and the glossary defines comprehensible as a logical order of elements and a coherent reading sequence. Whether an order is logical and a sequence coherent is judgment: it depends on what the content says. Code can see where CSS moves content away from its source order (flex or grid reordering, absolute positioning), but a difference between visual and source order is not a fault in itself, since the source order may be just as comprehensible. No check can fault under every reading or decide the requirement, so the entry is none. No axe rule is tagged. Applicability is judgment: whether a page holds information whose order matters is not something code decides. Needs is empty: disabling style sheets can be done on the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "10.3",
+        "quote": "l’information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées"
+      },
+      {
+        "source": "glossary",
+        "entry": "Compréhensible (ordre de lecture)",
+        "quote": "Un contenu compréhensible est lisible (l’ordre des éléments est logique) et cohérent (l’enchaînement de la lecture est cohérent)."
+      },
+      {
+        "source": "methodology",
+        "test": "10.3.1",
+        "quote": "Désactiver les styles (CSS) du document ;"
+      }
+    ]
+  }
+}

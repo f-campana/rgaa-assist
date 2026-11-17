@@ -1,0 +1,141 @@
+{
+  "test": "10.6.1",
+  "requirements": [
+    {
+      "id": "link-colour-contrast",
+      "statement": "Each text link signalled only by colour, whose nature is not evident, has a colour with a contrast ratio of at least 3:1 with the surrounding text.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.6.1",
+          "line": 1,
+          "quote": "chaque lien texte signalé uniquement par la couleur, et dont la nature n’est pas évidente, vérifie-t-il ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "10.6.1",
+          "line": 2,
+          "quote": "La couleur du lien a un rapport de contraste supérieur ou égal à 3:1 par rapport au texte environnant ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "contrast-3-to-1",
+          "statement": "The contrast ratio between the link's text colour and the surrounding text's colour is 3:1 or more, in each state presented with a different colour.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.6.1",
+              "quote": "vérifier que le contraste entre la couleur de police du lien et la couleur de police du texte environnant est de 3:1, au moins ;"
+            },
+            {
+              "source": "methodology",
+              "test": "10.6.1",
+              "quote": "Cette vérification doit être faite pour les différents états du lien s’ils sont présentés au moyen d’une couleur différente"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "hover-indication",
+      "statement": "Each such link has a visual indication on hover other than a change of colour.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.6.1",
+          "line": 3,
+          "quote": "Le lien dispose d’une indication visuelle au survol autre qu’un changement de couleur ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "hover-non-colour-change",
+          "statement": "Hovering the link changes something visible other than colour.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.6.1",
+              "line": 3,
+              "quote": "indication visuelle au survol autre qu’un changement de couleur"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "focus-indication",
+      "statement": "Each such link has a visual indication on focus other than a change of colour.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.6.1",
+          "line": 4,
+          "quote": "Le lien dispose d’une indication visuelle au focus autre qu’un changement de couleur."
+        }
+      ],
+      "routes": [
+        {
+          "id": "focus-non-colour-change",
+          "statement": "Focusing the link changes something visible other than colour.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.6.1",
+              "line": 4,
+              "quote": "indication visuelle au focus autre qu’un changement de couleur"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/link-in-text-block",
+      "requirement": "link-colour-contrast",
+      "routes": ["contrast-3-to-1"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/10-6-link-like-text",
+      "requirement": "link-colour-contrast",
+      "routes": ["contrast-3-to-1"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state", "keyboard"],
+  "rationale": {
+    "text": "The test applies to text links signalled only by colour whose nature is not evident, and asks three things of each: a colour contrast of 3:1 with the surrounding text, a non-colour indication on hover, and one on focus. They are separate requirements, since all three must hold. Which links are concerned is judgment in general: the glossary defines them as links that can be confused with normal text when signalled only by colour, and a marker may be an icon, an underline, a border or anything else in its open list. Hover and focus indications are judgment too, and need interaction. So the entry is not full. One case is mechanical and fails the first requirement under any reading. The glossary says signalled only by colour means no visual marker accompanies the link, and that a link of the same colour as the surrounding text is concerned. Its example is a word in running text whose link nature is lost to users who do not perceive colour. The custom check looks for exactly that: a plain text link inside running text, with text siblings on its line, styled like its parent in every inherited property but colour, with no decoration, background, border, outline, shadow or pseudo-element content, no ancestor underline, no element or symbol beside it that could be a marker, and a colour whose contrast with the parent's text colour is below 3:1 (2.95, to leave room for rounding), identical colours included. Such a link is a text link by the glossary's definition, signalled by colour alone, and can be confused with the text around it by users who do not perceive colour, so it is concerned, and its contrast fails. Links whose text reads as an address are left out, since a reader could find their nature evident. The witness must be visible, exposed and uncovered. The fault means failure for the first requirement, whose one route it examines; the check considers every link and abstains on all others, so its scope is whole. It never answers no_fault, so the entry is fail_only. axe's link-in-text-block is evidence only: it compares a link with its enclosing block rather than the adjacent text, passes a link of the same colour as the text (allowSameColor), which the glossary counts as concerned, and treats a background contrast as enough; its faults do not establish that the link's nature is not evident. Applicability is judgment: whether a page holds a link concerned by the test is judgment. Needs lists state and keyboard, for the hover and focus requirements.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Lien dont la nature n’est pas évidente",
+        "quote": "Note : “signalés uniquement par la couleur” signifie que le lien n’est accompagné d’aucun marqueur visuel (icône, soulignement, bordure…). En conséquence, un lien de la même couleur que le texte environnant est concerné par ce critère."
+      },
+      {
+        "source": "glossary",
+        "entry": "Lien dont la nature n’est pas évidente",
+        "quote": "Lien qui peut être confondu avec un texte normal lorsqu’il est signalé uniquement par la couleur par certains types d’utilisateurs ne percevant pas ou mal les couleurs."
+      },
+      {
+        "source": "glossary",
+        "entry": "Lien texte",
+        "quote": "lien ne contenant aucun élément enfant de type :"
+      },
+      {
+        "source": "methodology",
+        "test": "10.6.1",
+        "quote": "s’il peut être confondu avec un texte normal lorsqu’il est signalé uniquement par la couleur"
+      }
+    ]
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "test": "10.5.1",
+  "requirements": [
+    {
+      "id": "color-with-background",
+      "statement": "Each CSS declaration of text colour (color) on an element that can contain text is accompanied by a declaration of background colour (background, background-color), on the element or inherited from a parent.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.5.1",
+          "line": 1,
+          "quote": "chaque déclaration CSS de couleurs de police (`color`), d’un élément susceptible de contenir du texte, est-elle accompagnée d’une déclaration de couleur de fond (`background`, `background-color`), au moins, héritée d’un parent ?"
+        },
+        {
+          "source": "methodology",
+          "test": "10.5.1",
+          "quote": "Déterminer l’élément qui contient le texte et vérifier la présence d’une valeur calculée pour la propriété `background-color` de l’élément ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "background-declared-in-chain",
+          "statement": "A background colour is declared on the element or on one of its ancestors.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.5.1",
+              "line": 1,
+              "quote": "accompagnée d’une déclaration de couleur de fond (`background`, `background-color`), au moins, héritée d’un parent"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "default-colours",
+          "statement": "Text in the browser's default colours, such as the default colour of links, is not examined.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.5.1",
+              "quote": "Retrouver dans le document les textes mis en couleur, à l’exception des couleurs par défaut (par exemple les liens, etc.) ;"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/10-5-color-without-background",
+      "requirement": "color-with-background",
+      "routes": ["background-declared-in-chain", "default-colours"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test asks that every author declaration of text colour on an element that can contain text be accompanied by a background colour declared on the element or an ancestor. The methodology starts from the coloured texts of the page, leaves out default colours such as those of links, and checks the background colour of the element holding the text. Whether every relevant declaration is accompanied cannot be decided in general: a background may come from an image, a pseudo-element, an overlapping element or a shadow, and which of these a reader counts is open. So the entry is not full. One case is mechanical and fails under both the wording and the methodology: a text whose colour comes from an author declaration while neither its element nor any ancestor up to html has any background declaration or any non-transparent background at all. The declaring element is then the text's element or one of its ancestors, so it has no background declared on itself or a parent, which fails the wording; and the text's element has no background, which fails the methodology. The methodology's \"valeur calculée\" cannot mean any computed value, since every element has one (transparent) and the test could then never fail; I read it as a value set for the element, as a browser's developer tools show it. The custom check looks for such a text and makes sure it is surely in scope: ordinary visible text of two letters or more, exposed to assistive technologies, not in a shadow tree, drawn in a generic or common system font (not an icon font), with nothing else painted under it. It abstains where a reader could see a background or a default colour: any background declaration in the chain, even transparent or an image, a presentational bgcolor attribute, an inset box-shadow, a pseudo-element with a background, an overlay, user-agent colours (links, buttons, fields, mark), a non-normal color-scheme, and an author colour of plain black, which a reader could take for the default colour. Its fault therefore means failure, through the one route and the default-colour exception. It never answers no_fault, so the entry is fail_only. Scope is partial: the check looks at text nodes, not at every element that receives a colour declaration. No axe rule is tagged. Applicability is judgment: whether an element can contain text and whether its colour is a default are not decided by code for every page. Needs is empty: the cascade is read on the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "10.5",
+        "quote": "les déclarations CSS de couleurs de fond d’élément et de police sont-elles correctement utilisées"
+      },
+      {
+        "source": "methodology",
+        "test": "10.5.1",
+        "quote": "vérifier la présence d’une valeur calculée pour la propriété `background-color` de l’élément"
+      },
+      {
+        "source": "test",
+        "test": "10.5.1",
+        "line": 1,
+        "quote": "au moins, héritée d’un parent"
+      }
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "test": "10.4.2",
+  "requirements": [
+    {
+      "id": "all-text-enlargeable",
+      "statement": "All the text of the page can be enlarged up to at least 200%, by one of the listed means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.4.2",
+          "line": 1,
+          "quote": "l’augmentation de la taille des caractères jusqu’à 200 %, au moins, doit être possible pour l’ensemble du texte dans la page. Cette règle est-elle respectée selon une de ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "methodology",
+          "test": "10.4.2",
+          "quote": "Vérifier dans le document si les textes sont effectivement agrandis lorsque :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "browser-text-enlarge",
+          "statement": "The text is enlarged when the browser's text enlargement function is used.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.4.2",
+              "line": 2,
+              "quote": "Lors de l’utilisation de la fonction d’agrandissement du texte du navigateur ;"
+            }
+          ]
+        },
+        {
+          "id": "browser-graphic-zoom",
+          "statement": "The text is enlarged when the browser's graphic zoom functions are used.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.4.2",
+              "line": 3,
+              "quote": "Lors de l’utilisation des fonctions de zoom graphique du navigateur ;"
+            }
+          ]
+        },
+        {
+          "id": "site-zoom-component",
+          "statement": "The text is enlarged when an interface component of the site that enlarges the text or zooms is used.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.4.2",
+              "line": 4,
+              "quote": "Lors de l’utilisation d’un composant d’interface propre au site permettant d’agrandir le texte ou de zoomer."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captions-burned-in",
+          "statement": "Captions burned into a video are exempt, since the user cannot customise them.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.4",
+              "quote": "Font exception à ce critère, les contenus pour lesquels l’utilisateur n’a pas de possibilité de personnalisation :"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.4",
+              "quote": "Les sous-titres incrustés dans une vidéo ;"
+            }
+          ]
+        },
+        {
+          "id": "text-in-image",
+          "statement": "Text in images is exempt.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.4",
+              "quote": "Les textes en image ;"
+            }
+          ]
+        },
+        {
+          "id": "canvas-text",
+          "statement": "Text inside a canvas element is exempt.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.4",
+              "quote": "Le texte au sein d’une balise `<canvas>`."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/meta-viewport",
+      "requirement": "all-text-enlargeable",
+      "routes": ["browser-graphic-zoom"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test asks that all the text of the page can be enlarged to 200% by any one of three means: the browser's text enlargement, the browser's graphic zoom, or a component of the site. It exempts burned-in captions, text in images and text in a canvas. axe's meta-viewport faults a viewport meta element that sets user-scalable=no or a maximum-scale below 2. That blocks pinch zoom in some mobile browsers, which bears on the graphic zoom route only. It does not stop the browser's text enlargement, desktop zoom ignores it, and some mobile browsers override it, so the text may still be enlarged by another route or even by graphic zoom. The link is evidence only and partial: it looks at one element, not at the text. A custom check could find text that does not grow under zoom, such as a font size set only in viewport units, but a fault could prove failure only if all three routes failed, and the site component route needs judgment to find and interaction to use. Whether some text is exempt as text in an image is judgment as well. So the entry is none. Applicability is judgment: a page whose only text is exempt would be outside the test, which code cannot tell for certain. Needs lists state, because the third means is a component the user operates. Rendering the page with enlarged text or zoom is not one of the listed prerequisites.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "10.4",
+        "quote": "le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu’à 200 %, au moins (hors cas particuliers)"
+      },
+      {
+        "source": "test",
+        "test": "10.4.2",
+        "line": 1,
+        "quote": "doit être possible pour l’ensemble du texte dans la page"
+      },
+      {
+        "source": "methodology",
+        "test": "10.4.2",
+        "quote": "Le zoom graphique du navigateur est réglé à 200 % ;"
+      }
+    ]
+  }
+}

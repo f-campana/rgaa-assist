@@ -1,0 +1,108 @@
+{
+  "test": "10.1.2",
+  "requirements": [
+    {
+      "id": "no-presentation-attributes",
+      "statement": "The generated source of the page holds none of the attributes used for presentation: align, alink, background, bgcolor, border, cellpadding, cellspacing, char, charoff, clear, color, compact, frameborder, hspace, link, marginheight, marginwidth, text, valign, vlink, vspace, size, width and height.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.1.2",
+          "line": 1,
+          "quote": "les attributs servant à la présentation de l’information ne doivent pas être présents dans le code source généré des pages"
+        },
+        {
+          "source": "methodology",
+          "test": "10.1.2",
+          "quote": "Vérifier l’absence des attributs de présentation : `align`, `alink`, `background`, `bgcolor`, `border`, `cellpadding`, `cellspacing`, `char`, `charoff`, `clear`, `color`, `compact`, `frameborder`, `hspace`, `link`, `marginheight`, `marginwidth`, `text`, `valign`, `vlink`, `vspace`,"
+        }
+      ],
+      "routes": [
+        {
+          "id": "attributes-absent",
+          "statement": "None of the listed attributes is present in the generated source, outside the elements on which the exceptions allow them.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.1.2",
+              "quote": "Si c’est le cas, **le test est validé**."
+            },
+            {
+              "source": "glossary",
+              "entry": "Présentation de l’information",
+              "quote": "La présentation de l’information doit être réalisée via CSS."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "size-on-select",
+          "statement": "The size attribute is allowed on the select element.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.1.2",
+              "quote": "`size`(exception faite de l'élément `<select>`)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Présentation de l’information",
+              "quote": "L'attribut size utilisé sur d’autres éléments que l'élément <select> est également interdit ;"
+            }
+          ]
+        },
+        {
+          "id": "dimensions-on-embedded",
+          "statement": "The width and height attributes are allowed on the img, object, embed, canvas and svg elements.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.1.2",
+              "quote": "`width` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`), `height` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Présentation de l’information",
+              "quote": "Les attributs width et height utilisés sur d’autres éléments que les éléments <img>, <object>, <embed>, <canvas> et <svg> sont également interdits ;"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/10-1-presentation-attributes",
+      "requirement": "no-presentation-attributes",
+      "routes": ["attributes-absent", "size-on-select", "dimensions-on-embedded"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "full",
+  "enabled": "none",
+  "applicability": "always",
+  "needs": [],
+  "rationale": {
+    "text": "The test forbids presentation attributes in the generated source, and the methodology lists them, with two exceptions: size on select, and width and height on img, object, embed, canvas and svg. Whether an element carries an attribute is a fact of the DOM, so the entry can be full. The wording is about presence in the generated source, so hidden elements count, as in 10.1.1. The custom check faults the page when an HTML element of the top-level document, outside shadow trees, carries a listed attribute that HTML 4.01 or the current HTML standard defines for that element (align on div or td, bgcolor on body, border on table or img, frameborder on iframe, size on input or hr, width on td or table, and so on), other than on the excepted elements. Restricting faults to those defined pairs keeps the witness surely in scope: there the attribute is the presentational attribute the RGAA list names, so a fault proves failure. It abstains where a reader could disagree: the same name on an element that defines no such attribute (a custom element's size or color property, a data-like size on a div, color on a link element for a pinned-tab icon); width or height on iframe, video, input or source, which the HTML standard treats as dimension attributes of embedded content like those of the excepted elements, though the RGAA list does not name them; attributes on SVG or MathML elements other than the svg element's own width and height, which are geometry, not HTML presentation; listed attributes in shadow trees, framed documents, template content or noscript text, and any of these it cannot read. It also abstains when an HTML element carries one of the other presentational attributes the HTML standard lists as obsolete but RGAA does not name, such as nowrap, face, bordercolor or scrolling: the methodology validates the test once its list is absent, and the abstention is a margin against a broader reading of the wording. Otherwise it answers no_fault for the whole document. The route and both exceptions can each come out passed. The link is resolving and its fault means failure. No axe rule is tagged. Applicability is always: the test applies to every page, and the check never answers inapplicable. Needs is empty.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.2",
+        "line": 1,
+        "quote": "Dans chaque page web, les attributs servant à la présentation de l’information ne doivent pas être présents dans le code source généré des pages."
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "La présentation concerne le style, la position et les dimensions des éléments HTML et de leur contenu."
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "Vérifier l’absence des attributs de présentation"
+      }
+    ]
+  }
+}

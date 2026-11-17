@@ -1,0 +1,83 @@
+{
+  "test": "10.5.2",
+  "requirements": [
+    {
+      "id": "background-with-color",
+      "statement": "Each declaration of background colour (background, background-color) on an element that can contain text is accompanied by a declaration of text colour (color), on the element or inherited from a parent.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.5.2",
+          "line": 1,
+          "quote": "chaque déclaration de couleur de fond (`background`, `background-color`), d’un élément susceptible de contenir du texte, est-elle accompagnée d’une déclaration de couleur de police (`color`) au moins, héritée d’un parent ?"
+        },
+        {
+          "source": "methodology",
+          "test": "10.5.2",
+          "quote": "Déterminer l’élément qui contient le texte et vérifier la présence d’une valeur calculée pour la propriété `color` de l’élément ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "color-declared-in-chain",
+          "statement": "A text colour is declared on the element or on one of its ancestors.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.5.2",
+              "line": 1,
+              "quote": "accompagnée d’une déclaration de couleur de police (`color`) au moins, héritée d’un parent"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "default-colours",
+          "statement": "The browser's default colours, such as those of links, are not examined.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.5.2",
+              "quote": "Retrouver dans le document les textes mis en couleur, à l’exception des couleurs par défaut (par exemple les liens, etc.) ;"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/10-5-background-without-color",
+      "requirement": "background-with-color",
+      "routes": ["color-declared-in-chain", "default-colours"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test asks that every declaration of background colour on an element that can contain text be accompanied by a text colour declared on the element or an ancestor. The methodology starts from the coloured texts of the page, leaves out default colours, and checks the colour of the element holding the text. A text colour may be accompanied in ways a reader could count or not, so the entry is not full. One case is mechanical: an author declaration gives a visible background colour to a text's element or one of its ancestors, while no author declaration of color exists anywhere on that element or its ancestors, so the text is drawn in the browser's default colour. The declaring element is an element that holds text, and neither it nor a parent declares color, which fails the wording. The methodology fails it too, read as it must be: its step 2 cannot mean any computed value, since every element has a computed colour and the test could then never fail; it means a value set for the element, as developer tools show it, and the text's element has none. Its step 1 repeats the wording of test 10.5.1 (\"textes mis en couleur\"); a text drawn on a declared background colour is a coloured text in the sense of this test, which is about background colours. Read as limited to texts with an author text colour, step 1 would leave the test with no possible failure, since such texts always have a colour declaration; that reading cannot be the one meant, and the wording, which is unambiguous, decides. The custom check looks for such a text and requires it to be surely in scope: ordinary visible text of two letters or more, exposed, outside shadow trees, in a generic or common system font, with nothing else painted under it, so the declared background is behind it. It abstains when any colour declaration exists in the chain, whatever its value, when a user-agent rule gives the chain a colour (links, buttons, fields, mark, dialog), when the background comes only from a presentational attribute, and when color-scheme is not normal. Its fault covers the route and the default-colour exception, so it means failure; it never answers no_fault, so the entry is fail_only. Scope is partial: it looks at texts, not at every element with a background declaration. No axe rule is tagged. Applicability is judgment, for the same reasons as test 10.5.1. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "10.5",
+        "quote": "les déclarations CSS de couleurs de fond d’élément et de police sont-elles correctement utilisées"
+      },
+      {
+        "source": "methodology",
+        "test": "10.5.2",
+        "quote": "vérifier la présence d’une valeur calculée pour la propriété `color` de l’élément"
+      },
+      {
+        "source": "test",
+        "test": "10.5.2",
+        "line": 1,
+        "quote": "est-elle accompagnée d’une déclaration de couleur de police (`color`) au moins, héritée d’un parent ?"
+      }
+    ]
+  }
+}
