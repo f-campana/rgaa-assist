@@ -24,7 +24,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 - Batch 1 merged: builder A (`ad72cdb`, 1.1 and 1.5) and builder B (`2123b43`, 8.1, 8.2, 8.5 to 8.10). Entries: 35 of 258 (none 24, fail_only 10, full 1: 8.5.1). 414 tests pass.
 - Batch 2 merged: builder D (`a6fe2a4`, theme 9) and builder C (`16bac2a`, 11.2 to 11.5). Entries: 56 of 258 (none 40, fail_only 15, full 1). 94 check records, sorted, no duplicates.
-- Batch 3 launched 2026-11-17 14:40 UTC at 91% weekly: builders E (theme 3) and F (theme 5). The weekly limit may cut them; they commit per criterion and resume after Fabien's limit reset.
+- Batch 3: builder E merged (`c17318a`, theme 3: 15 entries, all `none`). Entries: 71 of 258 (none 55, fail_only 15, full 1). Builder F (theme 5) running; the weekly limit may cut it, and it commits per criterion.
 
 ## Where M1 stands, 2026-11-17
 
@@ -62,6 +62,7 @@ Also logged on the bridge, channel `rgaa-assist`.
 - Builder D's claims, for the cross-check: 9.1.2 `fail_only` treats an empty, exposed `<hx>` as a heading whose content cannot be relevant; 9.2.1 `fail_only` through two checks, one of which (`custom/9-2-main-missing`) faults a page with no `<main>` by reading the glossary's « Cette zone est unique dans la page » as "every page has one". Builder D listed that check as its least sure; it offers `evidence_only` as the fallback, which would keep 9.2.1 at `fail_only` through `custom/9-2-main-multiple-shown`. Codex should rule.
 - Builder C's claims, for the cross-check: 11.2.1, 11.2.2, 11.2.3 `fail_only`, each on an empty label mechanism (`<label>`, `title`, `aria-label`) that is the field's only one, read as failing 11.2.x because 11.1.1 asks only for presence. 11.2.4 stays `none`: the glossary does not say whether an empty referenced element is a « passage de texte ». Check that this reason is not "another test owns it".
 - Schema limits reported by builder C: no prerequisite expresses a multi-page comparison (11.3.2); one check returns one page result, so it cannot serve two requirements over different elements.
+- Builder E (theme 3, all `none`): the glossary says a doubled means makes criterion 3.1 « non applicable », the methodology says the test is « validé »; E followed the methodology (no effect at `none`). E linked axe `color-contrast` to the untagged 3.2.2 to 3.2.4 as evidence only, and added `media` to 3.2.1 to 3.2.4 (text in videos is in scope by the glossary).
 - Builder D linked axe list rules to 9.3.2 though axe does not tag them for it (evidence only). The guide allows links on an argued basis; an axe tag justifies a link but is not required.
 - Tests 8.1.1 to 8.1.3 turn on the served source, which v1 does not read (spec 15, Q9). They stay `none`.
 
