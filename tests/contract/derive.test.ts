@@ -9,6 +9,7 @@
 import { describe, expect, it } from "vitest";
 import { deriveFindings } from "../../src/rulesets/shared/index.ts";
 import type { Level, Observation, Outcome, Status } from "../../src/schema/index.ts";
+import { CoverageEntrySchema } from "../../src/schema/index.ts";
 import type { LinkSpec } from "./helpers.ts";
 import {
   RULESET,
@@ -736,7 +737,8 @@ describe("a target that was not established", () => {
 // ---------------------------------------------------------------------------
 
 describe("structural against judgment applicability", () => {
-  const two = (applicability: "structural" | "judgment") =>
+  type Applicability = "structural" | "judgment" | "always";
+  const two = (applicability: Applicability) =>
     entry({
       reqs: ["r1", "r2"],
       applicability,
@@ -759,6 +761,153 @@ describe("structural against judgment applicability", () => {
 
   it("judgment below full: not_enabled comes first", () => {
     expect(derive1(two("judgment"), allInapplicable(), { level: "fail_only" }).reason).toBe("not_enabled");
+  });
+
+  // Q40: `always` is for a test that applies to every page.
+
+  it("every requirement inapplicable, always: needs_review, cannot_tell", () => {
+    const f = derive1(two("always"), allInapplicable());
+    expect(f).toMatchObject({ status: "needs_review", reason: "cannot_tell", complete: true });
+    expect(f.requirementFacts).toEqual({ r1: ["inapplicable"], r2: ["inapplicable"] });
+  });
+
+  it("every requirement inapplicable: the three values side by side", () => {
+    const got = (["structural", "judgment", "always"] as const).map((a) => {
+      const f = derive1(two(a), allInapplicable());
+      return [a, f.status, f.reason];
+    });
+    expect(got).toEqual([
+      ["structural", "not_applicable", undefined],
+      ["judgment", "needs_review", "judgment_required"],
+      ["always", "needs_review", "cannot_tell"],
+    ]);
+  });
+
+  it("always never gives not_applicable, at any level, whatever the outcomes", () => {
+    const outcomes: Outcome[] = ["no_fault", "inapplicable", "cannot_tell", "fault", "error"];
+    for (const level of LEVELS) {
+      for (const kind of ["resolving", "resolving_failure"] as const) {
+        const e = entry({ applicability: "always", links: [{ check: "custom/res", kind }] });
+        for (const outcome of outcomes) {
+          expect(derive1(e, [obs("custom/res", outcome)], { level }).status, `${level} ${kind} ${outcome}`).not.toBe("not_applicable");
+        }
+        // A missing observation too.
+        expect(derive1(e, [], { level }).status, `${level} ${kind} missing`).not.toBe("not_applicable");
+      }
+      expect(derive1(two("always"), allInapplicable(), { level }).status, `${level} two inapplicable`).not.toBe("not_applicable");
+      // Mixed outcomes across two requirements.
+      for (const a of outcomes) {
+        for (const b of outcomes) {
+          const f = derive1(two("always"), [obs("custom/res", a), obs("custom/res2", b)], { level });
+          expect(f.status, `${level} ${a}/${b}`).not.toBe("not_applicable");
+        }
+      }
+    }
+  });
+
+  it("always below full: not_enabled comes first", () => {
+    expect(derive1(two("always"), allInapplicable(), { level: "fail_only" })).toMatchObject({ status: "needs_review", reason: "not_enabled" });
+    expect(derive1(two("always"), allInapplicable(), { level: "none" })).toMatchObject({ status: "needs_review", reason: "not_enabled" });
+  });
+
+  it("always: a proven failure is still failed at fail_only and full", () => {
+    const e = entry({ applicability: "always", links: [{ check: "custom/res", kind: "resolving_failure" }] });
+    for (const level of ["fail_only", "full"] as const) {
+      const f = derive1(e, [obs("custom/res", "fault")], { level });
+      expect(f.status, level).toBe("failed");
+      expect(f.reason, level).toBeUndefined();
+      expect(f.requirementFacts, level).toEqual({ r1: ["violation"] });
+    }
+    // At none the failure is not concluded.
+    expect(derive1(e, [obs("custom/res", "fault")], { level: "none" }).status).not.toBe("failed");
+  });
+
+  it("always: every requirement satisfied at full is still passed", () => {
+    const f = derive1(two("always"), [obs("custom/res", "no_fault"), obs("custom/res2", "no_fault")]);
+    expect(f.status).toBe("passed");
+    expect(f.reason).toBeUndefined();
+    expect(f.requirementFacts).toEqual({ r1: ["satisfied"], r2: ["satisfied"] });
+  });
+
+  it("always: one requirement satisfied and one inapplicable is passed", () => {
+    expect(derive1(two("always"), [obs("custom/res", "no_fault"), obs("custom/res2", "inapplicable")]).status).toBe("passed");
+  });
+
+  it("always: cannot_tell on a requirement is cannot_tell, as for the other values", () => {
+    for (const a of ["structural", "judgment", "always"] as const) {
+      expect(derive1(two(a), [obs("custom/res", "cannot_tell"), obs("custom/res2", "inapplicable")]), a).toMatchObject({
+        status: "needs_review",
+        reason: "cannot_tell",
+      });
+    }
+  });
+
+  describe("earlier rules of step 4 win over 4.4 for always, as for the others", () => {
+    const VALUES: Applicability[] = ["structural", "judgment", "always"];
+
+    it("an error (4.2): not_tested", () => {
+      for (const a of VALUES) {
+        const f = derive1(two(a), [obs("custom/res", "error"), obs("custom/res2", "inapplicable")]);
+        expect(f, a).toMatchObject({ status: "not_tested", reason: "check_error", complete: false });
+        expect(f.notRun, a).toEqual(["custom/res"]);
+      }
+    });
+
+    it("a dispute (3e): needs_review, checks_disagree", () => {
+      for (const a of VALUES) {
+        const e = entry({
+          applicability: a,
+          links: [
+            { check: "custom/fail", kind: "failure_partial" },
+            { check: "custom/res", kind: "resolving" },
+          ],
+        });
+        // The failure fault contradicts the resolving inapplicable: a dispute, not an inapplicable test.
+        expect(derive1(e, [obs("custom/fail", "fault"), obs("custom/res", "inapplicable")]), a).toMatchObject({
+          status: "needs_review",
+          reason: "checks_disagree",
+        });
+      }
+    });
+
+    it("an unmet prerequisite (3d): needs_review, prerequisite_unmet", () => {
+      for (const a of VALUES) {
+        const e = entry({ applicability: a, needs: ["keyboard"], links: [{ check: "custom/res", kind: "resolving" }] });
+        expect(derive1(e, [obs("custom/res", "inapplicable")]), a).toMatchObject({ status: "needs_review", reason: "prerequisite_unmet" });
+      }
+    });
+
+    it("an unestablished target (step 1): not_tested, target_not_established", () => {
+      for (const a of VALUES) {
+        const e = entry({ applicability: a, links: [{ check: "custom/res", kind: "resolving" }] });
+        const f = derive1(e, [], { target: unestablished(T_STATE) });
+        expect(f, a).toMatchObject({ status: "not_tested", reason: "target_not_established", complete: false });
+      }
+    });
+  });
+
+  describe("the schema", () => {
+    it("accepts each of structural, judgment and always", () => {
+      for (const a of ["structural", "judgment", "always"] as const) {
+        expect(entry({ applicability: a, links: [{ check: "custom/res", kind: "resolving" }] }).applicability).toBe(a);
+      }
+    });
+
+    it("rejects an unknown value", () => {
+      for (const bad of ["never", "Always", "", "sometimes", null, 1]) {
+        const raw = rawEntry({ links: [{ check: "custom/res", kind: "resolving" }] });
+        raw.applicability = bad;
+        expect(CoverageEntrySchema.safeParse(raw).success, String(bad)).toBe(false);
+      }
+    });
+
+    it("deriveFindings refuses an entry with an unknown applicability", () => {
+      const raw = rawEntry({ links: [{ check: "custom/res", kind: "resolving" }] });
+      raw.applicability = "never";
+      const r = deriveRaw({ target: target(), observations: [obs("custom/res", "no_fault")], entries: [{ entry: raw, level: "full" }] });
+      expect(r.ok).toBe(false);
+      if (!r.ok) expect(r.rejections.map((x) => x.code)).toEqual(["entry_invalid"]);
+    });
   });
 });
 
