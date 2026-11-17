@@ -1,0 +1,111 @@
+{
+  "test": "6.1.2",
+  "requirements": [
+    {
+      "id": "link-explicit",
+      "statement": "Each image link (a link whose content is only image-type children: img or role=\"img\", area with href, object, canvas or svg) lets the user understand its function and destination by one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "6.1.2",
+          "line": 1,
+          "quote": "Chaque lien image vérifie-t-il une de ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Lien image",
+          "quote": "En HTML, lien contenant uniquement un ou plusieurs enfants de type image :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "label-alone",
+          "statement": "The link's label, given by the text alternative of its image or images, alone lets the user understand its function and destination.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "6.1.2",
+              "line": 2,
+              "quote": "L’intitulé de lien seul permet d’en comprendre la fonction et la destination ;"
+            },
+            {
+              "source": "methodology",
+              "test": "6.1.2",
+              "quote": "Soit l’intitulé du lien seul, fourni par l’alternative textuelle de l’image ;"
+            }
+          ]
+        },
+        {
+          "id": "label-with-context",
+          "statement": "The link's label together with one of the six link contexts (its sentence, paragraph, list item or parent list item, preceding heading, associated table header cells, or table data cell) lets the user understand its function and destination.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "6.1.2",
+              "line": 3,
+              "quote": "L’intitulé de lien additionné au contexte du lien permet d’en comprendre la fonction et la destination."
+            },
+            {
+              "source": "glossary",
+              "entry": "Contexte du lien",
+              "quote": "l’un des 6 contextes de lien combiné à l’intitulé du lien doit permettre de comprendre la fonction et la destination du lien."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "ambiguous-for-everyone",
+          "statement": "A link that is ambiguous for everyone, whose purpose no reader could determine from the link and the information presented with it, cannot be made explicit in its context; the criterion is then not applicable to it.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "Il existe une gestion de cas particuliers pour les tests 6.1.1, 6.1.2, 6.1.3 et 6.1.4 lorsque le lien est ambigu pour tout le monde."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "Dans cette situation, où il n’est pas possible de rendre le lien explicite dans son contexte, le critère est non applicable."
+            },
+            {
+              "source": "glossary",
+              "entry": "Ambigu pour tout le monde",
+              "quote": "L’intention ne peut être déterminée à partir du lien et de toute l’information de la page web présentée à l’utilisateur en même temps que ce lien"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Whether an image link's label, alone or with its context, lets a user understand its function and destination is judgment, and so is the exception for links that are ambiguous for everyone. The candidate is none and no check is linked. No axe rule is tagged for this test. One case looks mechanical and is not claimed: an image link whose images give no text alternative, so its label is empty. The label alone then explains nothing, but the second route adds the link's context to the label, and the official text does not say whether a context can make a link with an empty label understandable. The glossary sends links without content to criteria 6.2 and 10.2 and says nothing of 6.1 for them. The glossary's notes on non-explicit labels (a name that does not take up the visible label, a title that does not take up the name from content) leave the context route open in the same way. What would raise this: an official reading that an empty label fails both routes, and a way to rule out the exception. The custom check written for test 6.1.5 is not linked: it abstains on every link holding an image, so it never examines an image link. Applicability is judgment: the exception leaves links outside the criterion only through a judgment, and an element with role=\"link\" is a link only if a script handles its navigation. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "6.1",
+        "quote": "Chaque lien est-il explicite (hors cas particuliers) ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "lorsqu’un lien ne comporte aucun contenu, il sera non conforme au regard du critère 10.2 et du critère 6.2."
+      },
+      {
+        "source": "glossary",
+        "entry": "Contexte du lien",
+        "quote": "Le contexte du lien représente les informations supplémentaires (on parle d’informations de contexte) qui peuvent être mises en relation par un programme informatique avec l’intitulé du lien."
+      },
+      {
+        "source": "methodology",
+        "test": "6.1.2",
+        "quote": "Si c’est le cas pour chaque lien image, **le test est validé**."
+      }
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "test": "7.2.2",
+  "requirements": [
+    {
+      "id": "alternative-updated",
+      "statement": "For each non-text element updated by a script, in the page or in a frame, that has an alternative, the alternative is updated when the element is.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.2.2",
+          "line": 1,
+          "quote": "Chaque élément non textuel mis à jour par un script (dans la page, ou dans un cadre) et ayant une alternative vérifie-t-il ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "7.2.2",
+          "line": 2,
+          "quote": "L’alternative de l’élément non textuel est mise à jour ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "updated-with-element",
+          "statement": "The alternative is updated when the non-text content is updated.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.2.2",
+              "quote": "L'alternative est mise à jour lorsque le contenu non textuel est mis à jour ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "updated-alternative-relevant",
+      "statement": "The updated alternative is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.2.2",
+          "line": 3,
+          "quote": "L’alternative mise à jour est pertinente."
+        }
+      ],
+      "routes": [
+        {
+          "id": "relevant-after-update",
+          "statement": "The updated alternative is relevant to the updated non-text content.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.2.2",
+              "quote": "L'alternative mise à jour est pertinente."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test has two requirements: the alternative of a non-text element updated by a script is updated, and the updated alternative is relevant. Relevance is judgment. The first requirement could look mechanical, for example an image whose source a script changes while its alt attribute stays the same, but it is not claimed. Seeing the update needs the element to be observed before and after it, which happens only after an interaction or over time. The test applies only to elements that have an alternative, and the official text does not say which forms count; an alternative given by other means than the alt attribute (adjacent text, a caption, a description) may be updated where a check would not look. And whether a given change of the element is an update of its non-text content, rather than the same image served at another address, is not decided by the text. What would raise this: a technique that observes the update, and a closed list of the alternatives the test means. No axe rule is tagged for this test. Applicability is judgment: whether a script updates a non-text element is not known from the page as loaded. Needs is state, since the update follows a script action, usually after an interaction.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "7.2.2",
+        "quote": "Retrouver dans le document tous les éléments non textuels mis à jour par une fonctionnalité JavaScript."
+      },
+      {
+        "source": "methodology",
+        "test": "7.2.2",
+        "quote": "Si l'élément non textuel a une alternative, vérifier que :"
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "7.2",
+        "quote": "cette alternative est-elle pertinente ?"
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "test": "7.1.2",
+  "requirements": [
+    {
+      "id": "component-rendered-or-alternative",
+      "statement": "Each user interface component generated or controlled by a script, among those that validated test 7.1.1, meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.1.2",
+          "line": 1,
+          "quote": "Chaque script qui génère ou contrôle un composant d’interface respecte-t-il une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "7.1.2",
+          "quote": "Pour chacun des composants d’interface ayant validé le test 7.1.1, vérifier que le composant d’interface est correctement restitué par les technologies d’assistance ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "correctly-rendered",
+          "statement": "Assistive technologies render the component correctly, as checked with at least one combination of the site's test environment.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.1.2",
+              "line": 2,
+              "quote": "Le composant d’interface est correctement restitué par les technologies d’assistance ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Correctement restitué (par les technologies d’assistance)",
+              "quote": "Le test consiste à vérifier que la restitution est pertinente pour au moins une des combinaisons de l’environnement de test (ou « base de référence ») utilisé pour déclarer qu’un élément, un dispositif ou une alternative est « compatible avec l’accessibilité »."
+            }
+          ]
+        },
+        {
+          "id": "script-alternative",
+          "statement": "An accessible alternative, reached through a means the site itself provides, gives access to the same functions.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.1.2",
+              "line": 3,
+              "quote": "Une alternative accessible permet d’accéder aux mêmes fonctionnalités."
+            },
+            {
+              "source": "glossary",
+              "entry": "Alternative (à script)",
+              "quote": "lorsqu’une alternative à un procédé ou une fonctionnalité JavaScript est proposée, le moyen d’y accéder doit être fourni par le site lui-même."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["assistive_tech", "state"],
+  "rationale": {
+    "text": "The first route is checked by testing the component with the assistive technologies of the site's test environment and judging whether their rendering is relevant. That needs assistive technology and judgment, and no check run on the page can replace it. Whether an alternative gives the same functions is judgment too. The methodology also limits the test to components that validated test 7.1.1, which is itself judgment. So the candidate is none and no check is linked. No axe rule is tagged for this test; the WAI-ARIA validity rules tagged for 7.1.1 say nothing about how a screen reader renders a component. Applicability is judgment: whether a component is controlled by a script, and whether it validated 7.1.1, are not decided with certainty by code. Needs is assistive_tech, since the methodology checks the rendering by assistive technologies, and state, since a component's rendering is checked as it is used.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Correctement restitué (par les technologies d’assistance)",
+        "quote": "On procède alors à un test avec les outils de l’environnement de test défini pour le site."
+      },
+      {
+        "source": "glossary",
+        "entry": "Compatible avec les technologies d’assistance",
+        "quote": "Vérifier que la restitution d’un composant d’interface est correcte pour la ou les technologies d’assistance utilisées."
+      },
+      {
+        "source": "methodology",
+        "test": "7.1.2",
+        "quote": "Si c’est le cas, **le test est validé**."
+      }
+    ]
+  }
+}

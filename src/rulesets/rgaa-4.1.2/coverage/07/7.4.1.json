@@ -1,0 +1,109 @@
+{
+  "test": "7.4.1",
+  "requirements": [
+    {
+      "id": "context-change-controlled",
+      "statement": "Each script that initiates a change of context (of user agent, of viewport, of focus, or of content that changes the meaning of the page) meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.4.1",
+          "line": 1,
+          "quote": "Chaque script qui initie un changement de contexte vérifie-t-il une de ces conditions ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Changement de contexte",
+          "quote": "Les changements de contexte comprennent les changements :"
+        },
+        {
+          "source": "glossary",
+          "entry": "Changement de contexte",
+          "quote": "l’ouverture d’une nouvelle fenêtre, le déplacement du focus sur un composant différent, le déplacement vers une nouvelle page (y compris tout ce qui, pour l’utilisateur, aurait l’air d’un déplacement vers une autre page) ou la réorganisation significative du contenu d’une page sont autant d’illustrations d’un changement de contexte."
+        }
+      ],
+      "routes": [
+        {
+          "id": "warned-before",
+          "statement": "A text warns the user of the script's action and of the type of change before it is triggered.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.4.1",
+              "line": 2,
+              "quote": "L’utilisateur est averti par un texte de l’action du script et du type de changement avant son déclenchement ;"
+            }
+          ]
+        },
+        {
+          "id": "explicit-button",
+          "statement": "The change of context is initiated by an explicit button (input of type submit, button or image, or a button element).",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.4.1",
+              "line": 3,
+              "quote": "Le changement de contexte est initié par un bouton (input de type `submit`, `button` ou `image` ou balise `<button>`) explicite ;"
+            }
+          ]
+        },
+        {
+          "id": "explicit-link",
+          "statement": "The change of context is initiated by an explicit link.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.4.1",
+              "line": 4,
+              "quote": "Le changement de contexte est initié par un lien explicite."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/13-2-window-opened-without-action",
+      "requirement": "context-change-controlled",
+      "routes": ["explicit-button", "explicit-link"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test asks that each script initiating a change of context warn the user beforehand by a text, or be started by an explicit button or link. Finding the changes of context is judgment: the glossary counts changes of content that alter the meaning of the page and significant reorganisations, and notes that a change of content is not always a change of context. Most of them happen only when the user acts, as the methodology's examples show (a select that opens a new page, an update of an essential part of the page, focus moved by a script). Whether a button or link is explicit, and whether a text warns of the action and the type of change, are judgment too. So the candidate is none. No axe rule is tagged for this test. The custom check written for test 13.2.1 is linked as evidence only. It faults a new window or tab that the page opened and kept open with no user action at all, which the glossary names as a change of context, and which a script must have opened. Such a window was not started by activating any button or link, so the two last routes fail for it. It does not prove a failure: a text may have warned of it before it opened, for example on the page that led here, which the check cannot see; and whether a handler written in an attribute rather than a script element is a script in the glossary's sense is left open. It sees only windows opened before any action, so its scope is partial. Applicability is judgment: whether a script initiates a change of context is not known from the page as loaded. Needs is state, since most changes of context follow an interaction.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Changement de contexte",
+        "quote": "Un changement de contenu n’est pas toujours un changement de contexte."
+      },
+      {
+        "source": "methodology",
+        "test": "7.4.1",
+        "quote": "L’ouverture d’une nouvelle page à l’activation d’une option d’une liste de sélection (élément `<select>`) ;"
+      },
+      {
+        "source": "methodology",
+        "test": "7.4.1",
+        "quote": "La manipulation du focus ayant pour résultat de modifier la position courante de l’utilisateur dans la page."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "7.4",
+        "quote": "Pour chaque script qui initie un changement de contexte, l’utilisateur est-il averti ou en a-t-il le contrôle ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Script",
+        "quote": "Dans les deux cas, l’insertion se fait via la balise <script>."
+      }
+    ]
+  }
+}

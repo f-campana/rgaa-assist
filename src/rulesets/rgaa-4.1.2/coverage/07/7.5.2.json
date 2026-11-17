@@ -1,0 +1,77 @@
+{
+  "test": "7.5.2",
+  "requirements": [
+    {
+      "id": "alert-message-role",
+      "statement": "Each status message that presents a suggestion or warns of an error is contained in an element that takes the alert role.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.5.2",
+          "line": 1,
+          "quote": "Chaque message de statut qui présente une suggestion, ou avertit de l’existence d’une erreur utilise-t-il l’attribut WAI-ARIA `role=\"alert\"` ?"
+        },
+        {
+          "source": "methodology",
+          "test": "7.5.2",
+          "quote": "Tests identiques à 7.5.1"
+        }
+      ],
+      "routes": [
+        {
+          "id": "role-alert",
+          "statement": "The element containing the message has role=\"alert\".",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.5.1",
+              "quote": "Soit utilise l’attribut WAI-ARIA `role=”alert”` ;"
+            }
+          ]
+        },
+        {
+          "id": "live-assertive-atomic",
+          "statement": "The element containing the message has aria-live=\"assertive\" and aria-atomic=\"true\", which may stand for the alert role when the message's nature fits it.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.5.1",
+              "quote": "Soit utilise les attributs `aria-live=”assertive”` et `aria-atomic=”true”`."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "7.5",
+              "quote": "Un attribut WAI-ARIA `aria-live=\"assertive\"` et un attribut WAI-ARIA `aria-atomic=\"true\"` associés à un message de statut peuvent valoir pour un rôle WAI-ARIA `alert`."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The methodology is the one of test 7.5.1, whose fourth step covers this test. The requirement has two routes: role=\"alert\" on the element holding the message, or aria-live=\"assertive\" with aria-atomic=\"true\", which the technical note accepts for a message whose nature fits. Whether content is a status message, and whether it presents a suggestion or warns of an error rather than a success or progress, is judgment that the methodology leaves to the auditor. Error messages and suggestions also appear only after the user acts, typically after a form is submitted or a field is left. So the candidate is none and no check is linked. No axe rule is tagged for this test. Applicability is judgment: whether the page produces such messages is not known from the page as loaded. Needs is state, since these messages follow an action.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "7.5.1",
+        "quote": "Si le message présente une suggestion, ou avertit de l’existence d’une erreur, vérifier que l’élément qui contient le message :"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "7.5",
+        "quote": "C’est sous réserve que la nature du message de statut satisfasse bien à la correspondance implicitement établie."
+      },
+      {
+        "source": "glossary",
+        "entry": "Message de statut",
+        "quote": "Un message de statut peut informer sur :"
+      }
+    ]
+  }
+}

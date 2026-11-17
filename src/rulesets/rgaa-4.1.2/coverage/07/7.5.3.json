@@ -1,0 +1,113 @@
+{
+  "test": "7.5.3",
+  "requirements": [
+    {
+      "id": "progress-message-role",
+      "statement": "Each status message that indicates the progress of a process is contained in an element that takes the log, progressbar or status role, or an accepted equivalent.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.5.3",
+          "line": 1,
+          "quote": "Chaque message de statut qui indique la progression d’un processus utilise-t-il l’un des attributs WAI-ARIA `role=\"log\"`, `role=\"progressbar\"` ou `role=\"status\"` ?"
+        },
+        {
+          "source": "methodology",
+          "test": "7.5.3",
+          "quote": "Tests identiques à 7.5.1"
+        }
+      ],
+      "routes": [
+        {
+          "id": "role-log-progressbar-status",
+          "statement": "The element containing the message has role=\"log\", role=\"progressbar\" or role=\"status\".",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.5.1",
+              "quote": "Soit utilise l’un des attributs WAI-ARIA `role=”log”`, `role=”progressbar”` ou `role=”status”` ;"
+            }
+          ]
+        },
+        {
+          "id": "live-polite-as-log",
+          "statement": "The element containing the message has aria-live=\"polite\", standing for the log role when that is the intent.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.5.1",
+              "quote": "Soit utilise l’attribut WAI-ARIA `aria-live=”polite”` si l’intention est de signaler l’équivalent d’un `rôle “log”` ;"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "7.5",
+              "quote": "Un attribut WAI-ARIA `aria-live=\"polite\"` associé à un message de statut peut valoir pour un rôle WAI-ARIA `log` ;"
+            }
+          ]
+        },
+        {
+          "id": "live-polite-atomic-as-status",
+          "statement": "The element containing the message has aria-live=\"polite\" and aria-atomic=\"true\", standing for the status role when that is the intent.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.5.1",
+              "quote": "Soit utilise les attributs WAI-ARIA `aria-live=”polite”` et aria-atomic=”true si l’intention est de signaler l’équivalent d’un rôle “status”."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "graphic-progress-bar-role",
+      "statement": "A progress status message shown graphically as a progress bar has an explicit progressbar role; the live-region equivalents do not stand for it.",
+      "citations": [
+        {
+          "source": "technical_note",
+          "criterion": "7.5",
+          "quote": "Dans le cas d’un message de statut indiquant la progression d’un processus et matérialisé graphiquement par une barre de progression, un rôle WAI-ARIA `progressbar` explicite est nécessaire."
+        }
+      ],
+      "routes": [
+        {
+          "id": "explicit-progressbar-role",
+          "statement": "The element representing the progress bar has an explicit WAI-ARIA progressbar role.",
+          "citations": [
+            {
+              "source": "technical_note",
+              "criterion": "7.5",
+              "quote": "un rôle WAI-ARIA `progressbar` explicite est nécessaire."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The methodology is the one of test 7.5.1, whose fifth step covers this test. The first requirement has three routes: one of the roles log, progressbar or status; aria-live=\"polite\" standing for log; or aria-live=\"polite\" with aria-atomic=\"true\" standing for status. The technical note adds a second requirement for a progress message drawn as a progress bar: an explicit progressbar role is then necessary. Whether content is a status message indicating progress, whether it is drawn as a progress bar, and which role the author intends a live region to stand for, are judgment. Whether a native progress element, whose role is implicit, meets the note's word explicit is not said. Progress messages also appear only while a process runs, after the user starts it. So the candidate is none and no check is linked. No axe rule is tagged for this test; axe's aria-progressbar-name checks that a progressbar has a name, which this test does not ask. Applicability is judgment: whether the page shows progress messages is not known from the page as loaded. Needs is state, since progress follows an action.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "7.5.1",
+        "quote": "Si le message indique la progression d’un processus, vérifier que l’élément qui contient le message :"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "7.5",
+        "quote": "C’est sous réserve que la nature du message de statut satisfasse bien à la correspondance implicitement établie."
+      },
+      {
+        "source": "glossary",
+        "entry": "Message de statut",
+        "quote": "Un message de statut peut informer sur :"
+      }
+    ]
+  }
+}
