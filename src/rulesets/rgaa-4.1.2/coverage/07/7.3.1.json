@@ -54,12 +54,17 @@
               "test": "7.3.1",
               "line": 3,
               "quote": "Un élément accessible par le clavier et tout dispositif de pointage permettant de réaliser la même action est présent dans la page."
+            },
+            {
+              "source": "methodology",
+              "test": "7.3.1",
+              "quote": "Sinon, vérifier qu’un élément accessible par le clavier permettant de réaliser la même action est présent dans la page."
             }
           ]
         },
         {
           "id": "documented-shortcuts",
-          "statement": "Where focus handling is too complex for Tab, arrow keys and Enter, keyboard shortcuts make the component usable, provided they are documented, work, and respect criterion 12.10.",
+          "statement": "On the keyboard side only: where focus handling is too complex or unstable for Tab, arrow keys and Enter, keyboard shortcuts that are documented, work and respect criterion 12.10 make the element usable from the keyboard; pointer use is not covered by this route and stays with the pointer requirement.",
           "citations": [
             {
               "source": "glossary",
@@ -163,7 +168,7 @@
   "applicability": "judgment",
   "needs": ["keyboard"],
   "rationale": {
-    "text": "The wording lists two conditions, the element itself or an equivalent element, each usable by keyboard and by pointer. The methodology checks keyboard and pointer separately, each with its own fallback to an equivalent element, so I split the test into a keyboard requirement and a pointer requirement. That is the more permissive reading, which claims less. The glossary adds documented keyboard shortcuts as a way to make a component keyboard-usable. Nothing here can be resolved by code. Whether another element performs the same action is judgment. Whether a complex widget is usable with the arrow keys, and whether shortcuts are documented and working, needs keyboard work and judgment. The particular case, a handler with no universal equivalent, is judgment too, and it has no mechanical precondition a check could rule out. No axe rule is tagged. I registered one evidence check: elements with a pointer or keyboard listener attached directly to them that Tab cannot reach. Its fault only shows the first keyboard route fails for that element; an equivalent element or shortcuts may exist, so it is evidence only and partial (listeners delegated to an ancestor cannot be attributed). The entry stays at none. Applicability is judgment: code sees directly attached listeners but not which elements a delegated listener serves, and the particular case needs judgment. Needs lists keyboard, since the methodology reaches and activates elements with Tab, Enter and the arrow keys. Pointer testing is also required but has no prerequisite of its own.",
+    "text": "The wording and the methodology disagree on how the two conditions combine. The wording lists two conditions, each about one element usable by keyboard and by pointer: the element itself, or one equivalent element that has both capabilities. Methodology steps 2 to 5 check the keyboard and the pointer separately, each with its own fallback to an equivalent element, so the keyboard equivalent and the pointer equivalent may be two different controls. A two-control case separates the readings: a div with a click handler that Tab cannot reach, and elsewhere a button performing the same action that is shown only while it has keyboard focus, so no pointer can reach it. The methodology validates it (pointer through the div, keyboard through the button); the wording fails it (neither element has both capabilities). The entry follows the methodology's split into a keyboard requirement and a pointer requirement, and the disagreement is recorded here unresolved. The split is the more permissive reading: a fault under it is a fault under the wording too, but its no_fault is not, so no pass may rest on it until the reading is ruled on. The glossary adds documented keyboard shortcuts as a way to make a component usable from the keyboard. That route is placed under the keyboard requirement only: the glossary's note concerns focus handling with Tab, the arrow keys and Enter, and says nothing of pointing devices, so pointer use still has to be met through the pointer requirement. Nothing here can be resolved by code. Whether another element performs the same action is judgment. Whether a complex widget is usable with the arrow keys, and whether shortcuts are documented and working, needs keyboard work and judgment. The particular case, a handler with no universal equivalent, is judgment too, and it has no mechanical precondition a check could rule out. No axe rule is tagged. I registered one evidence check: elements with a pointer or keyboard listener attached directly to them that Tab cannot reach. Its fault only shows the first keyboard route fails for that element; an equivalent element or shortcuts may exist, so it is evidence only and partial (listeners delegated to an ancestor cannot be attributed). The entry stays at none. Applicability is judgment: code sees directly attached listeners but not which elements a delegated listener serves, and the particular case needs judgment. Needs lists keyboard, since the methodology reaches and activates elements with Tab, Enter and the arrow keys. Pointer testing is also required but has no prerequisite of its own.",
     "citations": [
       {
         "source": "methodology",
