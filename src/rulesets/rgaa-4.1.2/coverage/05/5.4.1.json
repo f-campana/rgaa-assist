@@ -1,0 +1,119 @@
+{
+  "test": "5.4.1",
+  "requirements": [
+    {
+      "id": "title-associated",
+      "statement": "For each data table that has a title, the title is correctly associated with the table by one of the listed means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.4.1",
+          "line": 1,
+          "quote": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?"
+        },
+        {
+          "source": "methodology",
+          "test": "5.4.1",
+          "quote": "Pour chaque titre, vérifier qu’il est fourni au moyen :"
+        },
+        {
+          "source": "glossary",
+          "entry": "Tableau de données ayant un titre",
+          "quote": "Dans la mesure où il est bien correctement restitué et associé par les technologies d’assistance au tableau de données, le titre associé peut être :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "caption-element",
+          "statement": "The title is in a caption element of the table.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "5.4.1",
+              "quote": "Soit d’un élément `<caption>` ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Tableau de données ayant un titre",
+              "quote": "Dans une balise <caption> ;"
+            }
+          ]
+        },
+        {
+          "id": "title-attribute",
+          "statement": "The title is in a title attribute of the table.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "5.4.1",
+              "quote": "Soit d’un attribut `title` ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Tableau de données ayant un titre",
+              "quote": "Dans un attribut title ;"
+            }
+          ]
+        },
+        {
+          "id": "aria-label-attribute",
+          "statement": "The title is in an aria-label attribute of the table.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "5.4.1",
+              "quote": "Soit d’un attribut WAI-ARIA `aria-label` ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Tableau de données ayant un titre",
+              "quote": "Dans un attribut WAI-ARIA aria-label ;"
+            }
+          ]
+        },
+        {
+          "id": "aria-labelledby-passage",
+          "statement": "The title is a text passage referenced by an aria-labelledby attribute on the table.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "5.4.1",
+              "quote": "Soit d’un attribut WAI-ARIA `aria-labelledby` référençant un passage de texte."
+            },
+            {
+              "source": "glossary",
+              "entry": "Tableau de données ayant un titre",
+              "quote": "Dans une balise associée au tableau de données via un attribut WAI-ARIA aria-labelledby sur le tableau."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["assistive_tech"],
+  "rationale": {
+    "text": "The test has one requirement with four routes, listed alike by the methodology and the glossary: caption, title, aria-label, or aria-labelledby pointing to a text passage. The entry is none. The test applies to data tables that have a title, and the glossary counts as one a table merely preceded or followed by a text passage that serves as its title. Whether a nearby heading or paragraph serves as a table's title is judgment, and so is whether a table element is a data table rather than a layout table (see 5.1.1). So a check could neither find every table the test applies to nor be sure that a table without any of the four means has a title at all. The glossary also accepts each means only in so far as assistive technologies correctly render it and associate it with the table, which no check on the page can establish. axe's table-fake-caption is tagged but not linked: it faults a table, chosen by axe's own data-table heuristic, whose first row is a single cell spanning every column, and it never looks at caption, title, aria-label or aria-labelledby, so it examines none of the routes. axe also marks it experimental. Applicability is judgment. Needs holds assistive_tech, because of the glossary's condition on rendering by assistive technologies.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Tableau de données ayant un titre",
+        "quote": "Tableau de données précédé ou suivi d’un passage de texte associé au tableau faisant office de titre."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données ayant un titre",
+        "quote": "Dans la mesure où il est bien correctement restitué et associé par les technologies d’assistance au tableau de données"
+      },
+      {
+        "source": "methodology",
+        "test": "5.4.1",
+        "quote": "Si c’est le cas pour chaque titre de tableau de données, **le test est validé**."
+      }
+    ]
+  }
+}
