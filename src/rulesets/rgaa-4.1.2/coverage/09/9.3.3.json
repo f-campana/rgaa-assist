@@ -1,0 +1,93 @@
+{
+  "test": "9.3.3",
+  "requirements": [
+    {
+      "id": "description-list-structured",
+      "statement": "Information grouped as a description list uses the <dl> element with <dt> and <dd>.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.3.3",
+          "line": 1,
+          "quote": "les informations regroupées sous forme de liste de description utilisent-elles les balises `<dl>` et `<dt>/<dd>` ?"
+        },
+        {
+          "source": "methodology",
+          "test": "9.3.3",
+          "quote": "Retrouver dans le document les éléments regroupés visuellement sous la forme d’une liste de description ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "dl-dt-dd",
+          "statement": "The list is structured with the <dl>, <dt> (term) and <dd> (description) elements.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "9.3.3",
+              "quote": "Pour chaque liste, vérifier que la liste est structurée au moyen des éléments `<dl>`, `<dt>` et `<dd>` ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Listes",
+              "quote": "Liste de description : balises <dl>, <dt> (terme à décrire) et <dd> (description)."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "description-series-needs-no-list",
+          "statement": "Not every list needs a list structure, for example a series of terms separated by commas.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Listes",
+              "quote": "Attention cependant toutes les listes ne nécessitent pas obligatoirement une structure de liste, par exemple une série de termes séparés par une virgule."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/definition-list",
+      "requirement": "description-list-structured",
+      "routes": ["dl-dt-dd"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/dlitem",
+      "requirement": "description-list-structured",
+      "routes": ["dl-dt-dd"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to information grouped as a description list, and finding it is judgment. The glossary describes it by meaning, groups of terms and descriptions such as names and definitions, questions and answers, or categories and subjects, and it says that not every list needs a list structure. Code cannot tell which content is a description list. One route is accepted: <dl> with <dt> and <dd>. The glossary allows ARIA list roles only for ordered and unordered lists, so they are not a route here. The candidate is none. The two tagged axe rules are linked as evidence only, with scope partial, since neither finds description lists that have no list markup. axe's definition-list faults a <dl> whose direct children are not properly ordered <dt> and <dd> groups, script, template or div groups; dlitem faults a <dt> or <dd> outside a <dl>. Their faults show description-list markup with a defect. Whether that content is a description list under this test, and whether a stray child or a missing <dt> means it no longer uses the accepted elements, is judgment, so no fault proves failure. Applicability is judgment, because whether the page holds information grouped as a description list cannot be decided by code. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Listes",
+        "quote": "En HTML5, la balise <dl> ne représente plus seulement une liste de définition, mais de manière générique toute liste de description"
+      },
+      {
+        "source": "glossary",
+        "entry": "Listes",
+        "quote": "Il est également possible de structurer les listes à l’aide des attributs WAI-ARIA role=\"list\" et role=\"listitem\" pour les listes ordonnées et non ordonnées."
+      },
+      {
+        "source": "methodology",
+        "test": "9.3.3",
+        "quote": "Si c’est le cas pour chaque liste de description, **le test est validé**."
+      }
+    ]
+  }
+}
