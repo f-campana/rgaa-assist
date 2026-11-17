@@ -1,0 +1,285 @@
+{
+  "test": "4.5.2",
+  "requirements": [
+    {
+      "id": "audio-description-available",
+      "statement": "Each prerecorded synchronized media that needs one, outside the particular cases, has a synchronized audio description, or an alternative version with one exists.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.5.2",
+          "line": 1,
+          "quote": "Chaque média temporel synchronisé pré-enregistré vérifie-t-il, si nécessaire, une de ces conditions (hors cas particuliers)"
+        },
+        {
+          "source": "methodology",
+          "test": "4.5.2",
+          "quote": "Retrouver dans le document les médias temporels pré-enregistrés synchronisés qui nécessitent une audiodescription"
+        }
+      ],
+      "routes": [
+        {
+          "id": "synchronized-audio-description",
+          "statement": "The media has a synchronized audio description: narration added to the soundtrack that describes the important visual details, synchronized with the media by the player or by script.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.5.2",
+              "line": 2,
+              "quote": "Il existe une audiodescription synchronisée ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Audiodescription synchronisée (média temporel)",
+              "quote": "Narration ajoutée (via un fichier son) à une piste sonore pour décrire les détails visuels importants"
+            },
+            {
+              "source": "glossary",
+              "entry": "Audiodescription synchronisée (média temporel)",
+              "quote": "L’audiodescription doit être synchronisée avec le média temporel par un dispositif applicatif lié au lecteur lui-même ou fourni par le développement par exemple avec JavaScript."
+            }
+          ]
+        },
+        {
+          "id": "alternative-version-with-audio-description",
+          "statement": "An alternative version of the media with a synchronized audio description exists, reachable through an adjacent button or link (a URL or an anchor).",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.5.2",
+              "line": 3,
+              "quote": "Il existe une version alternative avec une audiodescription synchronisée."
+            },
+            {
+              "source": "methodology",
+              "test": "4.5.2",
+              "quote": "Soit d’une version alternative avec une audiodescription synchronisée accessible au moyen d’un bouton ou d’un lien adjacent (une URL ou une ancre)."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "audio-already-complete",
+          "statement": "All the information of the video is already given by its soundtrack, so no audio description is required.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Audiodescription synchronisée (média temporel)",
+              "quote": "lorsque toute l’information de la vidéo est déjà donnée dans la piste audio, aucune audiodescription supplémentaire n’est requise."
+            }
+          ]
+        },
+        {
+          "id": "decorative-media",
+          "statement": "The media is decorative: it carries no information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé à des fins décoratives (c’est-à-dire qu’il n’apporte aucune information)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.5",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "media-is-alternative",
+          "statement": "The media is itself an alternative to content of the page, such as a sign-language video or a spoken version of a text.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est lui-même une alternative à un contenu de la page (une vidéo en langue des signes ou la vocalisation d’un texte, par exemple)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.5",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "enlarged-version",
+          "statement": "The media is used to give access to an enlarged version.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé pour accéder à une version agrandie"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.5",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "captcha",
+          "statement": "The media is used as a CAPTCHA.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé comme un CAPTCHA"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.5",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "test-defeated",
+          "statement": "The media is part of a test that would become useless if the transcript, captions or audio description were given.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "fait partie d’un test qui deviendrait inutile si la transcription textuelle, les sous-titres synchronisés ou l’audiodescription étaient communiqués"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.5",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "public-sector-2019-2020",
+          "statement": "For State services, local authorities and their institutions: the media was published between 23 September 2019 and 23 September 2020 on a site created since 23 September 2018.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "si le média temporel a été publié entre le 23 septembre 2019 et le 23 septembre 2020 sur un site internet, intranet ou extranet créé depuis le 23 septembre 2018, il est exempté de l’obligation d’accessibilité"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.5",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "private-sector-before-2020",
+          "statement": "For the private-law persons named in article 47 of the law of 11 February 2005: the media was published before 23 September 2020.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "si le média temporel a été publié avant le 23 septembre 2020, il est exempté de l’obligation d’accessibilité"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.5",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with two routes: a synchronized audio description, or an alternative version that has one, reached through an adjacent button or link according to the methodology. It applies only where an audio description is needed (si nécessaire). The glossary gives one case where it is not: when the soundtrack already gives all the information of the video. The particular cases of criterion 4.1 also apply to this criterion by their own text. Deciding whether the soundtrack already says everything the images show, and whether a sound track or a linked version is an audio description, needs someone to watch and listen. No axe rule is tagged for this test and no deterministic check can decide it, so there are no links and the entry stays at none. Applicability is judgment: whether a media is prerecorded and synchronized, and whether it needs an audio description, cannot be decided from the markup. Needs lists media.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.5",
+        "quote": "a-t-il, si nécessaire, une audiodescription synchronisée (hors cas particuliers)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Audiodescription synchronisée (média temporel)",
+        "quote": "aucune audiodescription supplémentaire n’est requise"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "4.1",
+        "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+      }
+    ]
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "test": "4.10.1",
+  "requirements": [
+    {
+      "id": "autoplay-sound-controllable",
+      "statement": "Each sound sequence triggered automatically through an <object>, <video>, <audio>, <embed> or <bgsound> element or by JavaScript lasts 3 seconds or less, can be stopped by the user, or has a volume the user can control independently of the system volume.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.10.1",
+          "line": 1,
+          "quote": "Chaque séquence sonore déclenchée automatiquement via une balise `<object>`, `<video>`, `<audio>`, `<embed>`, `<bgsound>` ou un code JavaScript vérifie-t-elle une de ces conditions"
+        },
+        {
+          "source": "methodology",
+          "test": "4.10.1",
+          "quote": "Au chargement du document, si un son se déclenche automatiquement, vérifier que"
+        }
+      ],
+      "routes": [
+        {
+          "id": "short-sequence",
+          "statement": "The sound sequence lasts 3 seconds or less.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.10.1",
+              "line": 2,
+              "quote": "La séquence sonore a une durée inférieure ou égale à 3 secondes ;"
+            }
+          ]
+        },
+        {
+          "id": "user-can-stop",
+          "statement": "A device, such as a button, on the element that triggered the sound or elsewhere in the page lets the user stop the sound.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.10.1",
+              "line": 3,
+              "quote": "La séquence sonore peut être stoppée sur action de l’utilisateur ;"
+            },
+            {
+              "source": "methodology",
+              "test": "4.10.1",
+              "quote": "Soit un dispositif (un bouton par exemple), sur l’élément ayant déclenché le son (voir note), ou dans la page, permet de le stopper"
+            },
+            {
+              "source": "glossary",
+              "entry": "Contrôle (son déclenché automatiquement)",
+              "quote": "Possibilité pour l’utilisateur d’arrêter ou de relancer un son déclenché automatiquement."
+            }
+          ]
+        },
+        {
+          "id": "independent-volume",
+          "statement": "The user can control the volume of the sequence independently of the system volume control.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.10.1",
+              "line": 4,
+              "quote": "Le volume de la séquence sonore peut être contrôlé par l’utilisateur indépendamment du contrôle de volume du système."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/no-autoplay-audio",
+      "requirement": "autoplay-sound-controllable",
+      "routes": [
+        "short-sequence",
+        "user-can-stop",
+        "independent-volume"
+      ],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with three routes, any one of which is enough: the sequence lasts 3 seconds or less, the user can stop it with a device on the element or anywhere in the page, or the user can set its volume independently of the system. axe's no-autoplay-audio is tagged for this test. In axe-core 4.14.0 it looks at audio and video elements with an autoplay attribute and a current source, and skips those with a muted or paused attribute. With loop it passes only when the element has the controls attribute. Otherwise it reads the duration from the media's metadata (incomplete if not loaded) and passes when the playable duration is 3 seconds or less, or when the controls attribute is present; it fails otherwise. It marks its failures for review (reviewOnFail). It examines the first route, and the other two only in one form, the browser's native controls. Its failure does not prove this test fails: a stop button or volume control elsewhere in the page meets the second or third route, a video with no soundtrack plays no sound sequence, a media muted by script still has no muted attribute, and the browser may block autoplay so that nothing plays. It never looks at sound started by script without the autoplay attribute, by the Web Audio API, or through object, embed or bgsound. So its link lists the three routes it touches, with partial scope, and is evidence only. No custom check is registered: a fault would need certainty that a sound longer than 3 seconds actually plays and that nothing anywhere in the page stops it or sets its volume, and recognising such a control among a page's buttons is judgment. The entry stays at none. Applicability is judgment: whether a sound starts automatically is known only by letting the page play, and a script can start one without any marker in the markup. Needs lists media.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.10",
+        "quote": "Chaque son déclenché automatiquement est-il contrôlable par l’utilisateur"
+      },
+      {
+        "source": "methodology",
+        "test": "4.10.1",
+        "quote": "éléments `<audio>`, `<video>`, `<object>`, `<embed>`, `<bgsound>` ou un code JavaScript (utilisation de la Web Audio API, par exemple)"
+      },
+      {
+        "source": "test",
+        "test": "4.10.1",
+        "line": 1,
+        "quote": "vérifie-t-elle une de ces conditions"
+      }
+    ]
+  }
+}

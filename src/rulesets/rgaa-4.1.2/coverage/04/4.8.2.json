@@ -1,0 +1,131 @@
+{
+  "test": "4.8.2",
+  "requirements": [
+    {
+      "id": "alternative-accessible",
+      "statement": "Each non-temporal media associated with an alternative, outside the particular cases, has an accessible alternative: the page referenced by the adjacent link or button is accessible, or the in-page alternative it references is accessible.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.8.2",
+          "line": 1,
+          "quote": "Chaque média non temporel associé à une alternative vérifie-t-il une de ces conditions (hors cas particuliers)"
+        },
+        {
+          "source": "glossary",
+          "entry": "Contenu alternatif",
+          "quote": "Un contenu alternatif devra respecter l’ensemble des critères du RGAA qui lui sont applicables pour être considéré comme une alternative accessible à l’élément qu’il remplace."
+        }
+      ],
+      "routes": [
+        {
+          "id": "referenced-page-accessible",
+          "statement": "The page referenced by the adjacent link or button is accessible.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.8.2",
+              "line": 2,
+              "quote": "La page référencée par le lien ou bouton adjacent est accessible ;"
+            }
+          ]
+        },
+        {
+          "id": "in-page-alternative-accessible",
+          "statement": "The alternative in the page referenced by the adjacent link or button is accessible.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.8.2",
+              "line": 3,
+              "quote": "L’alternative dans la page, référencée par le lien ou bouton adjacent, est accessible."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "decorative-media",
+          "statement": "The non-temporal media is decorative: it carries no information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "est utilisé à des fins décoratives (c’est-à-dire qu’il n’apporte aucune information)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "controlled-environment",
+          "statement": "The non-temporal media is delivered in a controlled environment, which a site or service offering public access never is.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "est diffusé dans un environnement maîtrisé"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "glossary",
+              "entry": "Environnement maîtrisé",
+              "quote": "Les services d’information ou les sites Web, quel que soit leur statut, qui offrent un accès public ne peuvent pas être considérés comme des environnements maîtrisés."
+            }
+          ]
+        },
+        {
+          "id": "js-replaces-alternative",
+          "statement": "The non-temporal media is inserted with JavaScript, after checking the plug-in's presence and version, in place of alternative content already present.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "est inséré via JavaScript en vérifiant la présence et la version du plug-in, en remplacement d’un contenu alternatif déjà présent"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The wording says one of two conditions: the referenced page is accessible, or the referenced alternative in the page is accessible. These are two routes of one requirement. The methodology lists the two without saying either, but the wording governs. Accessible here means what the glossary says of alternative content: it meets every RGAA criterion that applies to it. That is a full audit of the alternative, which no single check performs, and finding which media have an alternative at all is judgment (see 4.8.1). The three particular cases of criterion 4.8 apply, and the methodology repeats them. No axe rule is tagged for this test and no deterministic check is registered, so there are no links and the entry stays at none. Applicability is judgment: whether an element is a non-temporal media and whether it is associated with an alternative cannot be decided from the markup. Needs lists state, because an in-page alternative may appear only after a button is activated. Examining a referenced page is outside the page as loaded; no prerequisite expresses it.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "4.8.2",
+        "line": 1,
+        "quote": "vérifie-t-il une de ces conditions"
+      },
+      {
+        "source": "methodology",
+        "test": "4.8.2",
+        "quote": "Le média non temporel est diffusé dans un environnement maîtrisé"
+      },
+      {
+        "source": "glossary",
+        "entry": "Contenu alternatif",
+        "quote": "Contenu venant se substituer à un autre apportant la même information mais pouvant être présenté de façon différente."
+      }
+    ]
+  }
+}

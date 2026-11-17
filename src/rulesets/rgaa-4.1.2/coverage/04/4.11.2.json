@@ -1,0 +1,104 @@
+{
+  "test": "4.11.2",
+  "requirements": [
+    {
+      "id": "functions-reachable",
+      "statement": "For each temporal media, each of its functions can take focus with the keyboard and any pointing device, or a function in the page that performs the same action can.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.11.2",
+          "line": 1,
+          "quote": "Pour chaque média temporel, chaque fonctionnalité vérifie-t-elle une de ces conditions"
+        },
+        {
+          "source": "methodology",
+          "test": "4.11.2",
+          "quote": "Retrouver dans le document les médias temporels pourvus de fonctionnalités de contrôle"
+        }
+      ],
+      "routes": [
+        {
+          "id": "function-reachable",
+          "statement": "The function can take focus, either way, with the Tab key and with any pointing device.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.11.2",
+              "line": 2,
+              "quote": "La fonctionnalité est accessible par le clavier et tout dispositif de pointage ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "est accessible au clavier et par tout dispositif de pointage lorsque l’utilisateur peut prendre, indifféremment, le focus par un pointeur ou la touche tabulation"
+            },
+            {
+              "source": "glossary",
+              "entry": "Contrôle de la consultation (d’un média temporel)",
+              "quote": "Chaque fonctionnalité doit être accessible par le clavier, via la touche de tabulation, et par tout dispositif de pointage au moins."
+            }
+          ]
+        },
+        {
+          "id": "equivalent-function-reachable",
+          "statement": "A function present in the page that performs the same action is reachable with the keyboard and any pointing device.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.11.2",
+              "line": 3,
+              "quote": "Une fonctionnalité accessible par le clavier et tout dispositif de pointage permettant de réaliser la même action est présente dans la page."
+            }
+          ]
+        },
+        {
+          "id": "documented-shortcuts",
+          "statement": "Where the technology makes focus handling too complex or unstable for Tab, arrow and Enter keys alone, keyboard shortcuts perform the function, provided they are correctly documented, work, and meet criterion 12.10.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "Dans ce cas, la mise à disposition de raccourcis clavier peut être la seule solution pour rendre le composant utilisable."
+            },
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "Le critère ne peut être considéré comme conforme qu’à la condition que les raccourcis clavier utilisés soient correctement documentés, qu’ils soient fonctionnels et qu’ils respectent le critère 12.10."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "keyboard",
+    "state"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with three routes for each function of a temporal media: the function itself can take focus with the keyboard and with any pointing device, another function in the page performs the same action and can, or, where focus handling is too complex for the usual keys, documented working keyboard shortcuts perform it (the glossary note on keyboard access). The glossary defines accessible as taking focus with a pointer or the Tab key. Deciding this needs a keyboard pass and judgment. Which elements are the functions of a media player is not marked in the code, and the native controls of audio and video elements are drawn by the browser outside the page's DOM. Whether another function in the page performs the same action, and whether shortcuts are documented, needs reading. So even a control that cannot take focus by keyboard is not a mechanical fault: an equivalent may exist elsewhere. No axe rule is tagged for this test and no check is registered, so there are no links and the entry stays at none. The check custom/7-3-handler-not-focusable, registered for 7.3.1, finds elements with pointer or key listeners that are not in the focus order; it is not linked, because it does not know whether an element is a function of a media, and its fault says nothing about the equivalent-function and shortcut routes. Applicability is judgment: whether an element is a temporal media with control functions cannot be decided from the markup with certainty. Needs lists keyboard, because the methodology asks whether each function can take focus by keyboard, and state, because player controls often appear only on hover or focus.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.11",
+        "quote": "est-elle, si nécessaire, contrôlable par le clavier et tout dispositif de pointage"
+      },
+      {
+        "source": "glossary",
+        "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+        "quote": "Dans le référentiel, l’expression « contrôlable par le clavier et tout dispositif de pointage » se rapporte également à la présente définition."
+      },
+      {
+        "source": "test",
+        "test": "4.11.2",
+        "line": 1,
+        "quote": "chaque fonctionnalité vérifie-t-elle une de ces conditions"
+      }
+    ]
+  }
+}

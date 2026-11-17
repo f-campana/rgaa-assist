@@ -1,0 +1,104 @@
+{
+  "test": "4.13.1",
+  "requirements": [
+    {
+      "id": "media-compatible",
+      "statement": "Each temporal and non-temporal media, outside the particular case, exposes its interface components to assistive technologies through an accessibility API, or an alternative compatible with an accessibility API gives access to the same functions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.13.1",
+          "line": 1,
+          "quote": "Chaque média temporel et non temporel vérifie-t-il une de ces conditions (hors cas particuliers)"
+        },
+        {
+          "source": "glossary",
+          "entry": "Compatible avec les technologies d’assistance",
+          "quote": "Un contenu ou une fonctionnalité doit être compatible avec les technologies d’assistance des utilisateurs ainsi qu’avec les fonctions d’accessibilité des navigateurs et des autres agents utilisateurs via une API d’accessibilité."
+        }
+      ],
+      "routes": [
+        {
+          "id": "components-exposed",
+          "statement": "The name, role, value, settings and state changes of the media's interface components are available to assistive technologies through an accessibility API, and assistive technologies render them correctly.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.13.1",
+              "line": 2,
+              "quote": "Le nom, le rôle, la valeur, le paramétrage et les changements d’états des composants d’interfaces sont accessibles aux technologies d’assistance via une API d’accessibilité ;"
+            },
+            {
+              "source": "methodology",
+              "test": "4.13.1",
+              "quote": "par exemple, les zones mises à jour dynamiquement dans un lecteur vidéo sont correctement restituées"
+            },
+            {
+              "source": "glossary",
+              "entry": "Compatible avec les technologies d’assistance",
+              "quote": "Vérifier que la restitution d’un composant d’interface est correcte pour la ou les technologies d’assistance utilisées."
+            }
+          ]
+        },
+        {
+          "id": "compatible-alternative",
+          "statement": "An alternative compatible with an accessibility API gives access to the same functions.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.13.1",
+              "line": 3,
+              "quote": "Une alternative compatible avec une API d’accessibilité permet d’accéder aux mêmes fonctionnalités."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "decorative-media",
+          "statement": "The temporal or non-temporal media is decorative: it carries no information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.13",
+              "quote": "lorsque le média temporel ou non temporel est utilisé à des fins décoratives (c’est-à-dire qu’il n’apporte aucune information)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.13",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "assistive_tech",
+    "state"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with two routes: the media's interface components expose their name, role, value, settings and state changes to assistive technologies through an accessibility API, or an alternative that does gives access to the same functions. The glossary says that verifying compatibility means checking these properties and that the rendering by the assistive technologies used is correct, and the methodology's example is the live regions of a video player being rendered correctly. That is assistive-technology testing, which v1 never performs. The accessibility tree alone does not settle the first route, and the second route needs judging that an alternative gives the same functions. The glossary notes on media add one mechanical signal: a Flash object with wmode transparent or opaque invalidates criterion 4.13. It is not turned into a check: Flash no longer runs in current browsers, and the decorative exception, which is judgment, would still have to be ruled out. No axe rule is tagged for this test and no check is registered, so there are no links and the entry stays at none. Applicability is judgment: whether an element is a temporal or non-temporal media, and whether it is decorative, cannot be decided from the markup with certainty. Needs lists assistive_tech, and state, because state changes are seen only by operating the media.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.13",
+        "quote": "est-il compatible avec les technologies d’assistance (hors cas particuliers)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Compatible avec les technologies d’assistance",
+        "quote": "Vérifier le nom, le rôle, le paramétrage et les changements d’états des composants d’interface"
+      },
+      {
+        "source": "glossary",
+        "entry": "Média non temporel",
+        "quote": "l’utilisation du paramètre wmode pour un objet Flash avec les valeurs \"transparent\" et \"opaque\" invalide de fait le critère 4.13."
+      }
+    ]
+  }
+}

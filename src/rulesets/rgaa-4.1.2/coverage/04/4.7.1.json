@@ -1,0 +1,75 @@
+{
+  "test": "4.7.1",
+  "requirements": [
+    {
+      "id": "media-identifiable",
+      "statement": "For each audio-only, video-only or synchronized media, outside the particular case, the adjacent text content clearly identifies the media.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.7.1",
+          "line": 1,
+          "quote": "Pour chaque média temporel seulement son, seulement vidéo ou synchronisé, le contenu textuel adjacent permet-il d’identifier clairement le média temporel (hors cas particuliers)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "adjacent-text-identifies",
+          "statement": "A passage of text, such as a heading or a paragraph, immediately before or after the media identifies it; when the player uses Flash, that passage is outside the player.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "4.7.1",
+              "quote": "Un passage de texte (un titre ou un paragraphe, par exemple) qui précède ou suit immédiatement le média temporel, permet de l’identifier"
+            },
+            {
+              "source": "methodology",
+              "test": "4.7.1",
+              "quote": "Et le passage de texte est situé à l’extérieur du lecteur de contenu multimédia si ce dernier fait appel à la technologie Flash."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "decorative-media",
+          "statement": "The media is decorative: it carries no information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.7",
+              "quote": "lorsque le média temporel est utilisé à des fins décoratives (c’est-à-dire qu’il n’apporte aucune information). Dans cette situation, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The test has one requirement and one route: a passage of text immediately before or after the media identifies it, outside the player when the player uses Flash. Whether a text identifies a media clearly is judgment: it needs knowing what the media is and reading the text. Even the absence of nearby text is not a mechanical fault, because the methodology does not say how near immediately is in the code or on screen (a heading above a player wrapper may be the text that precedes it), and a decorative media is exempt, which is judgment too. No axe rule is tagged for this test and no deterministic check is registered, so there are no links and the entry stays at none. The wording does not say prerecorded; the methodology does. The entry does not depend on that difference. Applicability is judgment: whether an element is a temporal media and whether it is decorative cannot be decided from the markup with certainty, and the glossary counts media played through svg, canvas or a plugin. Needs lists media, because identifying a media requires knowing its content.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.7",
+        "quote": "Chaque média temporel est-il clairement identifiable (hors cas particuliers)"
+      },
+      {
+        "source": "methodology",
+        "test": "4.7.1",
+        "quote": "Retrouver dans le document les médias temporels pré-enregistrés seulement vidéo, audio ou synchronisés"
+      },
+      {
+        "source": "glossary",
+        "entry": "Média temporel (type son, vidéo et synchronisé)",
+        "quote": "Contenu embarqué dans la page web et consultable dans la page web via"
+      }
+    ]
+  }
+}
