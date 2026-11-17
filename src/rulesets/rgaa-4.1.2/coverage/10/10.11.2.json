@@ -1,0 +1,104 @@
+{
+  "test": "10.11.2",
+  "requirements": [
+    {
+      "id": "available-without-vertical-scroll",
+      "statement": "When content whose reading direction is vertical is displayed in a window reduced to 256 CSS px high, all its information and functionality are available without any vertical scrolling.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.11.2",
+          "line": 1,
+          "quote": "lorsque le contenu dont le sens de lecture est vertical est affiché dans une fenêtre réduite à une hauteur de 256 px, l’ensemble des informations et des fonctionnalités sont-elles disponibles sans aucun défilement vertical (hors cas particuliers) ?"
+        },
+        {
+          "source": "technical_note",
+          "criterion": "10.11",
+          "quote": "Lorsqu'il est ici question de pixel, il s'agit du pixel CSS"
+        }
+      ],
+      "routes": [
+        {
+          "id": "reflows-at-256",
+          "statement": "At a height of 256 CSS px, every piece of information and functionality remains available without vertical scrolling.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.11.2",
+              "quote": "Réduire la fenêtre d’affichage à une hauteur de 256 px et vérifier que les informations et les fonctionnalités restent disponibles sans aucun défilement vertical"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "two-dimensional-content",
+          "statement": "Content whose layout needs two dimensions to be understood or used is exempt, such as images, graphics or videos, games, presentations such as slideshows, data tables, and interfaces that need a horizontal scrollbar while they are used.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Font exception à ce critère, les contenus dont l'agencement requiert deux dimensions pour être compris ou utilisés comme :"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les images, les graphiques ou les vidéos ;"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les jeux (jeux de plateforme, par exemple) ;"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les présentations (type diaporama, par exemple) ;"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les tableaux de données ;"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les interfaces où il est nécessaire d'avoir un ascenseur horizontal lors de la manipulation de l'interface."
+            }
+          ]
+        },
+        {
+          "id": "mobile-browser-environment",
+          "statement": "In browsers on mobile operating systems (Android, iOS), which do not reflow correctly on zoom, the criterion is not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Dans ce contexte, le critère sera considéré comme non applicable sur ces environnements."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test mirrors 10.11.1 for content read vertically, such as text set in a vertical writing mode, shown at 256 CSS px high. Its requirement, route and exceptions are the same in the other axis. No check is linked and the candidate is none. The mechanical case used for 10.11.1, a letter of ordinary prose that overflows a block fitting the window, does not carry over safely. Its witness rule relies on words separated by spaces and on generic text fonts to tell prose from labels and pictograms, and vertical text is mostly Chinese or Japanese, which has no spaces between words. Short vertical labels, such as rotated or upright side captions, are common decoration, and whether they carry information is judgment. Which content is designed to scroll horizontally, the methodology's first step, is also not decidable by code with certainty, and whether every piece of information and functionality stays available is judgment. A check would need a definition of vertical prose that code can apply with certainty, cited from the official text; none is available. No axe rule is tagged for this test. Applicability is judgment: most pages hold no vertically read content, but deciding that none of a page's content reads vertically, given writing modes, rotated text and text drawn in images, is not certain. Needs is empty: the height is a property of the target, set by the sample, not an interaction.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.11.2",
+        "quote": "Retrouver dans le document si son contenu est conçu pour défiler horizontalement (le sens de lecture du texte est vertical), les informations et fonctionnalités"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "10.11",
+        "quote": "L'objectif de ce critère est de garantir un défilement dans une unique direction pour une lecture facilitée selon le sens de l'écriture."
+      }
+    ]
+  }
+}

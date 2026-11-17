@@ -1,0 +1,67 @@
+{
+  "test": "10.10.1",
+  "requirements": [
+    {
+      "id": "other-means-relevant",
+      "statement": "For information that a text or group of texts gives by shape, size or position, the other means of obtaining it is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.10.1",
+          "line": 1,
+          "quote": "Cette règle est-elle implémentée de façon pertinente ?"
+        },
+        {
+          "source": "test",
+          "test": "10.10.1",
+          "line": 1,
+          "quote": "pour chaque texte ou ensemble de textes, l’information ne doit pas être donnée uniquement par la forme, taille ou position"
+        },
+        {
+          "source": "methodology",
+          "test": "10.10.1",
+          "quote": "Retrouver dans le document les informations d’un texte données par la forme, la taille ou la position"
+        }
+      ],
+      "routes": [
+        {
+          "id": "other-means-conveys-everywhere",
+          "statement": "The other means conveys the information in every context of use and to every user.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.10.1",
+              "quote": "vérifier que le moyen alternatif de récupérer cette information est pertinent, c’est-à-dire qu’il permet de transmettre l’information dans tous les contextes de consultation et pour tous les utilisateurs"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test asks whether the other means of obtaining information that a text or group of texts gives by shape, size or position is relevant. The methodology defines relevant as conveying the information in every context of use and to every user. That needs the information and the other means to be understood, and every context of use to be considered, which is judgment. The same judgment finds the elements the test applies to: the glossary gives three examples of information given by shape, size or position and extends to any similar graphic effect. No axe rule is tagged for this test, and no deterministic check can examine relevance, so no check is linked and the candidate is none. Whether another means exists at all is the question of test 10.9.1, judged there on its own wording. The methodology does not name an assistive technology, so assistive_tech is not listed, although conveying the information to every user may in practice be checked with one. Applicability is judgment: whether a page gives any information by shape, size or position through its texts is itself the judgment the test asks for, so code cannot decide that the test does not apply. Needs is empty: the glossary's examples (a marker on the active page of a menu, an active tab brought to the foreground, font sizes in a tag cloud) are visible on the page as loaded. Information shown only after an interaction is examined on a declared state.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.10.1",
+        "quote": "c’est-à-dire qu’il permet de transmettre l’information dans tous les contextes de consultation et pour tous les utilisateurs"
+      },
+      {
+        "source": "glossary",
+        "entry": "Indication donnée par la forme, la taille ou la position",
+        "quote": "Ou de tout autre effet graphique similaire."
+      },
+      {
+        "source": "glossary",
+        "entry": "Indication donnée par la forme, la taille ou la position",
+        "quote": "De la présence d’un marqueur visuel, pour indiquer la page active dans un menu de navigation (indication donnée par la position)"
+      }
+    ]
+  }
+}

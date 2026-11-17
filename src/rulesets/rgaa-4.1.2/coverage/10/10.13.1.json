@@ -1,0 +1,112 @@
+{
+  "test": "10.13.1",
+  "requirements": [
+    {
+      "id": "can-be-hidden-without-moving",
+      "statement": "Each additional content that becomes visible on focus or hover of an interface component can be hidden by a user action without moving the focus or the mouse pointer.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.13.1",
+          "line": 1,
+          "quote": "Chaque contenu additionnel devenant visible à la prise de focus ou au survol d’un composant d’interface peut-il être masqué par une action de l’utilisateur sans déplacer le focus ou le pointeur de la souris (hors cas particuliers) ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "positioned-without-hindering",
+          "statement": "The additional content is positioned so that it does not hinder reading the other informative content it would overlap, including the component that triggered it, whatever the viewing conditions, zoom included.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.13.1",
+              "quote": "Soit le contenu additionnel est positionné de façon à ce qu’il ne gêne pas la consultation des autres contenus informatifs sur lesquels il viendrait se superposer (y compris le composant d’interface qui a déclenché son apparition), quelles que soient les conditions de consultation (y compris lors de l’utilisation d’un mécanisme de zoom)"
+            }
+          ]
+        },
+        {
+          "id": "keyboard-dismiss-mechanism",
+          "statement": "A keyboard mechanism, such as the Escape key, makes the additional content disappear.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.13.1",
+              "quote": "Soit un mécanisme (au clavier) permet de faire disparaître le contenu additionnel (par exemple, la touche Echap)."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "user-agent-controlled",
+          "statement": "Additional content controlled by the user agent, such as the tooltip of a title attribute or a native form-validation message.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.13",
+              "quote": "Lorsque le contenu additionnel est contrôlé par l’agent utilisateur (par exemple, attribut `title` ou validation native de formulaire)"
+            }
+          ]
+        },
+        {
+          "id": "appears-on-activation",
+          "statement": "Additional content that becomes visible when the user activates something, such as a dialog window.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.13.1",
+              "quote": "Des contenus additionnels devenant visibles par une activation de l’utilisateur (par exemple, une fenêtre de dialogue)."
+            }
+          ]
+        },
+        {
+          "id": "conforming-modal-dialog",
+          "statement": "Additional content that is a modal window conforming to the WAI-ARIA dialog design pattern; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.13",
+              "quote": "ou correspond à une fenêtre modale conforme au motif de conception WAI-ARIA `dialog`, le critère 10.13 est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "masks-no-informative-content",
+          "statement": "Additional content that masks or replaces no information-bearing content; this test is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.13",
+              "quote": "Lorsque le contenu additionnel ne masque ou ne remplace aucun contenu porteur d’information, le test 10.13.1 est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard", "state"],
+  "rationale": {
+    "text": "The test asks that content appearing on focus or hover of an interface component can be hidden without moving focus or the pointer. The methodology accepts two routes: the content is positioned so that it hinders no other informative content, whatever the viewing conditions and zoom, or a keyboard mechanism such as Escape makes it disappear. The particular cases add four exceptions: content controlled by the user agent, content shown on an activation, a conforming modal dialog, and content that masks or replaces no information-bearing content. No check can fail a page with certainty. The first route and the last exception turn on whether the overlapped content is informative, which is judgment, and on every viewing condition including zoom, which a single rendering does not cover. The second route accepts any keyboard mechanism, Escape being only an example, so a check that pressed Escape and saw the content stay would not show that no other key or mechanism hides it. Deciding that a content conforms to the dialog pattern is judgment too. So no check is linked and the candidate is none. No axe rule is tagged for this test. Applicability is judgment: whether any content appears on focus or hover, and whether it masks informative content, is only known by interacting with the page and judging what is covered. Needs is keyboard and state: the content appears on keyboard focus or on hover, and the second route is a keyboard action.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.13.1",
+        "quote": "Soit un mécanisme (au clavier) permet de faire disparaître le contenu additionnel (par exemple, la touche Echap)."
+      },
+      {
+        "source": "methodology",
+        "test": "10.13.1",
+        "quote": "quelles que soient les conditions de consultation (y compris lors de l’utilisation d’un mécanisme de zoom)"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "10.13",
+        "quote": "ne masque ou ne remplace aucun contenu porteur d’information"
+      }
+    ]
+  }
+}

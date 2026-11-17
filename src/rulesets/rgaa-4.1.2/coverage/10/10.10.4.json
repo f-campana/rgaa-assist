@@ -1,0 +1,74 @@
+{
+  "test": "10.10.4",
+  "requirements": [
+    {
+      "id": "other-means-relevant",
+      "statement": "For information that a non-time-based media gives by shape, size or position, the other means of obtaining it is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.10.4",
+          "line": 1,
+          "quote": "Cette règle est-elle implémentée de façon pertinente ?"
+        },
+        {
+          "source": "test",
+          "test": "10.10.4",
+          "line": 1,
+          "quote": "pour chaque média non temporel, l’information ne doit pas être donnée uniquement par la forme, taille ou position"
+        },
+        {
+          "source": "methodology",
+          "test": "10.10.4",
+          "quote": "Retrouver dans le document les informations d’un média non temporel données par la forme, la taille ou la position"
+        }
+      ],
+      "routes": [
+        {
+          "id": "other-means-conveys-everywhere",
+          "statement": "The other means conveys the information in every context of use and to every user.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.10.4",
+              "quote": "vérifier que le moyen alternatif de récupérer cette information est pertinent, c’est-à-dire qu’il permet de transmettre l’information dans tous les contextes de consultation et pour tous les utilisateurs"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test asks whether the other means of obtaining information that a non-time-based media gives by shape, size or position is relevant. The methodology defines relevant as conveying the information in every context of use and to every user. That needs the information and the other means to be understood, and every context of use to be considered, which is judgment. The same judgment finds the elements the test applies to: the glossary gives three examples of information given by shape, size or position and extends to any similar graphic effect. No axe rule is tagged for this test, and no deterministic check can examine relevance, so no check is linked and the candidate is none. Whether another means exists at all is the question of test 10.9.4, judged there on its own wording. The methodology does not name an assistive technology, so assistive_tech is not listed, although conveying the information to every user may in practice be checked with one. Applicability is judgment: whether an svg or canvas element is a non-time-based media, and whether it gives information by shape, size or position, is judgment, so code cannot decide that the test does not apply. Needs is state: the glossary's examples of non-time-based media (an interactive map, an application, a slideshow) show much of their information only after the user interacts with them.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.10.4",
+        "quote": "c’est-à-dire qu’il permet de transmettre l’information dans tous les contextes de consultation et pour tous les utilisateurs"
+      },
+      {
+        "source": "glossary",
+        "entry": "Indication donnée par la forme, la taille ou la position",
+        "quote": "Ou de tout autre effet graphique similaire."
+      },
+      {
+        "source": "glossary",
+        "entry": "Indication donnée par la forme, la taille ou la position",
+        "quote": "De la présence d’un marqueur visuel, pour indiquer la page active dans un menu de navigation (indication donnée par la position)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Média non temporel",
+        "quote": "par exemple, une carte interactive en Flash, une application Flash ou Java, un diaporama sont des médias non temporels"
+      }
+    ]
+  }
+}

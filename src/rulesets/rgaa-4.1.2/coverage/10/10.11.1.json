@@ -1,0 +1,128 @@
+{
+  "test": "10.11.1",
+  "requirements": [
+    {
+      "id": "available-without-horizontal-scroll",
+      "statement": "When content whose reading direction is horizontal is displayed in a window reduced to 320 CSS px wide, all its information and functionality are available without any horizontal scrolling.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.11.1",
+          "line": 1,
+          "quote": "lorsque le contenu dont le sens de lecture est horizontal est affiché dans une fenêtre réduite à une largeur de 320 px, l’ensemble des informations et des fonctionnalités sont-elles disponibles sans aucun défilement horizontal (hors cas particuliers) ?"
+        },
+        {
+          "source": "technical_note",
+          "criterion": "10.11",
+          "quote": "Lorsqu'il est ici question de pixel, il s'agit du pixel CSS"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "10.11",
+          "quote": "les contenus peuvent-ils être présentés sans perte d’information ou de fonctionnalité"
+        }
+      ],
+      "routes": [
+        {
+          "id": "reflows-at-320",
+          "statement": "At a width of 320 CSS px, every piece of information and functionality remains available without horizontal scrolling.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.11.1",
+              "quote": "Réduire la fenêtre d’affichage à une largeur de 320 px et vérifier que les informations et les fonctionnalités restent disponibles sans aucun défilement horizontal"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "two-dimensional-content",
+          "statement": "Content whose layout needs two dimensions to be understood or used is exempt, such as images, graphics or videos, games, presentations such as slideshows, data tables, and interfaces that need a horizontal scrollbar while they are used.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Font exception à ce critère, les contenus dont l'agencement requiert deux dimensions pour être compris ou utilisés comme :"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les images, les graphiques ou les vidéos ;"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les jeux (jeux de plateforme, par exemple) ;"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les présentations (type diaporama, par exemple) ;"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les tableaux de données ;"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "Les interfaces où il est nécessaire d'avoir un ascenseur horizontal lors de la manipulation de l'interface."
+            }
+          ]
+        },
+        {
+          "id": "mobile-browser-environment",
+          "statement": "In browsers on mobile operating systems (Android, iOS), which do not reflow correctly on zoom, the criterion is not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.11",
+              "quote": "la majorité des navigateurs sur les systèmes d'exploitation sur mobile (Android, iOS) ne gère pas correctement la redistribution en cas de zoom. Dans ce contexte, le critère sera considéré comme non applicable sur ces environnements."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/10-11-prose-beyond-320-viewport",
+      "requirement": "available-without-horizontal-scroll",
+      "routes": ["reflows-at-320", "two-dimensional-content", "mobile-browser-environment"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement: at 320 CSS px wide, all information and functionality of horizontally read content are available without horizontal scrolling. The technical note fixes the pixel as the CSS pixel. The particular cases exempt content whose layout needs two dimensions, with a list introduced by 'comme', so as examples: images, graphics, videos, games, slideshows, data tables, interfaces that need a horizontal scrollbar. They also make the criterion not applicable in mobile browsers. Whether a piece of content needs two dimensions, and whether everything the page offers stays available, is judgment in general, so the entry cannot be full: the custom check never answers no_fault. One case is mechanical and sure. A letter of ordinary prose, in a paragraph, list item, quotation or heading whose own box fits the 320 px width, lies outside the viewport: the text overflows its block, typically a long word or a line that does not wrap. That letter is information that cannot be read without scrolling horizontally, or cannot be read at all if the root clips it, so the route fails. The exceptions do not cover it: the witness sits only under plain structural and phrasing elements, so not in an image, graphic, video, table, figure, code block, form control or widget, not under any element displayed as a table or grid (a data table drawn with CSS), and not in any positioned, transformed, clipped or scrolling container, where slideshows, games and horizontally scrolling interfaces live. The prose block itself fits the width, so the text's own layout needs one dimension only. The check examines only a desktop Chromium context with no mobile emulation, so the mobile exception does not apply. The witness must also be visible and exposed, at least partly inside the viewport and not covered, in a generic or system text font (an icon font could make it a pictogram), with no opacity, filter or clip, and the layout must be settled (fonts loaded, no animation running), so the fault rests on a letter that is surely information and surely outside the 320 px width. The link names the route and both exceptions, so its fault means failure, and the entry is fail_only. Its scope is partial: it examines prose text only, never images, controls without text or other functionality, and it abstains on everything outside its witness rule, including blocks that are themselves too wide, the most common failure, because such a block may belong to a layout that needs two dimensions. The check examines a target only when its layout viewport is exactly 320 CSS px wide at zoom 100%. Whether a window of 320 px counts its scrollbar is not settled by the text, so the check reads the most lenient width, the one left to the content. A sample must therefore declare a target at that width; on any other target the check abstains. No axe rule is tagged for this test. Applicability is judgment: the test applies to content read horizontally, which is nearly every page, but whether some content is designed to scroll in the other direction is not decidable by code with certainty. Needs is empty: the width is a property of the target, set by the sample, not an interaction, and the check abstains when it is not 320.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.11.1",
+        "line": 1,
+        "quote": "l’ensemble des informations et des fonctionnalités sont-elles disponibles sans aucun défilement horizontal"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "10.11",
+        "quote": "les contenus dont l'agencement requiert deux dimensions pour être compris ou utilisés"
+      },
+      {
+        "source": "methodology",
+        "test": "10.11.1",
+        "quote": "Retrouver dans le document si son contenu est conçu pour défiler verticalement (le sens de lecture du texte est horizontal), les informations et fonctionnalités"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "10.11",
+        "quote": "il s'agit du pixel CSS"
+      }
+    ]
+  }
+}

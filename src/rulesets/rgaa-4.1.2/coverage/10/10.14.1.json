@@ -1,0 +1,100 @@
+{
+  "test": "10.14.1",
+  "requirements": [
+    {
+      "id": "css-hover-content-also-reachable",
+      "statement": "Additional content that appears through CSS styles when an interface component is hovered also appears, where needed, by another accepted means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.14.1",
+          "line": 1,
+          "quote": "les contenus additionnels apparaissant au survol d’un composant d’interface via les styles CSS respectent-ils si nécessaire une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "10.14.1",
+          "quote": "Retrouver dans le document les contenus additionnels devenant visible au survol d’un composant d’interface au moyen d’un mécanisme CSS (`pseudo-classe :hover`)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "on-activation-keyboard-and-pointer",
+          "statement": "The content also appears when the component is activated with the keyboard and with any pointing device.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.14.1",
+              "line": 2,
+              "quote": "Les contenus additionnels apparaissent également à l’activation du composant via le clavier et tout dispositif de pointage ;"
+            }
+          ]
+        },
+        {
+          "id": "on-focus",
+          "statement": "The content also appears when the component receives focus.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.14.1",
+              "line": 3,
+              "quote": "Les contenus additionnels apparaissent également à la prise de focus du composant ;"
+            }
+          ]
+        },
+        {
+          "id": "via-other-component",
+          "statement": "The content also appears through the activation or focus of another component.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.14.1",
+              "line": 4,
+              "quote": "Les contenus additionnels apparaissent également par le biais de l’activation ou de la prise de focus d’un autre composant."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "not-needed",
+          "statement": "The conditions apply only where needed: content that does not need to be reachable by these other means is not held to them.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.14.1",
+              "line": 1,
+              "quote": "respectent-ils si nécessaire une de ces conditions"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard", "state"],
+  "rationale": {
+    "text": "The test concerns content that appears through CSS, the :hover pseudo-class, when an interface component is hovered. Where needed, it must also appear by one of three means: activation of the component with the keyboard and any pointing device, focus on the component, or activation or focus of another component. No check can fail a page with certainty. 'Si nécessaire' leaves to judgment which hover content must be reachable otherwise; a content that repeats information available elsewhere, or that is decorative, may not need it. The third route accepts any other component on the page, and a check cannot activate and focus every component, in every state, to show that none reveals the content; activating links and buttons also navigates or changes the page. Finding the content itself is partly mechanical, from style rules with :hover that change the display, visibility or opacity of another element, but those rules can come from style sheets the page cannot read, and scripts may show the same content on focus without any CSS rule. So no check is linked and the candidate is none. A check that lists :hover rules with no matching :focus or :focus-within rule could give evidence for a later version. No axe rule is tagged for this test. Applicability is judgment: whether any content appears on hover through CSS is only partly visible in the style sheets, and whether it is needed is judgment. Needs is keyboard and state: the content appears on hover, and the routes are keyboard activation and focus.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.14.1",
+        "line": 1,
+        "quote": "si nécessaire"
+      },
+      {
+        "source": "methodology",
+        "test": "10.14.1",
+        "quote": "À l’activation ou à la prise de focus d’un autre composant."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "10.14",
+        "quote": "les contenus additionnels apparaissant via les styles CSS uniquement peuvent-ils être rendus visibles au clavier et par tout dispositif de pointage"
+      }
+    ]
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "test": "10.14.2",
+  "requirements": [
+    {
+      "id": "css-focus-content-also-reachable",
+      "statement": "Additional content that appears through CSS styles when an interface component receives focus also appears, where needed, by another accepted means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.14.2",
+          "line": 1,
+          "quote": "les contenus additionnels apparaissant au focus d’un composant d’interface via les styles CSS respectent-ils si nécessaire une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "10.14.2",
+          "quote": "Retrouver dans le document les contenus additionnels devenant visible à la prise de focus d’un composant d’interface au moyen d’un mécanisme CSS (`pseudo-classe :focus`)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "on-activation-keyboard-and-pointer",
+          "statement": "The content also appears when the component is activated with the keyboard and with any pointing device.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.14.2",
+              "line": 2,
+              "quote": "Les contenus additionnels apparaissent également à l’activation du composant via le clavier et tout dispositif de pointage ;"
+            }
+          ]
+        },
+        {
+          "id": "on-hover",
+          "statement": "The content also appears when the component is hovered.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.14.2",
+              "line": 3,
+              "quote": "Les contenus additionnels apparaissent également au survol du composant ;"
+            }
+          ]
+        },
+        {
+          "id": "via-other-component",
+          "statement": "The content also appears through the activation or hover of another component.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.14.2",
+              "line": 4,
+              "quote": "Les contenus additionnels apparaissent également par le biais de l’activation ou du survol d’un autre composant."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "not-needed",
+          "statement": "The conditions apply only where needed: content that does not need to be reachable by these other means is not held to them.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.14.2",
+              "line": 1,
+              "quote": "respectent-ils si nécessaire une de ces conditions"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard", "state"],
+  "rationale": {
+    "text": "The test is the counterpart of 10.14.1 for content that appears through CSS, the :focus pseudo-class, when an interface component receives focus. Where needed, it must also appear by one of three means: activation of the component with the keyboard and any pointing device, hover of the component, or activation or hover of another component. No check can fail a page with certainty. 'Si nécessaire' leaves to judgment which focus content must be reachable otherwise. The third route accepts any other component on the page, and a check cannot activate and hover every component, in every state, to show that none reveals the content; activating links and buttons also navigates or changes the page. The style rules with :focus that change another element's display can be listed only from style sheets the page can read, and scripts may show the same content on hover without any CSS rule. So no check is linked and the candidate is none. No axe rule is tagged for this test. Applicability is judgment: whether any content appears on focus through CSS is only partly visible in the style sheets, and whether it is needed is judgment. Needs is keyboard and state: the content appears on keyboard focus, and the routes are activation and hover.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.14.2",
+        "line": 1,
+        "quote": "si nécessaire"
+      },
+      {
+        "source": "methodology",
+        "test": "10.14.2",
+        "quote": "À l’activation ou du survol d’un autre composant."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "10.14",
+        "quote": "peuvent-ils être rendus visibles au clavier et par tout dispositif de pointage"
+      }
+    ]
+  }
+}
