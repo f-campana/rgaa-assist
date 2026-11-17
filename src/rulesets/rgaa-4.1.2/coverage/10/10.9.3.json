@@ -1,0 +1,68 @@
+{
+  "test": "10.9.3",
+  "requirements": [
+    {
+      "id": "not-only-shape-size-position",
+      "statement": "Information that a time-based media gives by shape, size or position can also be obtained by another means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.9.3",
+          "line": 1,
+          "quote": "pour chaque média temporel, l’information ne doit pas être donnée uniquement par la forme, taille ou position"
+        },
+        {
+          "source": "methodology",
+          "test": "10.9.3",
+          "quote": "Retrouver dans le document les informations d’un média temporel données par la forme, la taille ou la position"
+        }
+      ],
+      "routes": [
+        {
+          "id": "other-means-exists",
+          "statement": "For each piece of information given by shape, size or position, another means of obtaining that information exists.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.9.3",
+              "quote": "Pour chaque information donnée par la forme, la taille ou la position, vérifier qu’il existe un autre moyen de récupérer cette information"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The test asks whether information given by the shape, size or position of a time-based media can also be obtained another way. Both halves are judgment. Which visual effect carries information is not fixed: the glossary gives three examples, a marker for the active page of a menu, a tab brought to the foreground, font sizes in a tag cloud, and then extends to any similar graphic effect. Whether another means gives the same information (a text, a heading, a state exposed to assistive technologies, a caption) needs the information to be understood first. So code can neither find the elements the test applies to nor decide the route for them, and no check is linked. No axe rule is tagged for this test. A purpose-built check was considered and rejected: even a case that looks mechanical, such as items of differing font sizes with no other cue, is a failure only if the sizes carry information, which is judgment. The candidate is none. Applicability is judgment: a page may hold a video or audio element whose content gives no information by shape, size or position, and only watching it tells; whether a canvas or svg element is a time-based media is also judgment. Needs is media: the information lies in what the media shows while it plays, so the media must play to be examined. A time-based media offered as a file to download is outside what the tool examines.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.9.3",
+        "quote": "vérifier qu’il existe un autre moyen de récupérer cette information"
+      },
+      {
+        "source": "glossary",
+        "entry": "Indication donnée par la forme, la taille ou la position",
+        "quote": "Ou de tout autre effet graphique similaire."
+      },
+      {
+        "source": "glossary",
+        "entry": "Indication donnée par la forme, la taille ou la position",
+        "quote": "De la présence d’un marqueur visuel, pour indiquer la page active dans un menu de navigation (indication donnée par la position)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Média temporel (type son, vidéo et synchronisé)",
+        "quote": "Média temporel seulement vidéo : images ou photos en mouvement ou en séquence"
+      }
+    ]
+  }
+}
