@@ -1,0 +1,124 @@
+{
+  "test": "5.1.1",
+  "requirements": [
+    {
+      "id": "complex-table-summary",
+      "statement": "Each complex data table has a summary available: a text passage that lets the user understand the nature and the structure of the table.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.1.1",
+          "line": 1,
+          "quote": "Pour chaque tableau de données complexe, un résumé est-il disponible ?"
+        },
+        {
+          "source": "methodology",
+          "test": "5.1.1",
+          "quote": "vérifier qu’un passage de texte permettant de comprendre la nature et la structure du tableau, est présent"
+        },
+        {
+          "source": "glossary",
+          "entry": "Résumé (de tableau)",
+          "quote": "Un résumé est un passage de texte associé à un tableau de données complexe. Il permet de donner des informations sur la nature et la structure du tableau"
+        }
+      ],
+      "routes": [
+        {
+          "id": "summary-in-caption",
+          "statement": "The summary is in the table's caption element, possibly hidden with CSS.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "5.1.1",
+              "quote": "Soit dans l’élément `<caption>` ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Résumé (de tableau)",
+              "quote": "en HTML5, la seule technique utilisable actuellement est celle qui consiste à insérer le résumé directement dans le titre (balise <caption>) en masquant le résumé via CSS si nécessaire."
+            }
+          ]
+        },
+        {
+          "id": "summary-attribute",
+          "statement": "In HTML or XHTML versions before HTML5, the summary is in the summary attribute of the table element.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "5.1.1",
+              "quote": "Soit dans l’attribut `summary` de l’élément `<table>` (dans les versions de HTML et de XHTML antérieures à HTML 5) ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Résumé (de tableau)",
+              "quote": "Dans les versions précédentes de HTML, le résumé peut être inséré via un attribut summary sur la balise <table>."
+            }
+          ]
+        },
+        {
+          "id": "aria-describedby-passage",
+          "statement": "The summary is a text passage linked to the table with aria-describedby; for an element with role=\"table\" it must also be correctly rendered by assistive technologies.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "5.1.1",
+              "quote": "Soit dans un passage de texte lié au tableau avec l’attribut `aria-describedby`."
+            },
+            {
+              "source": "glossary",
+              "entry": "Résumé (de tableau)",
+              "quote": "Dans le cas d’une balise avec l’attribut WAI-ARIA role=\"table\", le résumé doit être fourni au moyen d’un attribut aria-describedby et être correctement restitué par les technologies d’assistance."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["assistive_tech"],
+  "rationale": {
+    "text": "The test has one requirement with three routes, all from the methodology: the summary in the caption, in the summary attribute for HTML versions before HTML5, or in a text passage linked with aria-describedby. The official texts pull against each other on the third route. The technical note says the aria-describedby method, like figure with figcaption and details inside caption, does not have enough support to be used now, and the glossary says caption is the only usable technique in HTML5. The methodology still lists aria-describedby for every table, and the glossary requires it for role=\"table\". A missed route is the worst error, so the entry keeps it. figure with figcaption is not a route: only the technical note names it, to say it cannot be used yet. A details element inside the caption is already inside the caption route. The technical note's link to the HTML methods points to a glossary anchor, #table-descriptions-techniques, that matches no glossary entry; nothing here relies on its content. The entry is none, for three reasons. First, the test applies only to complex data tables, and whether a table element is a data table or a layout table is a question of purpose that code cannot settle: the glossary defines a data table by what it does, structuring information in rows and columns with data and header cells, and RGAA itself expects layout tables that wrongly hold th or caption elements (test 5.8.1). So no table is surely in scope, and a fault on one could be a false failure. Second, whether a table is complex depends on its headers, meaning cells whose content serves as a heading, not only th elements. Third, the requirement is a text that lets the user understand the nature and structure of the table: a caption that holds only a title is not a summary, and telling the two apart is judgment. No axe rule is tagged for this test, and no deterministic check could decide it or prove its failure, so there are no links. What would raise it: an official, markup-based definition of which tables are data tables and which cells are headers. Applicability is judgment, for the same reason. Needs holds assistive_tech: the glossary counts an element with role=\"table\" as a data table only when assistive technologies render it correctly, and requires its aria-describedby summary to be correctly rendered by them.",
+    "citations": [
+      {
+        "source": "technical_note",
+        "criterion": "5.1",
+        "quote": "Ces méthodes n’ont pas un support suffisant pour être utilisées actuellement."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données",
+        "quote": "Cette balise permet de structurer des informations en lignes et en colonnes via des cellules de données et des cellules d’en-têtes."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de mise en forme",
+        "quote": "Technique qui utilise un élément HTML (balise <table>) pour contrôler l’affichage d’informations via des cellules (balise <td>)."
+      },
+      {
+        "source": "test",
+        "test": "5.8.1",
+        "line": 2,
+        "quote": "ne contient pas de balises `<caption>`, `<th>`, `<thead>`, `<tfoot>`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données complexe",
+        "quote": "Lorsqu’un tableau de données contient des en-têtes qui ne sont pas répartis uniquement sur la première ligne et/ou la première colonne de la grille ou dont la portée n’est pas valable pour l’ensemble de la colonne ou de la ligne, on parle de tableau de données complexe."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données complexe",
+        "quote": "ou lorsqu’il est correctement restitué par les technologies d’assistance par une balise pourvue d’un attribut WAI-ARIA role=\"table\""
+      },
+      {
+        "source": "methodology",
+        "test": "5.1.1",
+        "quote": "Si c’est le cas pour chaque tableau de données complexe, **le test est validé**."
+      }
+    ]
+  }
+}
