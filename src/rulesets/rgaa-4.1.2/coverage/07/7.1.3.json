@@ -2,8 +2,8 @@
   "test": "7.1.3",
   "requirements": [
     {
-      "id": "name-relevant",
-      "statement": "Each user interface component generated or controlled by a script, among those that validated test 7.1.1, has a relevant name.",
+      "id": "visible-name-relevant",
+      "statement": "Each user interface component generated or controlled by a script, among those that validated test 7.1.1, has a relevant name, which methodology step 1 reads as its visible label.",
       "citations": [
         {
           "source": "test",
@@ -25,13 +25,44 @@
       ],
       "routes": [
         {
-          "id": "relevant-name",
-          "statement": "The component's name is relevant.",
+          "id": "relevant-visible-name",
+          "statement": "The component's visible name is relevant.",
           "citations": [
             {
               "source": "methodology",
               "test": "7.1.3",
               "quote": "Un nom pertinent (intitulé visible) ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "accessible-name-relevant",
+      "statement": "Where the component has an accessible name, that accessible name is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.1.3",
+          "line": 2,
+          "quote": "Le composant possède un nom pertinent ;"
+        },
+        {
+          "source": "methodology",
+          "test": "7.1.3",
+          "quote": "Si le composant d’interface possède un nom accessible, vérifier que ce nom est pertinent"
+        }
+      ],
+      "routes": [
+        {
+          "id": "relevant-accessible-name",
+          "statement": "The accessible name is relevant to the component's function.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.1.3",
+              "quote": "vérifier que ce nom est pertinent et contient au moins l’intitulé visible."
             }
           ]
         }
@@ -154,7 +185,7 @@
   "applicability": "judgment",
   "needs": [],
   "rationale": {
-    "text": "The test has three requirements, all of which must hold. A relevant name and a relevant role are judgment. The second requirement, that the accessible name contain at least the visible label, has a mechanical core, with the same particular cases as test 6.1.5: punctuation and capitals may be ignored, and a text serving as a symbol is named by its function. It is not claimed here, because a fault must rest on a component surely in this test's scope, and code cannot establish that. The methodology limits the test to components that validated test 7.1.1, which is judgment. And the component must be generated or controlled by a script, which the glossary defines as code inserted through a script element; a listener found on an element does not show which component a script controls when listeners are delegated, and does not cover components a script built before examination. What would raise this: a way, cited from the official text, to decide which components are in scope. axe's label-content-name-mismatch is linked although it is not tagged for this test: it compares the visible text of widgets labelled through aria-label or aria-labelledby with their accessible name, which is the first route of the second requirement. It does not know whether a script controls the widget, its exact normalisation and handling of symbols are not known here, and it ignores images of text, so it is evidence only and partial. No axe rule is tagged for this test. Applicability is judgment, for the same reasons as the scope. Needs is empty: names, roles and visible labels are read on the page as loaded.",
+    "text": "The test has four requirements, all of which must hold. Methodology step 1 asks for a relevant name, given as the visible label, and a relevant role. Step 2 asks two separate things of the accessible name where there is one: that it is relevant, and that it contains at least the visible label. The entry names both, as two requirements, because one does not imply the other: a button showing Envoyer whose accessible name is Envoyer et effacer le formulaire, when it only sends, contains its visible label but its name is not relevant. Both relevance requirements and the relevant role are judgment. Step 2 applies only where the component has an accessible name, while the wording's line on containment has no such condition; a component with a visible label and no accessible name fails the wording's line but is not examined by step 2, and the entry does not settle which reading applies. The containment requirement, that the accessible name contain at least the visible label, has a mechanical core, with the same particular cases as test 6.1.5: punctuation and capitals may be ignored, and a text serving as a symbol is named by its function. It is not claimed here, because a fault must rest on a component surely in this test's scope, and code cannot establish that. The methodology depends on test 7.1.1: it examines only the components that validated 7.1.1, while the wording covers every component a script generates or controls. A component that failed 7.1.1, for example one with no explicit name, is outside the methodology's step but inside the wording, and a component that validated 7.1.1 only through an accessible equivalent or an alternative may or may not be meant. Which components validated 7.1.1 is itself judgment, and a test-level result does not say which elements validated it, so the scope of this test cannot be settled by code. And the component must be generated or controlled by a script, which the glossary defines as code inserted through a script element; a listener found on an element does not show which component a script controls when listeners are delegated, and does not cover components a script built before examination. What would raise this: a way, cited from the official text, to decide which components are in scope. axe's label-content-name-mismatch is linked although it is not tagged for this test: it compares the visible text of widgets labelled through aria-label or aria-labelledby with their accessible name, which is the route of the containment requirement. It does not know whether a script controls the widget, its exact normalisation and handling of symbols are not known here, and it ignores images of text, so it is evidence only and partial. No axe rule is tagged for this test. Applicability is judgment, for the same reasons as the scope. Needs is empty: names, roles and visible labels are read on the page as loaded.",
     "citations": [
       {
         "source": "methodology",
