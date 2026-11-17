@@ -1,0 +1,115 @@
+{
+  "test": "13.11.1",
+  "requirements": [
+    {
+      "id": "pointer-action-cancellable",
+      "statement": "Each action triggered with a pointing device at a single point of the screen meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.11.1",
+          "line": 1,
+          "quote": "les actions déclenchées au moyen d’un dispositif de pointage sur un point unique de l’écran vérifient-elles l’une de ces conditions (hors cas particuliers) ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "triggered-on-up",
+          "statement": "The action is triggered when the pointer is released or lifted (up events such as mouseup or touchend).",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.11.1",
+              "line": 2,
+              "quote": "L’action est déclenchée au moment où le dispositif de pointage est [relâché ou relevé](#relache-ou-releve)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Relâché ou relevé",
+              "quote": "Correspond aux gestionnaires d’événement JavaScript considérés comme des événements ascendants (mouseup, touchend par exemple)."
+            }
+          ]
+        },
+        {
+          "id": "down-then-undone-on-up",
+          "statement": "The action is triggered when the pointer is pressed or put down (down events such as mousedown or touchstart) and undone when it is released or lifted.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.11.1",
+              "line": 3,
+              "quote": "L’action est déclenchée au moment où le dispositif de pointage est [pressé ou posé](#presse-ou-pose) puis annulée lorsque le dispositif de pointage est [relâché ou relevé](#relache-ou-releve)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Pressé ou posé",
+              "quote": "Correspond aux gestionnaires d’événement JavaScript considérés comme des événements descendants (mousedown, touchstart par exemple)."
+            }
+          ]
+        },
+        {
+          "id": "abort-or-undo-mechanism",
+          "statement": "A mechanism lets the user abort the action before it completes or undo it after, such as a dialog to cancel it, or abandoning a drag when it is released outside the target.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.11.1",
+              "line": 4,
+              "quote": "Un mécanisme est disponible pour abandonner (avant achèvement de l’action) ou annuler (après achèvement) l’exécution de l’action."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "13.11",
+              "quote": "Une fenêtre modale permettant d’annuler l’action après son achèvement"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "13.11",
+              "quote": "Pour une fonction de glisser/déposer, le fait d’abandonner l’action si l’utilisateur relâche l’élément en dehors de la zone cible."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "down-event-required",
+          "statement": "The function needs the expected behaviour to happen on the down event, such as a keyboard emulator whose keys act on press; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.11",
+              "quote": "Il existe une gestion de cas particulier lorsque la fonctionnalité nécessite que le comportement attendu soit réalisé lors d’un événement descendant"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "13.11",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with three routes and one exception. Code can find elements with listeners on down events such as mousedown, touchstart or pointerdown, but not whether a listener performs an action, nor whether that action is undone on release or can be aborted or undone through another mechanism, nor whether the function needs the down event, as a keyboard emulator does. A down listener is common and harmless when it only, for example, shows a pressed style, so finding one proves nothing. So no check is linked and the entry is none. No axe rule is tagged for this test. Applicability is judgment: the test applies to actions, and which pointer events trigger an action is a reading of the page's behaviour. Needs is state: the methodology's checks of when an action fires and whether it can be undone are made by operating the page.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.11.1",
+        "quote": "Retrouver dans le document les actions déclenchées au moyen d’un dispositif de pointage sur un point unique de l’écran"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "13.11",
+        "quote": "par exemple, un émulateur de clavier dont les touches doivent s’activer à la pression comme sur un clavier physique."
+      }
+    ]
+  }
+}

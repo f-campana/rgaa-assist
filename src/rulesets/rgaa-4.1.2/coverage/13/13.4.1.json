@@ -1,0 +1,69 @@
+{
+  "test": "13.4.1",
+  "requirements": [
+    {
+      "id": "accessible-version-same-information",
+      "statement": "Each office document that has an accessible version is matched by a version that offers the same information.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.4.1",
+          "line": 1,
+          "quote": "Chaque document bureautique ayant une version accessible vérifie-t-il une de ces conditions ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "13.4",
+          "quote": "cette version offre-t-elle la même information ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "accessible-version-same-information-route",
+          "statement": "The version compatible with accessibility offers the same information.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.4.1",
+              "line": 2,
+              "quote": "La version compatible avec l’accessibilité offre la même information"
+            }
+          ]
+        },
+        {
+          "id": "html-version-relevant-same-information",
+          "statement": "The alternative version in HTML is relevant and offers the same information.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.4.1",
+              "line": 3,
+              "quote": "La version alternative au format HTML est pertinente et offre la même information."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement with two routes. Both ask whether the accessible version gives the same information as the original document, and the HTML route also asks whether it is relevant (\"pertinente\"). The methodology answers this by opening both documents and comparing what they say, which is judgment about meaning and needs the downloaded files. So no check is linked and the entry is none. No axe rule is tagged for this test. Applicability is judgment: the test applies only to office documents that have an accessible version, and pairing a document with its version, as the methodology's first step does, needs a reader. Needs is empty: what the test needs beyond the page is the downloaded files, which none of the prerequisites stands for.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.4.1",
+        "quote": "Pour chaque couple de fichiers, ouvrir les deux documents (le document d’origine et le document accessible) et vérifier que les deux documents apportent la même information"
+      },
+      {
+        "source": "methodology",
+        "test": "13.4.1",
+        "quote": "Retrouver dans le document les fichiers en téléchargement au format bureautique accompagné de leur version alternative accessible"
+      }
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "test": "13.1.1",
+  "requirements": [
+    {
+      "id": "refresh-controllable",
+      "statement": "Each refresh process of the page (by reloading the page or by updating part of it without reloading), each controllable independently, meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.1.1",
+          "line": 1,
+          "quote": "(balise `<object>`, balise `<embed>`, balise `<svg>`, balise `<canvas>`, balise `<meta>`) vérifie-t-il une de ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Procédé de rafraîchissement",
+          "quote": "Le procédé de rafraîchissement peut s’effectuer par rechargement automatique de la page ou de manière dynamique sans rechargement de la page (via AJAX, par exemple)."
+        },
+        {
+          "source": "glossary",
+          "entry": "Procédé de rafraîchissement",
+          "quote": "L’utilisateur doit pouvoir contrôler chaque procédé de rafraîchissement de manière indépendante."
+        }
+      ],
+      "routes": [
+        {
+          "id": "stop-restart",
+          "statement": "The user can stop and restart the refresh.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.1",
+              "line": 2,
+              "quote": "L’utilisateur peut arrêter ou relancer le rafraîchissement"
+            },
+            {
+              "source": "methodology",
+              "test": "13.1.1",
+              "quote": "Soit la présence d’un mécanisme permet à l’utilisateur de stopper et de relancer le rafraîchissement"
+            }
+          ]
+        },
+        {
+          "id": "extend-tenfold",
+          "statement": "The user can make the time between two refreshes at least ten times longer.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.1",
+              "line": 3,
+              "quote": "L’utilisateur peut augmenter la limite de temps entre deux rafraîchissements de dix fois, au moins"
+            }
+          ]
+        },
+        {
+          "id": "warned-twenty-seconds",
+          "statement": "The user is warned that a refresh is imminent and has at least twenty seconds to extend the time limit before it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.1",
+              "line": 4,
+              "quote": "L’utilisateur est averti de l’imminence du rafraîchissement et dispose de vingt secondes, au moins, pour augmenter la limite de temps avant le prochain rafraîchissement"
+            }
+          ]
+        },
+        {
+          "id": "twenty-hours",
+          "statement": "The time between two refreshes is at least twenty hours.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.1",
+              "line": 5,
+              "quote": "La limite de temps entre deux rafraîchissements est de vingt heures, au moins."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "essential-time-limit",
+          "statement": "The time limit is essential, notably when it could not be removed without fundamentally changing the content or its functions; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.1",
+              "quote": "Il existe une gestion de cas particuliers lorsque la limite de temps est essentielle, notamment lorsqu’elle ne pourrait pas être supprimée sans changer fondamentalement le contenu ou les fonctionnalités liées au contenu."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "13.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/meta-refresh",
+      "requirement": "refresh-controllable",
+      "routes": ["twenty-hours"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state", "media"],
+  "rationale": {
+    "text": "The test has one requirement with four routes and one exception. Three routes are mechanisms offered to the user (stop and restart, extend tenfold, a warning with twenty seconds to extend), and code cannot establish that a page offers no such mechanism, or that one it offers works for each refresh independently, as the glossary demands. The exception, an essential time limit, is judgment by its own words. The refreshes themselves are not all identifiable: the glossary counts updates of part of the page without reloading it, through AJAX for example, and the test lists object, embed, svg and canvas elements, whose updates are made by scripts or plug-ins that code cannot tell apart from other activity without watching the page over time and judging what changed. So no check here can prove the test fails or holds, and the entry is none. axe's meta-refresh is not tagged for this test but looks at one of its refresh processes, the meta element: it faults a meta http-equiv=refresh whose leading delay is above 0 and at most 72000 seconds, which is twenty hours. It is linked as evidence on the twenty-hours route only. Its fault proves nothing: the other three routes or the exception may hold, and it faults a delay of exactly 72000 seconds, which the test accepts (twenty hours at least). Its scope is partial: it sees only meta elements, its selector compares the http-equiv value case-sensitively in axe-core 4.14.0, so a meta written http-equiv=\"Refresh\" is not examined, and it does not tell a refresh of the page from a redirect to another page, which test 13.1.2 covers. Applicability is judgment: whether the page has a refresh process at all, and whether its time limit is essential, cannot be settled by code. Needs: finding refreshes that happen after load needs a timed observation of the page (the pass the media prerequisite stands for), and trying a stop or extend mechanism needs interaction (state).",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.1.1",
+        "quote": "Retrouver dans le document les rafraîchissements initiés dans le contenu par un élément `<object>`, `<embed>`, `<svg>`, `<canvas>` ou par un élément `<meta http-equiv=\"refresh\" content=\"[compteur]\">`"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "13.1",
+        "quote": "le rafraîchissement d’un flux RSS dans une page n’est pas une limite de temps essentielle ; le critère est applicable."
+      },
+      {
+        "source": "glossary",
+        "entry": "Procédé de rafraîchissement",
+        "quote": "Technique visant à modifier le contenu d’un ou de plusieurs éléments de la page web."
+      }
+    ]
+  }
+}

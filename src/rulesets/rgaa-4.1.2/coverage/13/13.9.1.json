@@ -1,0 +1,125 @@
+{
+  "test": "13.9.1",
+  "requirements": [
+    {
+      "id": "consultable-any-orientation",
+      "statement": "The content can be consulted whatever the screen orientation, portrait or landscape.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.9.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque contenu vérifie-t-il ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "test",
+          "test": "13.9.1",
+          "line": 2,
+          "quote": "La consultation est possible quel que soit le mode d’orientation de l’écran"
+        }
+      ],
+      "routes": [
+        {
+          "id": "consultable-both",
+          "statement": "Viewed in portrait and then in landscape, the content can be consulted in both.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "13.9.1",
+              "quote": "Consulter le document dans un mode d’orientation portrait puis dans un mode d’orientation paysage"
+            },
+            {
+              "source": "methodology",
+              "test": "13.9.1",
+              "quote": "La consultation est possible quel que soit le mode d’orientation de l’écran."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "essential-orientation",
+          "statement": "The interface needs a given device orientation to be used, such as a game, a piano or a cheque deposit; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.9",
+              "quote": "Il existe des interfaces pour lesquelles l’orientation du périphérique est essentielle à leur utilisation."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "13.9",
+              "quote": "Dans ces situations, le critère est non applicable. Il peut s’agir d’interfaces de jeu, de piano, de dépôt de chèques bancaires, etc."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "same-content-any-orientation",
+      "statement": "The content offered stays the same whatever the screen orientation, even if its presentation and the way to reach it differ.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.9.1",
+          "line": 3,
+          "quote": "Le contenu proposé reste le même quel que soit le mode d’orientation de l’écran utilisé même si sa présentation et le moyen d’y accéder peut différer."
+        }
+      ],
+      "routes": [
+        {
+          "id": "same-content-both",
+          "statement": "Viewed in portrait and then in landscape, the same content is offered, possibly presented or reached differently.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "13.9.1",
+              "quote": "Le contenu proposé reste le même quel que soit le mode d’orientation de l’écran utilisé même si sa présentation et le moyen d’y accéder peut différer."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "essential-orientation-content",
+          "statement": "The interface needs a given device orientation to be used; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.9",
+              "quote": "Il existe des interfaces pour lesquelles l’orientation du périphérique est essentielle à leur utilisation."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/css-orientation-lock",
+      "requirement": "consultable-any-orientation",
+      "routes": ["consultable-both"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording asks for \"ces conditions\", so its two lines are two requirements that must both hold: the content can be consulted in either orientation, and the content offered stays the same. Each has one route and the essential-orientation exception of the particular cases. Whether content \"can be consulted\" and \"stays the same\" while its presentation may differ is judgment, and so is whether an interface needs its orientation, as a game or a piano does. So the entry is none. axe's css-orientation-lock is tagged for this test and linked to the first requirement as evidence only, although axe-core 4.14.0 marks it experimental and disables it by default: it is the only rule that looks at an orientation lock, so its fault is a useful hint for the auditor, and its experimental status is one more reason not to trust it further. It faults a style sheet whose orientation media query rotates an element by about 90 degrees, the usual way to keep a page displayed in one orientation. Its fault proves nothing alone: the rotated element may be a small part of the page, such as an icon, that does not stop consultation, and the interface may need its orientation. Its scope is partial: it reads only style sheets it can access, and a page can lock or break one orientation by script or by layout without any rotation. Its clean result proves nothing either. Applicability is judgment, because of the essential-orientation case. Needs is empty, but the test needs the page viewed in a second orientation, which none of the prerequisites stands for.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "13.9",
+        "quote": "le contenu proposé est-il consultable quelle que soit l’orientation de l’écran (portrait ou paysage) (hors cas particuliers) ?"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "13.9",
+        "quote": "Si l’interface est le seul moyen d’accéder au service proposé, une alternative devrait être mise en place pour pallier cette carence."
+      }
+    ]
+  }
+}

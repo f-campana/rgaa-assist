@@ -1,0 +1,110 @@
+{
+  "test": "13.1.3",
+  "requirements": [
+    {
+      "id": "script-redirect-controllable",
+      "statement": "Each redirect to another page made by a script meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.1.3",
+          "line": 1,
+          "quote": "chaque procédé de [redirection](#redirection) effectué via un [script](#script) vérifie-t-il une de ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Redirection",
+          "quote": "rediriger l’utilisateur vers une autre page, sur le même domaine ou sur un domaine différent."
+        }
+      ],
+      "routes": [
+        {
+          "id": "stop-restart",
+          "statement": "The user can stop and restart the redirect.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.3",
+              "line": 2,
+              "quote": "L’utilisateur peut arrêter ou relancer la redirection"
+            }
+          ]
+        },
+        {
+          "id": "extend-tenfold",
+          "statement": "The user can make the time before the redirect at least ten times longer.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.3",
+              "line": 3,
+              "quote": "L’utilisateur peut augmenter la limite de temps avant la redirection de dix fois, au moins"
+            }
+          ]
+        },
+        {
+          "id": "warned-twenty-seconds",
+          "statement": "The user is warned that the redirect is imminent and has at least twenty seconds to extend the time limit before it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.3",
+              "line": 4,
+              "quote": "L’utilisateur est averti de l’imminence de la redirection et dispose de vingt secondes, au moins, pour augmenter la limite de temps avant la prochaine redirection"
+            }
+          ]
+        },
+        {
+          "id": "twenty-hours",
+          "statement": "The time before the redirect is at least twenty hours.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.3",
+              "line": 5,
+              "quote": "La limite de temps avant la redirection est de vingt heures, au moins."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "essential-time-limit",
+          "statement": "The time limit is essential, for example a redirect from an obsolete URL to the new version of a page; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.1",
+              "quote": "Il existe une gestion de cas particuliers lorsque la limite de temps est essentielle"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "13.1",
+              "quote": "une redirection automatique qui amène vers la nouvelle version d’une page à partir d’une URL obsolète est essentielle ; le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state", "media"],
+  "rationale": {
+    "text": "The test has one requirement with four routes and one exception. Three routes are mechanisms offered to the user, which code cannot show to be absent or working, and the exception, an essential time limit, is judgment; its official example is a redirect from an obsolete URL, which code cannot recognise. Finding the redirects is not mechanical either: a script may redirect after a countdown, on a timer of any length, or under conditions only its code reveals, and the methodology asks the auditor to find them in the document, for example as a countdown. Watching the page for a navigation would see only the redirects that fire during the watch, and could not tell one triggered by the page's own timing from one triggered otherwise without judging the script. So no check is linked and the entry is none. No axe rule is tagged for this test; axe's meta-refresh looks at meta elements, which are not scripts and belong to test 13.1.2. Applicability is judgment: whether the page has a script redirect, and whether its time limit is essential, cannot be settled by code. Needs: seeing a timed redirect fire needs a timed observation of the page (the pass the media prerequisite stands for), and trying a stop or extend mechanism needs interaction (state).",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.1.3",
+        "quote": "Retrouver dans le document les redirections automatiques initiées par un script (sous la forme d’un décompte par exemple)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Script",
+        "quote": "Code généralement écrit sous forme d’une liste de commandes (par exemple JavaScript)."
+      }
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "test": "13.10.2",
+  "requirements": [
+    {
+      "id": "path-function-single-point",
+      "statement": "Each function usable or available after a gesture that follows a path on the screen is also usable or available after a contact at a single point.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.10.2",
+          "line": 1,
+          "quote": "chaque fonctionnalité utilisable ou disponible suite à un geste basé sur le suivi d’une trajectoire sur l’écran est-elle également utilisable ou disponible suite à un contact en un point unique de l’écran (hors cas particuliers)."
+        },
+        {
+          "source": "glossary",
+          "entry": "Gestes complexes et gestes simples",
+          "quote": "un geste basé sur le suivi d’une trajectoire sur l’écran (exemple : fonction JavaScript permettant de détection le déplacement d’un doigt vers la gauche ou droite sur une surface tactile pour déclencher le passage à l’item précédent / suivant d’un carrousel)."
+        }
+      ],
+      "routes": [
+        {
+          "id": "single-point-alternative",
+          "statement": "The same function is usable or available through a simple gesture at a single point: a tap or click, a double tap or click, or a long press, for example successive presses on the keys of a virtual keyboard.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Gestes complexes et gestes simples",
+              "quote": "Un geste simple implique un contact en un point unique de l’écran. Il peut s’agir d’une pression ou d’un clic simple, d’une double-pression ou d’un double-clic, d’une pression prolongée."
+            },
+            {
+              "source": "methodology",
+              "test": "13.10.2",
+              "quote": "doit aussi être disponible au moyen de pressions successives sur les touches du clavier"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "user-agent-gesture",
+          "statement": "Gestures required by the user agent or the operating system are not concerned; only functions set up by the site's author are.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.10",
+              "quote": "Le critère ne s’applique qu’à des fonctionnalités mises en place par l’auteur du site. Il ne concerne donc pas les gestes requis par l’agent utilisateur ou le système d’exploitation"
+            }
+          ]
+        },
+        {
+          "id": "essential-complex-gesture",
+          "statement": "Functions for which performing the complex gesture is essential, such as drawing a signature, are not concerned.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.10",
+              "quote": "Le critère ne s’applique pas aux fonctionnalités dont la réalisation d’un geste complexe est essentielle (exécuter le tracé d’une signature, par exemple)."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with one route, a single-point alternative, and the two particular cases of the criterion as exceptions: gestures required by the browser or the system, and functions for which the path gesture is essential, such as drawing a signature. Code can list touch and pointer event listeners, but not what a listener does: whether it implements a gesture, which function the gesture gives, whether the same function is reachable by a single contact, and whether the gesture is essential, are all readings of the page's behaviour and meaning. So no check is linked and the entry is none. No axe rule is tagged for this test. Applicability is judgment: whether the site's author set up any function used through this kind of gesture cannot be settled by code. Needs is state: the function reached by a gesture, and its single-contact alternative, are reached by interacting with the page. Performing a touch gesture itself is not one of the prerequisites.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.10.2",
+        "quote": "Retrouver dans le document les fonctionnalités utilisables ou disponibles au moyen d’une interaction au toucher qui implique le suivi d’une trajectoire sur l’écran"
+      },
+      {
+        "source": "methodology",
+        "test": "13.10.2",
+        "quote": "Le critère ne s'applique pas aux fonctionnalités dont la réalisation d'un geste complexe est essentielle (exécuter le tracé d'une signature, par exemple)."
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "test": "13.1.2",
+  "requirements": [
+    {
+      "id": "meta-redirect-immediate",
+      "statement": "Each redirect to another page made through a meta element is immediate.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.1.2",
+          "line": 1,
+          "quote": "chaque procédé de [redirection](#redirection) effectué via une balise `<meta>` est-il immédiat (hors cas particuliers) ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Redirection",
+          "quote": "rediriger l’utilisateur vers une autre page, sur le même domaine ou sur un domaine différent."
+        }
+      ],
+      "routes": [
+        {
+          "id": "immediate",
+          "statement": "The redirect happens immediately, as with a meta refresh whose content gives a delay of 0 and the target URL.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.1.2",
+              "line": 1,
+              "quote": "est-il immédiat"
+            },
+            {
+              "source": "methodology",
+              "test": "13.1.2",
+              "quote": "Retrouver dans le document une redirection automatique initiée par un élément `<meta http-equiv=\"refresh\" content=\"0;URL='[URL ciblée]'\" />`"
+            },
+            {
+              "source": "methodology",
+              "test": "13.1.2",
+              "quote": "Vérifier que la redirection est immédiate"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "essential-time-limit",
+          "statement": "The time limit is essential; the criterion is then not applicable. The official example is an automatic redirect from an obsolete URL to the new version of a page.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.1",
+              "quote": "Il existe une gestion de cas particuliers lorsque la limite de temps est essentielle"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "13.1",
+              "quote": "une redirection automatique qui amène vers la nouvelle version d’une page à partir d’une URL obsolète est essentielle ; le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/meta-refresh",
+      "requirement": "meta-redirect-immediate",
+      "routes": ["immediate"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement, that every meta redirect is immediate, with one route and one exception. Finding meta refresh elements and reading their delay is mechanical, so the entry looked like a candidate for full; it stays at none because of the exception. The particular cases make the criterion not applicable when the time limit is essential, and their own example of an essential case is an automatic redirect from an obsolete URL to the new version of a page. That is the usual purpose of a meta redirect, and whether a URL is obsolete is not something code can know. So a delayed meta redirect may be a failure or not applicable: a check must abstain, and cannot fault. An immediate one may be passed or not applicable, since the example calls the redirect itself essential, whatever its delay: a check must abstain there too, so the only route could never come out passed, which rules out full. What would raise it: an official reading that an immediate redirect carries no time limit, so the essential case cannot apply to it. Then a custom check could answer no_fault when every meta redirect of the page, including those inside noscript and those in the document as served, has a delay of exactly 0, and abstain on every delayed one. axe's meta-refresh is tagged for this test. It faults a meta http-equiv=refresh whose leading delay is above 0 and at most 72000 seconds. It is evidence only on the one route: its fault may fall under the essential exception, and it also faults refreshes that give no URL, which reload the same page and are not redirects to another page. Its clean result proves nothing: it accepts a delay above twenty hours, which is not immediate. Its scope is partial: axe-core 4.14.0 matches the http-equiv value case-sensitively, so a meta written http-equiv=\"Refresh\" is not examined, and a meta inside noscript is text, not an element, when scripts run. Applicability is judgment, because the essential case also makes the criterion not applicable. Needs is empty: the meta elements are in the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "13.1",
+        "quote": "l’utilisateur a-t-il le contrôle de chaque limite de temps modifiant le contenu (hors cas particuliers) ?"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "13.1",
+        "quote": "Dans ces situations, le critère est non applicable."
+      },
+      {
+        "source": "methodology",
+        "test": "13.1.2",
+        "quote": "Si c’est le cas, **le test est validé**."
+      }
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "test": "13.2.1",
+  "requirements": [
+    {
+      "id": "no-window-without-action",
+      "statement": "The page does not open a new window unless the user acts to open it.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.2.1",
+          "line": 1,
+          "quote": "Dans chaque page web, l’ouverture d’une nouvelle fenêtre ne doit pas être déclenchée sans action de l’utilisateur. Cette règle est-elle respectée ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "no-unrequested-window",
+          "statement": "No new window, such as a pop-up or pop-under, opens without a user action, in particular when the document is opened.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "13.2.1",
+              "quote": "Vérifier qu’à l’ouverture du document, aucune nouvelle fenêtre (pop-up ou pop-under, par exemple) n’est ouverte."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/13-2-window-opened-without-action",
+      "requirement": "no-window-without-action",
+      "routes": ["no-unrequested-window"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "always",
+  "needs": [],
+  "rationale": {
+    "text": "The test is a prohibition with one requirement, one way to meet it and no exception: no new window opens without a user action. The criterion has no particular cases. The methodology checks it when the document is opened: no pop-up or pop-under may open then. A custom check watches the page as it loads, before the engine does anything that could stand for a user action (input, scroll, resize, focus, triggered events), with the browser's pop-up blocker disabled. It faults a new tab or window that the page or one of its frames opens in that time and that stays open. The fault rests on two facts the check verifies rather than assumes. A new top-level browsing context was really created in the browser, which is a new window under any reading of the wording; dialogs drawn inside the page are not, and are not examined. And no user action happened: the engine performed none, and the browser's sticky user activation is still false in the top document and its readable frames, which would be true after any real input. A window that closes itself at once, a top document that navigated during the watch, or a page that is not the only one in the browser context gives cannot_tell. The witness is therefore surely in scope, the only route fails for it and no exception exists, so the fault proves the test fails. A page that opens such a window on load because the user clicked on a previous page still fails: the methodology looks at what opens when this document is opened. The scope is partial: windows that would open after the watch, for example on a long timer, are never seen, so the check never answers no_fault and the entry is fail_only, not full. The methodology's own example names pop-ups and pop-unders, which are the cases the check sees. No axe rule is tagged for this test. Applicability is always: the methodology validates the test when no window opens, so a page that opens none passes rather than being not applicable, and the check never answers inapplicable. Needs is empty: the watch happens while the page loads, with no interaction.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "13.2",
+        "quote": "l’ouverture d’une nouvelle fenêtre ne doit pas être déclenchée sans action de l’utilisateur"
+      },
+      {
+        "source": "methodology",
+        "test": "13.2.1",
+        "quote": "Si c’est le cas, **le test est validé**."
+      }
+    ]
+  }
+}

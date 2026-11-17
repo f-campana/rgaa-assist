@@ -1,0 +1,64 @@
+{
+  "test": "13.6.1",
+  "requirements": [
+    {
+      "id": "cryptic-alternative-relevant",
+      "statement": "For each cryptic content (ASCII art, emoticon, cryptic syntax) that has an alternative, that alternative is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.6.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) vérifie-t-il une de ces conditions ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "13.6",
+          "quote": "pour chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) ayant une alternative, cette alternative est-elle pertinente ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-relevant",
+          "statement": "The content of the title attribute is relevant.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.6.1",
+              "line": 2,
+              "quote": "Le contenu de l’attribut `title` est pertinent"
+            }
+          ]
+        },
+        {
+          "id": "adjacent-definition-relevant",
+          "statement": "The definition given by the adjacent context is relevant.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.6.1",
+              "line": 3,
+              "quote": "La définition donnée par le contexte adjacent est pertinente."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement with two routes, and both ask whether a definition is relevant (\"pertinent\"), which is judgment about meaning. Which content is cryptic is judgment too, since the wording only gives examples. An empty title attribute on a cryptic content is not a mechanical fault either: the adjacent context may still give a relevant definition, and recognising the content as cryptic already needs a reader. So no check is linked and the entry is none. No axe rule is tagged for this test. Applicability is judgment: the test applies only to cryptic content that has an alternative. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.6.1",
+        "quote": "Pour chaque contenu cryptique, vérifier que la définition donnée est pertinente."
+      }
+    ]
+  }
+}
