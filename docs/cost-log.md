@@ -38,6 +38,7 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-17 14:50 | Batch 3 merged: builders E (Opus high, about 186k tokens) and F (about 196k tokens), 30 entries all `none`; batch 4 launched | 94% | n/a | About 3 points for 30 entries: 0.1 point per entry when no claim is made. 5-hour window at 67%. |
 | 2026-11-17 15:00 | Batch 4 merged: builders G (Opus high, about 231k tokens, 22 entries) and H (about 226k tokens, 21 entries); paused | 97% | n/a | About 3 points for 43 entries. 5-hour window at 94%. 129 of 258 entries written. |
 | 2026-11-17 15:20 | Fabien used a limit reset; batches 5 and 6 launched (four Opus builders) | 1% | n/a | 5-hour window at 7%. The weekly window still ends 2026-11-21 16:00 UTC. |
+| 2026-11-17 16:30 | Builders I, J, K merged (Opus high, about 228k, 218k, 214k tokens; 63 entries); batch 7 launched | 9% | n/a | 5-hour window at 66%. About 8 points of the weekly limit for 63 entries so far, L still running. |
 
 ### What day 1 says about cost
 
