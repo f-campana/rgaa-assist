@@ -1,0 +1,107 @@
+{
+  "test": "11.10.1",
+  "requirements": [
+    {
+      "id": "required-indicated",
+      "statement": "In each form, the mandatory character of each required field is indicated before the form is validated.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.10.1",
+          "line": 1,
+          "quote": "Les [indications du caractère obligatoire](#indication-de-champ-obligatoire) de la saisie des champs vérifient-elles une de ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.10.1",
+          "quote": "Retrouver dans le document les champs de formulaire obligatoires ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "visible-named-indication",
+          "statement": "A required-field indication is visible and identifies the field concerned by name, before validation.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.1",
+              "line": 2,
+              "quote": "Une [indication de champ obligatoire](#indication-de-champ-obligatoire) est visible et permet d’identifier nommément le champ concerné préalablement à la validation du formulaire ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Indication de champ obligatoire",
+              "quote": "Indication textuelle ou graphique (icône) permettant à l’utilisateur de savoir que la saisie d’un champ est obligatoire préalablement à la saisie."
+            }
+          ]
+        },
+        {
+          "id": "required-attribute",
+          "statement": "The required field has the attribute aria-required=\"true\" or required before validation.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.1",
+              "line": 3,
+              "quote": "Le champ obligatoire dispose de l’attribut `aria-required=\"true\"` ou `required` préalablement à la validation du formulaire."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "single-field-form",
+          "statement": "The test is not applicable when the form has a single form field.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.10",
+              "quote": "Le test 11.10.1 et le test 11.10.2 seront considérés comme non applicables lorsque le formulaire comporte un seul [champ de formulaire](#champ-de-saisie-de-formulaire)"
+            }
+          ]
+        },
+        {
+          "id": "optional-fields-indicated",
+          "statement": "The test is not applicable when the form indicates its optional fields visibly, in the label element or in the legend associated with the field.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.10",
+              "quote": "ou qu’il indique les champs optionnels de manière :"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.10",
+              "quote": "Dans la balise `<label>` ou dans la [légende](#legende) associée au champ."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to required fields, and whether a field is required is not always in the markup: a field that the server rejects when empty, but that carries no required or aria-required attribute, is required and is exactly the case the first route is for. Code cannot find such fields, so it cannot say that every required field is indicated, and it cannot say that a field without the attribute is required, so it cannot fault one either. The first route needs judgment too: the glossary accepts a textual or graphical indication, such as an icon or an asterisk explained before its first use, and whether it identifies the field by name is a reading of the page. The particular cases make the test not applicable when the form has a single field or indicates its optional fields visibly in the label or legend; finding the second needs reading the labels. A field with required or aria-required=\"true\" meets the second route mechanically, but that alone concludes nothing for the page. So the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment, because of the required fields and the particular cases. Needs is empty: the test looks at the page before validation, as loaded.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.10.1",
+        "quote": "Si c’est le cas pour chaque champ de formulaire obligatoire, **le test est validé**."
+      },
+      {
+        "source": "glossary",
+        "entry": "Indication de champ obligatoire",
+        "quote": "Dans le cas où cette indication n’est pas réalisée de manière textuelle explicite (icône, “*”, “!”, etc.), l’explication de la signification de cette indication doit se situer, visuellement et dans l’ordre du code source, avant la première utilisation de l’indication."
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "11.10",
+        "quote": "Dans le cas où l’ensemble des champs d’un formulaire sont obligatoires, les tests 11.10.1 et 11.10.2 restent applicables."
+      }
+    ]
+  }
+}

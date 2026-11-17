@@ -1,0 +1,69 @@
+{
+  "test": "11.10.6",
+  "requirements": [
+    {
+      "id": "format-error-identifies-field",
+      "statement": "Each error message giving an instruction or indication of a mandatory data type or format identifies the field: the message is visible and identifies the field, or the field has aria-invalid=\"true\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.10.6",
+          "line": 1,
+          "quote": "Les messages d’erreurs fournissant une instruction ou une indication du type de données et/ou de format obligatoire des champs vérifient-ils une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.10.6",
+          "quote": "Retrouver dans le document les messages d’erreur fournissant une instruction ou une indication du type de données et/ou de format obligatoire d’un champ ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "visible-message-identifies-field",
+          "statement": "The error message is visible and identifies the field concerned.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.6",
+              "line": 2,
+              "quote": "Le message d’erreur fournissant une instruction ou une indication du type de données et/ou de format obligatoires est visible et identifie le champ concerné ;"
+            }
+          ]
+        },
+        {
+          "id": "field-aria-invalid-6",
+          "statement": "The field the message concerns has aria-invalid=\"true\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.6",
+              "line": 3,
+              "quote": "Le champ dispose de l’attribut `aria-invalid=\"true\"`."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test applies to error messages that give an instruction or indication of a mandatory data type or format. They appear after an attempt to validate, so the test needs a state other than the page as loaded. Recognising such a message, telling it from other error messages, and tying it to its field are readings of the page, and whether it identifies the field is judgment. The second route is mechanical once the field is known, but knowing which field the message is about is not. The methodology's last step speaks of error messages reporting a missing required input, which looks carried over from test 11.10.3; the entry follows the wording and the first two steps. No check can find every such message or fault one with certainty, so the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment. Needs is state.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.10.6",
+        "quote": "Si c’est le cas pour chaque message d’erreur indiquant l’absence de saisie d’un champ obligatoire, **le test est validé**."
+      },
+      {
+        "source": "methodology",
+        "test": "11.10.6",
+        "quote": "Soit le champ associé au message d’erreur possède un attribut `aria-invalid=\"true\"`."
+      }
+    ]
+  }
+}
