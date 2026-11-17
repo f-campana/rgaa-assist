@@ -22,7 +22,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-- Resumed by Fabien on 2026-11-17 at 21:35 UTC (paused 16:40 to 21:35). Builders M (10.9 to 10.14, 16 tests) and N (11.6 to 11.13, 19) are running in parallel; O (theme 12) is merged at `b758163`. All three were, launched fresh from `docs/m1/brief-entries.md` at `de20928`. Usage at launch: weekly 14%, 5-hour window 2%.
+- Resumed by Fabien on 2026-11-17 at 21:35 UTC (paused 16:40 to 21:35). Builders M (10.9 to 10.14, 16 tests) and N (11.6 to 11.13, 19) are running in parallel; O (theme 12) is merged at `b758163`. All three were launched fresh from `docs/m1/brief-entries.md` at `de20928`. Usage at launch: weekly 14%, 5-hour window 2%.
 - Entries: 223 of 258 on main (none 195, fail_only 25, full 3). 414 tests pass; 116 check records, sorted, no duplicates. Batches 1 to 6 and 8 are merged.
 - Merging: `checks.json` conflicts between builders are resolved by `python3 work/orchestrator/merge-checks.py` during the merge (union of added records, sorted; it asserts no base record changed). `work/` is gitignored, so the script is local to this checkout.
 - Then: step 5, Codex's cross-check of all entries, with the claims listed under "Findings to report at the gate".
