@@ -54,8 +54,19 @@
         },
         {
           "id": "documented-shortcuts",
-          "statement": "Where the technology makes focus handling too complex or unstable for Tab, arrow and Enter keys alone, keyboard shortcuts perform the function, provided they are correctly documented, work, and meet criterion 12.10.",
+          "statement": "One function, the media's own or one in the page that performs the same action, can take focus with any pointing device, and, on the keyboard side only, where the technology makes focus handling too complex or unstable for Tab, arrow and Enter keys alone, keyboard shortcuts that are correctly documented, work and meet criterion 12.10 give keyboard access to that same function in place of taking focus with the Tab key.",
           "citations": [
+            {
+              "source": "test",
+              "test": "4.11.2",
+              "line": 2,
+              "quote": "La fonctionnalité est accessible par le clavier et tout dispositif de pointage ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
+              "quote": "le recours à certaines technologies peut rendre la gestion du focus trop complexe ou trop instable pour ne reposer que sur la tabulation, les touches de direction et la touche entrée."
+            },
             {
               "source": "glossary",
               "entry": "Accessible et activable par le clavier et tout dispositif de pointage",
@@ -81,7 +92,7 @@
     "state"
   ],
   "rationale": {
-    "text": "The test has one requirement with three routes for each function of a temporal media: the function itself can take focus with the keyboard and with any pointing device, another function in the page performs the same action and can, or, where focus handling is too complex for the usual keys, documented working keyboard shortcuts perform it (the glossary note on keyboard access). The glossary defines accessible as taking focus with a pointer or the Tab key. Deciding this needs a keyboard pass and judgment. Which elements are the functions of a media player is not marked in the code, and the native controls of audio and video elements are drawn by the browser outside the page's DOM. Whether another function in the page performs the same action, and whether shortcuts are documented, needs reading. So even a control that cannot take focus by keyboard is not a mechanical fault: an equivalent may exist elsewhere. No axe rule is tagged for this test and no check is registered, so there are no links and the entry stays at none. The check custom/7-3-handler-not-focusable, registered for 7.3.1, finds elements with pointer or key listeners that are not in the focus order; it is not linked, because it does not know whether an element is a function of a media, and its fault says nothing about the equivalent-function and shortcut routes. Applicability is judgment: whether an element is a temporal media with control functions cannot be decided from the markup with certainty. Needs lists keyboard, because the methodology asks whether each function can take focus by keyboard, and state, because player controls often appear only on hover or focus.",
+    "text": "The test has one requirement with three routes for each function of a temporal media: the function itself can take focus with the keyboard and with any pointing device, another function in the page performs the same action and can, or the shortcut route. That route covers the keyboard side only. The glossary's note lets documented, working shortcuts that meet criterion 12.10 make a component usable from the keyboard where some technologies make focus handling too complex for Tab, the arrow keys and Enter; it says nothing of pointing devices, and the wording asks for both on the same function or on the same equivalent. So the shortcut route is not sufficient by itself: it still requires the same function, the media's own or an equivalent in the page, to take focus with any pointing device. A temporal media whose controls answer only to documented shortcuts, with no control a pointer can use, does not meet it. The glossary defines accessible as taking focus with a pointer or the Tab key. Deciding this needs a keyboard pass and judgment. Which elements are the functions of a media player is not marked in the code, and the native controls of audio and video elements are drawn by the browser outside the page's DOM. Whether another function in the page performs the same action, and whether shortcuts are documented, needs reading. So even a control that cannot take focus by keyboard is not a mechanical fault: an equivalent may exist elsewhere. No axe rule is tagged for this test and no check is registered, so there are no links and the entry stays at none. The check custom/7-3-handler-not-focusable, registered for 7.3.1, finds elements with pointer or key listeners that are not in the focus order; it is not linked, because it does not know whether an element is a function of a media, and its fault says nothing about the equivalent-function and shortcut routes. Applicability is judgment: whether an element is a temporal media with control functions cannot be decided from the markup with certainty. Needs lists keyboard, because the methodology asks whether each function can take focus by keyboard, and state, because player controls often appear only on hover or focus.",
     "citations": [
       {
         "source": "criterion_title",

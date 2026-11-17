@@ -15,29 +15,13 @@
       "routes": [
         {
           "id": "colour-declared-in-chain",
-          "statement": "A background colour is declared on the element or on one of its ancestors.",
+          "statement": "A background colour (background, background-color) is declared on the element or on one of its ancestors, accompanying the image; this is the wording's condition, and the methodology's legibility result is separate evidence, not a substitute for it.",
           "citations": [
             {
               "source": "test",
               "test": "10.5.3",
               "line": 1,
               "quote": "accompagnée d’une déclaration de couleur de fond (`background`, `background-color`), au moins, héritée d’un parent"
-            }
-          ]
-        },
-        {
-          "id": "legible-without-image",
-          "statement": "The text remains legible when the background image is absent.",
-          "citations": [
-            {
-              "source": "methodology",
-              "test": "10.5.3",
-              "quote": "Déterminer l’élément qui contient le texte et vérifier que si l’image d’arrière-plan est absente, le texte reste lisible ;"
-            },
-            {
-              "source": "methodology",
-              "test": "10.5.3",
-              "quote": "Si c’est le cas, **le test est validé**."
             }
           ]
         }
@@ -51,7 +35,7 @@
   "applicability": "judgment",
   "needs": [],
   "rationale": {
-    "text": "The wording asks that a CSS image used to create the background colour of an element that can contain text be accompanied by a declared background colour. The methodology checks something else: that the text stays legible when the background image is absent, and validates the test in that case. Both are listed as routes, since a page that meets either could be judged to pass, and a missed route would make the tool fail a correct page. Two judgments block any claim. Whether an image is used to create a background colour, rather than to show a picture, a pattern, an icon or a decoration, is judgment; a gradient is an image in CSS and may or may not count. Whether text stays legible without the image is judgment too. A text over a CSS background image with no background colour declared anywhere fails the first route, but it may pass the second, for example dark text on the default light canvas, and legibility is not something code decides with certainty. No check can fault under every reading, so the entry is none. No axe rule is tagged. Applicability is judgment: whether a page uses an image to create a background colour is judgment. Needs is empty.",
+    "text": "The wording asks that a CSS image used to create the background colour of an element that can contain text be accompanied by a declared background colour, on the element or inherited from a parent. The methodology checks something else: that the text stays legible when the background image is absent, and validates the test in that case. These are two readings of the test, and the entry does not treat either condition as enough on its own. The requirement and its single route are the wording's: a declared background colour. The methodology's legibility result is separate evidence, not a second route. Neither condition implies the other. Dark text on the default light canvas, over a background image with no background colour declared anywhere, stays legible without the image: it meets the methodology, but the wording requires an accompanying declaration, so it fails the wording. A declared background colour close to the text colour meets the wording's letter, but the text is not legible once the image is gone, so it fails the methodology. Until the readings are ruled on, a page is passed under both only where a colour is declared and the text stays legible without the image, and failed under both only where neither holds. A missing declaration alone, or illegibility alone, is evidence for one reading, not a fault under both. Two judgments also block any claim. Whether an image is used to create a background colour, rather than to show a picture, a pattern, an icon or a decoration, is judgment; a gradient is an image in CSS and may or may not count. Whether text stays legible without the image is judgment too. No check can fault under both readings, so the entry is none. What would raise it: a ruling between the two readings, and a way to tell an image that creates a background colour from one that shows content. No axe rule is tagged. Applicability is judgment: whether a page uses an image to create a background colour is judgment. Needs is empty.",
     "citations": [
       {
         "source": "test",
@@ -63,6 +47,11 @@
         "source": "methodology",
         "test": "10.5.3",
         "quote": "Retrouver dans le document les textes dont l’arrière-plan est constitué d’une image (propriété background-image) ;"
+      },
+      {
+        "source": "methodology",
+        "test": "10.5.3",
+        "quote": "vérifier que si l’image d’arrière-plan est absente, le texte reste lisible"
       },
       {
         "source": "criterion_title",
