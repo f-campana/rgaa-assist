@@ -1,0 +1,189 @@
+{
+  "test": "6.1.5",
+  "requirements": [
+    {
+      "id": "name-contains-visible-label",
+      "statement": "For each link that has a visible label (text shown on screen within the link, or an image of text), the link's accessible name contains at least that visible label.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "6.1.5",
+          "line": 1,
+          "quote": "Pour chaque lien ayant un intitulé visible, le nom accessible du lien contient-il au moins l’intitulé visible (hors cas particuliers) ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Intitulé visible",
+          "quote": "Texte affiché faisant office d’intitulé visible à l’écran au sein d’un bouton ou d’un lien."
+        },
+        {
+          "source": "glossary",
+          "entry": "Intitulé visible",
+          "quote": "Ce texte peut être constitué de texte ou d’une image contenant du texte."
+        }
+      ],
+      "routes": [
+        {
+          "id": "name-contains-label",
+          "statement": "The accessible name contains the visible label as an exact string, at its start or elsewhere, possibly with other words added.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "6.1.5",
+              "line": 1,
+              "quote": "le nom accessible du lien contient-il au moins l’intitulé visible"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "6.1",
+              "quote": "WCAG insiste sur le placement de l’intitulé visible au début du nom accessible sans toutefois réserver l’exclusivité de cet emplacement ;"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "6.1",
+              "quote": "WCAG considère comme un cas d’échec une correspondance non exacte de la chaîne de caractères de l’intitulé visible au sein du nom accessible."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "punctuation-case-ignored",
+          "statement": "Punctuation and capital letters of the visible label may be left out of the accessible name.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "La ponctuation et les lettres majuscules sont présentes dans le texte de l’intitulé visible : elles peuvent être ignorées dans le nom accessible sans porter à conséquence ;"
+            }
+          ]
+        },
+        {
+          "id": "symbol-label",
+          "statement": "When the visible label's text serves as a symbol, the accessible name expresses the function the symbol conveys instead of the literal text; a mathematical expression may still be taken up literally.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "Le texte de l’intitulé visible sert de symbole : le texte ne doit pas être interprété littéralement au niveau du nom accessible. Le nom doit exprimer la fonction véhiculée par le symbole"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "si l’étiquette visible représente une expression mathématique, les symboles mathématiques peuvent être repris littéralement pour servir d’étiquette au nom accessible"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "title-contains-visible-label",
+      "statement": "For each link whose visible label comes with a title attribute (for an SVG link, a title element or an xlink:title attribute), the content of that title contains the visible label.",
+      "citations": [
+        {
+          "source": "methodology",
+          "test": "6.1.5",
+          "quote": "Pour chaque lien, vérifier que le contenu de l’attribut `title` ou de l’attribut `aria-label` ou de l’attribut `aria-labelledby` contient l’intitulé visible ;"
+        },
+        {
+          "source": "methodology",
+          "test": "6.1.5",
+          "quote": "Pour chaque lien SVG, vérifier que le contenu de l’attribut `aria-labelledby` ou de l’attribut `aria-label` ou de l’élément `<title>` ou de l’attribut `x-link:title` ou d’un ou plusieurs éléments `<text>` contient l’intitulé visible ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-contains-label",
+          "statement": "The title's content contains the visible label.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "6.1.5",
+              "quote": "Pour chaque lien, vérifier que le contenu de l’attribut `title` ou de l’attribut `aria-label` ou de l’attribut `aria-labelledby` contient l’intitulé visible ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "title-punctuation-case-ignored",
+          "statement": "Punctuation and capital letters of the visible label may be left out of the title.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "Il existe une gestion de cas particuliers pour le test 6.1.5 lorsque :"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "elles peuvent être ignorées dans le nom accessible sans porter à conséquence"
+            }
+          ]
+        },
+        {
+          "id": "title-symbol-label",
+          "statement": "When the visible label's text serves as a symbol, the title expresses the function the symbol conveys instead of the literal text.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "Le nom doit exprimer la fonction véhiculée par le symbole"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/label-content-name-mismatch",
+      "requirement": "name-contains-visible-label",
+      "routes": ["name-contains-label"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/6-1-link-aria-label-lacks-visible-text",
+      "requirement": "name-contains-visible-label",
+      "routes": ["name-contains-label", "punctuation-case-ignored", "symbol-label"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording asks that a link's accessible name contain at least its visible label, with two particular cases: punctuation and capitals may be ignored, and a visible text that serves as a symbol is named by its function. The methodology also checks a link's title attribute (or an SVG link's title or xlink:title) against the visible label, and the glossary of the link label says a title that does not take up the name from content makes the label non-explicit; this is kept as a second requirement, with the same particular cases, and no check is linked to it. Deciding the test in general is judgment: whether a text serves as a symbol, and which displayed text or image of text acts as the label. So the entry is not full. One case is mechanical, and a custom check claims it. It examines HTML links in the top document that have a non-empty aria-label and no aria-labelledby, so by the glossary's order the aria-label is the name. It faults a link only when its visible text is surely visible (system fonts, opaque, contrasted, unclipped, uncovered, in the viewport), holds at least two words of three letters or more, has no digit or symbol character, and no word of it with two letters or more appears anywhere in the name, after case, accents and punctuation are set aside. Then the name contains no part of the label: the label is the text displayed within the link, and whichever part of it is taken as the label, none of it is in the name. The punctuation case cannot rescue it, since case and punctuation were ignored. The symbol case cannot apply: a text of two or more real words, with no symbol or digit, is not a symbol under any reading, and the check abstains on shorter texts and on any symbol, digit or Private Use character, which also covers mathematical expressions. It abstains on links holding images, form controls, frames, generated content or background images (the label may be an image of text or text it does not read), on text in web fonts (an icon font may draw pictograms from letters), and on hidden or doubtful text. So its fault means failure; its scope is partial because it leaves aside links without aria-label, links with aria-labelledby, SVG links, role=\"link\" elements and links in frames. It never answers no_fault, so the entry is fail_only. What would raise it: a resolving rule for which text is the visible label and when it is a symbol, which the text does not give. axe's label-content-name-mismatch compares the visible text of elements labelled through aria-label or aria-labelledby with their name. Its exact normalisation and handling of symbols are not known here, it also examines buttons and other widgets, and it ignores title attributes and images of text, so it is evidence only, partial, for the first route. Applicability is judgment: whether a link has a visible label can need judgment, as for an image of text. Needs is empty.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "6.1.5",
+        "line": 1,
+        "quote": "Pour chaque lien ayant un intitulé visible, le nom accessible du lien contient-il au moins l’intitulé visible (hors cas particuliers) ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "sinon, contenu de l’attribut WAI-ARIA aria-label ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "Un intitulé de lien sera considéré comme non-explicite dans le cas où le lien possède un attribut title dont la valeur ne reprendrait pas au moins le « nom accessible » issu du contenu du lien."
+      },
+      {
+        "source": "methodology",
+        "test": "6.1.5",
+        "quote": "Si c’est le cas pour chaque lien, **le test est validé** pour les liens autres que SVG."
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "6.1",
+        "quote": "le signe “>” en fonction du contexte signifiera “Suivant” ou “Lancer la vidéo”"
+      }
+    ]
+  }
+}

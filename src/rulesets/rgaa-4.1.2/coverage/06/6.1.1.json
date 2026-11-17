@@ -1,0 +1,129 @@
+{
+  "test": "6.1.1",
+  "requirements": [
+    {
+      "id": "link-explicit",
+      "statement": "Each text link (a link with no image, object, canvas or svg child) lets the user understand its function and destination by one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "6.1.1",
+          "line": 1,
+          "quote": "Chaque lien texte vérifie-t-il une de ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Lien texte",
+          "quote": "En HTML, lien ne contenant aucun élément enfant de type :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "label-alone",
+          "statement": "The link's label (its accessible name) alone lets the user understand its function and destination; an e-mail address is a sufficient label.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "6.1.1",
+              "line": 2,
+              "quote": "L’intitulé de lien seul permet d’en comprendre la fonction et la destination ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Contexte du lien",
+              "quote": "RGAA considère qu’une adresse e-mail de type xxx@xxx.yyy est un texte de lien suffisant pour comprendre la fonction du lien"
+            }
+          ]
+        },
+        {
+          "id": "label-with-context",
+          "statement": "The link's label together with one of the six link contexts (its sentence, paragraph, list item or parent list item, preceding heading, associated table header cells, or table data cell) lets the user understand its function and destination.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "6.1.1",
+              "line": 3,
+              "quote": "L’intitulé de lien additionné au contexte du lien permet d’en comprendre la fonction et la destination."
+            },
+            {
+              "source": "glossary",
+              "entry": "Contexte du lien",
+              "quote": "l’un des 6 contextes de lien combiné à l’intitulé du lien doit permettre de comprendre la fonction et la destination du lien."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "ambiguous-for-everyone",
+          "statement": "A link that is ambiguous for everyone, whose purpose no reader could determine from the link and the information presented with it, cannot be made explicit in its context; the criterion is then not applicable to it.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "Il existe une gestion de cas particuliers pour les tests 6.1.1, 6.1.2, 6.1.3 et 6.1.4 lorsque le lien est ambigu pour tout le monde."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "Dans cette situation, où il n’est pas possible de rendre le lien explicite dans son contexte, le critère est non applicable."
+            },
+            {
+              "source": "glossary",
+              "entry": "Ambigu pour tout le monde",
+              "quote": "L’intention ne peut être déterminée à partir du lien et de toute l’information de la page web présentée à l’utilisateur en même temps que ce lien"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/6-1-link-aria-label-lacks-visible-text",
+      "requirement": "link-explicit",
+      "routes": ["label-alone"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Whether a label, alone or with its context, lets a user understand a link's function and destination is judgment, and so is the exception for links that are ambiguous for everyone. No check can decide either, so the candidate is none. No axe rule is tagged for this test. The glossary of the link label gives three mechanical cases where the label is considered not explicit: the name does not take up the visible label (note 1), a title attribute does not take up at least the name from the link's content (note 2), and several links to different destinations share a name (note 3). None of them is claimed as a failure. Note 3 says only that the label alone is then not explicit, and leaves the context route open. Notes 1 and 2 say the label is not explicit without saying whether the context can still make the link understandable, so the official text leaves open whether the second route fails; and the exception for ambiguous links would need judgment anyway. What would raise this: an official reading that a label made non-explicit by note 1 or 2 makes the link fail whatever its context, and a way to rule out the exception. The custom check built for test 6.1.5 is linked as evidence only: every link it faults is a text link (it abstains on any link holding an image-type element) whose aria-label holds none of the words of its visible text, which by note 1 makes the label alone not explicit. It examines only the first route and only text links with an aria-label in system fonts, so its scope is partial. Applicability is judgment: the exception leaves links outside the criterion only through a judgment, and an element with role=\"link\" is a link only if a script handles its navigation. Needs is empty: the links and their contexts are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "6.1",
+        "quote": "Chaque lien est-il explicite (hors cas particuliers) ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "Note 1 : un intitulé de lien sera considéré comme non-explicite dans le cas où le « nom accessible » ne reprend pas l’intitulé visible du lien."
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "Un intitulé de lien sera considéré comme non-explicite dans le cas où le lien possède un attribut title dont la valeur ne reprendrait pas au moins le « nom accessible » issu du contenu du lien."
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "L’intitulé de lien seul sera considéré comme non-explicite si le contexte de lien ne permet pas de les différencier."
+      },
+      {
+        "source": "glossary",
+        "entry": "Lien",
+        "quote": "Balise possédant un attribut WAI-ARIA role=\"link\" et dont l’action de navigation est prise en charge par un script."
+      },
+      {
+        "source": "methodology",
+        "test": "6.1.1",
+        "quote": "Si c’est le cas pour chaque lien texte, **le test est validé**."
+      }
+    ]
+  }
+}

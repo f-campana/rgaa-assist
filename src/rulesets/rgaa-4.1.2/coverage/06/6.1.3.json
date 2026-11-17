@@ -1,0 +1,106 @@
+{
+  "test": "6.1.3",
+  "requirements": [
+    {
+      "id": "link-explicit",
+      "statement": "Each composite link (a link holding both text and one or more image-type children) lets the user understand its function and destination by one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "6.1.3",
+          "line": 1,
+          "quote": "Chaque lien composite vérifie-t-il une de ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Lien composite",
+          "quote": "En HTML, lien contenant à la fois du texte et un ou plusieurs enfants de type image :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "label-alone",
+          "statement": "The link's label, given by the combination of its text content and the text alternatives of its images, alone lets the user understand its function and destination.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "6.1.3",
+              "line": 2,
+              "quote": "L’intitulé de lien seul permet d’en comprendre la fonction et la destination ;"
+            },
+            {
+              "source": "methodology",
+              "test": "6.1.3",
+              "quote": "Soit l’intitulé du lien seul, fourni par la combinaison du contenu texte et de l’alternative textuelle de l’image ;"
+            }
+          ]
+        },
+        {
+          "id": "label-with-context",
+          "statement": "The link's label together with one of the six link contexts (its sentence, paragraph, list item or parent list item, preceding heading, associated table header cells, or table data cell) lets the user understand its function and destination.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "6.1.3",
+              "line": 3,
+              "quote": "L’intitulé de lien additionné au contexte du lien permet d’en comprendre la fonction et la destination."
+            },
+            {
+              "source": "glossary",
+              "entry": "Contexte du lien",
+              "quote": "l’un des 6 contextes de lien combiné à l’intitulé du lien doit permettre de comprendre la fonction et la destination du lien."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "ambiguous-for-everyone",
+          "statement": "A link that is ambiguous for everyone, whose purpose no reader could determine from the link and the information presented with it, cannot be made explicit in its context; the criterion is then not applicable to it.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "Il existe une gestion de cas particuliers pour les tests 6.1.1, 6.1.2, 6.1.3 et 6.1.4 lorsque le lien est ambigu pour tout le monde."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "6.1",
+              "quote": "Dans cette situation, où il n’est pas possible de rendre le lien explicite dans son contexte, le critère est non applicable."
+            },
+            {
+              "source": "glossary",
+              "entry": "Ambigu pour tout le monde",
+              "quote": "L’intention ne peut être déterminée à partir du lien et de toute l’information de la page web présentée à l’utilisateur en même temps que ce lien"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Whether a composite link's label, alone or with its context, lets a user understand its function and destination is judgment, and so is the exception for links that are ambiguous for everyone. The candidate is none and no check is linked. No axe rule is tagged for this test. The glossary's mechanical notes on non-explicit labels (a name that does not take up the visible label, a title that does not take up the name from content) say the label is not explicit but not whether the link's context can still make it understandable, so they are not claimed as failures. What would raise this: an official reading that such a label fails whatever the context, and a way to rule out the exception. The custom check written for test 6.1.5 is not linked: it abstains on every link holding an image, so it never examines a composite link. Applicability is judgment: the exception leaves links outside the criterion only through a judgment, and an element with role=\"link\" is a link only if a script handles its navigation. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "6.1",
+        "quote": "Chaque lien est-il explicite (hors cas particuliers) ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "Note 1 : un intitulé de lien sera considéré comme non-explicite dans le cas où le « nom accessible » ne reprend pas l’intitulé visible du lien."
+      },
+      {
+        "source": "methodology",
+        "test": "6.1.3",
+        "quote": "Si c’est le cas pour chaque lien composite, **le test est validé**."
+      }
+    ]
+  }
+}
