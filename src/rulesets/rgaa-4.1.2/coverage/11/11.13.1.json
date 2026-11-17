@@ -1,0 +1,132 @@
+{
+  "test": "11.13.1",
+  "requirements": [
+    {
+      "id": "has-autocomplete",
+      "statement": "Each form field whose purpose relates to information about the user has an autocomplete attribute.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.13.1",
+          "line": 1,
+          "quote": "Chaque [champ de formulaire](#champ-de-saisie-de-formulaire) dont l’objet se rapporte à une information concernant l’utilisateur vérifie-t-il ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "11.13.1",
+          "line": 2,
+          "quote": "Le [champ de formulaire](#champ-de-saisie-de-formulaire) possède un attribut `autocomplete `;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "autocomplete-present",
+          "statement": "The field carries an autocomplete attribute.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.13.1",
+              "quote": "Le champ de formulaire possède un attribut `autocomplete` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "value-in-list",
+      "statement": "The autocomplete attribute of each such field holds a value from the list of possible values, built by the rules of the HTML specification with exactly one field name.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.13.1",
+          "line": 3,
+          "quote": "L’attribut `autocomplete` est pourvu d’une valeur présente dans la [liste des valeurs possibles pour l’attribut `autocomplete`](#liste-des-valeurs-possibles-pour-l-attribut-autocomplete) associés à un [champ de formulaire](#champ-de-saisie-de-formulaire) ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "listed-field-name",
+          "statement": "The value holds one field name from the glossary's list (from WCAG 2.1), alone or with the scope and hint tokens the HTML specification allows.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Liste des valeurs possibles pour l’attribut `autocomplete`",
+              "quote": "La liste des valeurs disponibles est fournie par la spécification WCAG 2.1 :"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "11.13",
+              "quote": "un attribut `autocomplete` ne peut contenir qu’une seule valeur de type `“field name”`, comme `\"name\"` ou `\"street-address\"`."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "11.13",
+              "quote": "On peut avoir également un ensemble composé de différentes valeurs comme, par exemple, `autocomplete=\"shipping name\"` ou `autocomplete=\"section-software shipping street-address\"`"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "value-relevant",
+      "statement": "The autocomplete value of each such field is relevant to the type of information expected.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.13.1",
+          "line": 4,
+          "quote": "La valeur indiquée pour l’attribut `autocomplete` est pertinente au regard du type d’information attendu."
+        }
+      ],
+      "routes": [
+        {
+          "id": "value-matches-expected-information",
+          "statement": "The field name in the value matches the information the field asks for.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.13.1",
+              "quote": "La valeur indiquée pour l’attribut `autocomplete` est pertinente au regard du type d’information attendu."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/autocomplete-valid",
+      "requirement": "value-in-list",
+      "routes": ["listed-field-name"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to form fields whose purpose relates to information about the user, such as a name, a first name or a telephone number. Which fields those are is judgment: code can read a field's type and attributes, but not whether it asks for the user's own information or for someone else's, or for something else entirely. So no check can list the fields the test covers. A field without autocomplete fails the first requirement only if it is about the user, and a value outside the list fails the second only under the same condition; neither can be faulted with certainty. The third requirement, relevance, is judgment by its wording. So the entry is none. axe-core's autocomplete-valid, tagged for this test, faults autocomplete values that are not valid under the HTML specification. It is linked as evidence only, with partial scope, to the second requirement. It looks only at fields that already carry the attribute, and at every such field, including fields not about the user, which this test does not cover. Its list is the HTML one, not the glossary's: it may accept values such as on and off, and field names outside the glossary's list, so its clean result says nothing about this requirement. How it handles every token combination is not established here, so it gets the weakest reading. Applicability is judgment. Needs is empty: attributes are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.13.1",
+        "quote": "Retrouver dans le document les champs de formulaire qui se rapportent à une information concernant l’utilisateur (nom, prénom, numéro de téléphone, etc.) ;"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "11.13",
+        "quote": "Le critère WCAG demande à ce que l’une de ces valeurs soit présente pour qualifier un champ de saisie concernant l’utilisateur."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "11.13",
+        "quote": "La finalité d’un champ de saisie peut-elle être déduite pour faciliter le remplissage automatique des champs avec les données de l’utilisateur ?"
+      }
+    ]
+  }
+}
