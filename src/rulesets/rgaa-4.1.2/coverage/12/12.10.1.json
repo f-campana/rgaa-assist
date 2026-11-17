@@ -1,0 +1,93 @@
+{
+  "test": "12.10.1",
+  "requirements": [
+    {
+      "id": "single-key-shortcut-controllable",
+      "statement": "Each keyboard shortcut that uses a single key (a letter, punctuation, digit or symbol) meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.10.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque raccourci clavier n’utilisant qu’une seule touche (lettre minuscule ou majuscule, ponctuation, chiffre ou symbole) vérifie-t-il l’une de ces conditions ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Raccourci clavier",
+          "quote": "Un moyen de déclencher une action associée à un composant de l’interface utilisateur en appuyant sur une ou plusieurs touches."
+        }
+      ],
+      "routes": [
+        {
+          "id": "can-disable",
+          "statement": "A mechanism is available to turn the shortcut off.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.10.1",
+              "line": 2,
+              "quote": "Un mécanisme est disponible pour désactiver le raccourci clavier ;"
+            }
+          ]
+        },
+        {
+          "id": "can-remap-with-modifier",
+          "statement": "A mechanism is available to configure the shortcut key with modifier keys such as Ctrl, Alt or Shift.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.10.1",
+              "line": 3,
+              "quote": "Un mécanisme est disponible pour configurer la touche de raccourci clavier au moyen des touches de modification (Ctrl, Alt, Maj, etc.) ;"
+            }
+          ]
+        },
+        {
+          "id": "active-only-on-focus",
+          "statement": "For a user interface component, its shortcut can be activated only while keyboard focus is on that component.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.10.1",
+              "line": 4,
+              "quote": "Dans le cas d’un composant d’interface utilisateur, le raccourci clavier qui lui est associé ne peut être activé que si le focus clavier est sur ce composant."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "accesskey-not-concerned",
+          "statement": "Access keys set with the HTML accesskey attribute are not concerned, since activating them already needs modifier keys.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Raccourci clavier",
+              "quote": "les « Access keys » (attribut HTML accesskey) sont bien des raccourcis clavier, mais ils ne sont pas concernés par le critère 12.10 dans la mesure où leur activation nécessite déjà l’usage de touches de modification"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard", "state"],
+  "rationale": {
+    "text": "Single-key shortcuts are not declared in the markup: a script listens for key presses and acts on them. Finding them means pressing keys and watching what happens, which needs a keyboard pass, and deciding whether a reaction is an action associated with a component, as the glossary defines a shortcut, is a reading of the page. The routes need the same: a mechanism to turn a shortcut off or remap it must be found and operated, which needs other states of the page, and the third route needs the shortcut to be tried with focus on and off its component. No axe rule is tagged and no custom check is registered. The entry is none. Applicability is judgment: a page with no single-key shortcut makes the test not applicable, and code cannot show that a page has none. Needs is keyboard, for finding and trying shortcuts, and state, for operating the mechanisms.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "12.10.1",
+        "quote": "Retrouver dans le document l’ensemble des raccourcis clavier proposés à l’utilisateur ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Raccourci clavier",
+        "quote": "Un moyen de déclencher une action associée à un composant de l’interface utilisateur en appuyant sur une ou plusieurs touches."
+      }
+    ]
+  }
+}
