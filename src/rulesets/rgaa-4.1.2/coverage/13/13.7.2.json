@@ -1,0 +1,81 @@
+{
+  "test": "13.7.2",
+  "requirements": [
+    {
+      "id": "flash-script-safe",
+      "statement": "Each script that causes an abrupt change of brightness or a flash effect meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.7.2",
+          "line": 1,
+          "quote": "chaque script qui provoque [un changement brusque de luminosité ou un effet de flash](#changement-brusque-de-luminosite-ou-effet-de-flash) vérifie-t-il une de ces conditions ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Changement brusque de luminosité ou effet de flash",
+          "quote": "Alternance de luminance relative qui peut causer des crises chez certaines personnes si leur taille est suffisamment importante dans une gamme de fréquences spécifiques."
+        }
+      ],
+      "routes": [
+        {
+          "id": "frequency-below-three",
+          "statement": "The frequency of the effect is below three per second.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.7.2",
+              "line": 2,
+              "quote": "La fréquence de l’effet est inférieure à 3 par seconde"
+            }
+          ]
+        },
+        {
+          "id": "area-within-limit",
+          "statement": "The total cumulated area of the effects is at most 21824 pixels.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.7.2",
+              "line": 3,
+              "quote": "La surface totale cumulée des effets est inférieure ou égale à 21824 pixels."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with two routes: the effect's frequency is below three per second, or the total cumulated area of the effects is at most 21824 pixels. Measuring a frequency and an area is mechanical in principle, but the test applies only to scripts that cause an abrupt change of brightness or a flash effect, and the glossary defines that only as an alternation of relative luminance that may cause seizures when large enough and in a specific range of frequencies. It gives no luminance threshold that makes a change abrupt and no frequency range, so code cannot decide from the official text which alternations are in scope. A check that faulted a fast alternation would rest on thresholds the text does not give, and one that found none could not show its list complete. The methodology note says reading the code is enough when the effect comes from a script; that is a reading by an auditor, not a computation the official text specifies. So no check is linked and the entry is none. No axe rule is tagged for this test. The methodology's area threshold reads \"inférieure à 21824\" where the wording reads \"inférieure ou égale\"; the entry follows the wording. Applicability is judgment: whether anything on the page flashes is the same open question. Needs is media: an effect exists only over time, so examining it needs the engine's timed observation pass with media allowed to play.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Changement brusque de luminosité ou effet de flash",
+        "quote": "Alternance de luminance relative qui peut causer des crises chez certaines personnes si leur taille est suffisamment importante dans une gamme de fréquences spécifiques."
+      },
+      {
+        "source": "methodology",
+        "test": "13.7.2",
+        "quote": "Retrouver dans le document les contenus clignotants ou qui provoquent des effets de flash obtenus au moyen d’un script"
+      },
+      {
+        "source": "methodology",
+        "test": "13.7.1",
+        "quote": "Lorsque l'effet est géré par un script ou au moyen de CSS, l'analyse du code est suffisante."
+      },
+      {
+        "source": "methodology",
+        "test": "13.7.2",
+        "quote": "Soit la surface cumulée est inférieure à 21824 pixels."
+      }
+    ]
+  }
+}
