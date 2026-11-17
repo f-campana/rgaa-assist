@@ -1,0 +1,102 @@
+{
+  "test": "5.7.4",
+  "requirements": [
+    {
+      "id": "headers-attribute-present",
+      "statement": "In each data table, each td or th cell associated with one or more headers that have an id attribute has a headers attribute.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.7.4",
+          "line": 1,
+          "quote": "Pour chaque contenu de balise `<td>` ou `<th>` associée à un ou plusieurs en-têtes possédant un attribut `id`, la balise vérifie-t-elle ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "has-headers-attribute",
+          "statement": "The cell carries a headers attribute.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.4",
+              "line": 2,
+              "quote": "La balise possède un attribut `headers` ;"
+            },
+            {
+              "source": "methodology",
+              "test": "5.7.4",
+              "quote": "L’élément `<td>` ou `<th>` possède un attribut `headers` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "headers-lists-associated-ids",
+      "statement": "In each data table, the headers attribute of each such cell holds the list of the id values of the headers associated with it.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.7.4",
+          "line": 1,
+          "quote": "la balise vérifie-t-elle ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "lists-every-associated-id",
+          "statement": "The headers attribute lists the id of every header associated with the cell.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.4",
+              "line": 3,
+              "quote": "L’attribut `headers` possède la liste des valeurs d’attribut `id` des en-têtes associés."
+            },
+            {
+              "source": "methodology",
+              "test": "5.7.4",
+              "quote": "Et l’attribut `headers` possède la liste des valeurs d’attribut `id` des en-têtes associés."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/td-headers-attr",
+      "requirement": "headers-lists-associated-ids",
+      "routes": ["lists-every-associated-id"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording asks for both conditions, and the methodology joins them with \"Et\", so they are two requirements: the cell has a headers attribute, and that attribute lists the ids of the headers associated with the cell. The entry is none. The test applies to cells associated with headers that have an id, and which headers a cell is associated with is a matter of meaning: a header is a cell whose content serves as the label of all or part of its row or column. Markup does not settle it. A th may carry an id for another purpose, and the technical note shows that a cell can be tied to headers by scope as well as by headers, with headers then taking precedence. So a check can neither find every cell the test applies to, nor know the full list of headers a cell's headers attribute must hold. Whether a table element is a data table rather than a layout table is judgment too (see 5.1.1). axe's td-headers-attr is linked as evidence only. It looks only at cells that already have a headers attribute and are exposed to assistive technologies, never at a cell that lacks the attribute, so its scope is partial and it examines only the second requirement. It faults a headers attribute that names the cell itself, an id that is not a cell of the same table, or a cell that is not a header. That is a strong hint that the list is wrong, but not a proof: the wording asks that the attribute hold the list of the associated headers' ids, and does not say that an extra, wrong token breaks that; nor is the cell surely one the test applies to. axe's td-has-header is tagged but not linked: it faults a non-empty data cell of a large table, chosen by axe's own data-table heuristic, that has no header by any means, scope and position included, and never asks whether a headers attribute lists ids, so it examines none of the routes. axe also marks it experimental. Applicability is judgment. Needs is empty: td and th elements are cells of table elements, read on the page as loaded.",
+    "citations": [
+      {
+        "source": "technical_note",
+        "criterion": "5.7",
+        "quote": "Si l’attribut `headers` est implémenté sur une cellule déjà reliée à un en-tête (de ligne ou de colonne) avec l’attribut `scope` (avec la valeur `col` ou `row`), c’est l’en-tête ou les en-têtes référencés par l’attribut `headers` qui seront restitués aux technologies d’assistance."
+      },
+      {
+        "source": "glossary",
+        "entry": "En-tête de colonne ou de ligne",
+        "quote": "qui sert d’intitulé pour la totalité ou une partie des cellules de la colonne ou de la ligne."
+      },
+      {
+        "source": "methodology",
+        "test": "5.7.4",
+        "quote": "Si c’est le cas pour chaque élément `<td>` ou `<th>` associé à un ou plusieurs en-têtes possédant un attribut `id`, **le test est validé**."
+      }
+    ]
+  }
+}

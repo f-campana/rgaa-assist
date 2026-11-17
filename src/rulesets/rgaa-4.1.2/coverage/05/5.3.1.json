@@ -1,0 +1,98 @@
+{
+  "test": "5.3.1",
+  "requirements": [
+    {
+      "id": "linearised-content-understandable",
+      "statement": "For each layout table, the content read in linear order remains understandable: the order in which the cells are reached is consistent with the content.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.3.1",
+          "line": 2,
+          "quote": "Le contenu linéarisé reste compréhensible ;"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "5.3",
+          "quote": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "cell-order-consistent",
+          "statement": "The order of access to the cells is consistent with the content.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "5.3.1",
+              "quote": "L’ordre d’accès aux cellules est cohérent avec le contenu ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "table-role-presentation",
+      "statement": "For each layout table, the table element has role=\"presentation\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.3.1",
+          "line": 1,
+          "quote": "Chaque tableau de mise en forme vérifie-t-il ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "role-presentation-attribute",
+          "statement": "The table element carries the attribute role=\"presentation\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.3.1",
+              "line": 3,
+              "quote": "La balise `<table>` possède un attribut `role=\"presentation\"`."
+            },
+            {
+              "source": "methodology",
+              "test": "5.3.1",
+              "quote": "L’élément `<table>` est pourvu d’un attribut WAI-ARIA `role=\"presentation\"`."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording asks each layout table to meet both conditions, so they are two requirements, each with one route. The first is judgment: whether the order of the cells is consistent with the content, and whether the linear content stays understandable, cannot be decided by code. The second is mechanical once a table is known to be a layout table, but that is the obstacle. The glossary defines a layout table by its purpose, controlling the display of information through cells, and a data table also uses the table element; a table without role=\"presentation\" may be a data table, to which this test does not apply. So no table is surely in scope, and a fault on a table without the attribute could be a false failure. The entry is none and has no links: no axe rule is tagged for this test, and no deterministic check could prove its failure. The wording names only role=\"presentation\"; role=\"none\", its ARIA synonym, is not named, so a check built later must not count it as meeting the second requirement without an official text that says so. What would raise the second requirement to fail_only: a markup-based, official way to recognise a layout table. Applicability is judgment, for the same reason. Needs is empty: the order of the cells is read from the page as loaded.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Tableau de mise en forme",
+        "quote": "Technique qui utilise un élément HTML (balise <table>) pour contrôler l’affichage d’informations via des cellules (balise <td>)."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données",
+        "quote": "Un tableau de données est une structure introduite par une balise <table>"
+      },
+      {
+        "source": "methodology",
+        "test": "5.3.1",
+        "quote": "Retrouver dans le document les tableaux de mise en forme ;"
+      },
+      {
+        "source": "methodology",
+        "test": "5.3.1",
+        "quote": "Si c’est le cas pour chaque tableau de mise en forme, **le test est validé**."
+      }
+    ]
+  }
+}

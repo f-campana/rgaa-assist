@@ -1,0 +1,122 @@
+{
+  "test": "5.7.3",
+  "requirements": [
+    {
+      "id": "no-scope",
+      "statement": "In each data table, each th element whose content does not apply to the whole row or the whole column has no scope attribute.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.7.3",
+          "line": 1,
+          "quote": "Pour chaque contenu de balise `<th>` ne s’appliquant pas à la totalité de la ligne ou de la colonne, la balise `<th>` vérifie-t-elle ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "scope-absent",
+          "statement": "The th element has no scope attribute.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.3",
+              "line": 2,
+              "quote": "La balise `<th>` ne possède pas d’attribut `scope` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "no-header-role",
+      "statement": "In each data table, each th element whose content does not apply to the whole row or the whole column has neither role=\"rowheader\" nor role=\"columnheader\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.7.3",
+          "line": 1,
+          "quote": "la balise `<th>` vérifie-t-elle ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "header-role-absent",
+          "statement": "The th element has neither role=\"rowheader\" nor role=\"columnheader\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.3",
+              "line": 3,
+              "quote": "La balise `<th>` ne possède pas d’attribut WAI-ARIA `role=\"rowheader\"` ou `role=\"columnheader\"` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "unique-id",
+      "statement": "In each data table, each th element whose content does not apply to the whole row or the whole column has a unique id attribute.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.7.3",
+          "line": 1,
+          "quote": "la balise `<th>` vérifie-t-elle ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "unique-id-present",
+          "statement": "The th element has an id attribute whose value is unique.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.3",
+              "line": 4,
+              "quote": "La balise `<th>` possède un attribut `id` unique."
+            },
+            {
+              "source": "methodology",
+              "test": "5.7.3",
+              "quote": "Possède un attribut `id` unique ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording asks for all three conditions, and the methodology joins them with \"Et\", so they are three requirements, each with one route: no scope, no header role, and a unique id. Each is an attribute that code can read. The entry is still none, because the elements the test applies to cannot be found without judgment. The test applies only to th elements whose content does not apply to the whole row or column, such as intermediate headers. A header is a cell whose content serves as the label of all or part of its row or column, so whether a th covers only a part is a matter of meaning. Its markup does not settle it: a th with a scope attribute and no id fails this test if it covers a part, and is correct under tests 5.7.1 and 5.7.2 if it covers the whole. Whether a table element is a data table rather than a layout table is judgment too (see 5.1.1). No axe rule is tagged for this test, and no deterministic check could prove its failure, so there are no links. Applicability is judgment. Needs is empty: th elements are cells of table elements, read on the page as loaded.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "5.7.3",
+        "quote": "Et ne possède pas d’attribut WAI-ARIA `role=\"rowheader\"` ou `\"columnheader\"`."
+      },
+      {
+        "source": "glossary",
+        "entry": "En-tête de colonne ou de ligne",
+        "quote": "Une colonne ou une ligne peut contenir plusieurs en-têtes (en-tête intermédiaire)."
+      },
+      {
+        "source": "test",
+        "test": "5.7.1",
+        "line": 3,
+        "quote": "La balise `<th>` possède un attribut `scope` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "5.7.3",
+        "quote": "Si c’est le cas pour chaque en-tête ne s’appliquant pas à la totalité de la ligne ou de la colonne, **le test est validé**."
+      }
+    ]
+  }
+}

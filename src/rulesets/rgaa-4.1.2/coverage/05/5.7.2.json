@@ -1,0 +1,80 @@
+{
+  "test": "5.7.2",
+  "requirements": [
+    {
+      "id": "scope-value-matches",
+      "statement": "In each data table, each th element whose content applies to the whole row or the whole column and that has a scope attribute has scope=\"row\" if it is a row header, or scope=\"col\" if it is a column header.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.7.2",
+          "line": 1,
+          "quote": "Pour chaque contenu de balise `<th>` s’appliquant à la totalité de la ligne ou de la colonne et possédant un attribut `scope`, la balise `<th>` vérifie-t-elle une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "scope-row-for-row-header",
+          "statement": "The th is a row header and its scope attribute has the value row.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.2",
+              "line": 2,
+              "quote": "La balise `<th>` possède un attribut `scope` avec la valeur `\"row\"` pour les en-têtes de ligne ;"
+            },
+            {
+              "source": "methodology",
+              "test": "5.7.2",
+              "quote": "Soit une valeur `\"row\"` pour les en-têtes de ligne ;"
+            }
+          ]
+        },
+        {
+          "id": "scope-col-for-column-header",
+          "statement": "The th is a column header and its scope attribute has the value col.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.2",
+              "line": 3,
+              "quote": "La balise `<th>` possède un attribut `scope` avec la valeur `\"col\"` pour les en-têtes de colonne."
+            },
+            {
+              "source": "methodology",
+              "test": "5.7.2",
+              "quote": "Soit une valeur `\"col\"` pour les en-têtes de colonne."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "One requirement with two routes, each tied to a kind of header: scope=\"row\" for a row header, scope=\"col\" for a column header. The value is an attribute that code can read; which kind of header a th is, and whether it applies to the whole row or column, are not. A header is a cell whose content serves as the label of all or part of its row or column, so a th with scope=\"col\" fails only if it is in fact a row header, and its position alone does not prove that. Even a th whose scope value is neither row nor col, such as a misspelt value, fails this test only if it applies to the whole row or column; if it covers a part, the test does not apply to it and test 5.7.3 does. The wording does not say whether a th with scope=\"rowgroup\" or scope=\"colgroup\" applies to the whole row or column. And whether a table element is a data table rather than a layout table is judgment (see 5.1.1). So no th is surely in scope with a sure fault, and the entry is none. No axe rule is tagged for this test, so there are no links. Applicability is judgment. Needs is empty: th elements are cells of table elements, read on the page as loaded.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "En-tête de colonne ou de ligne",
+        "quote": "qui sert d’intitulé pour la totalité ou une partie des cellules de la colonne ou de la ligne."
+      },
+      {
+        "source": "test",
+        "test": "5.7.3",
+        "line": 2,
+        "quote": "La balise `<th>` ne possède pas d’attribut `scope` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "5.7.2",
+        "quote": "Si c’est le cas pour chaque en-tête s’appliquant à la totalité de la ligne ou de la colonne et pourvu d’un attribut `scope`, **le test est validé**."
+      }
+    ]
+  }
+}

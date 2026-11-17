@@ -1,0 +1,79 @@
+{
+  "test": "5.7.5",
+  "requirements": [
+    {
+      "id": "header-role-matches",
+      "statement": "In each data table, each element with role=\"rowheader\" or role=\"columnheader\" whose content applies to the whole row or the whole column has role=\"rowheader\" if it is a row header, or role=\"columnheader\" if it is a column header.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.7.5",
+          "line": 1,
+          "quote": "Pour chaque balise pourvue d’un attribut WAI-ARIA `role=\"rowheader\"` ou `role=\"columnheader\"` dont le contenu s’applique à la totalité de la ligne ou de la colonne, la balise vérifie-t-elle une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "rowheader-for-row-header",
+          "statement": "The element is a row header and has role=\"rowheader\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.5",
+              "line": 2,
+              "quote": "La balise possède un attribut WAI-ARIA `role=\"rowheader\"` pour les en-têtes de ligne ;"
+            },
+            {
+              "source": "methodology",
+              "test": "5.7.5",
+              "quote": "Soit un attribut WAI-ARIA `role=\"rowheader\"` pour les en-têtes de ligne ;"
+            }
+          ]
+        },
+        {
+          "id": "columnheader-for-column-header",
+          "statement": "The element is a column header and has role=\"columnheader\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.5",
+              "line": 3,
+              "quote": "La balise possède un attribut WAI-ARIA `role=\"columnheader\"` pour les en-têtes de colonne."
+            },
+            {
+              "source": "methodology",
+              "test": "5.7.5",
+              "quote": "Soit un attribut WAI-ARIA `role=\"columnheader\"` pour les en-têtes de colonne."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["assistive_tech"],
+  "rationale": {
+    "text": "One requirement with two routes, each tied to a kind of header: role=\"rowheader\" for a row header, role=\"columnheader\" for a column header. The role is an attribute that code can read; which kind of header an element is, and whether it applies to the whole row or column, are not. A header is a cell whose content serves as the label of all or part of its row or column, so an element with role=\"columnheader\" fails only if it is in fact a row header, and its position in the grid does not prove that. An element whose header covers only a part of its row or column is outside this test (test 5.6.3 applies to it). Whether a structure is a data table rather than a layout table is judgment too (see 5.1.1). So no element is surely in scope with a sure fault, and the entry is none. No axe rule is tagged for this test, so there are no links. Applicability is judgment. Needs holds assistive_tech: these roles are often used in ARIA tables, and the glossary counts an element with role=\"table\" as a data table only when assistive technologies render it correctly.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "En-tête de colonne ou de ligne",
+        "quote": "qui sert d’intitulé pour la totalité ou une partie des cellules de la colonne ou de la ligne."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données",
+        "quote": "ou lorsqu’il est correctement restitué par les technologies d’assistance par une balise pourvue d’un attribut WAI-ARIA role=\"table\""
+      },
+      {
+        "source": "methodology",
+        "test": "5.7.5",
+        "quote": "Pour chaque en-tête s’appliquant à la totalité de la ligne ou de la colonne et pourvu d’un attribut WAI-ARIA `role=\"rowheader\"` ou `\"columnheader\"`, vérifier que l’élément possède :"
+      }
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "test": "5.6.2",
+  "requirements": [
+    {
+      "id": "row-header-structured",
+      "statement": "In each data table, each row header that applies to the whole row is structured with a th element or an element with role=\"rowheader\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.6.2",
+          "line": 1,
+          "quote": "Pour chaque tableau de données, chaque en-tête de ligne s’appliquant à la totalité de la ligne vérifie-t-il une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "th-element",
+          "statement": "The row header is a th element.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.6.2",
+              "line": 2,
+              "quote": "L’en-tête de lignes est structuré au moyen d’une balise `<th>` ;"
+            },
+            {
+              "source": "methodology",
+              "test": "5.6.2",
+              "quote": "Soit d’un élément `<th>` ;"
+            }
+          ]
+        },
+        {
+          "id": "role-rowheader",
+          "statement": "The row header is an element with role=\"rowheader\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.6.2",
+              "line": 3,
+              "quote": "L’en-tête de lignes est structuré au moyen d’une balise pourvue d’un attribut WAI-ARIA `role=\"rowheader\"`."
+            },
+            {
+              "source": "glossary",
+              "entry": "En-tête de colonne ou de ligne",
+              "quote": "Lorsque les en-têtes s’appliquent à l’ensemble d’une ligne ou d’une colonne, ils peuvent être structurés avec une balise <th> ou une balise pourvue d’un attribut WAI-ARIA role=\"rowheader\" ou role=\"columnheader\"."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["assistive_tech"],
+  "rationale": {
+    "text": "One requirement with two routes: a th element, or an element with role=\"rowheader\". The routes themselves are attributes and element names that code can read. The entry is still none, because the elements the test applies to cannot be found without judgment. The glossary defines a header as the content of a cell that serves as the label of all or part of the cells of its row, so the case that fails, a header written as an ordinary cell, is recognised by what its content does, not by its markup. Whether that header applies to the whole row, rather than to a part of it, is judgment too, and the answer moves the cell to test 5.6.3. And whether a table element is a data table rather than a layout table is judgment (see 5.1.1). No axe rule is tagged for this test, and no deterministic check could prove its failure, so there are no links. Applicability is judgment. Needs holds assistive_tech: the glossary counts an element with role=\"table\" as a data table only when assistive technologies render it correctly, so the tables this test applies to cannot all be found from the page alone.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "En-tête de colonne ou de ligne",
+        "quote": "Contenu d’une cellule dans un tableau de données (la première cellule d’une colonne ou d’une ligne, généralement) qui sert d’intitulé pour la totalité ou une partie des cellules de la colonne ou de la ligne."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données",
+        "quote": "ou lorsqu’il est correctement restitué par les technologies d’assistance par une balise pourvue d’un attribut WAI-ARIA role=\"table\""
+      },
+      {
+        "source": "methodology",
+        "test": "5.6.2",
+        "quote": "Si c’est le cas pour chaque en-tête de ligne s’appliquant à la totalité de la ligne, **le test est validé**."
+      }
+    ]
+  }
+}
