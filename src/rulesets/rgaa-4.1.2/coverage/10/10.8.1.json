@@ -1,0 +1,109 @@
+{
+  "test": "10.8.1",
+  "requirements": [
+    {
+      "id": "hidden-content-intended",
+      "statement": "Each hidden content (hidden by display none, visibility hidden, font-size 0, the hidden attribute or aria-hidden=\"true\") is either meant to be ignored by assistive technologies, or made available to them after a user action or a move of focus onto it.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.8.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque contenu caché vérifie-t-il une de ces conditions ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Contenu caché",
+          "quote": "Tous les contenus utilisant une ou plusieurs de ces propriétés et attributs sont applicables pour le critère 10.8."
+        },
+        {
+          "source": "methodology",
+          "test": "10.8.1",
+          "quote": "Retrouver les contenus cachés (éléments pourvus de l’attribut hidden ou de l’attribut WAI-ARIA aria-hidden, ou bien d’une classe ou d’un ensemble de styles CSS susceptibles de masquer le contenu)."
+        }
+      ],
+      "routes": [
+        {
+          "id": "meant-to-be-ignored",
+          "statement": "The hidden content is meant to be ignored by assistive technologies.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.8.1",
+              "line": 2,
+              "quote": "Le contenu caché a vocation à être ignoré par les technologies d’assistance ;"
+            },
+            {
+              "source": "methodology",
+              "test": "10.8.1",
+              "quote": "Soit le contenu caché a vocation à être ignoré par les technologies d’assistance (un élément statistique de visites par exemple) ;"
+            }
+          ]
+        },
+        {
+          "id": "made-available-after-action",
+          "statement": "The hidden content is not meant to be ignored, and becomes available to assistive technologies after a user action, by keyboard or any pointing device, on an element before it, or after focus is moved onto it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "10.8.1",
+              "line": 3,
+              "quote": "est rendu restituable par les technologies d’assistance suite à une action de l’utilisateur réalisable au clavier ou par tout dispositif de pointage sur un élément précédent le contenu caché ou suite à un repositionnement du focus dessus."
+            },
+            {
+              "source": "methodology",
+              "test": "10.8.1",
+              "quote": "Soit d’une fonction de programmation qui repositionne le focus sur le contenu."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/aria-hidden-body",
+      "requirement": "hidden-content-intended",
+      "routes": ["meant-to-be-ignored"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/aria-hidden-focus",
+      "requirement": "hidden-content-intended",
+      "routes": ["meant-to-be-ignored"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test applies to every hidden content, which the glossary defines by display none, visibility hidden, font-size 0, the hidden attribute and aria-hidden=\"true\"; the methodology adds any class or set of styles likely to hide content. Each must either be meant to be ignored by assistive technologies, or become available to them after a user action on an element before it or a move of focus onto it. The first route is about intent: whether content is meant to be ignored, such as a visit counter, is judgment. The second needs interaction to observe, and the technical note says that a momentarily inconsistent state is judged by its final state, so one snapshot of the page proves nothing. No check can fault under every reading, and the entry is none. Two axe rules are tagged; both are evidence only and partial, and both bear only on the first route. aria-hidden-body faults aria-hidden=\"true\" on the body: the whole page is then hidden from assistive technologies, which strongly suggests content not meant to be ignored, but it looks at one element and cannot see whether the attribute is removed after an action. aria-hidden-focus faults focusable elements inside aria-hidden content: a reachable control suggests the content is not meant to be ignored, but the attribute may be lifted when focus arrives, which the second route accepts. Applicability is judgment: the methodology's hiding styles are an open class, and elements hidden by default, such as those of the head, are not obviously contents, so whether a page holds hidden content in the test's sense is not decided by code. Needs lists state, because the second route is observed only after a user action.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "10.8",
+        "quote": "les contenus cachés ont-ils vocation à être ignorés par les technologies d’assistance"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "10.8",
+        "quote": "Dans ce cas, c’est l’état final du contenu qui doit être considéré."
+      },
+      {
+        "source": "technical_note",
+        "criterion": "10.8",
+        "quote": "Sauf si le contenu contrôlé par `aria-hidden` n’a pas vocation à être restitué par les technologies d’assistance, la valeur de l’attribut `aria-hidden` doit être cohérente avec l’état affiché ou masqué du contenu à l’écran."
+      },
+      {
+        "source": "glossary",
+        "entry": "Contenu caché",
+        "quote": "Attribut WAI-ARIA aria-hidden=\"true\"."
+      }
+    ]
+  }
+}
