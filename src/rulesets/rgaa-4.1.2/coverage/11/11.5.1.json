@@ -1,0 +1,117 @@
+{
+  "test": "11.5.1",
+  "requirements": [
+    {
+      "id": "same-nature-fields-grouped",
+      "statement": "In each form, fields of the same nature are grouped where necessary.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.5.1",
+          "line": 1,
+          "quote": "Les champs de même nature vérifient-ils l’une de ces conditions, si nécessaire ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "11.5",
+          "quote": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Champs de même nature",
+          "quote": "Dans un formulaire, ensemble des champs pouvant être regroupés par la nature des informations attendues."
+        }
+      ],
+      "routes": [
+        {
+          "id": "in-fieldset",
+          "statement": "The fields of the same nature are grouped in a <fieldset> element.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.5.1",
+              "line": 2,
+              "quote": "Les champs de même nature sont regroupés dans une balise `<fieldset>` ;"
+            }
+          ]
+        },
+        {
+          "id": "in-role-group",
+          "statement": "The fields of the same nature are grouped in an element with role=\"group\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.5.1",
+              "line": 3,
+              "quote": "Les champs de même nature sont regroupés dans une balise possédant un attribut WAI-ARIA `role=\"group\"` ;"
+            }
+          ]
+        },
+        {
+          "id": "radios-in-radiogroup",
+          "statement": "Fields of the same nature that are radio buttons (<input type=\"radio\"> or elements with role=\"radio\") are grouped in an element with role=\"radiogroup\" or role=\"group\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.5.1",
+              "line": 4,
+              "quote": "sont regroupés dans une balise possédant un attribut WAI-ARIA `role=\"radiogroup\"` ou `role=\"group\"`."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "grouping-not-necessary",
+          "statement": "Grouping is not necessary when the fields' labels are enough to tell the user that the fields belong together.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Champs de même nature",
+              "quote": "Ces champs doivent être regroupés lorsque les intitulés de label ne sont pas suffisants pour informer l’utilisateur que les champs font partie d’un regroupement."
+            },
+            {
+              "source": "test",
+              "test": "11.5.1",
+              "line": 1,
+              "quote": "si nécessaire"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-5-radio-set-ungrouped",
+      "requirement": "same-nature-fields-grouped",
+      "routes": ["in-fieldset", "in-role-group", "radios-in-radiogroup"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement with three routes (a <fieldset>, an element with role=\"group\", and for radio buttons an element with role=\"radiogroup\" or \"group\") and one exception: grouping is required only where necessary, and the glossary says when, namely when the labels are not enough to tell the user that the fields belong together. Two judgments stand in the way. Which fields are of the same nature is judgment: the glossary's examples (the three fields of a date, the fields of a phone number, an identity and address block when there are several, the radio buttons or checkboxes of one question) are examples, not a rule code can apply. Whether the labels suffice is judgment too. So a set of fields left ungrouped proves nothing on its own, and the entry is none. One custom check is linked as evidence: it finds sets of two or more radio buttons sharing a name and a form, inside a form, and flags a set that no <fieldset> or element with role group or radiogroup contains. Radio buttons sharing a name are a set the browser itself treats as one choice, so they are a strong hint of fields of the same nature; but the check does not examine the exception, and only radio sets, so its scope is partial and its fault is evidence only. No axe rule is tagged for this test. Applicability is judgment: whether a form holds fields of the same nature is judgment. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Champs de même nature",
+        "quote": "Un ensemble de boutons radio ou de cases à cocher qui se rapportent à une question."
+      },
+      {
+        "source": "methodology",
+        "test": "11.5.1",
+        "quote": "Retrouver dans le document les champs de formulaire de même nature (par exemple un groupe de saisie d’informations d’identité, une série de cases à cocher, une saisie de date sur plusieurs champs successifs…)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Champs de même nature",
+        "quote": "Ces champs doivent être regroupés lorsque les intitulés de label ne sont pas suffisants"
+      }
+    ]
+  }
+}
