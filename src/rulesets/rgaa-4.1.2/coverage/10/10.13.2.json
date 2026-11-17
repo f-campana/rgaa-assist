@@ -1,0 +1,109 @@
+{
+  "test": "10.13.2",
+  "requirements": [
+    {
+      "id": "hover-content-hoverable",
+      "statement": "Each additional content that appears when an interface component is hovered can be hovered by the mouse pointer without disappearing.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.13.2",
+          "line": 1,
+          "quote": "Chaque contenu additionnel qui apparait au survol d’un composant d’interface peut-il être survolé par le pointeur de la souris sans disparaître (hors cas particuliers) ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Composant d’interface",
+          "quote": "Un composant d’interface est un élément avec lequel l’utilisateur peut interagir, par exemple un bouton, un lien, une zone de saisie."
+        }
+      ],
+      "routes": [
+        {
+          "id": "stays-when-hovered",
+          "statement": "The pointer can be moved onto the additional content without the content disappearing.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.13.2",
+              "quote": "Pour chaque contenu additionnel, vérifier qu’il peut être survolé par le pointeur de la souris sans disparaître"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "user-agent-controlled",
+          "statement": "Additional content controlled by the user agent, such as the tooltip of a title attribute or a native form-validation message.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.13",
+              "quote": "Lorsque le contenu additionnel est contrôlé par l’agent utilisateur (par exemple, attribut `title` ou validation native de formulaire)"
+            },
+            {
+              "source": "methodology",
+              "test": "10.13.2",
+              "quote": "Des contenus additionnels contrôlés par l’agent utilisateur (par exemple, les infobulles associées à l’attribut title ou à la validation native d’un formulaire)"
+            }
+          ]
+        },
+        {
+          "id": "appears-on-activation",
+          "statement": "Additional content that becomes visible when the user activates something, such as a dialog window.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.13.2",
+              "quote": "Des contenus additionnels devenant visibles par une activation de l’utilisateur (par exemple, une fenêtre de dialogue)."
+            }
+          ]
+        },
+        {
+          "id": "conforming-modal-dialog",
+          "statement": "Additional content that is a modal window conforming to the WAI-ARIA dialog design pattern; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.13",
+              "quote": "ou correspond à une fenêtre modale conforme au motif de conception WAI-ARIA `dialog`, le critère 10.13 est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/10-13-hover-content-lost-when-hovered",
+      "requirement": "hover-content-hoverable",
+      "routes": ["stays-when-hovered", "user-agent-controlled", "appears-on-activation", "conforming-modal-dialog"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test has one requirement with one route: content that appears when an interface component is hovered can itself be hovered without disappearing. The exceptions are content controlled by the user agent (title tooltips, native validation messages), content that appears on an activation (a dialog), and a modal window conforming to the WAI-ARIA dialog pattern. Particular case 2 concerns test 10.13.1 only. Finding every additional content needs judgment (what counts as content, which hover a page reacts to, content that appears only in some states), so the check never answers no_fault and the entry cannot be full. One case is mechanical, and the custom check decides it with a controlled comparison. It hovers each interface component it can identify by its element or role, and records text that becomes drawn and was not drawn before: that text is additional content that became visible on hover of an interface component, which is what the wording names. It then compares two runs that differ only in where the pointer goes. In the control run, the pointer stays on the component and the text must still be drawn 3 s later. In the test run, the pointer moves in one step from the component onto the text itself, at a point where the text is the topmost element, and the text is read again at most 3 s after the hover began. If it is gone in the test run, the content disappeared because it was hovered, so it cannot be hovered without disappearing and the route fails. The control run rules out content that vanishes on a timer, and the check abstains if the page navigated, focus moved, a window opened or the page scrolled, or if animations do not settle. A re-rendered copy of the same text at the same point counts as still there. None of the exceptions can cover the witness: browser tooltips and validation messages are not text of the document, the check performs no click or key press so nothing it examines appeared on an activation, and it abstains on any text inside a dialog, an element with aria-modal, or a live region such as a status message. The link names the route and every exception, so its fault means failure, and the entry is fail_only. Scope is partial: it examines only components in the viewport, of the listed kinds, at most five new texts per component, and never content without text. No axe rule is tagged for this test. Applicability is judgment: whether a page has any content that appears on hover is only known by hovering everything in every state, and a check that hovered nothing visible cannot say the page has none. Needs is state: the content the test is about appears only after an interaction, hovering. The check performs that hover itself, which is why it can find a failure on the page as loaded; it can never support passed or not applicable.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.13.2",
+        "line": 1,
+        "quote": "peut-il être survolé par le pointeur de la souris sans disparaître"
+      },
+      {
+        "source": "methodology",
+        "test": "10.13.2",
+        "quote": "Retrouver dans le document les contenus additionnels devenant visible au survol d’un composant d’interface"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "10.13",
+        "quote": "Lorsque le contenu additionnel ne masque ou ne remplace aucun contenu porteur d’information, le test 10.13.1 est non applicable."
+      }
+    ]
+  }
+}
