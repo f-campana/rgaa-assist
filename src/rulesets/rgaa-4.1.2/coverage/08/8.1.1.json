@@ -1,0 +1,67 @@
+{
+  "test": "8.1.1",
+  "requirements": [
+    {
+      "id": "doctype-present",
+      "statement": "The page has a document type declaration (doctype).",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.1.1",
+          "line": 1,
+          "quote": "Pour chaque page web, le type de document (balise `doctype`) est-il présent ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Type de document",
+          "quote": "qui permet aux agents utilisateurs de connaître les caractéristiques techniques des langages utilisés sur la page web (balise doctype)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "doctype-declared",
+          "statement": "A DOCTYPE declaration is found in the document.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.1.1",
+              "quote": "Retrouver dans le document la balise DOCTYPE (par exemple `<!DOCTYPE html>`) ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "always",
+  "needs": [],
+  "rationale": {
+    "text": "The wording asks one thing: is a doctype present. The methodology, which tests 8.1.2 and 8.1.3 share (\"Tests identiques à 8.1.1\"), also asks that the declaration be placed before the html tag and be valid before the test is validated. So two readings exist: 8.1.1 asks presence only, or presence, placement and validity. The first is the more natural one, since otherwise the three tests would be the same test, but the methodology supports the second, and this entry does not choose between them. No check is linked, for two reasons. A fault cannot be proven from the rendered page. The browser's parser keeps a DOCTYPE only when it comes first in the source; a declaration placed after the html tag, or after other content, is dropped, so document.doctype is null both when the source has no declaration and when it has a misplaced one. The wording of 8.1.3 (\"Pour chaque page web possédant une déclaration de type de document, celle-ci est-elle située avant la balise <html>\") shows that a misplaced declaration is still a declaration the page possesses, so under the first reading such a page meets 8.1.1 and fails only 8.1.3. A null doctype therefore does not prove that 8.1.1 fails. A pass cannot be proven under the second reading either. A doctype present in the DOM was the first token of the source, but the DOM keeps only its name, public and system identifiers: it shows <!DOCTYPE html> and <!DOCTYPE html PUBLIC \"\"> (a parse error under the HTML standard) identically, and it does not show a second, misplaced declaration that the parser dropped, as a template that repeats the doctype produces. What would raise it: either a ruling that 8.1.1 asks presence only, after which a DOM check could answer no_fault when the top-level document has a doctype node and its compatMode agrees with the mode the parser would set for that doctype (so that a doctype added by a script is not taken for one in the source), or access to the source as served, which spec section 15 and decision Q9 leave out of v1 (\"Source-code analysis\"). Applicability is always: the test concerns every page. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "8.1.1",
+        "quote": "La balise DOCTYPE est placée avant la balise `<html>` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "8.1.1",
+        "quote": "Le type de document est valide."
+      },
+      {
+        "source": "methodology",
+        "test": "8.1.3",
+        "quote": "Tests identiques à 8.1.1"
+      },
+      {
+        "source": "test",
+        "test": "8.1.3",
+        "line": 1,
+        "quote": "Pour chaque page web possédant une déclaration de type de document, celle-ci est-elle située avant la balise `<html>` dans le code source ?"
+      }
+    ]
+  }
+}

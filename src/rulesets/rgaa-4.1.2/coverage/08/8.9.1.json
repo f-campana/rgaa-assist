@@ -1,0 +1,100 @@
+{
+  "test": "8.9.1",
+  "requirements": [
+    {
+      "id": "no-presentational-tags",
+      "statement": "No tag, other than div, span and table, is used only for presentation.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.9.1",
+          "line": 1,
+          "quote": "Dans chaque page web les balises (à l’exception de `<div>`, `<span>` et `<table>`) ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Uniquement à des fins de présentation",
+          "quote": "utilisation de balises HTML pour une finalité différente de celle prévue dans les spécifications (au regard du type de document déclaré)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "used-as-specified",
+          "statement": "Each element is used for the purpose its specification gives it, not only for its visual effect.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.9.1",
+              "quote": "Retrouver dans le document l’ensemble des éléments sémantiques utilisés à des fins de présentation ;"
+            }
+          ]
+        },
+        {
+          "id": "role-presentation-justified",
+          "statement": "An element used for presentation carries role=\"presentation\", and that use remains justified (it may be on a blockquote or an empty paragraph, never on a heading).",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.9.1",
+              "quote": "L’élément est pourvu d’un attribut `role=\"presentation\"` ;"
+            },
+            {
+              "source": "methodology",
+              "test": "8.9.1",
+              "quote": "L’utilisation de cet élément à des fins de présentation reste justifée."
+            },
+            {
+              "source": "glossary",
+              "entry": "Uniquement à des fins de présentation",
+              "quote": "Le rôle WAI-ARIA presentation peut être également utilisé pour supprimer la sémantique d’un élément lorsque ce dernier est utilisé uniquement à des fins de présentation"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "div-span-table",
+          "statement": "The div, span and table elements are excluded from this test.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "8.9.1",
+              "line": 1,
+              "quote": "(à l’exception de `<div>`, `<span>` et `<table>`)"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Whether a tag is used only for presentation is a question of purpose: a heading used for a typographic effect, a blockquote used for an indent. Code can see the tag but not why it is there, so the first route is judgment, and so is the second route's \"reste justifiée\". No axe rule is tagged. Three mechanical hints were considered and none is claimed. (1) A heading with role=\"presentation\": the methodology says that role \"sera considéré comme non-conforme sur un titre\", and the glossary adds that removing semantics essential to understanding invalidates the criterion. But the glossary also says the role \"peut être requise lorsque l’on utilise un motif de conception WAI-ARIA\", which leaves a heading inside such a pattern open; and role=\"none\", the synonym ARIA defines, is not named in the text. The fault is likely but not certain under every reading, so it is not claimed. (2) Empty paragraphs, which the methodology's note lists as a misuse: an empty paragraph may also be a container a script fills later, such as a live region for messages, so its purpose is judgment. (3) Several br elements in a row: the glossary's Note 1 condemns them when used to draw a paragraph, but line breaks in an address or a poem are proper. The official text is also inconsistent about div and span: the wording excludes them, while the glossary's Note 1 and the methodology's note (\"un élément <div> utilisé comme paragraphe\") count a div or span drawn as a paragraph as a misuse. The entry follows the wording and records the conflict here. What would raise it: an official reading that a heading with role=\"presentation\" fails whatever its context, after which a check on visible, exposed h1 to h6 carrying that role outside any element with an ARIA role could carry a failure link. Applicability is judgment: whether a page uses any tag for presentation is the question itself. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "8.9.1",
+        "quote": "Cela peut être acceptable sur un élément `<blockquote>` ou un paragraphe vide, mais sera considéré comme non-conforme sur un titre."
+      },
+      {
+        "source": "glossary",
+        "entry": "Uniquement à des fins de présentation",
+        "quote": "L’utilisation du rôle presentation peut être requise lorsque l’on utilise un motif de conception WAI-ARIA."
+      },
+      {
+        "source": "glossary",
+        "entry": "Uniquement à des fins de présentation",
+        "quote": "Note 1 : l’utilisation d’éléments <div> ou <span> ou plusieurs <br> pour créer visuellement un paragraphe est considérée comme non conforme et invalide le critère."
+      },
+      {
+        "source": "methodology",
+        "test": "8.9.1",
+        "quote": "un élément `<div>` utilisé comme paragraphe"
+      }
+    ]
+  }
+}

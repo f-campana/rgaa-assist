@@ -1,0 +1,57 @@
+{
+  "test": "8.1.3",
+  "requirements": [
+    {
+      "id": "doctype-before-html",
+      "statement": "When the page has a document type declaration, the declaration is placed before the html tag in the source code.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.1.3",
+          "line": 1,
+          "quote": "Pour chaque page web possédant une déclaration de type de document, celle-ci est-elle située avant la balise `<html>` dans le code source ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "declared-before-html",
+          "statement": "The DOCTYPE declaration comes before the html tag.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.1.1",
+              "quote": "La balise DOCTYPE est placée avant la balise `<html>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test asks where the declaration sits in the source code. The rendered page does not show that. The HTML parser keeps a DOCTYPE only when it is the first token of the source and drops a misplaced one, so document.doctype is null both for a page with no declaration (to which this test does not apply) and for a page whose declaration follows the html tag (which fails it): a null doctype proves nothing. A doctype present in the DOM proves that one declaration came first, but not that every declaration did: a page assembled from templates can repeat the doctype further down, and the parser drops the second one without trace, although the page then possesses a declaration that is not before the html tag. The shared methodology (\"Tests identiques à 8.1.1\") also asks that the type be valid, which the DOM cannot fully show either (see 8.1.2). So no check is linked and the entry is none. What would raise it: access to the source as served, tokenized with the HTML standard's tokenizer so that a DOCTYPE inside a comment or a script is not counted; spec section 15 and decision Q9 leave source analysis out of v1. Applicability is judgment: the test applies only to pages that possess a declaration, and the DOM cannot show whether a page possesses a misplaced one. Needs is empty.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.1.3",
+        "line": 1,
+        "quote": "celle-ci est-elle située avant la balise `<html>` dans le code source ?"
+      },
+      {
+        "source": "methodology",
+        "test": "8.1.3",
+        "quote": "Tests identiques à 8.1.1"
+      },
+      {
+        "source": "methodology",
+        "test": "8.1.1",
+        "quote": "Le type de document est valide."
+      }
+    ]
+  }
+}

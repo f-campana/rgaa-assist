@@ -1,0 +1,69 @@
+{
+  "test": "8.10.1",
+  "requirements": [
+    {
+      "id": "reversed-text-in-dir-element",
+      "statement": "Each text whose reading direction differs from the default reading direction is contained in an element that has a dir attribute.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.10.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque texte dont le sens de lecture est différent du sens de lecture par défaut est contenu dans une balise possédant un attribut `dir` ?"
+        },
+        {
+          "source": "methodology",
+          "test": "8.10.1",
+          "quote": "Retrouver dans le document les passages de textes qui utilisent une langue qui se lit dans le sens inverse de la langue du document (comme l’arabe ou l’hébreu pour le français par exemple)."
+        }
+      ],
+      "routes": [
+        {
+          "id": "contained-in-dir-element",
+          "statement": "The text is contained in an element (itself or an ancestor) that has a dir attribute.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.10.1",
+              "quote": "Pour chaque passage de texte, vérifier que le passage de texte est contenu dans une balise qui possède un attribut `dir`."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/8-10-rtl-text-dir-missing",
+      "requirement": "reversed-text-in-dir-element",
+      "routes": ["contained-in-dir-element"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement with one route and no exception: criterion 8.10 has no particular cases, unlike 8.7. The official text compares in two ways. The methodology compares with the document's language (\"une langue qui se lit dans le sens inverse de la langue du document\"); the glossary sets the default reading direction from the dir attribute, left to right when html, body and the text's parents carry none. The custom check faults only where both comparisons agree. It requires that the html element declare a language from a pinned list of languages written only from left to right, with no script subtag; that neither html nor body carry a dir attribute; and that CSS not turn the page right to left. Its witness is a text node holding two letters in a row of an RTL script (Unicode bidi class R or AL: Arabic, Hebrew, Syriac, Thaana and the like). Every language written in such a script reads from right to left, so the text reads against the default under both comparisons, whatever language it is in; a proper noun in Arabic script is no exception here, since this criterion has none. To be sure the witness is text a reader meets, it must also be visible and exposed: the witness rules of custom/8-3-default-lang-present for exposure, font, paint, contrast and geometry apply, which rule out hidden, invisible, clipped or covered text and anything a page-defined or icon font draws. Its place is ordinary content, links, buttons and labels, with no role, aria-hidden, hidden or inert, and no bdi, bdo or CSS direction or unicode-bidi change on the way. When no element containing it carries a dir attribute, in any form, the page fails the test: the route is not met and there is no exception. The literal wording asks for a dir attribute, so a bdi element or a CSS direction would not meet it, but the check abstains on them rather than lean on that. The check never answers no_fault: it does not look at attribute values (a title in Arabic is text too), field values, generated content, frames or shadow trees, and cannot show there is no other RTL text. Its scope is partial, its link names the only route, so its fault means failure and the entry is fail_only. No axe rule is tagged. Applicability is judgment: the test does not apply to a page with no text in a reversed reading direction, and the check cannot list all text. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Sens de lecture",
+        "quote": "en l’absence d’indication de sens de lecture via l’attribut dir sur l’élément html, body, ou un des parents du texte analysé, le sens de lecture par défaut est de gauche à droite (valeur ltr)."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "8.10",
+        "quote": "Dans chaque page web, les changements du sens de lecture sont-ils signalés ?"
+      },
+      {
+        "source": "methodology",
+        "test": "8.10.1",
+        "quote": "Si c’est le cas pour chaque passage de texte, **le test est validé**."
+      }
+    ]
+  }
+}

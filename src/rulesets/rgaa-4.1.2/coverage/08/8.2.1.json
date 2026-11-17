@@ -1,0 +1,182 @@
+{
+  "test": "8.2.1",
+  "requirements": [
+    {
+      "id": "writing-rules",
+      "statement": "In the generated source code, tags, attributes and attribute values respect the writing rules of the declared document type.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.2.1",
+          "line": 2,
+          "quote": "Les balises, attributs et valeurs d’attributs respectent les règles d’écriture ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "writing-rules-respected",
+          "statement": "No tag lacks a < or >, no closing tag lacks its /, no attribute value lacks a quote, no multi-word value is unquoted, no space between attributes is missing, and no required closing tag is missing.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Règles d’écriture",
+              "quote": "Le code source doit respecter les règles suivantes en accord avec la déclaration de type de document utilisée dans la page"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "nesting",
+      "statement": "In the generated source code, the nesting of tags conforms.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.2.1",
+          "line": 3,
+          "quote": "L’imbrication des balises est conforme ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "nesting-conforms",
+          "statement": "Every tag is nested as the declared document type allows.",
+          "citations": [
+            {
+              "source": "criterion_title",
+              "criterion": "8.2",
+              "quote": "le code source généré est-il valide selon le type de document spécifié ?"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "open-close",
+      "statement": "In the generated source code, the opening and closing of tags conform.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.2.1",
+          "line": 4,
+          "quote": "L’ouverture et la fermeture des balises sont conformes ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "open-close-conforms",
+          "statement": "Every tag is opened and closed as the declared document type requires.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.2.1",
+              "quote": "L’ouverture et la fermeture des balises sont conformes ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "ids-unique",
+      "statement": "The values of id attributes are unique in the page.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.2.1",
+          "line": 5,
+          "quote": "Les valeurs d’attribut id sont uniques dans la page ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "no-shared-id-value",
+          "statement": "No two elements of the page carry the same id value.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.2.1",
+              "quote": "Les valeurs d’attribut id sont uniques dans la page ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "attributes-not-doubled",
+      "statement": "No attribute appears twice on the same element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.2.1",
+          "line": 6,
+          "quote": "Les attributs ne sont pas doublés sur un même élément."
+        }
+      ],
+      "routes": [
+        {
+          "id": "each-attribute-once",
+          "statement": "Each element carries each attribute at most once.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.2.1",
+              "quote": "Les attributs ne sont pas doublés sur un même élément."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/duplicate-id-aria",
+      "requirement": "ids-unique",
+      "routes": ["no-shared-id-value"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/8-2-id-duplicate",
+      "requirement": "ids-unique",
+      "routes": ["no-shared-id-value"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test lists five conditions that must all hold, so each is a requirement with one route. It concerns the generated source code, which the methodology examines with the W3C Nu markup checker on the generated source of every frame. Four conditions are left to the human. The writing rules, the opening and closing of tags and doubled attributes are faults of the text the parser reads; the parser repairs or drops them (a doubled attribute is discarded, a missing closing tag is implied), and the DOM keeps no trace, so a DOM check can neither see such a fault nor show its absence. Nesting could in principle be checked against the content models of the declared document type, but that is a full markup validator, not a check to specify here; no such tool is wired into v1. One condition is mechanical in the DOM: unique id values. The generated source holds every element of the document tree, hidden or not, so two elements of the top-level document tree with the same non-empty id value break the condition \"Les valeurs d’attribut id sont uniques dans la page\" under any reading. Hiddenness is no exemption here: the test is about the code, not about what is shown or exposed. The custom check faults on such a pair, but only when the page has a doctype node, because the test applies \"pour chaque déclaration de type de document\" and a page whose parser kept no doctype may have none. It does not look at template contents, shadow trees or framed documents, where it is not certain the ids belong to the same page source, so its scope is partial and it never answers no_fault. Its link names the requirement's only route and there is no exception, so its fault means failure and the entry is fail_only. It is not full: four requirements have no check at all. axe's duplicate-id-aria looks only at ids referenced by ARIA attributes or labels, and compares within one tree, shadow roots included, where an id may legitimately repeat across trees; its exact handling is not known here, so it gets the weakest reading: partial, evidence only. Applicability is judgment: whether a page with no doctype node falls under \"pour chaque déclaration de type de document\" is not something the DOM can settle, since the source may hold a declaration the parser dropped. Needs is empty.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 1,
+        "quote": "Pour chaque déclaration de type de document, le code source généré de la page vérifie-t-il ces conditions ?"
+      },
+      {
+        "source": "methodology",
+        "test": "8.2.1",
+        "quote": "Dans le menu « Check », activer l’option « W3C Nu markup checker (all frames) »."
+      },
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 5,
+        "quote": "Les valeurs d’attribut id sont uniques dans la page ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Règles d’écriture",
+        "quote": "pas de balise fermante manquante pour les éléments qui en exigent une"
+      }
+    ]
+  }
+}

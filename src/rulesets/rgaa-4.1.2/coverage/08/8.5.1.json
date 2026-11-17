@@ -1,0 +1,81 @@
+{
+  "test": "8.5.1",
+  "requirements": [
+    {
+      "id": "page-has-title",
+      "statement": "The page has a page title, given by a title element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.5.1",
+          "line": 1,
+          "quote": "Chaque page web a-t-elle un titre de page (balise `<title>`) ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Titre de page",
+          "quote": "Contenu de la balise <title> d’une page web"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-element",
+          "statement": "The document holds a title element with content.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.5.1",
+              "quote": "Retrouver dans le document le titre structuré au moyen d’un élément `<title>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/document-title",
+      "requirement": "page-has-title",
+      "routes": ["title-element"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/8-5-page-title-present",
+      "requirement": "page-has-title",
+      "routes": ["title-element"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "full",
+  "enabled": "none",
+  "applicability": "always",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement with one route: the page has a title, structured with a title element. The glossary defines the page title as the content of the title tag, and adds that it identifies the page clearly, concisely and uniquely. That second part is what criterion 8.6 tests (\"Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?\"); since 8.6 presupposes a page can have a title that is not relevant, presence under 8.5.1 does not require relevance. The custom check decides the mechanical cases and abstains on the open ones. It faults a page whose document holds no HTML title element at all, nor one hidden in a template, a shadow tree or noscript text: such a page has no title under any reading. It answers no_fault when the first title element, the one browsers show, is a child of head and holds at least one letter or digit that is not a blank-looking filler character. Everything between is cannot_tell, by stated rules: an empty title or one of whitespace, punctuation, symbols or fillers only (the wording does not say whether an element with no readable content gives the page a title), a title outside head, two titles of which the first is empty, and documents that are not HTML pages. Frames are the one open question of scope: the wording does not say whether a framed document is itself a web page that needs a title, so the check answers cannot_tell when a framed document with rendered or exposed text lacks a qualifying title or cannot be read. SVG and MathML title elements are not page titles: they name a graphic, not the page. The link covers the only route for the whole page, so it is resolving and its fault means failure. The route can pass, on any ordinary page with a title in head, so the entry is full. One assumption is shared with every check that reads the page as loaded: a title that a script inserts only after the engine has established the target is not seen; the target is what was examined. axe's document-title faults when document.title is empty after trimming, which covers both a missing element and an empty one; the second is cannot_tell here, so its fault is evidence only. It reads document.title, which may come from a title outside head, and it is not known here whether it examines framed documents, so it gets the weakest reading: partial. Applicability is always: every page must have a title. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "8.5",
+        "quote": "Chaque page web a-t-elle un titre de page ?"
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "8.6",
+        "quote": "Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de page",
+        "quote": "permettant d’identifier de manière claire, concise et unique les contenus/la nature de la page"
+      },
+      {
+        "source": "methodology",
+        "test": "8.5.1",
+        "quote": "Si c’est le cas, **le test est validé**."
+      }
+    ]
+  }
+}
