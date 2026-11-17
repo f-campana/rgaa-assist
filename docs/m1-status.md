@@ -22,9 +22,8 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-- Codex's re-check of the corrections (R1 to R4) is answered on main. Its follow-up re-check (`rgaa-m1-followup-af60a0a-independent-recheck.md`) closed R2, R3, R4 and the 11.1.1 note, kept 8.3.1 at `fail_only`, and found one blocker: condition (a) of the 8.3.1 witness excluded `body`, so no fault could ever be reached. Fixed on main at `67d2938`, with Codex's non-blocking fill-colour caveat.
-- Waiting for Codex's focused confirmation of `67d2938` (bridge). Fabien prompts Codex.
-- Then batch 1 (`docs/m1/brief-entries.md`): builders A (1.1, 1.5) and B (8.1, 8.2, 8.5 to 8.10), about 21 tests and 5 points. 11.2 to 11.5 wait for the reset of 2026-11-21 16:00 UTC.
+- Step 3 is done: Codex's focused confirmation of `67d2938` is clean (`rgaa-m1-final-67d2938-focused-confirmation.md`). Entry writing is cleared under Q41.
+- Step 4 has started. At 80% all-models, only builder A (1.1, 1.5; 10 tests, about 2.5 points) was launched, on 2026-11-17 at 13:40 UTC. Builder B (8.1, 8.2, 8.5 to 8.10) and 11.2 to 11.5 wait for the reset of 2026-11-21 16:00 UTC.
 
 ## Where M1 stands, 2026-11-17
 
