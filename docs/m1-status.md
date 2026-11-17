@@ -22,17 +22,11 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-- Batch 1 merged: builder A (`ad72cdb`, 1.1 and 1.5) and builder B (`2123b43`, 8.1, 8.2, 8.5 to 8.10). Entries: 35 of 258 (none 24, fail_only 10, full 1: 8.5.1). 414 tests pass.
-- Batch 2 merged: builder D (`a6fe2a4`, theme 9) and builder C (`16bac2a`, 11.2 to 11.5). Entries: 56 of 258 (none 40, fail_only 15, full 1). 94 check records, sorted, no duplicates.
-- Batch 3 merged: builder E (`c17318a`, theme 3) and builder F (`6497c3e`, theme 5), all 30 at `none`. Entries: 86 of 258 (none 70, fail_only 15, full 1).
-- Batch 4 merged: builder G (`307da9a`, 4.2 to 4.13) and builder H (`7fd2308`, theme 13). Entries: 129 of 258 (none 112, fail_only 16, full 1). 414 tests pass; 96 check records, sorted, no duplicates.
-- Paused 2026-11-17 15:00 UTC at 97% weekly. Fabien used his limit reset at 15:20 UTC: weekly all-models back to 1%, still ending 2026-11-21 16:00 UTC.
-- Batches 5 and 6 launched together at 15:20 UTC: builders I, J, K, L. Builder K merged (`444d19c`, 1.6 to 1.9: 27 entries); builder I merged (`858a286`, 1.2 to 1.4: 22 entries, all `none`; checks.json conflict resolved by taking both sides, after asserting no existing record changed). Builder J merged (`ed2e63e`, 6.1 and 7.x: 14 entries, 6.1.5 `fail_only`). Entries: 192 of 258 (none 169, fail_only 22, full 1). Builder L running. Batch 7 (M, N) was launched at 16:30 UTC and stopped minutes later at Fabien's request (he needs the quota for other work); neither had committed anything, so both restart fresh from the brief. O (theme 12) waits too.
-- Remaining 129 tests, proposed batches once usage allows, two builders at a time:
-  - batch 5: I, 1.2 to 1.4 (22); J, 6.1, 7.1, 7.2, 7.4, 7.5 (14);
-  - batch 6: K, 1.6 to 1.9 (27); L, 10.1 to 10.6, 10.8 (14);
-  - batch 7: M, 10.9 to 10.14 (16); N, 11.6 to 11.13 (19);
-  - batch 8: O, theme 12 (19).
+- Paused by Fabien on 2026-11-17 at 16:40 UTC: he needs the quota for other work. Nothing is running.
+- Entries: 206 of 258 on main at `beba11d` (none 176, fail_only 25, full 3). 414 tests pass; 116 check records, sorted, no duplicates. Batches 1 to 6 are merged.
+- Left to write, 52 tests, from `docs/m1/brief-entries.md`: builder M (10.9 to 10.14, 16), builder N (11.6 to 11.13, 19), builder O (theme 12, 19). M and N were started and stopped before any commit; relaunch them fresh.
+- Merging: `checks.json` conflicts between builders are resolved by `python3 work/orchestrator/merge-checks.py` during the merge (union of added records, sorted; it asserts no base record changed). `work/` is gitignored, so the script is local to this checkout.
+- Then: step 5, Codex's cross-check of all entries, with the claims listed under "Findings to report at the gate".
 
 ## Where M1 stands, 2026-11-17
 
@@ -77,6 +71,7 @@ Also logged on the bridge, channel `rgaa-assist`.
 - Builder K (1.6 to 1.9): 1.9.1 to 1.9.5 `fail_only` through two checks per image kind (`custom/1-9-<kind>-figure-role`, `-figure-aria-label`), resting on technical note 1 (a figcaption « impose au minimum » an aria-label) and on reading the glossary's decorative-image exemption for captioned images as needing an image actually treated as decorative. K listed these as its least sure and suggests lowering the role check first if that reading is rejected. Codex should rule.
 - Builder I (1.2 to 1.4, all `none`): where the wording and the methodology differ (1.2.1, 1.2.2: whether other alternative attributes are barred only with `alt=""` or on every route), I followed the wording, which claims less. The schema has no structured place for such a conflict.
 - Builder J (6.1, 7.x): 6.1.5 `fail_only` through `custom/6-1-link-aria-label-lacks-visible-text` (an aria-label sharing no word of two letters or more with a visible text of two or more real words). The schema cannot say that a test's scope depends on another test's result (7.1.2, 7.1.3 cover components that validated 7.1.1), nor that a page is examined with JavaScript off (7.2.1).
+- Builder L (10.1 to 10.6, 10.8): 10.1.1 and 10.1.2 `full` (the methodology gives closed lists of presentation elements and attributes; hidden elements count, since the test is about the generated source; the checks abstain on shadow trees, frames, templates, non-HTML namespaces and listed-but-unnamed obsolete elements). 10.5.1, 10.5.2 and 10.6.1 `fail_only`: 10.5.2 rests on reading its methodology's copied step 1 through the wording, since the literal methodology could never fail a page; 10.6.1 faults a text link styled like its parent except a colour with contrast below 2.95:1. No prerequisite exists for style sheets disabled, text zoomed to 200%, or hover.
 - Builder D linked axe list rules to 9.3.2 though axe does not tag them for it (evidence only). The guide allows links on an argued basis; an axe tag justifies a link but is not required.
 - Tests 8.1.1 to 8.1.3 turn on the served source, which v1 does not read (spec 15, Q9). They stay `none`.
 
