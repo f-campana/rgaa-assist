@@ -1,0 +1,112 @@
+{
+  "test": "3.1.6",
+  "requirements": [
+    {
+      "id": "non-temporal-media-colour-info-not-colour-only",
+      "statement": "For each non-temporal media (content shown through a plugin or the svg and canvas elements) that conveys information through colour, that information is not given by colour alone.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "3.1.6",
+          "line": 1,
+          "quote": "l’information ne doit pas être donnée uniquement par la couleur"
+        },
+        {
+          "source": "methodology",
+          "test": "3.1.6",
+          "quote": "Retrouver dans le document les informations données par la couleur dans un média non temporel"
+        },
+        {
+          "source": "glossary",
+          "entry": "Média non temporel",
+          "quote": "Contenu qui ne se déroule pas dans le temps, consultable via un plugin (Flash, Java, Silverlight…) ou via les éléments svg et canvas"
+        }
+      ],
+      "routes": [
+        {
+          "id": "visible-text",
+          "statement": "The same information is also given by a visible text.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Une indication textuelle visible"
+            }
+          ]
+        },
+        {
+          "id": "graphic-and-code",
+          "statement": "The same information is also given by a graphic means (pictogram, background image, shape, different border style) together with a complement in the code (aria-label, title, hidden text, aria-current).",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Un moyen faisant intervenir du graphisme (pictogramme, image de fond, forme, style de bordure différent, etc.) et par le biais d’un complément au niveau du code (aria-label, title, texte masqué, aria-current, etc.)"
+            }
+          ]
+        },
+        {
+          "id": "typography-and-code",
+          "statement": "The same information is also given by another typographic style (bold, italic, text size, another font) together with a complement in the code.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Un autre style typographique (gras, italique, taille de texte, autre police, etc) et par le biais d’un complément au niveau du code"
+            }
+          ]
+        },
+        {
+          "id": "other-means",
+          "statement": "Another means lets the user get the same information, from the methodology's open list: a title attribute, an icon, a graphic effect of shape or position, a typographic effect.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "3.1.6",
+              "quote": "vérifier qu’il existe un autre moyen de récupérer cette information (présence d’un attribut title, d’une icône ou d’un effet graphique de forme ou de position, un effet typographique…)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Les moyens de transmettre une information autrement que par la couleur peuvent être"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test applies to each non-temporal media that conveys information, where that information is given by colour: an interactive map whose regions are coloured by category, a chart drawn in svg or canvas. Code can find svg, canvas and plugin elements, but whether their colours carry information, and whether a legend, a pattern or a text gives it another way, is judgment. A canvas exposes only pixels, and an svg's fill values say nothing of their meaning. Each route is judgment too: whether a text, a pictogram, a shape, a style or a code complement gives the same information as the colour depends on what both mean. The requirement has one set of routes, taken from the glossary and the methodology: a visible text, a graphic means with a code complement, a typographic style with a code complement, or another means from the methodology's open list (a title attribute, an icon, a shape or position effect, a typographic effect). The glossary's list says the means \"peuvent être\" these, and the methodology's list ends in an ellipsis, so the last route is kept open on purpose: a missed route would make a correct page look failed. The glossary also says that information given by colour and accompanied by another method makes the criterion not applicable, where the methodology says the test is then validated. The entry follows the methodology and lists the means as routes; at none the difference changes nothing, and it is reported. No axe rule is tagged for this test, and no custom check is registered: a fault would need a media that surely conveys information by colour, which code cannot establish. The candidate is none, with no link. Applicability is judgment: a page with no svg, canvas or plugin element holds no non-temporal media, but a page with one may or may not hold one that conveys information by colour, and an svg used as an icon is still an svg element; the entry does not claim structural applicability on that partial certainty. Needs is state: the glossary's examples are interactive (a map, an application, a slideshow), and their information by colour may appear only after the user acts on them.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "3.1.6",
+        "line": 1,
+        "quote": "Pour chaque média non temporel véhiculant une information"
+      },
+      {
+        "source": "glossary",
+        "entry": "Média non temporel",
+        "quote": "une carte interactive en Flash, une application Flash ou Java, un diaporama sont des médias non temporels"
+      },
+      {
+        "source": "glossary",
+        "entry": "Information (donnée par la couleur)",
+        "quote": "Lorsqu’une information donnée par la couleur est accompagnée d’une autre méthode à destination des utilisateurs qui ne voient pas ou perçoivent mal les couleurs ou leurs associations, le critère sera considéré comme non applicable."
+      },
+      {
+        "source": "methodology",
+        "test": "3.1.6",
+        "quote": "Si c’est le cas pour chaque information, **le test est validé**."
+      }
+    ]
+  }
+}
