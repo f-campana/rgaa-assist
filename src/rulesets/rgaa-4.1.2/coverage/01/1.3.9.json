@@ -1,0 +1,124 @@
+{
+  "test": "1.3.9",
+  "requirements": [
+    {
+      "id": "alternative-short-concise",
+      "statement": "For each informative image that has a text alternative, outside the particular cases, the alternative is short and concise.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.3.9",
+          "line": 1,
+          "quote": "l’alternative textuelle est-elle courte et concise (hors cas particuliers) ?"
+        },
+        {
+          "source": "methodology",
+          "test": "1.3.9",
+          "quote": "vérifier l’alternative textuelle est courte et concise"
+        }
+      ],
+      "routes": [
+        {
+          "id": "short-and-concise",
+          "statement": "The alternative is as short as possible; a length of at most 80 characters is strongly recommended.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Alternative courte et concise",
+              "quote": "nécessitent qu’elle soit la plus courte possible"
+            },
+            {
+              "source": "glossary",
+              "entry": "Alternative courte et concise",
+              "quote": "Une longueur maximale de 80 caractères est fortement recommandée"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captcha-or-test-image",
+          "statement": "An image used as a CAPTCHA or as an image-test: criterion 1.3 is not applicable to it; criterion 1.4 treats it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.3.9",
+              "line": 1,
+              "quote": "(hors cas particuliers)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "1.3",
+              "quote": "lorsque l’image est utilisée comme CAPTCHA ou comme image-test"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "1.3",
+              "quote": "le critère est non applicable"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "1.3",
+              "quote": "le cas des CAPTCHA et des images-test est traité de manière spécifique par le critère 1.4."
+            }
+          ]
+        },
+        {
+          "id": "sole-content-of-link",
+          "statement": "An image that is the only content of a link: its alternative is the link's text and is evaluated with the links theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsque l’image est le seul contenu d’un lien, son alternative est l’intitulé du lien. Dans ce cas, l’alternative de l’image devrait être évaluée avec la thématique « Liens »."
+            }
+          ]
+        },
+        {
+          "id": "sole-content-of-button",
+          "statement": "An image that is the only content of a <button> element: its alternative is the button's label and is evaluated with the forms or scripts theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsqu’un bouton de formulaire, inséré avec l’élément <button>, ne contient qu’une image (balise <img>, <object>, <embed>, <canvas> ou <svg>), l’alternative de l’image est l’intitulé du bouton."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/1-3-alternative-over-80-characters",
+      "requirement": "alternative-short-concise",
+      "routes": ["short-and-concise"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "\"Courte et concise\" is judgment. The glossary asks for the shortest alternative possible and strongly recommends at most 80 characters; a recommendation is not a limit, so an alternative over 80 characters may conform when the information needs it, and one under 80 may still not be concise. The test covers every kind of informative image, and whether an image carries information, or is a CAPTCHA or an image-test, is judgment. So the entry stays at none. The exceptions are the particular case of the criterion and the two notes of the glossary of an informative image (only content of a link, only content of a <button>); the first note says \"devrait\", and listing it can only make the entry claim less. No axe rule is tagged. The custom check custom/1-3-alternative-over-80-characters reports image elements whose computed accessible name is longer than 80 characters. Its fault is evidence only, since the 80-character figure is a recommendation and the element may be decorative or excepted. It measures one sign of the route, looks only at elements exposed in the accessibility tree, and examines none of the exceptions, so its scope is partial. Applicability is judgment. Needs is empty: the accessible name is read on the page as loaded.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Alternative courte et concise",
+        "quote": "elle limitera le nombre de manipulations nécessaires pour lire l’alternative par les utilisateurs de plages braille ou de loupes d’écran notamment."
+      },
+      {
+        "source": "glossary",
+        "entry": "Image porteuse d’information",
+        "quote": "Image qui véhicule une information nécessaire à la compréhension du contenu auquel elle est associée."
+      },
+      {
+        "source": "methodology",
+        "test": "1.3.9",
+        "quote": "Retrouver dans le document les images pourvues d’une alternative textuelle"
+      }
+    ]
+  }
+}
