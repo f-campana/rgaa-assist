@@ -3,7 +3,7 @@
 Kept current by the orchestrator. If you are taking over, read this after `docs/m1-kickoff.md`.
 
 **Orchestrator:** from 2026-11-17, a fresh Opus 5.5 session at high effort (decisions Q39 and Q42). Until then Fable 5.2 in Fabien's planning thread, which stops orchestrating at this handover.
-**Ceilings (Q38):** stop at 85% weekly all-models. The 65% check-in is done. The Fable stop no longer applies.
+**Ceilings:** the 85% stop of Q38 is lifted by Q44: work runs until the plan's weekly limit, and Fabien holds a limit reset. The 65% check-in is done. The Fable stop no longer applies.
 
 ## Steps
 
@@ -23,7 +23,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 ## In flight
 
 - Step 3 is done: Codex's focused confirmation of `67d2938` is clean (`rgaa-m1-final-67d2938-focused-confirmation.md`). Entry writing is cleared under Q41.
-- Step 4 has started. At 80% all-models, only builder A (1.1, 1.5; 10 tests, about 2.5 points) was launched, on 2026-11-17 at 13:40 UTC. Builder B (8.1, 8.2, 8.5 to 8.10) and 11.2 to 11.5 wait for the reset of 2026-11-21 16:00 UTC.
+- Step 4, batch 1: builder A (1.1, 1.5; 10 tests) and builder B (8.1, 8.2, 8.5 to 8.10; 11 tests) running in parallel since 2026-11-17 13:40 and 13:50 UTC. 11.2 to 11.5 next.
 
 ## Where M1 stands, 2026-11-17
 
