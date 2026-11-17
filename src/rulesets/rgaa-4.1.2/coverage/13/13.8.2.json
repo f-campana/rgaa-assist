@@ -1,0 +1,150 @@
+{
+  "test": "13.8.2",
+  "requirements": [
+    {
+      "id": "blinking-content-controllable",
+      "statement": "Each blinking content started automatically meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.8.2",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque contenu clignotant déclenché automatiquement, vérifie-t-il une de ces conditions ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "13.8",
+          "quote": "chaque contenu en mouvement ou clignotant est-il [contrôlable](#controle-contenu-en-mouvement-ou-clignotant) par l’utilisateur ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "duration-five-seconds",
+          "statement": "The blinking lasts five seconds or less.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.8.2",
+              "line": 2,
+              "quote": "La durée du clignotement est inférieure ou égale à 5 secondes"
+            }
+          ]
+        },
+        {
+          "id": "stop-restart",
+          "statement": "The user can stop and restart the blinking, with keyboard and mouse at least, and not only by giving focus.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.8.2",
+              "line": 3,
+              "quote": "L’utilisateur peut arrêter et relancer le clignotement"
+            },
+            {
+              "source": "glossary",
+              "entry": "Contrôle (contenu en mouvement ou clignotant)",
+              "quote": "par le clavier et la souris, au moins."
+            },
+            {
+              "source": "glossary",
+              "entry": "Contrôle (contenu en mouvement ou clignotant)",
+              "quote": "l’arrêt ou la mise en pause via un événement déclenché uniquement sur la prise de focus ne permet pas de valider le critère."
+            }
+          ]
+        },
+        {
+          "id": "show-hide",
+          "statement": "The user can show and hide the blinking content, with keyboard and mouse at least.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.8.2",
+              "line": 4,
+              "quote": "L’utilisateur peut afficher et masquer le contenu clignotant"
+            },
+            {
+              "source": "glossary",
+              "entry": "Contrôle (contenu en mouvement ou clignotant)",
+              "quote": "par le clavier et la souris, au moins."
+            }
+          ]
+        },
+        {
+          "id": "all-information-without-blinking",
+          "statement": "The user can display all the information without the blinking, with keyboard and mouse at least.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.8.2",
+              "line": 5,
+              "quote": "L’utilisateur peut afficher la totalité de l’information sans le clignotement."
+            },
+            {
+              "source": "glossary",
+              "entry": "Contrôle (contenu en mouvement ou clignotant)",
+              "quote": "par le clavier et la souris, au moins."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "integral-movement",
+          "statement": "The movement is an integral part of the component and cannot be put under the user's control, such as a progress bar; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Contrôle (contenu en mouvement ou clignotant)",
+              "quote": "Dans certains cas, le mouvement fait partie intégrante du composant et il n’est pas possible d’en donner le contrôle à l’utilisateur, par exemple une barre de progression"
+            },
+            {
+              "source": "methodology",
+              "test": "13.8.2",
+              "quote": "Dans certains cas, le mouvement ne peut pas être arrêté, par exemple dans le cas d'une barre de progression, dans ce cas, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "temporal-media",
+          "statement": "Time-based media, which the multimedia theme covers, are not concerned.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Contrôle (contenu en mouvement ou clignotant)",
+              "quote": "Tous les contenus en mouvement, à l’exception des médias temporels pris en charge par la thématique multimédia, sont concernés"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state",
+    "keyboard",
+    "media"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with four routes and two exceptions. Finding blinking content needs watching the page over time, since the methodology counts content set off by an image, a script or a CSS effect, at load or when content is displayed. Three routes are mechanisms offered to the user, which the glossary requires to work with keyboard and mouse at least and not only on focus; code cannot show that a page offers no such mechanism, so a blinking content without one cannot be proved to fail. The duration route alone could be measured, but a content found blinking longer than five seconds may still meet another route. The exceptions need judgment: whether a movement is integral to its component, and whether content is a time-based medium covered by the multimedia theme. So the entry is none. No axe rule is tagged for this test; axe's blink, tagged for 13.8.1, faults blink elements, which current browsers do not make blink, and examines no route of this test. The methodology reads \"inférieure à 5 secondes\" where the wording reads \"inférieure ou égale\"; the entry follows the wording. Applicability is judgment: whether the page holds automatically started blinking content, outside the exceptions, cannot be settled by code. Needs: media, for the timed observation that finds the effect and its duration; state, since content may start when something is displayed and mechanisms must be operated; keyboard, since the glossary requires control by keyboard.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.8.2",
+        "quote": "Retrouver dans le document les contenus clignotants (obtenus au moyen d’une image, d’un script ou d’un effet CSS) déclenchés automatiquement au chargement de la page ou lors de l’affichage d’un contenu"
+      },
+      {
+        "source": "glossary",
+        "entry": "Contrôle (contenu en mouvement ou clignotant)",
+        "quote": "Possibilité pour l’utilisateur de contrôler l’affichage ou la lecture d’un contenu en mouvement ou clignotant par le clavier et la souris, au moins."
+      },
+      {
+        "source": "methodology",
+        "test": "13.8.2",
+        "quote": "Soit la durée du clignotement est inférieure à 5 secondes"
+      }
+    ]
+  }
+}
