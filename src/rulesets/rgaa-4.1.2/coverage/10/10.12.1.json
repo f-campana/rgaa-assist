@@ -1,0 +1,137 @@
+{
+  "test": "10.12.1",
+  "requirements": [
+    {
+      "id": "text-readable-with-spacing",
+      "statement": "Text remains readable when line spacing is raised to 1.5 times the font size, spacing after paragraphs to 2 times, letter spacing to 0.12 times and word spacing to 0.16 times the font size.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "10.12.1",
+          "line": 1,
+          "quote": "le texte reste-t-il lisible lorsque l’affichage est modifié selon ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "test",
+          "test": "10.12.1",
+          "line": 2,
+          "quote": "L’espacement entre les lignes (`line-height`) est augmenté jusqu’à 1,5 fois la taille de la police ;"
+        },
+        {
+          "source": "test",
+          "test": "10.12.1",
+          "line": 3,
+          "quote": "L’espacement suivant les paragraphes (balise `<p>`) est augmenté jusqu’à 2 fois la taille de la police ;"
+        },
+        {
+          "source": "test",
+          "test": "10.12.1",
+          "line": 4,
+          "quote": "L’espacement des lettres (`letter-spacing`) est augmenté jusqu’à 0,12 fois la taille de la police ;"
+        },
+        {
+          "source": "test",
+          "test": "10.12.1",
+          "line": 5,
+          "quote": "L’espacement des mots (`word-spacing`) est augmenté jusqu’à 0,16 fois la taille de la police."
+        }
+      ],
+      "routes": [
+        {
+          "id": "each-passage-stays-readable",
+          "statement": "With all four spacing changes applied, each passage of text stays readable, without loss of content or functionality.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "10.12.1",
+              "quote": "Pour chaque passage de texte, vérifier qu’il reste lisible"
+            },
+            {
+              "source": "criterion_title",
+              "criterion": "10.12",
+              "quote": "les propriétés d’espacement du texte peuvent-elles être redéfinies par l’utilisateur sans perte de contenu ou de fonctionnalité"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captions-burned-into-video",
+          "statement": "Captions embedded directly in a video, which the user cannot restyle.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.12",
+              "quote": "Font exception à ce critère, les contenus pour lesquels l’utilisateur n’a pas de possibilité de personnalisation :"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "10.12",
+              "quote": "Les sous-titres directement intégrés à une vidéo ;"
+            }
+          ]
+        },
+        {
+          "id": "images-of-text",
+          "statement": "Images of text.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.12",
+              "quote": "Les images texte ;"
+            }
+          ]
+        },
+        {
+          "id": "text-in-canvas",
+          "statement": "Text inside a canvas element.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "10.12",
+              "quote": "Le texte au sein d’une balise `<canvas>`."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/10-12-text-clipped-after-spacing",
+      "requirement": "text-readable-with-spacing",
+      "routes": ["each-passage-stays-readable", "captions-burned-into-video", "images-of-text", "text-in-canvas"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement: with the four spacing changes applied together, text stays readable. The four lines are the conditions of the display change, not separate demands, and the methodology applies all four at once with fixed values (line-height 1.5 on every element, margin-bottom 2em on p elements, letter-spacing 0.12em and word-spacing 0.16em on every element), then checks each passage of text. The particular cases exempt content the user cannot restyle: captions burned into a video, images of text, and text inside a canvas element. Readable is judgment in general: text that spills over other content, moves out of view or is truncated with an ellipsis may or may not stay readable. So the custom check never answers no_fault and the entry cannot be full. One case is mechanical: a character that was fully visible before the change and is cut off after it by an ancestor whose overflow is hidden. A cut-off character cannot be read, and the criterion title asks for the change to cause no loss of content, so the passage does not stay readable and the route fails. The check applies the methodology's own values with a style sheet, verifies on each witness's parent that they took effect (they may not inside shadow trees, frames or under inline !important styles, and then it abstains), and abstains when the methodology's value would lower a spacing the page already set higher, since the wording speaks only of increases. It compares the same page before and after the change, and rules out other causes: layout settled before and after (fonts loaded, no animation), no mutation of the document other than its own style element, no change of scroll positions or viewport. The clipping ancestor must have clipped nothing before the change and must not be a truncation by design (ellipsis, line clamp), so the loss comes from the spacing. It abstains when a button, disclosure or other control sits next to the clipping ancestor, since such a control may reveal the cut-off text and the content would then not be lost. The witness must be ordinary visible text exposed to assistive technologies, in a generic or system text font, because letter spacing breaks the ligatures of icon fonts and a pictogram drawn from letters could then be cut off without any text being lost. The exceptions cannot apply to a witness: it is a text node of the document, not part of a video, an image or a canvas element, and the check never takes text inside a canvas element. The link names the route and every exception, so its fault means failure, and the entry is fail_only. Scope is partial: the check looks only at text clipped by an ancestor whose overflow is hidden, and abstains on every other way text could become unreadable. No axe rule is tagged for this test. Applicability is judgment: a page whose only text is in images, burned-in captions or canvas would make the test not applicable, and telling text in an image from other images is judgment. Needs is empty: the check changes the styles itself on the page as loaded, which needs no user interaction.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.12.1",
+        "quote": "Une valeur de 1.5 à la propriété `line-height` de tous les éléments du document ;"
+      },
+      {
+        "source": "methodology",
+        "test": "10.12.1",
+        "quote": "Une valeur de 2em à la propriété `margin-bottom` des éléments `<p>` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "10.12.1",
+        "quote": "Si c’est le cas pour chaque passage de texte, **le test est validé**."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "10.12",
+        "quote": "sans perte de contenu ou de fonctionnalité (hors cas particuliers)"
+      }
+    ]
+  }
+}
