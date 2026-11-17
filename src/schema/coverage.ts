@@ -166,8 +166,12 @@ const CoverageEntryShape = z.strictObject({
   candidate: LevelSchema,
   /** What the tool is allowed to conclude today. Never above `candidate`. Outside the entry hash. */
   enabled: LevelSchema,
-  /** `structural` when "not applicable" follows from the absence of certain elements in the whole examined scope. */
-  applicability: z.enum(["structural", "judgment"]),
+  /**
+   * `structural` when "not applicable" follows from the absence of certain elements in the whole examined scope.
+   * `always` when the test applies to every page, so "not applicable" is never the answer; a check that answers
+   * `inapplicable` for such a test leads to "needs review" (Q40). Otherwise `judgment`.
+   */
+  applicability: z.enum(["structural", "judgment", "always"]),
   needs: z.array(PrerequisiteSchema),
   rationale: RationaleSchema,
 });

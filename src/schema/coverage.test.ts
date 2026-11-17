@@ -162,6 +162,17 @@ describe("coverage entry: structural rules", () => {
     e.needs = ["state", "state"];
     expect(issues(e).join()).toMatch(/duplicate prerequisite/);
   });
+
+  it("accepts the three applicability values and nothing else", () => {
+    for (const a of ["structural", "judgment", "always"]) {
+      const e = entry116Full();
+      e.applicability = a;
+      expect(issues(e)).toEqual([]);
+    }
+    const e = entry116();
+    e.applicability = "never";
+    expect(issues(e)).not.toEqual([]);
+  });
 });
 
 describe("isResolving", () => {
