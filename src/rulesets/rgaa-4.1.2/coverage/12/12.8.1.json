@@ -1,0 +1,66 @@
+{
+  "test": "12.8.1",
+  "requirements": [
+    {
+      "id": "tab-order-coherent",
+      "statement": "On each page, the tab order in the content is coherent.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.8.1",
+          "line": 1,
+          "quote": "Dans chaque page web, l’ordre de tabulation dans le contenu est-il cohérent ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "focus-moves-coherently",
+          "statement": "Moving through the content with Tab and Shift+Tab, the order in which focus moves stays coherent with the content considered, natural reading order or not.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.8.1",
+              "quote": "Vérifier que l’ordre de déplacement du focus reste cohérent relativement au contenu considéré"
+            },
+            {
+              "source": "methodology",
+              "test": "12.8.1",
+              "quote": "il n'est pas obligatoire que la tabulation suive l'ordre de lecture naturel (de gauche à droite et de haut en bas par exemple) tant que les éléments sont accessibles dans un ordre cohérent."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard", "state"],
+  "rationale": {
+    "text": "Coherent is judgment: the glossary defines it as a logical order and a coherent sequence, and the methodology says the order need not follow the natural reading order as long as it is coherent. So neither a positive tabindex nor a difference between visual and focus order proves a fault, and no order can be shown coherent by code. The methodology tabs forwards and backwards through the page, which needs a keyboard pass. The tab-order glossary entry says that when an element initiates a change in the page, such as revealing hidden zones or adding content, it must be activated to test the order, which needs other states of the page; the methodology's example is a modal window whose tab order must stay inside it. axe's focus-order-semantics is tagged but not linked: it checks that generic elements placed in the focus order with tabindex have an interactive role, which says nothing about the order itself. It is also experimental and best-practice. No custom check is registered. The entry is none. Applicability is judgment: whether a page without focusable content has a tab order to assess is not settled by the wording. Needs is keyboard, for the tab pass, and state, for activating elements that change the page.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Compréhensible (ordre de lecture)",
+        "quote": "Un contenu compréhensible est lisible (l’ordre des éléments est logique) et cohérent (l’enchaînement de la lecture est cohérent)."
+      },
+      {
+        "source": "methodology",
+        "test": "12.8.1",
+        "quote": "Parcourir dans le document l’ensemble des contenus au moyen de la touche de tabulation vers l’avant (touche Tab) et vers l’arrière (touches Maj+Tab) ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Ordre de tabulation",
+        "quote": "lorsqu’un élément initie un changement dans la page (changement de contexte, gestion de zones cachées, ajout de contenu, gestion de champs de formulaire…) il est nécessaire d’activer l’élément qui initie le changement pour tester la cohérence de l’ordre de tabulation."
+      },
+      {
+        "source": "methodology",
+        "test": "12.8.1",
+        "quote": "l’ordre de tabulation dans une fenêtre modale ne doit considérer que les éléments d’interface présents au sein de cette fenêtre"
+      }
+    ]
+  }
+}

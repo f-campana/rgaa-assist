@@ -1,0 +1,61 @@
+{
+  "test": "12.8.2",
+  "requirements": [
+    {
+      "id": "tab-order-coherent-after-script",
+      "statement": "For each script that updates or inserts content, the tab order stays coherent.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.8.2",
+          "line": 1,
+          "quote": "Pour chaque script qui met à jour ou insère un contenu, l’ordre de tabulation reste-t-il cohérent ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "focus-repositioned-correctly",
+          "statement": "After the trigger is reached by tabbing and activated, and the updated content is shown, tabbing stays coherent, with focus correctly repositioned.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.8.2",
+              "quote": "Positionner la tabulation sur l’élément déclencheur et l’activer ;"
+            },
+            {
+              "source": "methodology",
+              "test": "12.8.2",
+              "quote": "Après l’affichage du contenu mis à jour, vérifier que la tabulation reste cohérente (repositionnement correct du focus) ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard", "state"],
+  "rationale": {
+    "text": "The test applies to each script that updates or inserts content, such as revealing hidden elements or an update through AJAX. Finding them means activating triggers and watching the page change, and which changes are script insertions of content is not visible in the markup. Whether the tab order stays coherent afterwards, with focus correctly repositioned, is judgment: the glossary defines coherent as a logical order and a coherent sequence, and correct repositioning depends on what the inserted content is for. No axe rule is tagged and no custom check is registered. The entry is none. Applicability is judgment: a page with no script that inserts or updates content makes the test not applicable, and finding such scripts needs interaction and judgment. Needs is keyboard, because the methodology reaches the trigger by tabbing and tabs after the update, and state, because the content examined appears only after activation.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "12.8.2",
+        "quote": "Retrouver dans le document l’ensemble des contenus insérés au moyen d’un script (affichage d’éléments masqués, mise jour de contenu via AJAX par exemple) ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Compréhensible (ordre de lecture)",
+        "quote": "cohérent (l’enchaînement de la lecture est cohérent)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Ordre de tabulation",
+        "quote": "il est nécessaire d’activer l’élément qui initie le changement pour tester la cohérence de l’ordre de tabulation."
+      }
+    ]
+  }
+}
