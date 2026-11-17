@@ -22,10 +22,12 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-- Steps 1 and 2 of "Next, in order" are done. Corrections merged as `0352c75`; contract tests for `always` merged as `2b12c9a`. 405 tests pass, 14 entries validate (none 8, fail_only 5, full 1).
-- Step 3: re-check request sent to Codex on 2026-11-17 (bridge message `0mwk28tghb590`). Waiting for Fabien to prompt Codex, then for its report.
-- Step 4 is ready: `docs/m1/brief-entries.md`, batch 1 is 33 tests over three Opus builders (1.1 and 1.5; 8.1, 8.2, 8.5 to 8.10; 11.2 to 11.5), about 8 points at the pilot's rate.
-- Open for Fabien at the gate: 8.3.1 stays `full`, but a page that meets it only through its second route gets needs_review, so 10.4 point 4 ("one valid case per route") could not be met at activation. Codex is asked to rule on it.
+- Steps 1 and 2 of "Next, in order" are done (`0352c75`, `2b12c9a`). 405 tests pass.
+- Step 3, Codex's re-check (`rgaa-m1-corrections-2b12c9a-independent-recheck.md` in its outputs folder): not clean. Four findings, all verified and accepted by the orchestrator.
+  - R1, 8.3.1's fault witness is too broad; R2, 8.3.1 cannot be `full` under 10.4 point 4. Second corrections builder running (Opus, high), brief `docs/m1/brief-corrections-2.md`, with a sentence of 11.1.1.
+  - R4, the guide implied `evidence_only` removes a positive claim. Fixed by the orchestrator in `63b764a`, with the per-route rule for `full` and a rule on fault witnesses.
+  - R3, Q40 and spec 8.3 step 4 disagree on an `always` test with one requirement inapplicable and another satisfied. Waiting for Fabien.
+- After these: a focused re-check by Codex, then batch 1 of the entries (`docs/m1/brief-entries.md`).
 
 ## Where M1 stands, 2026-11-17
 

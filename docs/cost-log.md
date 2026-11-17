@@ -30,6 +30,7 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-17 02:02 | Fresh Opus orchestrator session started (Q42); corrections builder launched (Opus, high) | 69% | 29% | 5-hour window at 2%, just reset. |
 | 2026-11-17 02:14 | Corrections merged (`0352c75`; Opus, high, about 203k tokens); contract-test builder for `always` launched (Sonnet) | 71% | 29% | 5-hour window at 14%. |
 | 2026-11-17 02:16 | Contract tests for `always` merged (`2b12c9a`; Sonnet, medium, about 105k tokens); Codex re-check requested | 72% | 29% | 5-hour window at 18%. |
+| 2026-11-17 11:35 | Codex's re-check read and verified; guide corrected; second corrections builder launched (Opus, high) | 74% | n/a | 5-hour window at 18%. The usage card no longer shows a Fable line. |
 
 ### What day 1 says about cost
 
