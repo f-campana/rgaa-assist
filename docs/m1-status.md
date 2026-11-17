@@ -22,12 +22,9 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-- Steps 1 and 2 of "Next, in order" are done (`0352c75`, `2b12c9a`). 405 tests pass.
-- Step 3, Codex's re-check (`rgaa-m1-corrections-2b12c9a-independent-recheck.md` in its outputs folder): not clean. Four findings, all verified and accepted by the orchestrator.
-  - R1, 8.3.1's fault witness is too broad; R2, 8.3.1 cannot be `full` under 10.4 point 4. Second corrections builder running (Opus, high), brief `docs/m1/brief-corrections-2.md`, with a sentence of 11.1.1.
-  - R4, the guide implied `evidence_only` removes a positive claim. Fixed by the orchestrator in `63b764a`, with the per-route rule for `full` and a rule on fault witnesses.
-  - R3, Q40 and spec 8.3 step 4 disagree on an `always` test with one requirement inapplicable and another satisfied. Waiting for Fabien.
-- After these: a focused re-check by Codex, then batch 1 of the entries (`docs/m1/brief-entries.md`).
+- Codex's re-check of the corrections found R1 to R4. All are answered on main at `af60a0a`: 8.3.1 narrowed and lowered to `fail_only` (R1, R2); Q43 decided by Fabien and applied, spec 8.3 step 4 amended, implementation and contract tests by two agents (R3); guide fixed (R4); 11.1.1 sentence rewritten. 414 tests pass; entries none 8, fail_only 6, full 0.
+- Waiting for Codex's focused re-check (bridge, reply to `0mwklyq9i3c1a`). Fabien prompts Codex.
+- Then batch 1, cut to fit before the 85% stop: at 77% all-models, about 8 points remain. Run builders A (1.1, 1.5) and B (8.x) only, about 21 tests and 5 points. Builder C (11.2 to 11.5) waits for the reset of 2026-11-21 16:00 UTC.
 
 ## Where M1 stands, 2026-11-17
 
