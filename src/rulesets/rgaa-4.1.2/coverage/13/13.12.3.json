@@ -1,0 +1,76 @@
+{
+  "test": "13.12.3",
+  "requirements": [
+    {
+      "id": "motion-detection-can-be-disabled",
+      "statement": "The user can turn off motion detection, so that the functions it triggers can no longer be set off by accident.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.12.3",
+          "line": 1,
+          "quote": "L’utilisateur a-t-il la possibilité de désactiver la détection du mouvement pour éviter un déclenchement accidentel de la fonctionnalité (hors cas particuliers) ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "disable-detection",
+          "statement": "A means lets the user turn off motion detection, after which none of the functions available by moving the device can be triggered.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "13.12.3",
+              "quote": "Vérifier si l’utilisateur à la possibilité de désactiver la détection du mouvement"
+            },
+            {
+              "source": "methodology",
+              "test": "13.12.3",
+              "quote": "Si c’est le cas, pour chaque fonctionnalité, vérifier qu’elle ne peut pas être déclenchée"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "essential-motion",
+          "statement": "The motion is essential to the function, such as a pedometer.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.12",
+              "quote": "Le mouvement est essentiel à l’accomplissement de la fonctionnalité (ex. podomètre)"
+            }
+          ]
+        },
+        {
+          "id": "accessible-interface",
+          "statement": "Motion detection is used to operate a function through an interface compatible with accessibility.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.12",
+              "quote": "La détection du mouvement est utilisée pour contrôler une fonctionnalité au travers d’une interface compatible avec l’accessibilité."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with one route, a way to turn off motion detection after which no motion-triggered function fires, and the two particular cases of the criterion as exceptions. Code can find listeners for device motion or orientation events on the window, but not which function they serve, whether the same function can be accomplished with an interface component, whether the motion is essential, or whether the detection serves an interface compatible with accessibility. Nor can it find a setting that turns detection off, or show that none exists. So no check is linked and the entry is none. No axe rule is tagged for this test. Applicability is judgment: the test concerns functions available by moving the device, and whether a page has any cannot be settled by code. Needs is state: the setting has to be operated and the functions tried again. Moving the device itself is not one of the prerequisites.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.12.3",
+        "quote": "Retrouver dans le document les fonctionnalités disponibles en mettant en mouvement l’appareil"
+      }
+    ]
+  }
+}
