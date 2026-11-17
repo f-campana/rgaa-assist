@@ -1,0 +1,99 @@
+{
+  "test": "5.7.1",
+  "requirements": [
+    {
+      "id": "whole-header-association",
+      "statement": "In each data table, each th element whose content applies to the whole row or the whole column has a unique id, a scope attribute, or role=\"rowheader\" or role=\"columnheader\", except in the particular case.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.7.1",
+          "line": 1,
+          "quote": "Pour chaque contenu de balise `<th>` s’appliquant à la totalité de la ligne ou de la colonne, la balise `<th>` respecte-t-elle une de ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "5.7",
+          "quote": "Pour chaque tableau de données, la technique appropriée permettant d’associer chaque cellule avec ses en-têtes est-elle utilisée (hors cas particuliers) ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "unique-id",
+          "statement": "The th element has a unique id attribute.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.1",
+              "line": 2,
+              "quote": "La balise `<th>` possède un attribut `id` unique ;"
+            }
+          ]
+        },
+        {
+          "id": "scope-attribute",
+          "statement": "The th element has a scope attribute.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.1",
+              "line": 3,
+              "quote": "La balise `<th>` possède un attribut `scope` ;"
+            }
+          ]
+        },
+        {
+          "id": "header-role",
+          "statement": "The th element has role=\"rowheader\" or role=\"columnheader\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.7.1",
+              "line": 4,
+              "quote": "La balise `<th>` possède un attribut WAI-ARIA `role=\"rowheader\"` ou `role=\"columnheader\"`."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "single-row-or-column-of-headers",
+          "statement": "In a data table whose headers are on a single row or a single column, the headers may be th elements without a scope attribute.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "5.7",
+              "quote": "Dans le cas de tableaux de données ayant des en-têtes sur une seule ligne ou une seule colonne, les en-têtes peuvent être structurés à l’aide de balise `<th>` sans attribut `scope`."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "One requirement with three routes, a unique id, a scope attribute, or a header role, and one exception from the particular case: when a table's headers are on a single row or a single column, th elements need no scope. The routes are attributes that code can read. The entry is still none. A fault would be a th with none of the three, and it would be sure only if the th surely applies to its whole row or column, if its table surely has headers on more than one row and more than one column, and if the table is surely a data table. None of the three is mechanical. A header is a cell whose content serves as the label of all or part of its row or column, so what a th covers, and where a table's headers really are, depend on meaning; a th that covers only a part belongs to test 5.7.3 instead. Whether a table element is a data table rather than a layout table is judgment (see 5.1.1). axe's th-has-data-cells is tagged but not linked: it faults a header that has no data cell it describes, and never looks at id, scope or role as means of association, so it examines none of the routes. Applicability is judgment. Needs is empty: th elements are cells of table elements, read on the page as loaded.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "En-tête de colonne ou de ligne",
+        "quote": "qui sert d’intitulé pour la totalité ou une partie des cellules de la colonne ou de la ligne."
+      },
+      {
+        "source": "test",
+        "test": "5.7.3",
+        "line": 1,
+        "quote": "Pour chaque contenu de balise `<th>` ne s’appliquant pas à la totalité de la ligne ou de la colonne"
+      },
+      {
+        "source": "methodology",
+        "test": "5.7.1",
+        "quote": "Si c’est le cas pour chaque en-tête s’appliquant à la totalité de la ligne ou de la colonne, **le test est validé**."
+      }
+    ]
+  }
+}
