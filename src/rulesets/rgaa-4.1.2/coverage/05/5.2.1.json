@@ -1,0 +1,79 @@
+{
+  "test": "5.2.1",
+  "requirements": [
+    {
+      "id": "summary-relevant",
+      "statement": "For each complex data table that has a summary, the summary is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.2.1",
+          "line": 1,
+          "quote": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?"
+        },
+        {
+          "source": "methodology",
+          "test": "5.2.1",
+          "quote": "Pour chaque résumé, vérifier que son contenu est pertinent ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "summary-explains-nature-and-structure",
+          "statement": "The summary gives information on the nature and the structure of the table.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Résumé (de tableau)",
+              "quote": "Il permet de donner des informations sur la nature et la structure du tableau afin d’en faciliter l’utilisation par les utilisateurs de technologies d’assistance par exemple."
+            },
+            {
+              "source": "glossary",
+              "entry": "Tableau de données complexe",
+              "quote": "permettant d’en expliquer sa nature et sa structure"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/table-duplicate-name",
+      "requirement": "summary-relevant",
+      "routes": ["summary-explains-nature-and-structure"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["assistive_tech"],
+  "rationale": {
+    "text": "Relevance is judgment: whether a passage explains the nature and structure of a table cannot be decided by code. The test also applies only to the summaries of complex data tables, as found by test 5.1.1, and whether a table is a data table rather than a layout table, and whether it is complex, is judgment too (see 5.1.1). So the entry is none. axe's table-duplicate-name faults a table whose summary attribute has the same text as its caption. It is linked, although axe marks it best-practice, because it is a concrete hint about the content of a summary: a summary attribute that repeats the caption may only repeat the title. It proves nothing. The caption can itself hold the summary, as the glossary recommends for HTML5, and then a summary attribute that repeats it is still a relevant summary. The rule looks at every table element with both a caption and a summary attribute, whether or not it is a complex data table, and never at summaries linked with aria-describedby, so its scope is partial and its fault is evidence only. Applicability is judgment. Needs holds assistive_tech: the glossary counts an element with role=\"table\" as a data table only when assistive technologies render it correctly, and requires its summary to be correctly rendered by them.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "5.2.1",
+        "quote": "Retrouver dans le document les résumés de tableaux de données complexes (tels que déterminés par le test 5.1.1)"
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "5.2",
+        "quote": "celui-ci est-il pertinent ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Résumé (de tableau)",
+        "quote": "en HTML5, la seule technique utilisable actuellement est celle qui consiste à insérer le résumé directement dans le titre (balise <caption>)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Résumé (de tableau)",
+        "quote": "le résumé doit être fourni au moyen d’un attribut aria-describedby et être correctement restitué par les technologies d’assistance."
+      }
+    ]
+  }
+}
