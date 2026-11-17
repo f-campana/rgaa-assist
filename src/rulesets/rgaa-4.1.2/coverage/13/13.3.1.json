@@ -1,0 +1,129 @@
+{
+  "test": "13.3.1",
+  "requirements": [
+    {
+      "id": "office-document-accessible",
+      "statement": "Each feature that downloads an office document meets one of the listed conditions, where needed.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.3.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque fonctionnalité de téléchargement d’un document bureautique vérifie-t-elle une de ces conditions ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "13.3",
+          "quote": "possède-t-il, si nécessaire, une [version accessible](#version-accessible-pour-un-document-en-telechargement) (hors cas particuliers) ?"
+        },
+        {
+          "source": "methodology",
+          "test": "13.3.1",
+          "quote": "Retrouver dans le document les liens et les contrôles de formulaire (un bouton de formulaire ou un formulaire de téléchargement par exemple) permettant de télécharger un fichier au format bureautique"
+        }
+      ],
+      "routes": [
+        {
+          "id": "document-accessible",
+          "statement": "The downloaded document is itself compatible with accessibility.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.3.1",
+              "line": 2,
+              "quote": "Le document en téléchargement est compatible avec l'accessibilité"
+            },
+            {
+              "source": "glossary",
+              "entry": "Version accessible (pour un document en téléchargement)",
+              "quote": "doivent être rendus accessibles soit directement soit par l’intermédiaire d’une version accessible ou d’une version en HTML."
+            }
+          ]
+        },
+        {
+          "id": "accessible-download-alternative",
+          "statement": "An alternative version compatible with accessibility can be downloaded; a plain text file cannot serve as that version.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.3.1",
+              "line": 3,
+              "quote": "Il en existe une version alternative en téléchargement compatible avec l'accessibilité"
+            },
+            {
+              "source": "glossary",
+              "entry": "Version accessible (pour un document en téléchargement)",
+              "quote": "le format texte (txt) ne peut pas être utilisé pour produire une version accessible pour un document en téléchargement."
+            }
+          ]
+        },
+        {
+          "id": "html-alternative",
+          "statement": "An alternative version in HTML compatible with accessibility exists.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.3.1",
+              "line": 4,
+              "quote": "Il en existe une version alternative au format HTML compatible avec l'accessibilité."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "pre-2018-private-law",
+          "statement": "For the private-law persons named in 2° to 4° of I of article 47 of the law of 11 February 2005, office files published before 23 September 2018 are exempt, unless needed to complete an administrative procedure; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "13.3",
+              "quote": "si les fichiers bureautiques (ex : PDF, documents Microsoft ou LibreOffice, etc.) ont été publiés avant le 23 septembre 2018 (sauf si ce sont des documents nécessaires pour accomplir une démarche administrative relevant des tâches effectuées par l’organisme concerné), ils sont exemptés de l’obligation d’accessibilité."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "13.3",
+              "quote": "Dans cette situation, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "derogated-document",
+          "statement": "A document under the derogation status of the reference framework, for which the accessible version is provided on the user's request, is not tested.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "13.3.1",
+              "quote": "Dans ce cas, les tests ne sont pas à réaliser, la version accessible étant fournie sur demande de l'utilisateur."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement, qualified by \"si nécessaire\" in the criterion title, with three routes and two exceptions. Every route turns on whether a file is compatible with accessibility, which the methodology checks by opening each file in an outside tool (PAC for PDF, the Office checker, an EPUB or DAISY editor) and by comparing the result with a list of criteria, keeping only some errors as failures. That is outside the rendered page and partly judgment. The two alternative routes also need an auditor to recognise which link or page is the alternative of which document. The exceptions turn on who publishes the site, when a file was published, whether it serves an administrative procedure, and whether a derogation applies: none of this is in the page. Finding the elements is not mechanical either: a download may be a link whose URL has no file extension, a form button, or a script, and the file type is known only by fetching it. So no check is linked and the entry is none. No axe rule is tagged for this test. Applicability is judgment: whether the page offers an office document for download, and whether an exception applies, cannot be settled by code. Needs is empty: what the test needs beyond the page is the downloaded files and outside checkers, which none of the prerequisites stands for.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.3.1",
+        "quote": "Pour les documents au format .pdf, analyser le fichier avec l’outil PAC (PDF Accessibility Checker) et vérifier l’absence d’erreur d’accessibilité dans le document (cf. note)"
+      },
+      {
+        "source": "methodology",
+        "test": "13.3.1",
+        "quote": "Seules les erreurs relatives à des critères présents dans la liste des critères « Liste document bureautique en téléchargement » rendent le critère « Non conforme »."
+      },
+      {
+        "source": "glossary",
+        "entry": "Version accessible (pour un document en téléchargement)",
+        "quote": "Les formats de document dont la compatibilité est reconnue sont :"
+      }
+    ]
+  }
+}
