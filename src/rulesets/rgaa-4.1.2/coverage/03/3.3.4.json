@@ -1,0 +1,188 @@
+{
+  "test": "3.3.4",
+  "requirements": [
+    {
+      "id": "mechanism-colours-contrast",
+      "statement": "In each mechanism that displays a compliant contrast ratio, the colours of the component, or of the information-bearing graphic elements it is made of, are contrasted enough, outside the particular cases.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "3.3.4",
+          "line": 1,
+          "quote": "les couleurs du composant ou des éléments graphiques porteurs d’informations qui le composent, sont-elles suffisamment contrastées"
+        },
+        {
+          "source": "methodology",
+          "test": "3.3.4",
+          "quote": "Pour chacun de ces mécanismes, vérifier que le rapport de contraste entre les couleurs du composant ou des éléments graphiques porteurs d’informations qui le composent est suffisamment élevé"
+        }
+      ],
+      "routes": [
+        {
+          "id": "sufficient-contrast",
+          "statement": "The colours of the mechanism component and of its information-bearing graphic elements are contrasted enough; the glossary asks the mechanism's own design to conform to criterion 3.3 without relying on a mechanism itself.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "3.3.4",
+              "line": 1,
+              "quote": "sont-elles suffisamment contrastées"
+            },
+            {
+              "source": "glossary",
+              "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+              "quote": "Le design de ce composant d’interface devra être conforme au critère 3.2 et au critère 3.3 sans avoir recours lui-même à un mécanisme permettant d’afficher un rapport de contraste conforme."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "inactive-component",
+          "statement": "An inactive interface component on which no action is possible, such as a disabled button.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Composant d’interface inactif (par exemple, un bouton avec un attribut `disabled`) sur lequel aucune action n’est possible"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "native-browser-styles",
+          "statement": "An interface component whose appearance is left to the browser's native styles, with no change by the author, such as the native focus style.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Composant d’interface pour lequel l’apparence est gérée par les styles natifs du navigateur sans aucune modification par l’auteur"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "colour-not-needed",
+          "statement": "An interface component for which colour is not needed to identify the component or its state.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Composant d’interface pour lequel la couleur n’est pas nécessaire pour identifier le composant ou son état"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-without-information-or-with-alternative",
+          "statement": "A graphic element, or part of one, that carries no information or has an alternative (a long description, the same information visible in the page).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique non porteur d’information ou ayant une alternative (description longue, informations identiques visibles dans la page)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-logo-or-brand",
+          "statement": "A graphic element, or part of one, that is part of a logo or of the brand name of an organisation or a company.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique faisant partie d’un logo ou du nom de marque d’un organisme ou d’une société"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-presentation-essential",
+          "statement": "A graphic element, or part of one, whose presentation is essential to the information it conveys (flags, logotypes, photos, screenshots, medical diagrams, heat maps).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique dont la présentation est essentielle à l’information véhiculée"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-dynamic-contrast-on-hover-focus",
+          "statement": "A dynamic graphic element, or part of one, whose contrast on hover or focus is sufficient.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique dynamiques dont le contraste au survol / focus est suffisant."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test applies to each mechanism that displays a compliant contrast ratio, an interface component whose activation changes the appearance of the site or page so that contents show with enough contrast. Finding one is judgment: code cannot tell a contrast switch from any other control without reading its label and trying it. The wording asks whether the colours are \"suffisamment contrastées\" and gives no threshold. The glossary asks the component's design to conform to criterion 3.3 without relying on a mechanism itself, which points to the 3:1 of tests 3.3.1 to 3.3.3, and \"porteurs d’informations\" limits the graphic elements concerned, which is judgment. The methodology's note repeats the criterion's seven particular cases for this test, so all seven are listed as exceptions. No axe rule is tagged for this test, and axe has no rule for non-text contrast. No custom check is registered: the mechanism itself cannot be found by code. The candidate is none, with no link. Applicability is judgment: whether a page holds such a mechanism cannot be decided by code. Needs is state: the mechanism may sit inside a settings panel that must be opened first, and its states (selected, focused) appear only after interaction.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "3.3.4",
+        "line": 1,
+        "quote": "Dans le mécanisme qui permet d’afficher un rapport de contraste conforme"
+      },
+      {
+        "source": "glossary",
+        "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+        "quote": "Le design de ce composant d’interface devra être conforme au critère 3.2 et au critère 3.3"
+      },
+      {
+        "source": "methodology",
+        "test": "3.3.4",
+        "quote": "Note : le critère est non applicable dans ces situations"
+      },
+      {
+        "source": "methodology",
+        "test": "3.3.4",
+        "quote": "Si c’est le cas pour chaque mécanisme, **le test est validé**."
+      }
+    ]
+  }
+}
