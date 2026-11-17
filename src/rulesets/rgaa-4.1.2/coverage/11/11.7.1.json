@@ -1,0 +1,84 @@
+{
+  "test": "11.7.1",
+  "requirements": [
+    {
+      "id": "legend-relevant",
+      "statement": "In each form, each legend associated with a grouping of fields of the same nature is relevant, whether it is given by the grouping element or by each field.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.7.1",
+          "line": 1,
+          "quote": "Chaque [légende](#legende) associée à un regroupement de [champs de même nature](#champs-de-meme-nature) est-elle pertinente ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "11.7",
+          "quote": "Dans chaque [formulaire](#formulaire), chaque [légende](#legende) associée à un regroupement"
+        },
+        {
+          "source": "methodology",
+          "test": "11.7.1",
+          "quote": "Pour chaque groupe de champs de formulaire de même nature ou pour chacun des champs de même nature qui dispose d’une légende, vérifier que le texte de cette légende est pertinent ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "legend-text-relevant",
+          "statement": "The text of the legend (a legend element, a passage linked by aria-labelledby, an aria-label, or the grouping information carried by each field) lets the user identify the fields as one grouping and what it is about.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.7.1",
+              "quote": "vérifier que le texte de cette légende est pertinent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Légende",
+              "quote": "un passage de texte, faisant office de légende, lié par l’attribut WAI-ARIA aria-labelledby ou fourni par un attribut WAI-ARIA aria-label"
+            },
+            {
+              "source": "glossary",
+              "entry": "Champs de même nature",
+              "quote": "Le regroupement vise à identifier les champs devant être traités comme un ensemble."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-7-group-legend-empty",
+      "requirement": "legend-relevant",
+      "routes": ["legend-text-relevant"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Relevance is judgment: no code can tell whether a legend's text lets the user identify a grouping of fields and what it is about. The test also applies only to legends associated with a grouping of fields of the same nature, and which fields form such a grouping is judgment under the glossary, which defines them by the nature of the information expected. One case looks mechanical, an empty legend, and a custom check looks for it: a fieldset inside a form whose legend element holds no text, image or generated content, or an element with role group or radiogroup whose only label is an empty aria-label. Its fault is still evidence only, because the witness is not surely in this test's scope. A fieldset may be used for layout around fields that are not of the same nature, and then its legend is not one this test covers. Raising it to failure would need a rule, cited from the official text, by which code can tell that a marked-up group is a grouping of fields of the same nature. The check does not look at grouping information carried by each field (title, aria-label, aria-labelledby or aria-describedby, Note 1 of the glossary), so its scope is partial. It never answers no_fault. No axe-core rule is tagged for this test. Applicability is judgment, for the same reason as the scope of the test. Needs is empty: legends are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "11.7",
+        "quote": "est-elle pertinente ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Champs de même nature",
+        "quote": "Dans un formulaire, ensemble des champs pouvant être regroupés par la nature des informations attendues."
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende",
+        "quote": "Les regroupements de champs peuvent utiliser d’autres méthodes qui associent l’information du regroupement directement dans l’étiquette du champ."
+      }
+    ]
+  }
+}
