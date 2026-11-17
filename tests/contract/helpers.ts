@@ -72,7 +72,7 @@ export interface EntrySpec {
   candidate?: Level;
   /** Default `full`. */
   enabled?: Level;
-  applicability?: "structural" | "judgment";
+  applicability?: "structural" | "judgment" | "always";
   needs?: Prerequisite[];
   /** Rationale text; default "Why.". */
   rationale?: string;
