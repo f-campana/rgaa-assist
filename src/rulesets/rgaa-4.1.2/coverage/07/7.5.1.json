@@ -1,0 +1,77 @@
+{
+  "test": "7.5.1",
+  "requirements": [
+    {
+      "id": "status-message-role",
+      "statement": "Each status message that informs of the success or result of an action, or of the state of an application, is contained in an element that takes the status role.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.5.1",
+          "line": 1,
+          "quote": "Chaque message de statut qui informe de la réussite, du résultat d’une action ou bien de l’état d’une application utilise-t-il l’attribut WAI-ARIA `role=\"status\"` ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Message de statut",
+          "quote": "Un message de statut informe l’utilisateur d’un changement de contenu dans la page sans interrompre son activité principale"
+        }
+      ],
+      "routes": [
+        {
+          "id": "role-status",
+          "statement": "The element containing the message has role=\"status\".",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.5.1",
+              "quote": "Soit utilise l’attribut WAI-ARIA `role=”status”` ;"
+            }
+          ]
+        },
+        {
+          "id": "live-polite-atomic",
+          "statement": "The element containing the message has aria-live=\"polite\" and aria-atomic=\"true\", which may stand for the status role when the message's nature fits it.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "7.5.1",
+              "quote": "Soit utilise les attributs WAI-ARIA `aria-live=”polite”` et `aria-atomic=”true”`."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "7.5",
+              "quote": "Un attribut WAI-ARIA `aria-live=\"polite\"` et un attribut WAI-ARIA `aria-atomic=\"true\"` associés à un message de statut peuvent valoir pour un rôle WAI-ARIA `status` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test has one requirement with two routes: the element holding the message has role=\"status\", or aria-live=\"polite\" with aria-atomic=\"true\", which the technical note accepts for a status message whose nature fits. Whether a piece of content is a status message, and whether it informs of a success, a result or an application's state rather than an error, a suggestion or progress, is judgment: the methodology has the auditor determine the nature of each message. A live region with another role (alert, log) is right for other kinds of message, under tests 7.5.2 and 7.5.3, so its presence proves nothing without that judgment. Most status messages also appear only after the user acts. So the candidate is none and no check is linked. No axe rule is tagged for this test. Applicability is judgment: whether the page produces status messages of this kind is not known from the page as loaded. Needs is state, since status messages follow an action.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "7.5.1",
+        "quote": "Pour chacun de ces messages, déterminer la nature de l’information dont est porteur le message :"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "7.5",
+        "quote": "C’est sous réserve que la nature du message de statut satisfasse bien à la correspondance implicitement établie."
+      },
+      {
+        "source": "glossary",
+        "entry": "Message de statut",
+        "quote": "Un message de statut peut informer sur :"
+      }
+    ]
+  }
+}
