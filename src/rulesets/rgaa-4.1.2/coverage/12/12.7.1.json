@@ -1,0 +1,110 @@
+{
+  "test": "12.7.1",
+  "requirements": [
+    {
+      "id": "link-skips-or-reaches-main",
+      "statement": "On each page, a link lets the user skip the main content zone or reach it.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.7.1",
+          "line": 1,
+          "quote": "Dans chaque page web, un lien permet-il d’éviter la zone de contenu principal ou d’y accéder (hors cas particuliers) ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "skip-link-before-main",
+          "statement": "A skip link that directly precedes the main content zone in source order lets the user skip it.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.7.1",
+              "quote": "Soit peut être évitée au moyen d’un lien d’évitement précédant directement la zone dans l’ordre du code source ;"
+            }
+          ]
+        },
+        {
+          "id": "quick-access-link-to-main",
+          "statement": "A quick-access link, visible at least when it takes focus by tabbing, lets the user reach the main content zone.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.7.1",
+              "quote": "Soit peut être atteinte au moyen d’un lien d’accès rapide visible à la prise de focus lors d’une tabulation."
+            },
+            {
+              "source": "glossary",
+              "entry": "Liens d’évitement ou d’accès rapide",
+              "quote": "Ces liens peuvent soit permettre d’accéder à une zone de la page (lien d’accès rapide) ou de sauter une zone dans la page (lien d’évitement)."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "single-page-site-link-useless",
+          "statement": "On a website made of a single page, the criterion may be not applicable when a quick-access link is shown to be useless, given the page's context.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.7",
+              "quote": "Il existe une gestion de cas particuliers lorsque le site web est constitué d’une seule page."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "12.7",
+              "quote": "Le critère peut être considéré comme non applicable lorsqu’il est avéré qu’un lien d’accès rapide est inutile."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/bypass",
+      "requirement": "link-skips-or-reaches-main",
+      "routes": ["skip-link-before-main", "quick-access-link-to-main"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/skip-link",
+      "requirement": "link-skips-or-reaches-main",
+      "routes": ["skip-link-before-main", "quick-access-link-to-main"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard"],
+  "rationale": {
+    "text": "The requirement is that a link skips the main content zone or gives access to it. Both routes need more than markup. The quick-access link must be visible when it takes focus by tabbing, which needs a keyboard pass. Either link must actually move the user past or into the main content zone, and the main zone itself, though the methodology points to the visible main element, is defined by its content. The exception decides the most: on a single-page website the criterion may be not applicable when a quick-access link is shown to be useless, given whether the page has navigation or additional content. A check run on one page cannot know whether the site has one page, and usefulness is judgment. So even a page with no link at all is not proven to fail: a failure link would have to examine the exception, and no check can. axe's bypass rule is linked as evidence only, with partial scope. It passes a page that has a heading or a main landmark, which this test does not accept in place of a link, so its clean result proves nothing. It faults a page with no heading, no main landmark and no link whose href starts with a hash. That is a strong hint, but not proof: a link written with the page's own address before the fragment, or a scripted link, can still meet the test, and the single-page exception may apply. axe 4.14.0 marks its faults for review. Its routes are both, because the in-page link it looks for could serve either route, and it does not tell them apart. axe's skip-link rule is marked best-practice; it is linked because its fault is useful evidence: an off-screen link to a fragment, placed before the first link to another page, whose target does not exist. Such a link does not work, but the page may meet the test through another link, so its fault is evidence only. It looks only at off-screen links of that form, so its scope is partial, and it too cannot tell a skip link from a quick-access link. The entry is none. What would raise it to fail_only: a fact available to the check that the site has more than one page, which would rule out the exception, together with a stated definition of a link that could serve either route, so that a page with none could be faulted. Applicability is judgment, because not applicable follows only from the exception. Needs is keyboard, for visibility at focus by tabbing.",
+    "citations": [
+      {
+        "source": "particular_cases",
+        "criterion": "12.7",
+        "quote": "l’obligation de la présence d’un lien d’accès rapide est liée au contexte de la page : présence ou absence de navigation ou de contenus additionnels, par exemple."
+      },
+      {
+        "source": "methodology",
+        "test": "12.7.1",
+        "quote": "Retrouver dans le document la zone de contenu principal (indiquée par l’élément main visible) ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Zone de contenu principal",
+        "quote": "Zone contenant les principaux contenus de la page, là où se trouvent les informations et fonctionnalités de fond"
+      },
+      {
+        "source": "test",
+        "test": "12.7.1",
+        "line": 1,
+        "quote": "un lien permet-il d’éviter la zone de contenu principal ou d’y accéder"
+      }
+    ]
+  }
+}
