@@ -1,0 +1,88 @@
+{
+  "test": "4.4.1",
+  "requirements": [
+    {
+      "id": "captions-relevant",
+      "statement": "For each prerecorded synchronized media that has synchronized captions, the captions are relevant: all the important sound information is present, dialogue in particular.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.4.1",
+          "line": 1,
+          "quote": "Pour chaque média temporel synchronisé pré-enregistré ayant des sous-titres synchronisés, ces sous-titres sont-ils pertinents"
+        },
+        {
+          "source": "methodology",
+          "test": "4.4.1",
+          "quote": "Pertinents (toutes les informations sonores importantes sont présentes, les dialogues notamment)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "captions-carry-audio-information",
+          "statement": "The captions give the text of the audio information of the media: what the characters say and the sounds needed to follow the action.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Sous-titres synchronisés (objet multimédia)",
+              "quote": "Texte des informations audio (paroles d’un personnage, bruit important pour comprendre l’action…)"
+            },
+            {
+              "source": "methodology",
+              "test": "4.4.1",
+              "quote": "toutes les informations sonores importantes sont présentes, les dialogues notamment"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "captions-synchronized",
+      "statement": "For each prerecorded synchronized media that has synchronized captions, the captions are correctly synchronized with the media.",
+      "citations": [
+        {
+          "source": "methodology",
+          "test": "4.4.1",
+          "quote": "Et correctement synchronisés."
+        }
+      ],
+      "routes": [
+        {
+          "id": "captions-in-sync",
+          "statement": "Each caption is shown in sync with the stream of the media.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Sous-titres synchronisés (objet multimédia)",
+              "quote": "affiché de manière synchrone avec le flux de l’objet multimédia"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The wording asks whether the captions are relevant, and the methodology asks for two things that must both hold: the captions are relevant (all important sound information, dialogue in particular) and correctly synchronized. They are two requirements. Both are judgments: comparing captions with a soundtrack, and checking that each caption appears with the speech or sound it renders, needs the media to play and someone to listen. No axe rule is tagged for this test and no deterministic check can decide either requirement, so there are no links and the entry stays at none. A captions track that is empty or fails to load is not claimed as a fault here: the media then has no captions, which makes this test not applicable to it and belongs to criterion 4.3. Criterion 4.4 has no particular cases. Applicability is judgment: whether a media is prerecorded, synchronized and has captions cannot be decided with certainty from the markup. Needs lists media.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.4",
+        "quote": "ces sous-titres sont-ils pertinents"
+      },
+      {
+        "source": "methodology",
+        "test": "4.4.1",
+        "quote": "Retrouver dans le document les médias temporels synchronisés possédant des sous-titres synchronisés"
+      }
+    ]
+  }
+}
