@@ -1,0 +1,139 @@
+{
+  "test": "11.6.1",
+  "requirements": [
+    {
+      "id": "group-has-legend",
+      "statement": "In each form, each grouping of fields of the same nature has a legend.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.6.1",
+          "line": 1,
+          "quote": "Chaque regroupement de [champs de même nature](#champs-de-meme-nature) possède-t-il une [légende](#legende) ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "11.6",
+          "quote": "Dans chaque [formulaire](#formulaire), chaque regroupement de [champs de même nature](#champs-de-meme-nature) a-t-il une [légende](#legende) ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.6.1",
+          "quote": "Retrouver dans le document les groupes de champs de formulaire de même nature ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "fieldset-legend",
+          "statement": "The grouping is a fieldset element that has a legend element.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.6.1",
+              "quote": "Si le regroupement utilise un élément `<fieldset>`, l’élément `<fieldset>` possède un élément `<legend>` ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Légende",
+              "quote": "HTML propose un dispositif permettant de titrer les groupes de champs de même nature par l’intermédiaire des éléments <fieldset> et <legend>."
+            }
+          ]
+        },
+        {
+          "id": "aria-group-label",
+          "statement": "The grouping element has role group or radiogroup and an aria-label attribute, or an aria-labelledby attribute linking a passage of text that serves as legend.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.6.1",
+              "quote": "Si l’élément de regroupement utilise un attribut WAI-ARIA `role=\"group\"` ou `\"radiogroup\"`, il possède un attribut WAI-ARIA `aria-label` ou `aria-labelledby`."
+            },
+            {
+              "source": "glossary",
+              "entry": "Légende",
+              "quote": "Il est également possible de créer des regroupements avec le rôle WAI-ARIA group et un passage de texte, faisant office de légende, lié par l’attribut WAI-ARIA aria-labelledby ou fourni par un attribut WAI-ARIA aria-label."
+            }
+          ]
+        },
+        {
+          "id": "per-field-grouping-info",
+          "statement": "Instead of a grouping element, each field of the same nature carries a title, aria-label, aria-labelledby or aria-describedby that lets the user determine that the field belongs to the grouping.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.6.1",
+              "quote": "Sinon, pour chacun des champs de même nature, vérifier la présence :"
+            },
+            {
+              "source": "methodology",
+              "test": "11.6.1",
+              "quote": "Soit d’un attribut title permettant de déterminer l’appartenance du champ au groupement de champ ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Légende",
+              "quote": "Les regroupements de champs peuvent utiliser d’autres méthodes qui associent l’information du regroupement directement dans l’étiquette du champ."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "labels-suffice",
+          "statement": "Fields need to be grouped only when their label texts do not suffice to tell the user that they belong to a grouping.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Champs de même nature",
+              "quote": "Ces champs doivent être regroupés lorsque les intitulés de label ne sont pas suffisants pour informer l’utilisateur que les champs font partie d’un regroupement."
+            }
+          ]
+        },
+        {
+          "id": "single-block-or-field",
+          "statement": "When the form is made of a single block of information of the same nature, or of a single field, grouping is not required.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Légende",
+              "quote": "Lorsque le formulaire est constitué d’un seul bloc d’informations de même nature (l’identité et l’adresse de l’utilisateur, par exemple) ou d’un champ unique (un moteur de recherche, par exemple), le regroupement des champs n’est pas obligatoire."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-6-group-without-legend",
+      "requirement": "group-has-legend",
+      "routes": ["fieldset-legend", "aria-group-label"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to groupings of fields of the same nature, and the glossary defines those by the nature of the information expected, with examples (a date in three fields, a set of radio buttons answering one question). Which fields form such a grouping is judgment, and so is the exception that the glossary attaches to it: fields need to be grouped only when their labels do not suffice to tell the user that they belong together. The glossary of the legend adds a second exception, a form made of one block or one field, and Note 1 and the methodology accept a third route in which each field carries the grouping information itself in a title, aria-label, aria-labelledby or aria-describedby; whether that information lets the user determine the grouping is judgment too. So the entry stays at none: no check can find every grouping that needs a legend, and none can say a missing legend is a failure. One custom check gives a hint. It looks at fieldset elements and elements with role group or radiogroup inside a form that hold at least two fields, and faults a fieldset with no legend element and no ARIA label, or a group element with neither aria-label nor aria-labelledby. That covers the first two routes as markup only. It does not look at fields that are of the same nature but not marked up as a group, so its scope is partial. Its fault is evidence only: the fieldset may be used for layout and group fields that are not of the same nature, the labels may suffice, or the fields may carry the grouping information themselves. No axe-core rule is tagged for this test. Applicability is judgment, since whether a page holds a grouping of fields of the same nature is judgment. Needs is empty: the markup is read on the page as loaded.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Champs de même nature",
+        "quote": "Dans un formulaire, ensemble des champs pouvant être regroupés par la nature des informations attendues."
+      },
+      {
+        "source": "glossary",
+        "entry": "Champs de même nature",
+        "quote": "Ces champs doivent être regroupés lorsque les intitulés de label ne sont pas suffisants"
+      },
+      {
+        "source": "methodology",
+        "test": "11.6.1",
+        "quote": "Si c’est le cas pour chaque groupe de champs de formulaire ou pour chacun des champs de même nature, **le test est validé**."
+      }
+    ]
+  }
+}
