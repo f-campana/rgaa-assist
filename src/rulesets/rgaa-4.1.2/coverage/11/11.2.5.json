@@ -1,0 +1,251 @@
+{
+  "test": "11.2.5",
+  "requirements": [
+    {
+      "id": "aria-label-contains-visible",
+      "statement": "For each form field that has a visible label: if the field has an aria-label, its content contains at least the visible label.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.2.5",
+          "line": 1,
+          "quote": "Chaque champ de formulaire ayant un intitulé visible vérifie-t-il ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "test",
+          "test": "11.2.5",
+          "line": 2,
+          "quote": "S’il est présent, le contenu de l’attribut WAI-ARIA `aria-label` du champ de formulaire contient au moins l’intitulé visible ;"
+        },
+        {
+          "source": "glossary",
+          "entry": "Intitulé visible",
+          "quote": "Texte affiché faisant office d’étiquette pour un champ formulaire."
+        }
+      ],
+      "routes": [
+        {
+          "id": "aria-label-contains",
+          "statement": "The aria-label contains the visible label; the punctuation and capital letters of the visible label may be left out of it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.2.5",
+              "line": 2,
+              "quote": "contient au moins l’intitulé visible"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "La ponctuation et les lettres majuscules sont présentes dans le texte de l’intitulé visible : elles peuvent être ignorées dans le nom accessible sans porter à conséquence"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "aria-label-symbol",
+          "statement": "The visible label's text serves as a symbol: the aria-label expresses the function the symbol conveys instead of its literal text (mathematical symbols may still be repeated literally).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "Le texte de l’intitulé visible sert de symbole : le texte ne doit pas être interprété littéralement au niveau du nom accessible. Le nom doit exprimer la fonction véhiculée par le symbole"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "si l’étiquette visible représente une expression mathématique, les symboles mathématiques peuvent être repris littéralement pour servir d’étiquette au nom accessible"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "labelledby-contains-visible",
+      "statement": "For each form field that has a visible label: if the field has a passage of text linked through aria-labelledby, that passage contains at least the visible label.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.2.5",
+          "line": 3,
+          "quote": "S’il est présent, le passage de texte lié au champ de formulaire via un attribut WAI-ARIA `aria-labelledby` contient au moins l’intitulé visible ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "labelledby-contains",
+          "statement": "The passage contains the visible label; the punctuation and capital letters of the visible label may be left out of it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.2.5",
+              "line": 3,
+              "quote": "contient au moins l’intitulé visible"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "elles peuvent être ignorées dans le nom accessible sans porter à conséquence"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "labelledby-symbol",
+          "statement": "The visible label's text serves as a symbol: the passage expresses the function the symbol conveys instead of its literal text (mathematical symbols may still be repeated literally).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "Le texte de l’intitulé visible sert de symbole : le texte ne doit pas être interprété littéralement au niveau du nom accessible."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "les symboles mathématiques peuvent être repris littéralement"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "title-contains-visible",
+      "statement": "For each form field that has a visible label: if the field has a title attribute, its content contains at least the visible label.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.2.5",
+          "line": 4,
+          "quote": "S’il est présent, le contenu de l’attribut `title` du champ de formulaire contient au moins l’intitulé visible ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-contains",
+          "statement": "The title contains the visible label; the punctuation and capital letters of the visible label may be left out of it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.2.5",
+              "line": 4,
+              "quote": "contient au moins l’intitulé visible"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "elles peuvent être ignorées dans le nom accessible sans porter à conséquence"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "title-symbol",
+          "statement": "The visible label's text serves as a symbol: the title expresses the function the symbol conveys instead of its literal text (mathematical symbols may still be repeated literally).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "Le texte de l’intitulé visible sert de symbole : le texte ne doit pas être interprété littéralement au niveau du nom accessible."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "les symboles mathématiques peuvent être repris littéralement"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "label-contains-visible",
+      "statement": "For each form field that has a visible label: if a <label> element is associated with the field, its content contains at least the visible label.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.2.5",
+          "line": 5,
+          "quote": "S’il est présent le contenu de la balise `<label>` associé au champ de formulaire contient au moins l’intitulé visible."
+        }
+      ],
+      "routes": [
+        {
+          "id": "label-contains",
+          "statement": "The <label> element's content contains the visible label; the punctuation and capital letters of the visible label may be left out of it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.2.5",
+              "line": 5,
+              "quote": "contient au moins l’intitulé visible."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "elles peuvent être ignorées dans le nom accessible sans porter à conséquence"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "label-symbol",
+          "statement": "The visible label's text serves as a symbol: the <label> element's content expresses the function the symbol conveys instead of its literal text (mathematical symbols may still be repeated literally).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "Le texte de l’intitulé visible sert de symbole : le texte ne doit pas être interprété littéralement au niveau du nom accessible."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.2",
+              "quote": "les symboles mathématiques peuvent être repris littéralement"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-2-aria-label-lacks-label-words",
+      "requirement": "aria-label-contains-visible",
+      "routes": ["aria-label-contains"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has four requirements, one per line, and each applies only when its mechanism is present on a field that has a visible label. Each has one route, containment of the visible label with punctuation and capitals ignorable, and one exception, the particular case where the visible text is a symbol and the name expresses its function instead. Everything turns on the visible label, and identifying it is judgment. The glossary defines it as displayed text acting as the field's label, and allows an image containing text. The test's fifth line requires the content of the <label> to contain the visible label, so the visible label is not by definition the text of the <label> element: it may be other text near the field, or an image of text. Whether visible text is a symbol is judgment too. The entry is therefore none. The wording and the methodology also differ on which mechanisms are judged: the wording requires every present one to contain the visible label, the methodology names the one that provides the label. A check faulting only the mechanism that gives the accessible name would hold under both readings, but it still depends on knowing the visible label. One custom check is linked as evidence on the aria-label requirement: for a native field with a visible <label> tied by for and id and a non-empty aria-label (no aria-labelledby), it flags the field when no word of the label's visible text appears in the aria-label, after removing accents, case and punctuation, and abstains on digits, symbols, images, generated content and web fonts. Its fault does not prove that the label's text is the visible label, nor rule out a symbol, so it is evidence only; it examines only that route on fields labelled by a <label>, so its scope is partial. What would raise the entry: an official rule that identifies the visible label from the code, for example that the visible text of an associated <label> is the visible label, and one that tells a symbol from a word. No axe rule is tagged for this test; axe's label-content-name-mismatch examines elements named from their content, such as buttons and links, not form fields named by a <label> or an attribute. Applicability is judgment: whether a field has a visible label needs judgment. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Intitulé visible",
+        "quote": "Ce texte peut être constitué de texte ou d’une image contenant du texte."
+      },
+      {
+        "source": "methodology",
+        "test": "11.2.5",
+        "quote": "vérifier que le contenu de l’élément `<label>` ou de l’attribut `title` ou de l’attribut `aria-label` ou de l’attribut `aria-labelledby` contient l’intitulé visible"
+      },
+      {
+        "source": "test",
+        "test": "11.2.5",
+        "line": 5,
+        "quote": "S’il est présent le contenu de la balise `<label>` associé au champ de formulaire contient au moins l’intitulé visible."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "11.2",
+        "quote": "(hors cas particuliers)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "test": "11.4.3",
+  "requirements": [
+    {
+      "id": "checkable-label-position",
+      "statement": "In each form, each label adjacent to a checkbox, a radio button or an element with role checkbox, radio or switch is placed visually immediately below the field, or immediately on the side where its language's reading ends: right for a left-to-right language, left for a right-to-left one.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.4.3",
+          "line": 1,
+          "quote": "Chaque étiquette accolée à un champ de type `checkbox` ou `radio` ou à une balise ayant un attribut WAI-ARIA `role=\"checkbox\"`, `role=\"radio\"` ou `role=\"switch\"`, vérifie-t-elle ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "11.4",
+          "quote": "Dans chaque formulaire"
+        }
+      ],
+      "routes": [
+        {
+          "id": "label-below",
+          "statement": "The label is visually adjacent immediately below the field, whatever the reading direction of its language.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.4.3",
+              "line": 2,
+              "quote": "L’étiquette est visuellement accolée immédiatement au-dessous ou à droite du champ de formulaire lorsque le sens de lecture de la langue de l’étiquette est de gauche à droite ;"
+            },
+            {
+              "source": "test",
+              "test": "11.4.3",
+              "line": 3,
+              "quote": "L’étiquette est visuellement accolée immédiatement au-dessous ou à gauche du champ de formulaire lorsque le sens de lecture de la langue de l’étiquette est de droite à gauche."
+            }
+          ]
+        },
+        {
+          "id": "label-right-ltr",
+          "statement": "The label's language reads from left to right, and the label is visually adjacent immediately to the right of the field.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.4.3",
+              "line": 2,
+              "quote": "à droite du champ de formulaire lorsque le sens de lecture de la langue de l’étiquette est de gauche à droite"
+            }
+          ]
+        },
+        {
+          "id": "label-left-rtl",
+          "statement": "The label's language reads from right to left, and the label is visually adjacent immediately to the left of the field.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.4.3",
+              "line": 3,
+              "quote": "à gauche du champ de formulaire lorsque le sens de lecture de la langue de l’étiquette est de droite à gauche."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "mixed-direction-label",
+          "statement": "The label mixes a portion of text read right to left with a portion read left to right; the test is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.4",
+              "quote": "Dans le cas où l’étiquette mélange une portion de texte qui se lit de droite à gauche avec une portion de texte qui se lit de gauche à droite"
+            }
+          ]
+        },
+        {
+          "id": "multi-direction-form",
+          "statement": "The form holds labels in several languages, some read right to left and others left to right; the test is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.4",
+              "quote": "Dans le cas où un formulaire contient des labels de plusieurs langues qui se liraient de droite à gauche et inversement."
+            }
+          ]
+        },
+        {
+          "id": "not-shown-as-checkable",
+          "statement": "The checkbox, radio button or element with role checkbox, radio or switch is not presented visually as a radio button or a checkbox; the test is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.4",
+              "quote": "Dans le cas où les champs de type `radio` ou `checkbox` et les balises ayant un attribut WAI-ARIA `role=\"checkbox\"`, `role=\"radio\"` ou `role=\"switch\"` ne sont pas visuellement présentés sous forme de bouton radio ou de case à cocher"
+            }
+          ]
+        },
+        {
+          "id": "legitimate-other-placement",
+          "statement": "The fields are used in a context where placing the labels differently can be legitimate from the point of view of user experience; the test is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.4",
+              "quote": "Dans le cas où les champs seraient utilisés dans un contexte où il pourrait être légitime, du point de vue de l’expérience utilisateur, de placer les étiquettes de manière différente à celle requise dans les tests 11.4.2 et 11.4.3."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-4-label-position-checkable",
+      "requirement": "checkable-label-position",
+      "routes": ["label-below", "label-right-ltr", "label-left-rtl"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording has two conditions, one per reading direction. Each label reads in one direction only, so they are modelled as one requirement with three routes: below, whatever the direction; right, for a left-to-right language; left, for a right-to-left one. The particular cases make the test not applicable for a label that mixes directions, for a form with labels in languages of both directions, for a checkbox or radio button not shown visually as one (a toggle styled as a button, for instance), and for a context where another placement is legitimate for the user experience. That last exception decides the level: any page whose label sits above or before its checkbox may be such a context, and whether it is cannot be decided by code, so no fault can prove failure. Whether a control looks like a checkbox is also judgment, and the routes require the label to be adjacent immediately, which is the judgment of test 11.4.1. The entry is none. One custom check is linked as evidence: for a native checkbox or radio button in a form, with one visible <label> tied by for and id, it compares the two boxes and flags a label that is neither below nor on the ending side of its direction, taking the direction from the bidirectional class of the label's letters and abstaining on mixed labels or forms. It examines the three routes but neither the exceptions nor closeness, and not elements with a role, which cannot have such a label, so its scope is partial and its fault is evidence only. No axe rule is tagged for this test. Applicability is judgment: the particular cases decide it. Needs is empty: positions are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "particular_cases",
+        "criterion": "11.4",
+        "quote": "Les tests 11.4.2 et 11.4.3 seront considérés comme non applicables :"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "11.4",
+        "quote": "de placer les étiquettes de manière différente à celle requise dans les tests 11.4.2 et 11.4.3."
+      },
+      {
+        "source": "methodology",
+        "test": "11.4.3",
+        "quote": "Si c’est le cas pour chaque champ de formulaire, **le test est validé**."
+      }
+    ]
+  }
+}

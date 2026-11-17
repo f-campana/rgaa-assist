@@ -1,0 +1,97 @@
+{
+  "test": "11.2.3",
+  "requirements": [
+    {
+      "id": "aria-label-gives-function",
+      "statement": "Each label given to a form field through aria-label, where it provides the field's label, lets the user know the exact function of that field.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.2.3",
+          "line": 1,
+          "quote": "Chaque étiquette implémentée via l’attribut WAI-ARIA `aria-label` permet-elle de connaître la fonction exacte du champ de formulaire auquel elle est associée ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.2.3",
+          "quote": "Retrouver dans le document les champs de formulaire dont l’étiquette est fournie par un attribut WAI-ARIA `aria-label`"
+        }
+      ],
+      "routes": [
+        {
+          "id": "aria-label-content-relevant",
+          "statement": "The content of the aria-label attribute is relevant: it lets the user know the nature, type or format of the information the field expects.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.2.3",
+              "quote": "Pour chaque champ de formulaire, vérifier que le contenu de l’attribut est pertinent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "Texte à proximité du champ de formulaire permettant d’en connaître la nature, le type ou le format des informations attendues."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "aria-label-overridden",
+          "statement": "When the field also has aria-labelledby, the glossary's order of the accessible name makes the referenced passage the field's label, and the aria-label is not the one evaluated for relevance.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "aria-labelledby ; Sinon aria-label ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "Cet ordre doit être utilisé pour l’évaluation de la pertinence de l’étiquette"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-2-aria-label-empty",
+      "requirement": "aria-label-gives-function",
+      "routes": ["aria-label-content-relevant", "aria-label-overridden"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Relevance is judgment, so the entry is not full. One case is mechanical under this test's own text: a field whose only label mechanism is an aria-label attribute with empty content. Criterion 11.1 treats the attribute's presence as giving the field a label (test 11.1.1 accepts a field that has an aria-label attribute), and this test is where the content of that label is judged: its methodology checks the content of the attribute. Empty content cannot let anyone know the field's function, so the only route fails. The only exception is the glossary's order of the accessible name, which puts aria-labelledby before aria-label and is the order used to judge relevance. The custom check faults a field only when it is a native field the glossary lists (an <input> of a listed type, a <textarea> or a <select>), rendered, exposed and visible, with an aria-label that is empty or only ASCII whitespace, no aria-labelledby, no associated <label>, no title and no placeholder. It abstains, by stated rules, on fields with aria-labelledby (the exception), on fields with a <label>, title or placeholder (the order does not say whether an empty aria-label gives way to them, and browsers do let it), on elements given a role (they may take a name from their content), on output, progress and meter, on hidden or invisible fields (the text gives no exception for them, and whether they count is open), on values of other invisible characters, and on every non-empty aria-label, whose relevance is judgment. It never answers no_fault. It examines the route and the exception for every field with an aria-label, so its scope is whole and its fault means failure; the entry is fail_only. The glossary's note that aria-label cannot be used to indicate that a field is required is not a condition of this test's wording, and nothing is claimed from it. No axe rule is tagged for this test. Applicability is judgment: whether a field's label is provided by its aria-label turns on the order of the accessible name and on whether an empty aria-labelledby counts, which the text leaves open. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "11.2",
+        "quote": "Chaque étiquette associée à un champ de formulaire est-elle pertinente (hors cas particuliers) ?"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 3,
+        "quote": "Le champ de formulaire possède un attribut WAI-ARIA `aria-label` ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Étiquette de champ de formulaire",
+        "quote": "Note : l’attribut aria-label ne peut pas être utilisé pour indiquer le caractère obligatoire d’un champ."
+      },
+      {
+        "source": "methodology",
+        "test": "11.2.3",
+        "quote": "Si c’est le cas pour chaque champ de formulaire, **le test est validé**."
+      }
+    ]
+  }
+}

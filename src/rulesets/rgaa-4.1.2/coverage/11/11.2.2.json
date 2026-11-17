@@ -1,0 +1,97 @@
+{
+  "test": "11.2.2",
+  "requirements": [
+    {
+      "id": "title-gives-function",
+      "statement": "Each title attribute of a form field, where it provides the field's label, lets the user know the exact function of that field.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.2.2",
+          "line": 1,
+          "quote": "Chaque attribut `title` permet-il de connaître la fonction exacte du champ de formulaire auquel il est associé ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.2.2",
+          "quote": "Retrouver dans le document les champs de formulaire dont l’étiquette est fournie par un attribut `title`"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-content-relevant",
+          "statement": "The content of the title attribute is relevant: it lets the user know the nature, type or format of the information the field expects.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.2.2",
+              "quote": "Pour chaque champ de formulaire, vérifier que le contenu de l’attribut est pertinent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "Texte à proximité du champ de formulaire permettant d’en connaître la nature, le type ou le format des informations attendues."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "title-overridden",
+          "statement": "When the field also has aria-labelledby, aria-label or an associated <label>, the glossary's order of the accessible name makes that the field's label, and the title is not the one evaluated for relevance.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "aria-labelledby ; Sinon aria-label ; Sinon <label> ; Sinon title."
+            },
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "Cet ordre doit être utilisé pour l’évaluation de la pertinence de l’étiquette"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-2-title-empty",
+      "requirement": "title-gives-function",
+      "routes": ["title-content-relevant", "title-overridden"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Relevance is judgment, so the entry is not full. One case is mechanical under this test's own text: a field whose only label mechanism is a title attribute with empty content. The test applies to each title attribute of a field, and an empty attribute is still an attribute. Criterion 11.1 asks only for its presence (test 11.1.1 accepts a field that has a title attribute), and this test is where its content is judged. An empty title cannot let anyone know the field's function, so the only route fails. The only exception is the glossary's order of the accessible name, which puts aria-labelledby, aria-label and <label> before title and is the order used to judge relevance; on a field that has one of them, the title is not the label evaluated. The custom check faults a field only when it is a native field the glossary lists (an <input> of a listed type, a <textarea> or a <select>), rendered, exposed and visible, with a title that is empty or only ASCII whitespace, no aria-labelledby or aria-label attribute, no associated <label> and no placeholder. It abstains, by stated rules, on fields that have any of those (the exception, and the glossary's note that a placeholder may be rendered in place of the title), on fields given a role, on output, progress and meter, on hidden or invisible fields (the text gives no exception for them, and whether they count is open), on values of other invisible characters, and on every non-empty title, whose relevance is judgment. It never answers no_fault. It examines the route and the exception for every field with a title attribute, so its scope is whole and its fault means failure; the entry is fail_only. The glossary also says that when title and placeholder are both present they must be identical. This test's wording and methodology do not state that rule, so no failure is claimed from it here; the check simply abstains when a placeholder is present. No axe rule is tagged for this test. Applicability is judgment: whether a field's label is provided by its title turns on the order of the accessible name and on whether an empty higher mechanism counts, which the text leaves open. Needs is empty: attributes, the DOM, styles and geometry are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "11.2",
+        "quote": "Chaque étiquette associée à un champ de formulaire est-elle pertinente (hors cas particuliers) ?"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 5,
+        "quote": "Le champ de formulaire possède un attribut `title` ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Étiquette de champ de formulaire",
+        "quote": "lorsque l’attribut placeholder est présent, il est susceptible d’être restitué à la place de l’attribut title. Par conséquent, lorsque ces deux attributs title et placeholder sont présents, ils doivent être identiques."
+      },
+      {
+        "source": "methodology",
+        "test": "11.2.2",
+        "quote": "Si c’est le cas pour chaque champ de formulaire, **le test est validé**."
+      }
+    ]
+  }
+}

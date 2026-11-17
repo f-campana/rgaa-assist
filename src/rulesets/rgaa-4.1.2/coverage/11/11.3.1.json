@@ -1,0 +1,61 @@
+{
+  "test": "11.3.1",
+  "requirements": [
+    {
+      "id": "same-function-labels-consistent-in-page",
+      "statement": "In each form, the labels of form fields that have the same function and are repeated within one page are consistent.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.3.1",
+          "line": 1,
+          "quote": "Chaque étiquette associée à un champ de formulaire ayant la même fonction et répétée plusieurs fois dans une même page est-elle cohérente ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "11.3",
+          "quote": "Dans chaque formulaire, chaque étiquette associée à un champ de formulaire ayant la même fonction"
+        }
+      ],
+      "routes": [
+        {
+          "id": "labels-unambiguous-in-page",
+          "statement": "The labels are worded without ambiguity, so that the user knows the information asked for is the same.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Étiquettes cohérentes",
+              "quote": "doivent être formulées sans ambiguïté pour que l’utilisateur sache que l’information qu’il doit communiquer est la même."
+            },
+            {
+              "source": "methodology",
+              "test": "11.3.1",
+              "quote": "vérifier que les étiquettes sont cohérentes (elles permettent de comprendre qu’il s’agit de saisies de natures identiques)"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Both halves of the test are judgment. Finding the fields concerned means deciding that two fields have the same function, for example several address fields; code can compare attributes such as name or autocomplete, but they neither prove nor rule out a shared function. Judging them means deciding that their labels are worded without ambiguity so that the user knows the same information is asked for, which is a judgment about wording. No deterministic check can fault a page without first making the first judgment, so no check is registered and the entry is none. No axe rule is tagged for this test. Applicability is judgment, since it depends on whether any two fields of a form share a function. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.3.1",
+        "quote": "Retrouver dans le document les champs de formulaire ayant une même fonction (par exemple plusieurs champs d’adresse)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Étiquettes cohérentes",
+        "quote": "réclamant la saisie d’une même information doivent être formulées sans ambiguïté"
+      }
+    ]
+  }
+}

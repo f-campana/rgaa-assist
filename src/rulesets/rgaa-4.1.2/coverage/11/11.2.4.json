@@ -1,0 +1,85 @@
+{
+  "test": "11.2.4",
+  "requirements": [
+    {
+      "id": "passage-gives-function",
+      "statement": "Each passage of text associated with a form field through aria-labelledby lets the user know the exact function of that field.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.2.4",
+          "line": 1,
+          "quote": "Chaque passage de texte associé via l’attribut WAI-ARIA `aria-labelledby` permet-il de connaître la fonction exacte du champ de formulaire auquel il est associé ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.2.4",
+          "quote": "Retrouver dans le document les champs de formulaire dont l’étiquette est fournie par un attribut WAI-ARIA `aria-labelledby`"
+        }
+      ],
+      "routes": [
+        {
+          "id": "passage-content-relevant",
+          "statement": "The content of the referenced passage or passages of text is relevant: it lets the user know the nature, type or format of the information the field expects.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.2.4",
+              "quote": "vérifier que le contenu du passage de texte référencé est pertinent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Passage de texte lié par `aria-labelledby` ou `aria-describedby`",
+              "quote": "Il s’agit d’un ou de plusieurs passages de texte identifiés par des id dont la valeur est unique dans la page"
+            },
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "Texte à proximité du champ de formulaire permettant d’en connaître la nature, le type ou le format des informations attendues."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-2-labelledby-passage-empty",
+      "requirement": "passage-gives-function",
+      "routes": ["passage-content-relevant"],
+      "scope": "whole",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Relevance is judgment, so the entry is not full. It is also not fail_only, unlike the entries for the <label>, title and aria-label of the same criterion. The case that looks mechanical, an aria-labelledby whose referenced elements exist but are empty, does not clearly belong to this test. This test judges each passage of text associated through aria-labelledby, and the glossary defines such a passage as one or more passages of text identified by ids; it does not say whether an empty element is a passage of text. Criterion 11.1 also does not settle it: test 11.1.1 accepts aria-labelledby only when it references an identified passage of text, so an empty target may be that test's defect rather than this one's. Since this test's text leaves the case open, a fault here would rest on a witness that is not surely in scope, and the claim is lowered. The custom check stays linked as evidence: it flags a field, rendered and exposed, whose aria-labelledby ids each match exactly one element of its tree and whose referenced elements hold no text, image, naming attribute or generated content. It examines every field with aria-labelledby, deciding or abstaining, so its scope is whole; it never answers no_fault, so it makes no positive claim. What would raise the entry: an official statement that an empty referenced element is a passage of text to be judged by this test. There is no exception: aria-labelledby comes first in the glossary's order of the accessible name, so whenever it provides the label it is the one evaluated. The glossary's notes on unique ids and on references that must not be recursive or chained describe passages; they are not conditions of this test's wording, and nothing is claimed from them. No axe rule is tagged for this test. Applicability is judgment: whether a field's label is provided by aria-labelledby when the references are broken or empty is open. Needs is empty.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 2,
+        "quote": "Le champ de formulaire possède un attribut WAI-ARIA `aria-labelledby` référençant un passage de texte identifié ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Étiquette de champ de formulaire",
+        "quote": "aria-labelledby ; Sinon aria-label ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Passage de texte lié par `aria-labelledby` ou `aria-describedby`",
+        "quote": "la valeur des attributs WAI-ARIA aria-labelledby ou aria-describedby ne doivent pas créer de référence récursive (A référence B qui référence A) ou traversante (A qui référence B qui référence C)."
+      },
+      {
+        "source": "methodology",
+        "test": "11.2.4",
+        "quote": "Si c’est le cas pour chaque champ de formulaire, **le test est validé**."
+      }
+    ]
+  }
+}
