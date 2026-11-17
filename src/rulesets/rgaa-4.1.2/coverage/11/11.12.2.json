@@ -1,0 +1,64 @@
+{
+  "test": "11.12.2",
+  "requirements": [
+    {
+      "id": "sensitive-change-recoverable-or-confirmed",
+      "statement": "For each form whose validation modifies or deletes financial, legal or personal data, the user can recover the deleted or modified data, or is asked to confirm the deletion or modification explicitly.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.12.2",
+          "line": 1,
+          "quote": "Chaque formulaire dont la validation modifie ou supprime des données à caractère financier, juridique ou personnel vérifie-t-il une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "recovery-mechanism",
+          "statement": "A mechanism lets the user recover the data deleted or modified.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.12.2",
+              "line": 2,
+              "quote": "Un mécanisme permet de récupérer les données supprimées ou modifiées par l’utilisateur ;"
+            }
+          ]
+        },
+        {
+          "id": "explicit-confirmation-request",
+          "statement": "A mechanism asks the user to confirm the deletion or modification explicitly, through a form field or an additional step.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.12.2",
+              "line": 3,
+              "quote": "Un mécanisme de demande de confirmation explicite de la suppression ou de la modification, via un [champ de formulaire](#champ-de-saisie-de-formulaire) ou une étape supplémentaire, est proposé."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test applies to forms whose validation modifies or deletes financial, legal or personal data. Which forms do that depends on what happens on the server and on the nature of the data, which code cannot read from the page. Each route is judgment too: whether a mechanism lets the user recover deleted or modified data, and whether a form field or an extra step asks for explicit confirmation of the deletion or modification. So the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment. Needs is state: a confirmation step or a recovery mechanism appears only after the user acts on the form.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.12.2",
+        "quote": "Retrouver dans le document les formulaires qui modifient ou suppriment des données à caractère financier, juridique ou personnel ;"
+      },
+      {
+        "source": "methodology",
+        "test": "11.12.2",
+        "quote": "Soit d’un mécanisme de demande de confirmation explicite de la suppression ou de la modification (par exemple, une case à cocher ou une étape supplémentaire)."
+      }
+    ]
+  }
+}
