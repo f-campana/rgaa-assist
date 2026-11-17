@@ -1,0 +1,74 @@
+{
+  "test": "13.5.1",
+  "requirements": [
+    {
+      "id": "cryptic-content-alternative",
+      "statement": "Each cryptic content (ASCII art, emoticon, cryptic syntax) has an alternative by one of the listed means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "13.5.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) vérifie-t-il une de ces conditions ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "13.5",
+          "quote": "chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) a-t-il une alternative ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-attribute",
+          "statement": "A definition is available through a title attribute, for example on a link, a form control or an abbr element.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.5.1",
+              "line": 2,
+              "quote": "Un attribut title est disponible"
+            },
+            {
+              "source": "methodology",
+              "test": "13.5.1",
+              "quote": "Soit une définition est disponible au moyen d’un attribut `title`, sur un lien, un contrôle de formulaire, une abréviation (élément `<abbr>`) par exemple"
+            }
+          ]
+        },
+        {
+          "id": "adjacent-definition",
+          "statement": "A definition is given by the adjacent context, immediately before or after the content.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "13.5.1",
+              "line": 3,
+              "quote": "Une définition est donnée par le contexte adjacent."
+            },
+            {
+              "source": "methodology",
+              "test": "13.5.1",
+              "quote": "Soit une définition est donnée dans le contexte adjacent (immédiatement avant ou après)."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has one requirement with two routes. Which content is cryptic is judgment: the wording gives three kinds by example (ASCII art, emoticons, cryptic syntax) and no definition, and no glossary entry is linked. A pattern could find some text emoticons such as \":-)\", but not ASCII art or cryptic syntax in general, so a list of candidates could never be shown complete. Even for a candidate found, the second route asks whether the text immediately before or after defines it, which is a reading of meaning. A missing title attribute therefore proves nothing, and no check is linked: the entry is none. No axe rule is tagged for this test. Applicability is judgment: whether the page holds cryptic content at all is the same judgment. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "13.5.1",
+        "quote": "Retrouver dans le document les contenus cryptiques (art ASCII, émoticône, syntaxe cryptique)"
+      }
+    ]
+  }
+}
