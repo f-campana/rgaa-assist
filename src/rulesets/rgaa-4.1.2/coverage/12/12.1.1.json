@@ -1,0 +1,119 @@
+{
+  "test": "12.1.1",
+  "requirements": [
+    {
+      "id": "two-navigation-systems",
+      "statement": "Each set of pages offers at least two different navigation systems, in one of the three listed pairs.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.1.1",
+          "line": 1,
+          "quote": "Chaque ensemble de pages vérifie-t-il une de ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "methodology",
+          "test": "12.1.1",
+          "quote": "Si c’est le cas pour chaque ensemble de pages du site, **le test est validé**."
+        }
+      ],
+      "routes": [
+        {
+          "id": "menu-and-sitemap",
+          "statement": "A navigation menu and a site map are present.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.1.1",
+              "line": 2,
+              "quote": "Un menu de navigation et un plan du site sont présents ;"
+            }
+          ]
+        },
+        {
+          "id": "menu-and-search",
+          "statement": "A navigation menu and a site search engine are present.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.1.1",
+              "line": 3,
+              "quote": "Un menu de navigation et un moteur de recherche sont présents ;"
+            }
+          ]
+        },
+        {
+          "id": "search-and-sitemap",
+          "statement": "A site search engine and a site map are present.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.1.1",
+              "line": 4,
+              "quote": "Un moteur de recherche et un plan du site sont présents."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "single-or-few-pages",
+          "statement": "The website has a single page or a very limited number of pages, all reachable from the home page; the criterion is then not applicable.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.1",
+              "quote": "lorsque le site web est constitué d’une seule page ou d’un nombre très limité de pages (cf. note). Dans ce cas-là, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "12.1",
+              "quote": "l’appréciation d’un nombre très limité de pages devrait être réservé à un site dont l’ensemble des pages sont atteignables depuis la page d’accueil."
+            }
+          ]
+        },
+        {
+          "id": "process-pages",
+          "statement": "Pages of a set that are the result or a part of a process, such as payment or ordering, are exempt.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.1",
+              "quote": "Le critère est également non applicable pour les pages d’un ensemble de pages qui sont le résultat ou une partie d’un processus"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Every part of this test is judgment, and part of it lies outside the page examined. The test is asked of each set of pages, a group of pages that form a coherent whole, which the human delimits. Whether a list of links is a navigation menu, whether a search field searches the whole site rather than a restricted part such as a catalogue, and whether a page is a site map that gives access to all pages, are each decided by what the element does, not by its markup. Footer links to the legal notice and the site map are explicitly not a main navigation menu, which code cannot tell from a menu either. A site map is a separate page, so its presence is not visible from the page examined except as a link, and whether that link leads to a real site map is again judgment. The exceptions turn on the size of the site and on whether a page belongs to a process, which a check run on one page cannot establish. No axe rule is tagged for this test and no custom check is registered: none could decide a route or a fault without judgment. The entry is none. Applicability is judgment, since not applicable follows only from the exceptions. Needs is empty: the missing information is about other pages of the site, which no prerequisite covers.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Ensemble de pages",
+        "quote": "Pages web liées les unes aux autres par des liens et constituant un ensemble cohérent à l’intérieur d’un site web."
+      },
+      {
+        "source": "glossary",
+        "entry": "Menu et barre de navigation",
+        "quote": "Les liens de pied de page renvoyant vers les mentions légales, plan du site et autres informations concernant le site ne sont pas considérés comme un menu de navigation principal."
+      },
+      {
+        "source": "glossary",
+        "entry": "Moteur de recherche (interne à un site web)",
+        "quote": "Attention à ne pas confondre cette zone de recherche, unique dans le site, avec tout autre moteur de recherche permettant par exemple de faire des recherches sur une partie restreinte du site"
+      },
+      {
+        "source": "glossary",
+        "entry": "Page « plan du site »",
+        "quote": "Page dédiée présentant l’arborescence d’un site web"
+      }
+    ]
+  }
+}
