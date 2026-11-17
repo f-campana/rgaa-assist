@@ -1,0 +1,63 @@
+{
+  "test": "12.4.3",
+  "requirements": [
+    {
+      "id": "sitemap-access-same-order",
+      "statement": "In each set of pages, the feature leading to the site map page always comes in the same relative order in the source code.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.4.3",
+          "line": 1,
+          "quote": "Dans chaque ensemble de pages, la fonctionnalité vers la page « plan du site » se présente-t-elle toujours dans le même ordre relatif dans le code source ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "same-order-as-other-page",
+          "statement": "Compared with another page of the same set, the means of access to the site map comes in the same relative order in the source.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.4.3",
+              "quote": "Choisir une page de l’échantillon appartenant au même ensemble que la page en cours d’audit ;"
+            },
+            {
+              "source": "test",
+              "test": "12.4.3",
+              "line": 1,
+              "quote": "se présente-t-elle toujours dans le même ordre relatif dans le code source ?"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test compares two pages of the same set, and a check runs on one target and sees one page, so it cannot make that comparison. Relative order is also a comparison with the order of the other elements of the page, which the human reads across both pages. The wording asks about the relative order in the source code. The methodology of this test describes a visual comparison, which is what test 12.4.2 asks, while the methodology of 12.4.2 describes the comparison of the generated source: the two methodologies appear swapped. This entry follows the wording, and the mismatch changes nothing here. Finding the means of access to the site map, which page is the site map, and which pages form a set, are also established by the human. No axe rule is tagged and no custom check is registered. The entry is none. Applicability is judgment: a site without a site map makes the test not applicable, which code cannot establish from the page examined. Needs is empty: the missing input is another page of the set, which no prerequisite covers.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "12.4.3",
+        "line": 1,
+        "quote": "se présente-t-elle toujours dans le même ordre relatif dans le code source ?"
+      },
+      {
+        "source": "methodology",
+        "test": "12.4.3",
+        "quote": "Comparer visuellement les deux pages et vérifier que le moyen d’accès au plan du site est toujours à la même place dans la présentation ;"
+      },
+      {
+        "source": "methodology",
+        "test": "12.4.2",
+        "quote": "par rapport à l’ordre relatif des éléments de la page, par exemple il est toujours en haut de page"
+      }
+    ]
+  }
+}
