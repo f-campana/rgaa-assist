@@ -58,7 +58,7 @@
         },
         {
           "id": "other-means",
-          "statement": "Another means lets the user get the same information, from the methodology's open list: a title attribute, an icon, a graphic effect of shape or position, a typographic effect.",
+          "statement": "Another means, of the kinds the methodology lists (a title attribute, an icon, a graphic effect of shape or position, a typographic effect), actually lets users who do not see, or who perceive colours or their combinations poorly, get the same information; a title attribute or an icon on its own does not meet this.",
           "citations": [
             {
               "source": "methodology",
@@ -69,6 +69,11 @@
               "source": "glossary",
               "entry": "Information (donnée par la couleur)",
               "quote": "Les moyens de transmettre une information autrement que par la couleur peuvent être"
+            },
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "accompagnée d’une autre méthode à destination des utilisateurs qui ne voient pas ou perçoivent mal les couleurs ou leurs associations"
             }
           ]
         }
@@ -82,7 +87,7 @@
   "applicability": "judgment",
   "needs": [],
   "rationale": {
-    "text": "The test applies to each image whose content, in whole or in part, conveys information through colour alone. Deciding that needs reading the picture: what its colours stand for (a legend, a map, a chart, a status dot) is not in the DOM, and an image file's pixels do not say which colours carry meaning. Each route is judgment too: whether a text, a pictogram, a shape, a style or a code complement gives the same information as the colour depends on what both mean. The requirement has one set of routes, taken from the glossary and the methodology: a visible text, a graphic means with a code complement, a typographic style with a code complement, or another means from the methodology's open list (a title attribute, an icon, a shape or position effect, a typographic effect). The glossary's list says the means \"peuvent être\" these, and the methodology's list ends in an ellipsis, so the last route is kept open on purpose: a missed route would make a correct page look failed. The glossary also says that information given by colour and accompanied by another method makes the criterion not applicable, where the methodology says the test is then validated. The entry follows the methodology and lists the means as routes; at none the difference changes nothing, and it is reported. No axe rule is tagged for this test, and no custom check is registered: a fault would need an image that surely conveys information by colour, which code cannot establish. The candidate is none, with no link. Applicability is judgment: a page with images may or may not hold one that conveys information by colour, and code cannot tell. Needs is empty: images are examined as displayed on the page.",
+    "text": "The test applies to each image whose content, in whole or in part, conveys information through colour alone. Deciding that needs reading the picture: what its colours stand for (a legend, a map, a chart, a status dot) is not in the DOM, and an image file's pixels do not say which colours carry meaning. Each route is judgment too: whether a text, a pictogram, a shape, a style or a code complement gives the same information as the colour depends on what both mean. The requirement has one set of routes, taken from the glossary and the methodology: a visible text, a graphic means with a code complement, a typographic style with a code complement, or another means of the kinds the methodology lists (a title attribute, an icon, a shape or position effect, a typographic effect). Every route is bound by the glossary's functional requirement: the other method is there for users who do not see, or who perceive colours or their combinations poorly, and the methodology asks for another means to get the information. A means counts only if those users can actually use it. The methodology's examples are read with that requirement, not as sufficient by their mere presence. Each of the glossary's own means pairs a signal perceivable without colour (a visible text, a graphic, a typographic style) with a complement in the code. So a title attribute alone, which shows nothing until a mouse hovers over it, or an icon alone, with nothing in the code for users who do not see it, does not meet the route. The last route stays open, because the glossary says the means \"peuvent être\" these and the methodology's list ends in an ellipsis, and a missed route would make a correct page look failed. Whether a given means is actually usable is judgment. The two sources also give different statuses, and the entry keeps both explicit. When the information given by colour is accompanied by another usable method, the glossary says the criterion is considered not applicable, and the methodology says the test is validated. The routes model the methodology's validated outcome. On such a page the expected status is not applicable under the glossary and passed under the methodology; a future check must not choose between them silently, and the choice needs a ruling. At none the difference changes nothing. No axe rule is tagged for this test, and no custom check is registered: a fault would need an image that surely conveys information by colour, which code cannot establish. The candidate is none, with no link. Applicability is judgment: a page with images may or may not hold one that conveys information by colour, and code cannot tell. Needs is empty: images are examined as displayed on the page.",
     "citations": [
       {
         "source": "test",
