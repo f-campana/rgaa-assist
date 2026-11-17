@@ -1,0 +1,61 @@
+{
+  "test": "11.3.2",
+  "requirements": [
+    {
+      "id": "same-function-labels-consistent-across-pages",
+      "statement": "In each form, the labels of form fields that have the same function and are repeated across a set of pages are consistent.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.3.2",
+          "line": 1,
+          "quote": "Chaque étiquette associée à un champ de formulaire ayant la même fonction et répétée dans un ensemble de pages est-elle cohérente ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Ensemble de pages",
+          "quote": "Pages web liées les unes aux autres par des liens et constituant un ensemble cohérent à l’intérieur d’un site web."
+        }
+      ],
+      "routes": [
+        {
+          "id": "labels-unambiguous-across-pages",
+          "statement": "The labels are worded without ambiguity, so that the user knows the information asked for is the same.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Étiquettes cohérentes",
+              "quote": "doivent être formulées sans ambiguïté pour que l’utilisateur sache que l’information qu’il doit communiquer est la même."
+            },
+            {
+              "source": "methodology",
+              "test": "11.3.2",
+              "quote": "vérifier que les étiquettes sont cohérentes (elles permettent de comprendre qu’il s’agit de saisies de natures identiques)"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test compares pages with each other: the labels of fields with the same function, such as a site search field or a newsletter sign-up field, must be consistent across a set of pages. Deciding which pages form a set, which fields share a function and whether their labels are unambiguous are all judgments, and the examination works on one page at a time, while this test is about several. No deterministic check could fault one page on its own under this wording, so none is registered and the entry is none. No prerequisite in the contract describes a comparison across pages, so needs stays empty and the rationale records the limit instead. No axe rule is tagged for this test. Applicability is judgment: it depends on whether a field with the same function recurs in the set of pages.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.3.2",
+        "quote": "Retrouver dans l’ensemble des pages considérées les champs de formulaire ayant une même fonction"
+      },
+      {
+        "source": "methodology",
+        "test": "11.3.2",
+        "quote": "Si c’est le cas pour chaque champ de formulaire de l’ensemble des pages considérées, **le test est validé**."
+      }
+    ]
+  }
+}
