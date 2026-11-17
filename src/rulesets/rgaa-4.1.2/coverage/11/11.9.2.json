@@ -68,85 +68,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "present-sources-contain-visible-label",
-      "statement": "For each button within a form that shows a visible label, each of these that is present contains at least the visible label: the aria-label, the passage of text linked by aria-labelledby, the value of an input of type submit, reset or button, the content of a button element, the alt of an input of type image, and the title.",
-      "citations": [
-        {
-          "source": "test",
-          "test": "11.9.2",
-          "line": 2,
-          "quote": "S’il est présent, le contenu de l’attribut WAI-ARIA `aria-label `contient au moins l’[intitulé visible](#intitule-visible) ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.2",
-          "line": 3,
-          "quote": "lié au bouton via un attribut WAI-ARIA `aria-labelledby` contient au moins l’[intitulé visible](#intitule-visible) ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.2",
-          "line": 4,
-          "quote": "S’il est présent, le contenu de l’attribut value d’une balise `<input>` de type `submit`, `reset` ou `button` contient au moins l’[intitulé visible](#intitule-visible) ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.2",
-          "line": 5,
-          "quote": "S’il est présent, le contenu de la balise `<button>` contient au moins l’[intitulé visible](#intitule-visible) ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.2",
-          "line": 6,
-          "quote": "S’il est présent, le contenu de l’attribut `alt` d’une balise `<input>` de type `image` contient au moins l’[intitulé visible](#intitule-visible) ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.2",
-          "line": 7,
-          "quote": "S’il est présent, le contenu de l’attribut `title` contient au moins l’[intitulé visible](#intitule-visible)."
-        }
-      ],
-      "routes": [
-        {
-          "id": "each-source-contains",
-          "statement": "Every labelling source present on the button contains the text of the visible label, punctuation and capital letters aside.",
-          "citations": [
-            {
-              "source": "particular_cases",
-              "criterion": "11.2",
-              "quote": "elles peuvent être ignorées dans le nom accessible sans porter à conséquence"
-            },
-            {
-              "source": "test",
-              "test": "11.9.2",
-              "line": 7,
-              "quote": "contient au moins l’[intitulé visible](#intitule-visible)."
-            }
-          ]
-        }
-      ],
-      "exceptions": [
-        {
-          "id": "symbol-label-sources",
-          "statement": "When the visible text serves as a symbol (other than a mathematical expression), the labelling sources express the function the symbol conveys and need not contain it literally.",
-          "citations": [
-            {
-              "source": "particular_cases",
-              "criterion": "11.2",
-              "quote": "Le nom doit exprimer la fonction véhiculée par le symbole"
-            },
-            {
-              "source": "particular_cases",
-              "criterion": "11.2",
-              "quote": "Ce cas particulier s’applique également au test 11.9.2."
-            }
-          ]
-        }
-      ]
     }
   ],
   "links": [
@@ -170,7 +91,7 @@
   "applicability": "judgment",
   "needs": [],
   "rationale": {
-    "text": "The test applies to buttons within a form that show a visible label, and the glossary says a visible label may be text or an image of text. Telling whether a button shows one, and reading it when it is an image or an icon, is judgment. Deciding that a name contains the visible label also needs judgment, because the particular cases of criterion 11.2, which apply to this test, allow punctuation and capitals to be ignored and make an exception when the visible text serves as a symbol, which only a reader can recognise. The wording asks the condition of every labelling source present, and the methodology of the accessible name; the entry keeps both as requirements. So the entry stays at none. One custom check gives a hint: for a button element or an input button in a form with an aria-label and no aria-labelledby, whose visible text is plain text in a system font, it faults when no word of that text appears in the aria-label. That covers the main route for aria-label only and leaves out every other source and every button whose visible label is not plain text, so its scope is partial. Its fault is evidence only: the visible text may be a symbol, or may not be the button's whole visible label. Raising it would need a definition of the visible label that code can read for every button, and a rule for the symbol case. No axe-core rule is tagged for this test. axe-core's label-content-name-mismatch, tagged for test 6.1.5, checks that elements named from their content and given an aria-label or aria-labelledby keep their visible text in the accessible name. It is linked as evidence only, with partial scope and the main route only: it also looks at links and at buttons outside forms, which this test does not cover, it cannot apply the symbol exception, and how it extracts and compares visible text is not established here, so it gets the weakest reading. Applicability is judgment, since whether a button shows a visible label may need judgment. Needs is empty.",
+    "text": "The test applies to buttons within a form that show a visible label, and the glossary says a visible label may be text or an image of text. Telling whether a button shows one, and reading it when it is an image or an icon, is judgment. Deciding that a name contains the visible label also needs judgment, because the particular cases of criterion 11.2, which apply to this test, allow punctuation and capitals to be ignored and make an exception when the visible text serves as a symbol, which only a reader can recognise. The wording and the methodology read the test differently, and the entry keeps one requirement, not both at once. The methodology checks the button's accessible name, the one the browser computes. The wording asks the condition of each labelling source that is present: aria-label, the passage linked by aria-labelledby, value, the button's content, alt, title. The entry's requirement is the methodology's: the accessible name contains at least the visible label. The wording's every-source reading is recorded here as an open alternative, unresolved. Examples separate the two readings in both directions. A button element showing Envoyer, with no aria-label and a title of Aide, has the accessible name Envoyer: it meets the methodology, but under the wording its present title does not contain the visible label, so it fails. A button element showing Valider and labelled by an associated label element reading Confirmer has the accessible name Confirmer: it fails the methodology, but no source the wording lists lacks Valider, so it meets the wording. So neither reading's fault is always a fault under the other. A fault can hold under both only when the source that gives the accessible name is one the wording lists and is present, as with an aria-label. An empty source raises the same question as decisions Q45 and Q48: an empty title or aria-label is present in the markup but gives the button nothing, and whether the wording's every-source reading would fault it is not settled. Raising the entry would need a ruling between the two readings, or checks whose faults hold under both. So the entry stays at none. One custom check gives a hint: for a button element or an input button in a form with an aria-label and no aria-labelledby, whose visible text is plain text in a system font, it faults when no word of that text appears in the aria-label. That covers the main route for aria-label only and leaves out every other source and every button whose visible label is not plain text, so its scope is partial. Its fault is evidence only: the visible text may be a symbol, or may not be the button's whole visible label. Raising it would need a definition of the visible label that code can read for every button, and a rule for the symbol case. No axe-core rule is tagged for this test. axe-core's label-content-name-mismatch, tagged for test 6.1.5, checks that elements named from their content and given an aria-label or aria-labelledby keep their visible text in the accessible name. It is linked as evidence only, with partial scope and the main route only: it also looks at links and at buttons outside forms, which this test does not cover, it cannot apply the symbol exception, and how it extracts and compares visible text is not established here, so it gets the weakest reading. Applicability is judgment, since whether a button shows a visible label may need judgment. Needs is empty.",
     "citations": [
       {
         "source": "glossary",
