@@ -1,0 +1,102 @@
+{
+  "test": "11.2.1",
+  "requirements": [
+    {
+      "id": "label-gives-function",
+      "statement": "Each <label> element associated with a form field, where it provides the field's label, lets the user know the exact function of that field.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.2.1",
+          "line": 1,
+          "quote": "Chaque balise `<label>` permet-elle de connaître la fonction exacte du champ de formulaire auquel elle est associée ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.2.1",
+          "quote": "Retrouver dans le document les champs de formulaire dont l’étiquette est fournie par un élément `<label>`"
+        }
+      ],
+      "routes": [
+        {
+          "id": "label-content-relevant",
+          "statement": "The content of the <label> element is relevant: it lets the user know the nature, type or format of the information the field expects.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.2.1",
+              "quote": "Pour chaque champ de formulaire, vérifier que le contenu de l’élément est pertinent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "Texte à proximité du champ de formulaire permettant d’en connaître la nature, le type ou le format des informations attendues."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "label-overridden-by-aria",
+          "statement": "When the field also has aria-labelledby or aria-label, the glossary's order of the accessible name makes that the field's label, and the <label> is not the one evaluated for relevance.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "aria-labelledby ; Sinon aria-label ; Sinon <label> ; Sinon title."
+            },
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "Cet ordre doit être utilisé pour l’évaluation de la pertinence de l’étiquette"
+            },
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "même dans le cas de la présence d’un <label>, c’est le passage de texte référencé par aria-labelledby qui doit être pris en compte."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-2-label-element-empty",
+      "requirement": "label-gives-function",
+      "routes": ["label-content-relevant", "label-overridden-by-aria"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Relevance is judgment: whether a label's content tells the user the exact function of a field cannot be decided by code, so the entry is not full. One case is mechanical under this test's own text: a <label> element tied to a field by for and id that holds nothing at all. The test applies to each <label> element associated with a field, and an empty element is still a <label> element. Criterion 11.1 asks only for its presence (test 11.1.1 accepts a <label> with a for attribute associated with the field), and this test is where its content is judged. Empty content cannot let anyone know the field's function, so the only route fails. The only exception is the glossary's order of the accessible name: aria-labelledby, then aria-label, then <label>, then title, and that order is used to judge relevance, so a <label> on a field that also has aria-labelledby or aria-label is not the label evaluated. The custom check faults a field only when it is a native field the glossary lists (an <input> of a listed type, a <textarea> or a <select>), rendered, exposed and visible, with no aria-labelledby, aria-label, title or placeholder attribute, and exactly one <label>, tied by for and id, that is rendered and exposed and contains no text node with anything but ASCII whitespace, no element beyond plain phrasing, no image, no ARIA naming attribute and no CSS generated content or CSS image. It abstains on everything else, by stated rules: fields with aria-labelledby or aria-label (the exception, and the text does not say what happens when those are empty), fields with a title or placeholder (the order says <label> comes first, but whether an empty <label> gives way to them is open), labels associated only by containing the field (test 11.1.1 names the for attribute), several labels on one field, hidden or invisible fields and labels (the text gives no exception for them, and whether they count is open), labels whose content the check does not compute, and every label with text, whose relevance is judgment. It never answers no_fault. It examines the route and the exception for every field with an associated <label>, so its scope is whole and its fault means failure; the entry is fail_only. axe's form-field-multiple-labels is tagged for this test but not linked: it faults a field that has several <label> elements, which says nothing about whether any label's content tells the field's function. Applicability is judgment: whether a field's label is provided by its <label> turns on the order of the accessible name and on whether an empty higher mechanism counts, which the text leaves open. Needs is empty: attributes, the DOM, styles and geometry are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "11.2",
+        "quote": "Chaque étiquette associée à un champ de formulaire est-elle pertinente (hors cas particuliers) ?"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 4,
+        "quote": "Une balise `<label>` ayant un attribut `for` est associée au champ de formulaire ;"
+      },
+      {
+        "source": "methodology",
+        "test": "11.2.1",
+        "quote": "Si c’est le cas pour chaque champ de formulaire, **le test est validé**."
+      },
+      {
+        "source": "glossary",
+        "entry": "Étiquette de champ de formulaire",
+        "quote": "Cet ordre doit être utilisé pour l’évaluation de la pertinence de l’étiquette"
+      }
+    ]
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "test": "11.2.6",
+  "requirements": [
+    {
+      "id": "adjacent-button-gives-function",
+      "statement": "Each button adjacent to a form field that provides the field's visible label lets the user know the exact function of that field.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.2.6",
+          "line": 1,
+          "quote": "Chaque bouton adjacent au champ de formulaire qui fournit une étiquette visible permet-il de connaître la fonction exacte du champ de formulaire auquel il est associé ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.2.6",
+          "quote": "Retrouver dans le document les champs de formulaire dont l’étiquette visible est fournie par un bouton adjacent"
+        }
+      ],
+      "routes": [
+        {
+          "id": "button-visible-content-relevant",
+          "statement": "The visible content of the adjacent button is relevant: it lets the user know the nature, type or format of the information the field expects.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.2.6",
+              "quote": "Pour chaque champ de formulaire, vérifier que le contenu visible du bouton est pertinent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Étiquette de champ de formulaire",
+              "quote": "Texte à proximité du champ de formulaire permettant d’en connaître la nature, le type ou le format des informations attendues."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Two judgments stand in the way of any claim. Finding the fields concerned needs judgment: the test applies to a button adjacent to a field that provides the field's visible label, and whether a nearby button serves as a field's label (a search field and its Search button) is a matter of reading the page, not of the DOM. Judging the button is relevance: whether its visible content tells the field's function. Even an empty-looking case is not mechanical, because the visible content of a button may be an icon whose meaning is judgment, and a button without visible content is arguably not one that provides a visible label at all. So no check is linked and the entry is none. No axe rule is tagged for this test. Applicability is judgment, for the same reason that finding the fields is. Needs is empty.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "11.2",
+        "quote": "Chaque étiquette associée à un champ de formulaire est-elle pertinente (hors cas particuliers) ?"
+      },
+      {
+        "source": "test",
+        "test": "11.2.6",
+        "line": 1,
+        "quote": "Chaque bouton adjacent au champ de formulaire qui fournit une étiquette visible"
+      },
+      {
+        "source": "methodology",
+        "test": "11.2.6",
+        "quote": "vérifier que le contenu visible du bouton est pertinent"
+      }
+    ]
+  }
+}
