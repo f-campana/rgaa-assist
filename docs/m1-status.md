@@ -22,7 +22,8 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-Nothing. All work is merged on main: 386 tests pass, 14 entries validate.
+- Step 1 of "Next, in order" is done: corrections merged as `0352c75`, 390 tests pass, 14 entries validate (none 8, fail_only 5, full 1).
+- 2026-11-17 02:14 UTC: the contract-test builder for `always` (Sonnet, own worktree, brief `docs/m1/brief-contract-tests-always.md`) is running step 2.
 
 ## Where M1 stands, 2026-11-17
 
