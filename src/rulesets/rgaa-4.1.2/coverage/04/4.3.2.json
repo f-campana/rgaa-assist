@@ -1,0 +1,273 @@
+{
+  "test": "4.3.2",
+  "requirements": [
+    {
+      "id": "track-kind-captions",
+      "statement": "For each prerecorded synchronized media whose synchronized captions are delivered through a <track> element, outside the particular cases of the criterion, that <track> element has kind=\"captions\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.3.2",
+          "line": 1,
+          "quote": "Pour chaque média temporel synchronisé pré-enregistré possédant des sous-titres synchronisés diffusés via une balise `<track>`, la balise `<track>` possède-t-elle un attribut `kind=\"captions\"`"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "4.3",
+          "quote": "(hors cas particuliers)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "kind-captions",
+          "statement": "The <track> element that delivers the captions has a kind attribute with the value captions.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.3.2",
+              "line": 1,
+              "quote": "la balise `<track>` possède-t-elle un attribut `kind=\"captions\"`"
+            },
+            {
+              "source": "glossary",
+              "entry": "Sous-titres synchronisés (objet multimédia)",
+              "quote": "le sous-titrage pour sourds et malentendants (attribut kind=\"captions\" de la balise <track> en HTML5, par exemple)"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "decorative-media",
+          "statement": "The media is decorative: it carries no information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé à des fins décoratives (c’est-à-dire qu’il n’apporte aucune information)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.3",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "media-is-alternative",
+          "statement": "The media is itself an alternative to content of the page, such as a sign-language video or a spoken version of a text.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est lui-même une alternative à un contenu de la page (une vidéo en langue des signes ou la vocalisation d’un texte, par exemple)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.3",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "enlarged-version",
+          "statement": "The media is used to give access to an enlarged version.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé pour accéder à une version agrandie"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.3",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "captcha",
+          "statement": "The media is used as a CAPTCHA.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "est utilisé comme un CAPTCHA"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.3",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "test-defeated",
+          "statement": "The media is part of a test that would become useless if the transcript, captions or audio description were given.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "fait partie d’un test qui deviendrait inutile si la transcription textuelle, les sous-titres synchronisés ou l’audiodescription étaient communiqués"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.3",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "public-sector-2019-2020",
+          "statement": "For State services, local authorities and their institutions: the media was published between 23 September 2019 and 23 September 2020 on a site created since 23 September 2018.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "si le média temporel a été publié entre le 23 septembre 2019 et le 23 septembre 2020 sur un site internet, intranet ou extranet créé depuis le 23 septembre 2018, il est exempté de l’obligation d’accessibilité"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.3",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        },
+        {
+          "id": "private-sector-before-2020",
+          "statement": "For the private-law persons named in article 47 of the law of 11 February 2005: the media was published before 23 September 2020.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "si le média temporel a été publié avant le 23 septembre 2020, il est exempté de l’obligation d’accessibilité"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.1",
+              "quote": "Ce cas particulier s’applique également aux critères 4.2, 4.3, 4.5."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.3",
+              "quote": "Voir cas particuliers critère 4.1."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/4-3-track-kind-captions",
+      "requirement": "track-kind-captions",
+      "routes": [
+        "kind-captions",
+        "decorative-media",
+        "media-is-alternative",
+        "enlarged-version",
+        "captcha",
+        "test-defeated",
+        "public-sector-2019-2020",
+        "private-sector-before-2020"
+      ],
+      "scope": "whole",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to media whose synchronized captions are delivered through a <track> element, and asks whether that element has kind=\"captions\". The glossary on captions draws the line: kind=\"subtitles\" is for translation, kind=\"captions\" for deaf and hard-of-hearing users, and only the latter counts. The methodology writes kind=\"caption\" in the singular, which HTML does not define; the entry follows the wording. No fault is mechanical. A track with another kind fails the test only if it carries captions for deaf and hard-of-hearing users; if it carries translation subtitles, chapters or metadata, the media has no captions through a <track> element and the test does not apply to it. Telling the two apart needs someone to read the track, and a custom player may render captions from a metadata track. The custom check custom/4-3-track-kind-captions therefore never faults. It reads the kind of every <track> child of a media element on the page, nested documents and shadow trees included, and answers cannot_tell as soon as one is not captions. When every such track is captions, no media on the page can have captions delivered through a <track> element without kind=\"captions\", whatever the media is and whether a particular case applies, so the requirement cannot be violated. When the page has no <track> child of a media element, no media has captions delivered through one, and the test cannot apply. The link names the route and the particular cases, with whole scope: the check accounts for every element, deciding where every track is captions and abstaining otherwise, and an exception matters only where the route fails, which is exactly where it abstains. It is evidence only because it never faults. The entry is still none, and the doubt is the reason. A no_fault page is one where the requirement holds, but not necessarily one where the test applies: the check cannot tell whether the media is prerecorded, synchronized rather than video-only, not decorative, or whether its captions track loads at all. On such a page the correct answer is not applicable, and the tool would say passed. The contract has no way to say that a requirement holds whether or not it applies, so the entry is lowered rather than claim passed on pages that an auditor would mark not applicable. What would raise it to full: a ruling that passed is acceptable where a requirement holds vacuously for elements whose applicability is judgment, or a way to establish with the media prerequisite that each media with a captions track is prerecorded and synchronized. Applicability is judgment, for the same reason; the absence of any <track> element does make the test not applicable with certainty, but the presence of one does not make it applicable. Needs is empty: the check reads attributes on the page as loaded.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "4.3.2",
+        "line": 1,
+        "quote": "possédant des sous-titres synchronisés diffusés via une balise `<track>`"
+      },
+      {
+        "source": "methodology",
+        "test": "4.3.2",
+        "quote": "vérifier que la balise `<track>` possède un attribut `kind=\"caption\"`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Sous-titres synchronisés (objet multimédia)",
+        "quote": "Ces deux types de sous-titrage poursuivent des buts différents."
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "4.3",
+        "quote": "Voir cas particuliers critère 4.1."
+      }
+    ]
+  }
+}
