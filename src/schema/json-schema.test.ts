@@ -24,4 +24,9 @@ describe("JSON Schemas", () => {
     );
     expect(s.additionalProperties).toBe(false);
   });
+
+  it("offers the three applicability values of a coverage entry", () => {
+    const s = jsonSchema("coverage-entry") as { properties: { applicability: { enum: string[] } } };
+    expect([...s.properties.applicability.enum].sort()).toEqual(["always", "judgment", "structural"]);
+  });
 });

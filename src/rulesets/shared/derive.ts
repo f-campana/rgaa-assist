@@ -90,8 +90,10 @@ import { unmetPrerequisites } from "./prerequisites.ts";
  *       `cannot_tell` if some unresolved requirement has a resolving link that
  *       reports `cannot_tell`; else `alternative_unresolved`.
  * 4. If every requirement is inapplicable: `not_applicable` when
- *    `applicability` is `structural`; otherwise `needs_review` with reason
- *    `judgment_required`.
+ *    `applicability` is `structural`; `needs_review` with reason
+ *    `judgment_required` when it is `judgment`; `needs_review` with reason
+ *    `cannot_tell` when it is `always`, because a check answered
+ *    `inapplicable` for a test that applies to every page (Q40).
  * 5. Otherwise `passed` (every requirement is satisfied or inapplicable, and
  *    at least one is satisfied).
  * `model_disabled` is reserved for model-judged work (M6) and never produced here.
@@ -304,7 +306,7 @@ function deriveOne(
       if (entry.applicability === "structural") status = "not_applicable";
       else {
         status = "needs_review";
-        reason = "judgment_required";
+        reason = entry.applicability === "always" ? "cannot_tell" : "judgment_required";
       }
     } else status = "passed";
   }

@@ -139,6 +139,18 @@ describe("deriveFindings: the cases of spec 8.3", () => {
     const j = run(entry({ edit: (x) => (x.applicability = "judgment") }), [adv, obs(FAILURE, "inapplicable")]);
     expect(j).toMatchObject({ status: "needs_review", reason: "judgment_required" });
   });
+
+  it("every requirement inapplicable on an always entry: needs_review, cannot_tell", () => {
+    const adv = obs(ADVISORY, "fault");
+    const f = run(entry({ edit: (x) => (x.applicability = "always") }), [adv, obs(FAILURE, "inapplicable")]);
+    expect(f).toMatchObject({ status: "needs_review", reason: "cannot_tell", requirementFacts: { "object-alternative": ["inapplicable"] } });
+    expect(f.observations).toContain(adv.id);
+  });
+
+  it("an always entry still passes on a resolving no_fault", () => {
+    const f = run(entry({ edit: (x) => (x.applicability = "always") }), [obs(ADVISORY, "no_fault"), obs(FAILURE, "no_fault")]);
+    expect(f.status).toBe("passed");
+  });
 });
 
 describe("deriveFindings: levels, reasons and targets", () => {
