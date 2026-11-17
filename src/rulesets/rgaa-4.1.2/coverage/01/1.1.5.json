@@ -1,0 +1,162 @@
+{
+  "test": "1.1.5",
+  "requirements": [
+    {
+      "id": "svg-role-img",
+      "statement": "Each <svg> element that carries information has role=\"img\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.5",
+          "line": 1,
+          "quote": "Chaque image vectorielle (balise `<svg>`) porteuse d’information, vérifie-t-elle ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "1.1.5",
+          "quote": "Si ce n’est pas le cas, le test est invalidé."
+        }
+      ],
+      "routes": [
+        {
+          "id": "svg-has-role-img",
+          "statement": "The <svg> element has the attribute role=\"img\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.5",
+              "line": 2,
+              "quote": "La balise `<svg>` possède un attribut WAI-ARIA `role=\"img\"` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "svg-alternative",
+      "statement": "Each <svg> element that carries information has a text alternative.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.5",
+          "line": 3,
+          "quote": "La balise `<svg>` a une alternative textuelle."
+        },
+        {
+          "source": "methodology",
+          "test": "1.1.5",
+          "quote": "vérifier que l’élément `<svg>` est pourvu au moins d’une alternative textuelle parmi les suivantes :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "svg-title-element",
+          "statement": "The content of a <title> element of the <svg> gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.5",
+              "quote": "Contenu de l’élément `<title>` ;"
+            }
+          ]
+        },
+        {
+          "id": "svg-aria-labelledby",
+          "statement": "A passage of text is associated with the <svg> through aria-labelledby.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.5",
+              "quote": "Passage de texte associé via l’attribut WAI-ARIA `aria-labelledby` ;"
+            }
+          ]
+        },
+        {
+          "id": "svg-aria-label",
+          "statement": "The <svg> element's aria-label attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.5",
+              "quote": "Contenu de l’attribut WAI-ARIA `aria-label` ;"
+            }
+          ]
+        },
+        {
+          "id": "svg-text-element",
+          "statement": "The alternative is present in a <text> element of the <svg>, visible or not.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Alternative textuelle (image)",
+              "quote": "pour les images vectorielles (balise <svg>) l’alternative textuelle pourrait se trouver aussi présente dans une balise <title> ou dans une balise <text> que cette dernière balise soit ou non visible"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "svg-sole-link-content",
+          "statement": "An image that is the only content of a link has the link's text as its alternative, and the glossary sends that alternative to the Links theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsque l’image est le seul contenu d’un lien, son alternative est l’intitulé du lien. Dans ce cas, l’alternative de l’image devrait être évaluée avec la thématique « Liens »."
+            }
+          ]
+        },
+        {
+          "id": "svg-sole-button-content",
+          "statement": "An <svg> that is the only content of a <button> has the button's text as its alternative, and the glossary sends it to the Forms or Scripts theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsqu’un bouton de formulaire, inséré avec l’élément <button>, ne contient qu’une image (balise <img>, <object>, <embed>, <canvas> ou <svg>), l’alternative de l’image est l’intitulé du bouton."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/svg-img-alt",
+      "requirement": "svg-alternative",
+      "routes": ["svg-title-element", "svg-aria-labelledby", "svg-aria-label"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording asks two conditions of each <svg> that carries information, and both must hold: the methodology invalidates the test as soon as role=\"img\" is missing, before it looks for an alternative. So the entry has two requirements. The alternative has the three sources the methodology lists, a <title> element, aria-labelledby and aria-label, and a fourth from the glossary: a <text> element, visible or not. The glossary notes on images alone in a link or a <button> are exceptions to the alternative only; they say where the image's alternative is evaluated and nothing about its role. Whether an <svg> carries information is judgment, and it decides whether either requirement applies. A missing role or a missing alternative proves nothing on its own: the <svg> may be decorative, and then this test does not apply to it. An <svg> with a <title> but no role is no better a witness, since drawing tools leave <title> elements in decorative pictures. So no fault proves failure, and the entry is none. axe's svg-img-alt examines only elements that already have role img or image (or a graphics role) inside SVG, so it never looks at an <svg> without the role and never examines the first requirement. For the second, it checks a direct <title> child, aria-label and aria-labelledby, but not <text> elements, so its fault may fall on an <svg> that meets the test through <text>, on a decorative one, or on the only content of a link. It also accepts a non-empty title attribute, which the methodology does not list and the glossary order does not give for <svg>, so its clean result proves nothing. Its link is partial and evidence only. Applicability is judgment: it depends on which <svg> elements carry information. Needs is empty: the methodology reads elements and attributes.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "1.1.5",
+        "quote": "S’assurer que l’élément `<svg>` est pourvu d’un attribut WAI-ARIA `role=\"img\"` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "1.1.5",
+        "quote": "Pour chaque élément `<svg>`, déterminer si l’image est porteuse d’information ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Image porteuse d’information",
+        "quote": "Image qui véhicule une information nécessaire à la compréhension du contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative textuelle (image)",
+        "quote": "Sinon, contenu de l’attribut title pour les balises : <img> ; <input type=\"image\"> ; <object type=\"image/…\"> ; <embed type=\"image/…\">."
+      }
+    ]
+  }
+}

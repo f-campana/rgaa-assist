@@ -1,0 +1,119 @@
+{
+  "test": "1.1.3",
+  "requirements": [
+    {
+      "id": "input-image-alternative",
+      "statement": "Each image button (<input type=\"image\">) has a text alternative.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.3",
+          "line": 1,
+          "quote": "Chaque bouton de type `image` (balise `<input>` avec l’attribut `type=\"image\"`) a-t-il une alternative textuelle ?"
+        },
+        {
+          "source": "methodology",
+          "test": "1.1.3",
+          "quote": "Vérifier que l’élément `<input>` est pourvu au moins d’une alternative textuelle parmi les suivantes :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "input-aria-labelledby",
+          "statement": "A passage of text is associated with the button through aria-labelledby.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.3",
+              "quote": "Passage de texte associé via l’attribut WAI-ARIA `aria-labelledby` ;"
+            }
+          ]
+        },
+        {
+          "id": "input-aria-label",
+          "statement": "The button's aria-label attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.3",
+              "quote": "Contenu de l’attribut WAI-ARIA `aria-label` ;"
+            }
+          ]
+        },
+        {
+          "id": "input-alt",
+          "statement": "The button's alt attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.3",
+              "quote": "Contenu de l’attribut `alt` ;"
+            }
+          ]
+        },
+        {
+          "id": "input-title",
+          "statement": "The button's title attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.3",
+              "quote": "Contenu de l’attribut `title`."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/input-image-alt",
+      "requirement": "input-image-alternative",
+      "routes": ["input-aria-labelledby", "input-aria-label", "input-alt", "input-title"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/1-1-input-image-no-alternative",
+      "requirement": "input-image-alternative",
+      "routes": ["input-aria-labelledby", "input-aria-label", "input-alt", "input-title"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "structural",
+  "needs": [],
+  "rationale": {
+    "text": "Unlike the other tests of criterion 1.1, the wording of this one has no qualifier: it asks of every image button whether it has a text alternative, not only of buttons that carry information. Step 2 of the methodology has the auditor decide whether the image carries information, but no step makes the test depend on it: step 3 checks every button against the list and step 4 is the only one that validates. The list is closed: at least one alternative among aria-labelledby, aria-label, alt and title, and the glossary says its order is what constitutes the alternative. So the requirement has four routes. No glossary note sets an exception for an <input>: the notes on images alone in a link or a <button> concern other elements. The custom check faults an image button when every one of the four sources is absent, empty or only ASCII whitespace, so no route can hold whichever source the page meant to use, and there is no exception to apply. The fault then proves the test fails, and the link's fault means failure. A witness must be surely in scope, so the check abstains on a button that is not exactly type=\"image\" in lowercase, has a role attribute, sits in a framed document, or is hidden, inert, aria-hidden, not exposed in the accessibility tree, fully transparent, outside the viewport as loaded, clipped away or covered by another element. A button below the fold is therefore never a witness; that costs failures found, not correctness. It also abstains when the button has a non-blank value attribute or an associated <label>: neither is a listed source, but the glossary says that where the name computation is only partly supported, the value assistive technologies really render is the alternative, and a browser might expose that text. It abstains on any non-blank aria-labelledby without resolving it, and on values made of invisible characters other than ASCII whitespace. The check looks at every image button and decides or abstains on each, so its scope is whole. It never answers no_fault, so the entry is fail_only. It is not full: the glossary asks that a title alternative be confirmed with the assistive technologies of the test environment, so the title route could never pass on code alone. What would raise it: a check that passes the other three routes, and an official reading under which a title is enough. axe's input-image-alt examines the four sources but also accepts an implicit or explicit <label>, which the list does not include, so its clean result proves nothing. It skips hidden buttons and those with some explicit roles, so its scope is partial. Its fault would mostly agree with the custom check, but its exact handling of hidden and aria-hidden content is not established here, so it is evidence only. Applicability is structural: not applicable follows from the absence of any <input> of type image, which code finds with certainty when every document of the page can be read. Needs is empty: attributes, styles and the accessibility tree are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "1.1.3",
+        "quote": "Si au moins une alternative textuelle est trouvée, **le test est validé**."
+      },
+      {
+        "source": "methodology",
+        "test": "1.1.3",
+        "quote": "Pour chaque élément `<input>` pourvu de l’attribut type=\"image\", déterminer si l’image utilisée est porteuse d’information ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative textuelle (image)",
+        "quote": "Cet ordre doit être utilisé pour déterminer ce qui constitue l’alternative textuelle."
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative textuelle (image)",
+        "quote": "c’est la valeur réellement restituée par les technologies d’assistance utilisées dans l’environnement de test (ou « base de référence ») qu’il faudra considérer comme alternative textuelle."
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative textuelle (image)",
+        "quote": "Il faut s’assurer que les assistances techniques présentes dans l’environnement de test retenu restituent correctement l’alternative proposée par l’attribut title."
+      }
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "test": "1.1.4",
+  "requirements": [
+    {
+      "id": "server-map-zone-alternative",
+      "statement": "Each clickable zone of a server-side image map is doubled by a mechanism, usable whatever the pointing device, that gives access to the same destination.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.4",
+          "line": 1,
+          "quote": "Chaque zone cliquable d’une image réactive côté serveur est-elle doublée d’un mécanisme utilisable quel que soit le dispositif de pointage utilisé et permettant d’accéder à la même destination ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "link-or-links",
+          "statement": "A link, or a set of links, gives access to the same resources as a click on the image.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.4",
+              "quote": "vérifier la présence d’un lien ou d’un ensemble de liens"
+            },
+            {
+              "source": "methodology",
+              "test": "1.1.4",
+              "quote": "permettant d’accéder aux mêmes ressources que lorsque l’image fait l’objet d’un clic."
+            }
+          ]
+        },
+        {
+          "id": "other-component",
+          "statement": "Another kind of interface component playing a similar role, such as a selection list, gives access to the same resources.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.4",
+              "quote": "ou bien d’un autre type de composant d’interface qui jouerait un rôle similaire comme une liste de sélection, par exemple"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The requirement concerns each clickable zone of a server-side image map, and the glossary says the coordinates of those zones are held on the server. Nothing on the page lists the zones or the resource each one leads to, so no code can tell whether a link, a set of links or another component reaches the same destinations. Whether the mechanism is usable whatever the pointing device is a further judgment. Both routes need that comparison, so the entry is none and has no link. axe's server-side-image-map is tagged for this test but gets no link: it reports every <img> with an ismap attribute for review and examines neither route. Applicability is judgment. The methodology starts from <img> elements with ismap, but the glossary defines a server-side image map by what it does, an image for which the browser sends the pointer's coordinates to the server, and notes the obsolete use of ismap on image buttons. An ismap image outside a link sends nothing, and an image button sends coordinates without ismap, so the presence or absence of the attribute does not settle whether the page has such a map. Needs is empty: the methodology asks for no interaction or assistive technology, and the missing information is on the server, which no prerequisite supplies.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Zone cliquable",
+        "quote": "Pour les images réactives côté serveur, les coordonnées sont détenues sur le serveur."
+      },
+      {
+        "source": "glossary",
+        "entry": "Image réactive",
+        "quote": "Image réactive côté serveur (attribut ismap) : image pour laquelle le navigateur transmet au serveur les coordonnées du pointeur, chaque jeu de coordonnées correspondant à une ressource (page web)."
+      },
+      {
+        "source": "glossary",
+        "entry": "Image réactive",
+        "quote": "en HTML5, l’attribut ismap est obsolète et non conforme pour les boutons de type image (input type=\"image\")."
+      },
+      {
+        "source": "methodology",
+        "test": "1.1.4",
+        "quote": "Retrouver dans le document les éléments `<img>` pourvus de l’attribut `ismap` ;"
+      }
+    ]
+  }
+}

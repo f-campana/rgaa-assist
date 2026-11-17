@@ -1,0 +1,136 @@
+{
+  "test": "1.1.8",
+  "requirements": [
+    {
+      "id": "canvas-alternative",
+      "statement": "Each bitmap image (<canvas>) that carries information meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.8",
+          "line": 1,
+          "quote": "Chaque image bitmap (balise `<canvas>`) porteuse d’information, vérifie-t-elle une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "canvas-text-alternative-and-role",
+          "statement": "The <canvas> has a text alternative (aria-labelledby or aria-label) and role=\"img\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.8",
+              "line": 2,
+              "quote": "La balise `<canvas>` possède une alternative textuelle et un attribut `role=\"img\"` ;"
+            },
+            {
+              "source": "methodology",
+              "test": "1.1.8",
+              "quote": "Vérifier que la balise ouvrante `<canvas>` est pourvue au moins d’une alternative textuelle parmi les suivantes :"
+            }
+          ]
+        },
+        {
+          "id": "canvas-fallback-content",
+          "statement": "Alternative content is present between the <canvas> and </canvas> tags; the methodology's note says it cannot serve a <canvas> that has role img.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.8",
+              "line": 3,
+              "quote": "Un contenu alternatif est présent entre les balises `<canvas>` et `</canvas>` ;"
+            },
+            {
+              "source": "methodology",
+              "test": "1.1.8",
+              "quote": "si l'élément `<canvas>` dispose d'un rôle `img`, son alternative ne peut être fournie que par les techniques listées à l'étape 4."
+            }
+          ]
+        },
+        {
+          "id": "canvas-adjacent-link",
+          "statement": "The <canvas> is immediately followed by an adjacent link or button to alternative content.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.8",
+              "line": 4,
+              "quote": "L’élément `<canvas>` est immédiatement suivi d’un lien ou bouton adjacent permettant d’accéder à un contenu alternatif ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "le lien ou bouton doit se situer juste avant ou juste après l’élément auquel il est adjacent"
+            }
+          ]
+        },
+        {
+          "id": "canvas-replace-mechanism",
+          "statement": "A mechanism lets the user replace the <canvas> with alternative content.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.8",
+              "line": 5,
+              "quote": "Un mécanisme permet à l’utilisateur de remplacer l’élément `<canvas>` par un contenu alternatif."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "canvas-sole-link-content",
+          "statement": "An image that is the only content of a link has the link's text as its alternative, and the glossary sends that alternative to the Links theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsque l’image est le seul contenu d’un lien, son alternative est l’intitulé du lien. Dans ce cas, l’alternative de l’image devrait être évaluée avec la thématique « Liens »."
+            }
+          ]
+        },
+        {
+          "id": "canvas-sole-button-content",
+          "statement": "A <canvas> that is the only content of a <button> has the button's text as its alternative, and the glossary sends it to the Forms or Scripts theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsqu’un bouton de formulaire, inséré avec l’élément <button>, ne contient qu’une image (balise <img>, <object>, <embed>, <canvas> ou <svg>), l’alternative de l’image est l’intitulé du bouton."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test accepts four conditions, so its one requirement has four routes: a text alternative (aria-labelledby or aria-label) with role=\"img\", alternative content between the <canvas> tags, an adjacent link or button to alternative content, or a mechanism to replace the element. The methodology validates the test on the first, and otherwise on any of the other three. Its note says that a <canvas> with role img can get its alternative only from aria-labelledby or aria-label, so the content-between-tags route does not serve such a canvas. The note may also be read as closing the adjacent-link and mechanism routes to it; the entry does not decide that, and it changes no level. The glossary notes on images alone in a link or a <button> (which names <canvas>) are exceptions: the image's alternative is the link's or the button's text and is evaluated in another theme. No axe rule is tagged for this test. A fault would need every route to fail, and three of them need judgment: whether content between the tags, or behind an adjacent link, brings the same information as the canvas (the glossary gives a data table for a chart as an example), and whether a replacement mechanism exists. Whether the canvas carries information is judgment too. So no check resolves the requirement or proves a failure, and the entry is none with no link. Applicability is judgment, since it depends on which canvases carry information. Needs is empty: the methodology asks for no interaction or assistive technology.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "1.1.8",
+        "quote": "Si les étapes 3 et 4 ne sont pas satisfaites, vérifier que l’élément `<canvas>` est :"
+      },
+      {
+        "source": "methodology",
+        "test": "1.1.8",
+        "quote": "Soit pourvu d’un contenu alternatif présent entre les balises `<canvas>` et `</canvas>` ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Contenu alternatif",
+        "quote": "un tableau de données peut être le contenu alternatif d’une image bitmap (balise <canvas>) affichant un graphique statistique."
+      },
+      {
+        "source": "methodology",
+        "test": "1.1.8",
+        "quote": "Pour chaque élément `<canvas>`, déterminer si l’image utilisée est porteuse d’information ;"
+      }
+    ]
+  }
+}
