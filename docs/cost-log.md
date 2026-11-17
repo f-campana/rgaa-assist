@@ -41,6 +41,7 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-17 16:30 | Builders I, J, K merged (Opus high, about 228k, 218k, 214k tokens; 63 entries); batch 7 launched | 9% | n/a | 5-hour window at 66%. About 8 points of the weekly limit for 63 entries so far, L still running. |
 | 2026-11-17 16:45 | Builder L merged (Opus high, about 245k tokens, 14 entries); M and N stopped before any commit; paused for Fabien's other work | 11% | n/a | 206 of 258 entries written. 5-hour window at 82%. |
 | 2026-11-17 21:35 | Resumed at Fabien's request; builders M, N and O (Opus high, 54 tests) launched in parallel | 14% | n/a | Weekly rose 11% to 14% during the pause from Fabien's other work. 5-hour window at 2%. |
+| 2026-11-17 21:45 | Builder O merged (Opus high, about 205k tokens, 19 entries, all `none`) | 18% | n/a | 223 of 258 entries written. Three builders ran together: weekly 14% to 18%, 5-hour window 2% to 30%. |
 
 ### What day 1 says about cost
 

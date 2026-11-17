@@ -33,7 +33,7 @@ The orchestrator's prompt tells you which builder you are.
 | 6 (merged) | L | 10.1 to 10.6, 10.8 | 14 | `10/` |
 | 7 | M | 10.9 to 10.14 | 16 | `10/` |
 | 7 | N | 11.6 to 11.13 | 19 | `11/` |
-| 8 | O | 12.1 to 12.11 | 19 | `12/` |
+| 8 (merged) | O | 12.1 to 12.11 | 19 | `12/` |
 
 Test 1.1.6 is the spec's reference case (spec 6.1 and 6.2). An entry that contradicts it is wrong.
 

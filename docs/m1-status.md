@@ -22,8 +22,8 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-- Resumed by Fabien on 2026-11-17 at 21:35 UTC (paused 16:40 to 21:35). Builders M (10.9 to 10.14, 16 tests), N (11.6 to 11.13, 19) and O (theme 12, 19) are running in parallel, launched fresh from `docs/m1/brief-entries.md` at `de20928`. Usage at launch: weekly 14%, 5-hour window 2%.
-- Entries: 206 of 258 on main (none 176, fail_only 25, full 3). 414 tests pass; 116 check records, sorted, no duplicates. Batches 1 to 6 are merged.
+- Resumed by Fabien on 2026-11-17 at 21:35 UTC (paused 16:40 to 21:35). Builders M (10.9 to 10.14, 16 tests) and N (11.6 to 11.13, 19) are running in parallel; O (theme 12) is merged at `b758163`. All three were, launched fresh from `docs/m1/brief-entries.md` at `de20928`. Usage at launch: weekly 14%, 5-hour window 2%.
+- Entries: 223 of 258 on main (none 195, fail_only 25, full 3). 414 tests pass; 116 check records, sorted, no duplicates. Batches 1 to 6 and 8 are merged.
 - Merging: `checks.json` conflicts between builders are resolved by `python3 work/orchestrator/merge-checks.py` during the merge (union of added records, sorted; it asserts no base record changed). `work/` is gitignored, so the script is local to this checkout.
 - Then: step 5, Codex's cross-check of all entries, with the claims listed under "Findings to report at the gate".
 
@@ -71,6 +71,7 @@ Also logged on the bridge, channel `rgaa-assist`.
 - Builder I (1.2 to 1.4, all `none`): where the wording and the methodology differ (1.2.1, 1.2.2: whether other alternative attributes are barred only with `alt=""` or on every route), I followed the wording, which claims less. The schema has no structured place for such a conflict.
 - Builder J (6.1, 7.x): 6.1.5 `fail_only` through `custom/6-1-link-aria-label-lacks-visible-text` (an aria-label sharing no word of two letters or more with a visible text of two or more real words). The schema cannot say that a test's scope depends on another test's result (7.1.2, 7.1.3 cover components that validated 7.1.1), nor that a page is examined with JavaScript off (7.2.1).
 - Builder L (10.1 to 10.6, 10.8): 10.1.1 and 10.1.2 `full` (the methodology gives closed lists of presentation elements and attributes; hidden elements count, since the test is about the generated source; the checks abstain on shadow trees, frames, templates, non-HTML namespaces and listed-but-unnamed obsolete elements). 10.5.1, 10.5.2 and 10.6.1 `fail_only`: 10.5.2 rests on reading its methodology's copied step 1 through the wording, since the literal methodology could never fail a page; 10.6.1 faults a text link styled like its parent except a colour with contrast below 2.95:1. No prerequisite exists for style sheets disabled, text zoomed to 200%, or hover.
+- Builder O (theme 12): all 19 `none`, no claims; 12.7.1 links `axe/bypass` and `axe/skip-link` as partial evidence. The official methodologies of 12.4.2 and 12.4.3 are swapped against their wordings (12.4.2 asks about the presentation, its methodology compares source order; 12.4.3 the reverse); the orchestrator confirmed this in `methodologies.json`, and O followed the wordings. Most of theme 12 compares pages within a set or follows link targets: no prerequisite expresses "another page of the sample", and declared page kinds such as `sitemap` do not reach checks under the contract.
 - Builder D linked axe list rules to 9.3.2 though axe does not tag them for it (evidence only). The guide allows links on an argued basis; an axe tag justifies a link but is not required.
 - Tests 8.1.1 to 8.1.3 turn on the served source, which v1 does not read (spec 15, Q9). They stay `none`.
 
