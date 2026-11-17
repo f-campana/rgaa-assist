@@ -1,0 +1,74 @@
+{
+  "test": "12.9.1",
+  "requirements": [
+    {
+      "id": "no-keyboard-trap",
+      "statement": "From each element that receives focus, the user can reach the next or previous focusable element by one of the listed means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.9.1",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque élément recevant le focus vérifie-t-il une de ces conditions ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "12.9",
+          "quote": "la navigation ne doit pas contenir de piège au clavier"
+        }
+      ],
+      "routes": [
+        {
+          "id": "tab-reaches-neighbour",
+          "statement": "The next or previous focusable element can be reached with Tab or Shift+Tab.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.9.1",
+              "line": 2,
+              "quote": "Il est possible d’atteindre l’élément suivant ou précédent pouvant recevoir le focus avec la touche de tabulation ;"
+            }
+          ]
+        },
+        {
+          "id": "informed-keyboard-mechanism",
+          "statement": "The user is informed of a functional mechanism, such as the arrow keys, for reaching the next or previous focusable element with the keyboard.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.9.1",
+              "line": 3,
+              "quote": "L’utilisateur est informé d’un mécanisme fonctionnel permettant d’atteindre au clavier l’élément suivant ou précédent pouvant recevoir le focus."
+            },
+            {
+              "source": "methodology",
+              "test": "12.9.1",
+              "quote": "Soit au moyen d’une autre interaction clavier dont l’utilisateur est informé (par exemple, les flèches de direction)."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard"],
+  "rationale": {
+    "text": "A keyboard trap shows only when the keyboard is used: focus must be moved with Tab and Shift+Tab from each focusable element and seen to leave it. That needs a keyboard pass, which does not exist yet. A script can hold focus or send it back at run time, so no reading of the markup can show that focus will leave an element. The second route needs the user to be informed of another keyboard mechanism and that mechanism to work, and whether a page informs the user is judgment. The methodology's note narrows the test for composite components such as radio groups, select lists and WAI-ARIA widgets, which use the arrow keys inside: the test then only checks that the component is reached with Tab and that the user can move on to the next or previous component. Deciding what is one component is part of the human's reading. No axe rule is tagged and no custom check is registered. The entry is none. Applicability is judgment: the elements concerned include those that receive focus through a script, which code cannot list with certainty. Needs is keyboard.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "12.9.1",
+        "quote": "Retrouver dans le document l’ensemble des éléments d’interface susceptibles de recevoir le focus (au moyen de la tabulation ou au moyen d’un script) ;"
+      },
+      {
+        "source": "methodology",
+        "test": "12.9.1",
+        "quote": "Le test sur le piège au clavier se limite alors à vérifier que le composant est atteint avec la tabulation et qu'il est possible de passer au composant suivant ou revenir au composant précédent."
+      }
+    ]
+  }
+}
