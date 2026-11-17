@@ -1,0 +1,285 @@
+{
+  "test": "1.9.3",
+  "requirements": [
+    {
+      "id": "image-and-caption-in-figure",
+      "statement": "The embedded image and its adjacent caption are contained in a <figure> element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.9.3",
+          "line": 1,
+          "quote": "Chaque image embarquée pourvue d’une légende (balise `<embed>` associée à une légende adjacente), vérifie-t-elle, si nécessaire, ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "1.9.3",
+          "line": 2,
+          "quote": "L’image embarquée (balise `<embed>`) et sa légende adjacente sont contenues dans une balise `<figure>` ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "figure-contains-both",
+          "statement": "One <figure> element contains both the embedded image and its caption.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.9.3",
+              "line": 2,
+              "quote": "L’image embarquée (balise `<embed>`) et sa légende adjacente sont contenues dans une balise `<figure>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "in-figure-caption-as-replacement",
+          "statement": "The adjacent text can serve as the image's replacement text and the image is treated as decorative; the figure and figcaption set, and so this condition, is then not required.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Légende d’image",
+              "quote": "lorsque le texte adjacent à l’image peut faire office de texte de remplacement, il n’est pas obligatoire de recourir à l’ensemble figure, figcaption, l’image pouvant être simplement traitée comme une image de décoration."
+            },
+            {
+              "source": "test",
+              "test": "1.9.3",
+              "line": 1,
+              "quote": "vérifie-t-elle, si nécessaire, ces conditions ?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "figure-role",
+      "statement": "The <figure> element has a WAI-ARIA role attribute with the value figure or group.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.9.3",
+          "line": 3,
+          "quote": "La balise `<figure>` possède un attribut WAI-ARIA `role=\"figure\"` ou `role=\"group\"` ;"
+        },
+        {
+          "source": "technical_note",
+          "criterion": "1.9",
+          "quote": "L’implémentation d’un attribut WAI-ARIA `role=\"group\"` ou `role=\"figure\"` sur l’élément parent `<figure>` est destiné à pallier le manque de support actuel des éléments `<figure>` par les technologies d’assistance."
+        }
+      ],
+      "routes": [
+        {
+          "id": "role-figure",
+          "statement": "The <figure> element has role=\"figure\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.9.3",
+              "line": 3,
+              "quote": "possède un attribut WAI-ARIA `role=\"figure\"`"
+            }
+          ]
+        },
+        {
+          "id": "role-group",
+          "statement": "The <figure> element has role=\"group\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.9.3",
+              "line": 3,
+              "quote": "ou `role=\"group\"`"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "figure-role-caption-as-replacement",
+          "statement": "The adjacent text can serve as the image's replacement text and the image is treated as decorative; the figure and figcaption set, and so this condition, is then not required.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Légende d’image",
+              "quote": "lorsque le texte adjacent à l’image peut faire office de texte de remplacement, il n’est pas obligatoire de recourir à l’ensemble figure, figcaption, l’image pouvant être simplement traitée comme une image de décoration."
+            },
+            {
+              "source": "test",
+              "test": "1.9.3",
+              "line": 1,
+              "quote": "vérifie-t-elle, si nécessaire, ces conditions ?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "figure-aria-label",
+      "statement": "The <figure> element has an aria-label attribute whose content is identical to the content of the caption.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.9.3",
+          "line": 4,
+          "quote": "La balise `<figure>` possède un attribut WAI-ARIA `aria-label` dont le contenu est identique au contenu de la légende ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "aria-label-identical-to-caption",
+          "statement": "The <figure> element's aria-label holds the same content as its <figcaption>.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.9.3",
+              "line": 4,
+              "quote": "dont le contenu est identique au contenu de la légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.9",
+              "quote": "L’utilisation d’un élément `<figcaption>` pour associer une légende à une image impose au minimum l’utilisation d’un attribut WAI-ARIA `aria-label` sur l’élément parent `<figure>` dont le contenu sera identique au contenu de l’élément `<figcaption>`."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "figure-aria-label-caption-as-replacement",
+          "statement": "The adjacent text can serve as the image's replacement text and the image is treated as decorative; the figure and figcaption set, and so this condition, is then not required.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Légende d’image",
+              "quote": "lorsque le texte adjacent à l’image peut faire office de texte de remplacement, il n’est pas obligatoire de recourir à l’ensemble figure, figcaption, l’image pouvant être simplement traitée comme une image de décoration."
+            },
+            {
+              "source": "test",
+              "test": "1.9.3",
+              "line": 1,
+              "quote": "vérifie-t-elle, si nécessaire, ces conditions ?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "caption-in-figcaption",
+      "statement": "The caption is contained in a <figcaption> element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.9.3",
+          "line": 5,
+          "quote": "La légende est contenue dans une balise `<figcaption>`."
+        }
+      ],
+      "routes": [
+        {
+          "id": "figcaption-holds-caption",
+          "statement": "A <figcaption> element holds the caption.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.9.3",
+              "line": 5,
+              "quote": "La légende est contenue dans une balise `<figcaption>`."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "figcaption-caption-as-replacement",
+          "statement": "The adjacent text can serve as the image's replacement text and the image is treated as decorative; the figure and figcaption set, and so this condition, is then not required.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Légende d’image",
+              "quote": "lorsque le texte adjacent à l’image peut faire office de texte de remplacement, il n’est pas obligatoire de recourir à l’ensemble figure, figcaption, l’image pouvant être simplement traitée comme une image de décoration."
+            },
+            {
+              "source": "test",
+              "test": "1.9.3",
+              "line": 1,
+              "quote": "vérifie-t-elle, si nécessaire, ces conditions ?"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/1-9-embed-figure-aria-label",
+      "requirement": "figure-aria-label",
+      "routes": [
+        "aria-label-identical-to-caption",
+        "figure-aria-label-caption-as-replacement"
+      ],
+      "scope": "partial",
+      "faultMeans": "failure"
+    },
+    {
+      "check": "custom/1-9-embed-figure-role",
+      "requirement": "figure-role",
+      "routes": [
+        "role-figure",
+        "role-group",
+        "figure-role-caption-as-replacement"
+      ],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to each embedded image (<embed>, with an image type as the methodology says) that has an adjacent caption, and asks four conditions, all of them: the image and caption in a figure, a role attribute of figure or group on the figure, an aria-label on the figure identical to the caption, and the caption in a figcaption. Each is a requirement. The glossary gives one exception, which explains \"si nécessaire\": when the adjacent text can serve as the image's replacement text, the figure and figcaption set is not required and the image can be treated as decorative. It is listed on each requirement. Which images have a caption is judgment in general: a caption is adjacent text that informs about or completes the image, and code cannot recognise one outside a figcaption. So no check resolves any requirement, conditions 1 and 4 have no link, and the entry is below full. One case is mechanical. A figure that holds only the image and one figcaption with text is a captioned image under any reading: the glossary names figure and figcaption as the way HTML associates a caption, and says an image without a caption is one outside a figure or in a figure without figcaption. For such a pair two custom checks examine the second and third conditions. One faults a figure with no role attribute, or with one token other than figure or group: the wording asks for the attribute, and technical note 1 explains it is there because figure elements are not supported, so the element's implicit role does not stand in for it. The other faults a figure with no aria-label, an aria-label without letters or numbers, or one whose letters and numbers differ from those of a plain-text figcaption: technical note 1 says using a figcaption imposes at least an aria-label with identical content, and technical note 3 rules out aria-labelledby. Both abstain on the exception's cases: a witness image must be exposed, visible, with no empty alt, no presentational role and a name with letters or numbers, so it is not treated as decorative, and the exception as the glossary words it needs an image treated as decorative. They also abstain on images or captions that are hidden, invisible or off-screen, on a figure holding anything else or a figcaption holding a control, on images using aria-labelledby or aria-describedby, and on frames and shadow trees. Each examines both routes and the exception of its requirement, so its fault means failure; its scope is partial, because captioned images outside a figure with figcaption are never examined. The checks never answer no_fault, so the entry is fail_only. No axe-core rule is tagged for this test. Applicability is judgment, because whether any image on the page has a caption is judgment. Needs is empty: attributes, styles, geometry and the accessibility tree are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "1.9",
+        "quote": "Chaque légende d’image est-elle, si nécessaire, correctement reliée à l’image correspondante ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende d’image",
+        "quote": "HTML5 propose d’associer une légende à une image via les éléments figure (l’ensemble de l’image et la légende) et figcaption (la légende)."
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende d’image",
+        "quote": "Une image insérée dans un élément figure sans élément figcaption."
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende d’image",
+        "quote": "Lorsqu’une image est légendée il est nécessaire d’associer la légende de l’image à l’image par une relation de structure"
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende d’image",
+        "quote": "lorsque le texte adjacent à l’image peut faire office de texte de remplacement, il n’est pas obligatoire de recourir à l’ensemble figure, figcaption, l’image pouvant être simplement traitée comme une image de décoration."
+      },
+      {
+        "source": "technical_note",
+        "criterion": "1.9",
+        "quote": "L’utilisation d’un élément `<figcaption>` pour associer une légende à une image impose au minimum l’utilisation d’un attribut WAI-ARIA `aria-label` sur l’élément parent `<figure>` dont le contenu sera identique au contenu de l’élément `<figcaption>`."
+      },
+      {
+        "source": "technical_note",
+        "criterion": "1.9",
+        "quote": "Les attributs WAI-ARIA `aria-labelledby` et `aria-describedby` ne peuvent pas être utilisés actuellement par manque de support par les technologies d’assistance."
+      },
+      {
+        "source": "methodology",
+        "test": "1.9.3",
+        "quote": "Si c’est le cas pour chaque image, **le test est validé**."
+      }
+    ]
+  }
+}
