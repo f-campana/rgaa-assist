@@ -829,8 +829,98 @@ describe("structural against judgment applicability", () => {
     expect(f.requirementFacts).toEqual({ r1: ["satisfied"], r2: ["satisfied"] });
   });
 
-  it("always: one requirement satisfied and one inapplicable is passed", () => {
-    expect(derive1(two("always"), [obs("custom/res", "no_fault"), obs("custom/res2", "inapplicable")]).status).toBe("passed");
+  // Q43: on `always`, any one inapplicable requirement is enough, judged per requirement.
+
+  it("always: one requirement satisfied and one inapplicable is needs_review, cannot_tell (Q43)", () => {
+    const f = derive1(two("always"), [obs("custom/res", "no_fault"), obs("custom/res2", "inapplicable")]);
+    expect(f).toMatchObject({ status: "needs_review", reason: "cannot_tell", complete: true });
+    expect(f.requirementFacts).toEqual({ r1: ["satisfied"], r2: ["inapplicable"] });
+    // Either requirement may be the inapplicable one.
+    expect(derive1(two("always"), [obs("custom/res", "inapplicable"), obs("custom/res2", "no_fault")])).toMatchObject({
+      status: "needs_review",
+      reason: "cannot_tell",
+    });
+  });
+
+  it("one satisfied and one inapplicable: structural and judgment are still passed, always is not (Q43)", () => {
+    const got = (["structural", "judgment", "always"] as const).map((a) => {
+      const f = derive1(two(a), [obs("custom/res", "no_fault"), obs("custom/res2", "inapplicable")]);
+      return [a, f.status, f.reason];
+    });
+    expect(got).toEqual([
+      ["structural", "passed", undefined],
+      ["judgment", "passed", undefined],
+      ["always", "needs_review", "cannot_tell"],
+    ]);
+  });
+
+  it("always: a violation beside an inapplicable requirement is still failed at fail_only and full (Q43)", () => {
+    const e = entry({
+      reqs: ["r1", "r2"],
+      applicability: "always",
+      links: [
+        { check: "custom/res", kind: "resolving_failure", req: "r1" },
+        { check: "custom/res2", kind: "resolving", req: "r2" },
+      ],
+    });
+    for (const level of ["fail_only", "full"] as const) {
+      const f = derive1(e, [obs("custom/res", "fault"), obs("custom/res2", "inapplicable")], { level });
+      expect(f.status, level).toBe("failed");
+      expect(f.reason, level).toBeUndefined();
+      expect(f.requirementFacts, level).toEqual({ r1: ["violation"], r2: ["inapplicable"] });
+    }
+  });
+
+  it("always: an error beside an inapplicable requirement is still not_tested, check_error (Q43)", () => {
+    const f = derive1(two("always"), [obs("custom/res", "inapplicable"), obs("custom/res2", "error")]);
+    expect(f).toMatchObject({ status: "not_tested", reason: "check_error", complete: false });
+    expect(f.notRun).toEqual(["custom/res2"]);
+  });
+
+  it("always: an advisory observation answering inapplicable never triggers needs_review; the resolving no_fault gives passed (Q43)", () => {
+    const e = entry({
+      applicability: "always",
+      links: [
+        { check: "custom/res", kind: "resolving" },
+        { check: "axe/adv", kind: "advisory" },
+      ],
+    });
+    const f = derive1(e, [obs("custom/res", "no_fault"), obs("axe/adv", "inapplicable")]);
+    expect(f.status).toBe("passed");
+    expect(f.reason).toBeUndefined();
+    expect(f.requirementFacts).toEqual({ r1: ["satisfied"] });
+  });
+
+  it("always: a dispute beside an inapplicable requirement keeps checks_disagree (Q43)", () => {
+    const e = entry({
+      reqs: ["r1", "r2"],
+      applicability: "always",
+      links: [
+        { check: "custom/fail", kind: "failure_partial", req: "r1" },
+        { check: "custom/res", kind: "resolving", req: "r1" },
+        { check: "custom/res2", kind: "resolving", req: "r2" },
+      ],
+    });
+    const f = derive1(e, [obs("custom/fail", "fault"), obs("custom/res", "no_fault"), obs("custom/res2", "inapplicable")]);
+    expect(f).toMatchObject({ status: "needs_review", reason: "checks_disagree" });
+    expect(f.requirementFacts.r1).toContain("dispute");
+    expect(f.requirementFacts.r2).toEqual(["inapplicable"]);
+  });
+
+  it("always: an unmet prerequisite beside an inapplicable requirement keeps prerequisite_unmet (Q43)", () => {
+    const e = entry({
+      reqs: ["r1", "r2"],
+      applicability: "always",
+      needs: ["keyboard"],
+      links: [
+        { check: "custom/res", kind: "resolving", req: "r1" },
+        { check: "custom/res2", kind: "resolving", req: "r2" },
+      ],
+    });
+    expect(derive1(e, [obs("custom/res", "no_fault"), obs("custom/res2", "inapplicable")])).toMatchObject({
+      status: "needs_review",
+      reason: "prerequisite_unmet",
+    });
   });
 
   it("always: cannot_tell on a requirement is cannot_tell, as for the other values", () => {
