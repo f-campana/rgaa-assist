@@ -1,0 +1,102 @@
+{
+  "test": "8.10.2",
+  "requirements": [
+    {
+      "id": "dir-value-conforming",
+      "statement": "For each change of reading direction, the value of the dir attribute is conforming: rtl or ltr.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.10.2",
+          "line": 2,
+          "quote": "La valeur de l’attribut `dir` est conforme (`rtl` ou `ltr`) ;"
+        },
+        {
+          "source": "test",
+          "test": "8.10.2",
+          "line": 1,
+          "quote": "Dans chaque page web, chaque changement du sens de lecture (attribut `dir`) vérifie-t-il ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "rtl-or-ltr",
+          "statement": "The dir attribute has the value ltr (left to right) or rtl (right to left).",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Sens de lecture",
+              "quote": "Les deux valeurs reconnues sont :"
+            },
+            {
+              "source": "methodology",
+              "test": "8.10.2",
+              "quote": "L’indication de sens de lecture est conforme (ltr, pour le sens « de gauche à droite » et rtl pour le sens « de droite à gauche ») ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "dir-value-relevant",
+      "statement": "For each change of reading direction, the value of the dir attribute is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.10.2",
+          "line": 3,
+          "quote": "La valeur de l’attribut `dir` est pertinente."
+        }
+      ],
+      "routes": [
+        {
+          "id": "direction-matches-text",
+          "statement": "The value gives the reading direction of the passage it applies to.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "8.10.2",
+              "quote": "L’indication de sens de lecture est pertinente."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/8-10-rtl-text-dir-value",
+      "requirement": "dir-value-conforming",
+      "routes": ["rtl-or-ltr"],
+      "scope": "partial",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Two requirements: the dir value is conforming, and it is relevant. Relevance is judgment: whether ltr or rtl fits a passage depends on the passage, and a paragraph marked ltr may rightly hold one Arabic word. Conformity is mechanical in part. The wording and the glossary allow exactly two values, rtl and ltr (\"Les deux valeurs reconnues sont\"), so auto, which HTML allows, is not conforming here. The scope is the delicate part. The wording covers each change of reading direction, written as a dir attribute; the methodology covers each passage validated at 8.10.1, that is, text reading against the default and contained in an element with dir. A fault must hold under both, so the custom check faults only on a right-to-left witness, the same visible and exposed text as for 8.10.1 on a page whose declared language reads left to right and whose html and body carry no dir, when the nearest element containing it with a dir attribute has a value that is neither rtl nor ltr, such as auto. That passage is one 8.10.1 validates, and that attribute is its change of reading direction, so the test fails under either reading. The check abstains on empty values, on values that become rtl or ltr only after trimming or lowercasing (the text does not say whether case or spacing matters), and on dir attributes around no witness. It never answers no_fault, its scope is partial, and its link names the requirement's only route, so its fault means failure and the entry is fail_only. No axe rule is tagged. Applicability is judgment: the test does not apply to a page with no change of reading direction, and under the methodology that depends on 8.10.1's passages, which the check cannot list completely. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "8.10.2",
+        "quote": "Pour chaque passage de texte validé au test 8.10.1, vérifier que :"
+      },
+      {
+        "source": "glossary",
+        "entry": "Sens de lecture",
+        "quote": "Indique le sens de lecture du document ou d’un passage de texte via l’attribut dir"
+      },
+      {
+        "source": "test",
+        "test": "8.10.2",
+        "line": 2,
+        "quote": "La valeur de l’attribut `dir` est conforme (`rtl` ou `ltr`) ;"
+      }
+    ]
+  }
+}
