@@ -1,0 +1,128 @@
+{
+  "test": "1.6.3",
+  "requirements": [
+    {
+      "id": "embed-detailed-description",
+      "statement": "Each informative embedded image (<embed>) that needs a detailed description is given one by one of the accepted means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.6.3",
+          "line": 1,
+          "quote": "Chaque image embarquée (balise `<embed>`) porteuse d’information, qui nécessite une description détaillée, vérifie-t-elle une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "1.6.3",
+          "quote": "Retrouver dans le document les éléments `<embed>` pourvus de l’attribut `type=\"image/…\"`, porteurs d’information qui nécessitent une description détaillée ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "longdesc",
+          "statement": "A longdesc attribute gives the URL of a page, or of a location in the page, that holds the detailed description. Technical note 4 says this attribute only has to be checked for HTML versions before HTML5.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.6.3",
+              "line": 2,
+              "quote": "Il existe un attribut `longdesc` qui donne l’adresse (URL) d’une page ou d’un emplacement dans la page contenant la description détaillée ;"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.6",
+              "quote": "La vérification de cet attribut ne sera donc requise que pour les versions de la spécification HTML antérieure à HTML 5."
+            }
+          ]
+        },
+        {
+          "id": "alternative-references-adjacent-description",
+          "statement": "The image's text alternative contains a reference to a detailed description placed next to the image, which may be a figcaption element.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.6.3",
+              "line": 3,
+              "quote": "Il existe une alternative textuelle contenant la référence à une description détaillée adjacente à l’image ;"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.6",
+              "quote": "La description détaillée adjacente peut être implémentée via une balise `<figcaption>`"
+            }
+          ]
+        },
+        {
+          "id": "adjacent-link-or-button",
+          "statement": "A link or button placed next to the image, visually and in the code, gives access to the detailed description.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.6.3",
+              "line": 4,
+              "quote": "Il existe un lien ou un bouton adjacent permettant d’accéder à la description détaillée."
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "Le lien ou bouton doit être adjacent visuellement dans la représentation graphique (CSS activé) et dans le code HTML."
+            }
+          ]
+        },
+        {
+          "id": "aria-describedby-passage",
+          "statement": "One or more passages of text, identified by id, are linked to the image by aria-describedby and hold the detailed description. The glossary lists this means; technical note 2 discourages it but accepts it when it points to the id of the area holding the description.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Description détaillée (image)",
+              "quote": "Un ou plusieurs passages de texte identifiés par un id et liés par un attribut WAI-ARIA aria-describedby"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.6",
+              "quote": "lorsqu’il est utilisé, l’attribut devra nécessairement faire référence à l’`id` de la zone contenant la description détaillée"
+            }
+          ]
+        },
+        {
+          "id": "aria-labelledby-after-alternative",
+          "statement": "One or more passages of text, identified by id, are linked by aria-labelledby after the text alternative and hold the detailed description, as the glossary allows when aria-describedby is not supported.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Description détaillée (image)",
+              "quote": "il est possible d’utiliser un ou plusieurs passages de texte identifiés par un id et liés par un attribut WAI-ARIA aria-labelledby à la suite de l’alternative textuelle"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "No link and candidate none. The test applies only to images that carry information and that need a detailed description. Both are judgment: the glossary defines an informative image by the information it conveys, and the criterion title says a description is needed only \"si nécessaire\". Code can find the elements of this kind and list which of the accepted means each one carries, but it cannot tell whether an image needs a description at all, so a missing description is never a proven fault; and whether what a means points to is a detailed description of the image, that is content describing all its information, is judgment too, so a present means never proves a pass. No axe-core rule is tagged for this test, and none examines detailed descriptions. Applicability is judgment, because whether any image on the page needs a description is judgment. Needs is empty: the means are read in the page as loaded, and following one to its description is part of the same human judgment. The wording lists a longdesc attribute although the methodology leaves it out for <embed>; it is kept as a route. The glossary adds aria-describedby passages (technical note 2 names <embed>) and aria-labelledby passages after the alternative.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "1.6",
+        "quote": "a-t-elle, si nécessaire, une description détaillée ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Image porteuse d’information",
+        "quote": "Image qui véhicule une information nécessaire à la compréhension du contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Description détaillée (image)",
+        "quote": "Contenu associé à une image en complément de son alternative textuelle afin de décrire en totalité l’information véhiculée par l’image."
+      }
+    ]
+  }
+}

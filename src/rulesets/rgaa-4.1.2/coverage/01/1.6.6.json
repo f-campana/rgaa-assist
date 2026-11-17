@@ -1,0 +1,53 @@
+{
+  "test": "1.6.6",
+  "requirements": [
+    {
+      "id": "svg-description-rendered",
+      "statement": "For each informative <svg> with a detailed description, the reference to the description in aria-label, if any, and the description associated by aria-labelledby or aria-describedby are correctly rendered by assistive technologies.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.6.6",
+          "line": 1,
+          "quote": "la référence éventuelle à la description détaillée dans l’attribut WAI-ARIA `aria-label` et la description détaillée associée par l’attribut WAI-ARIA `aria-labelledby` ou `aria-describedby` sont-elles correctement restituées par les technologies d’assistance ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "rendered-by-assistive-technologies",
+          "statement": "Assistive technologies of the reference environment render the reference and the associated description correctly.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.6.6",
+              "quote": "vérifier que le contenu de la description détaillée est correctement restitué par les technologies d’assistance"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "assistive_tech"
+  ],
+  "rationale": {
+    "text": "No link and candidate none. The test asks whether assistive technologies render the description correctly, which can only be observed with assistive technologies; the methodology says so. That prerequisite is never met in v1. \"Correctement\" is also judgment. The scope is judgment too: the test covers only informative SVG images that have a detailed description. No axe-core rule is tagged. Applicability is judgment, for the same reason. Needs is assistive_tech.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "1.6.6",
+        "quote": "vérifier que le contenu de la description détaillée est correctement restitué par les technologies d’assistance"
+      },
+      {
+        "source": "glossary",
+        "entry": "Image porteuse d’information",
+        "quote": "Image qui véhicule une information nécessaire à la compréhension du contenu auquel elle est associée."
+      }
+    ]
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "test": "1.8.6",
+  "requirements": [
+    {
+      "id": "text-image-replaced-if-possible",
+      "statement": "Each informative SVG text image (<svg>) whose text is not fully structured with <text> elements, when no replacement mechanism exists, is replaced by styled text where possible, outside the particular cases.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.8.6",
+          "line": 1,
+          "quote": "et dont le texte n’est pas complètement structuré au moyen d’éléments `<text>`, en l’absence d’un mécanisme de remplacement, doit si possible être remplacée par du texte stylé."
+        },
+        {
+          "source": "technical_note",
+          "criterion": "1.8",
+          "quote": "Le texte dans les images vectorielles étant du texte réel, il n’est pas concerné par ce critère."
+        }
+      ],
+      "routes": [
+        {
+          "id": "replacement-mechanism",
+          "statement": "A replacement mechanism lets the user replace the text image with styled text, on the principle of a style switcher.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.8.6",
+              "quote": "Soit il existe un mécanisme de remplacement ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Mécanisme de remplacement",
+              "quote": "permettant à l’utilisateur de remplacer du texte par du texte en image et inversement sur le principe du style switcher"
+            }
+          ]
+        },
+        {
+          "id": "effect-not-reproducible-in-css",
+          "statement": "The text in the image uses a graphic effect that cannot be reproduced in CSS, so replacing it by styled text is not possible.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.8.6",
+              "quote": "Soit l’image contient un texte qui fait appel à un effet graphique qui ne peut pas être reproduit en CSS."
+            },
+            {
+              "source": "criterion_title",
+              "criterion": "1.8",
+              "quote": "doit si possible être remplacée par du texte stylé"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "text-part-of-logo",
+          "statement": "The text is part of a logo; the criterion is not applicable to that image.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "lorsque le texte fait partie du logo"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "Dans ces situations, le critère est non applicable pour ces éléments."
+            }
+          ]
+        },
+        {
+          "id": "text-part-of-brand-name",
+          "statement": "The text is part of a brand name; the criterion is not applicable to that image.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "d’une dénomination commerciale"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "Dans ces situations, le critère est non applicable pour ces éléments."
+            }
+          ]
+        },
+        {
+          "id": "captcha",
+          "statement": "The text is part of a CAPTCHA; the criterion is not applicable to that image.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "d’un CAPTCHA"
+            },
+            {
+              "source": "glossary",
+              "entry": "CAPTCHA",
+              "quote": "Le test utilise souvent des images contenant du texte déformé"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "Dans ces situations, le critère est non applicable pour ces éléments."
+            }
+          ]
+        },
+        {
+          "id": "image-test",
+          "statement": "The text is part of an image used as a test, in a CAPTCHA, a quiz or a game; the criterion is not applicable to that image.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "d’une image-test"
+            },
+            {
+              "source": "glossary",
+              "entry": "Image-test",
+              "quote": "Image servant dans un test, captcha ou une image servant de test dans un quiz ou un jeu."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "Dans ces situations, le critère est non applicable pour ces éléments."
+            }
+          ]
+        },
+        {
+          "id": "graphic-exactness-essential",
+          "statement": "The exact graphic rendering of the image is essential to convey its information; the criterion is not applicable to that image.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "d’une image dont l’exactitude graphique serait considérée comme essentielle à la bonne transmission de l’information véhiculée par l’image"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "1.8",
+              "quote": "Dans ces situations, le critère est non applicable pour ces éléments."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "No link and candidate none. The test applies to each <svg> element that is a text image carrying information. Whether an image displays text is a matter of what its pixels show, which code reading the page cannot establish; whether it carries information is judgment. The two routes are judgment as well: whether a graphic effect can be reproduced in CSS, and whether a mechanism really replaces the images with styled text. So are the five particular cases: a logo, a brand name, a CAPTCHA, an image-test, or an image whose exact rendering is essential. No check could fault an image without knowing that it shows text and that no exception applies. No axe-core rule is tagged for this test. Applicability is judgment, because whether any text image is present is not known from the code. Needs is state: confirming a replacement mechanism means activating it and seeing the images replaced. Here the scope is narrowed further to SVG whose text is not fully structured with <text> elements; the technical note says real SVG text is not concerned. Code can list <text> elements, but text drawn with paths or embedded bitmaps is only seen in the rendering, so whether all of an image's text is in <text> elements cannot be established.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "1.8",
+        "quote": "Chaque image texte porteuse d’information, en l’absence d’un mécanisme de remplacement, doit si possible être remplacée par du texte stylé."
+      },
+      {
+        "source": "glossary",
+        "entry": "Image texte",
+        "quote": "Image affichant du texte."
+      },
+      {
+        "source": "glossary",
+        "entry": "Texte stylé",
+        "quote": "Texte dont la mise en forme est contrôlée par une feuille de styles."
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "1.8",
+        "quote": "il existe une gestion de cas particulier"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "1.8",
+        "quote": "Le texte dans les images vectorielles étant du texte réel, il n’est pas concerné par ce critère."
+      }
+    ]
+  }
+}

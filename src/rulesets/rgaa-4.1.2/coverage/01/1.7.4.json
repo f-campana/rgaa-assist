@@ -1,0 +1,218 @@
+{
+  "test": "1.7.4",
+  "requirements": [
+    {
+      "id": "alternative-signalled-relevant",
+      "statement": "When the image's detailed description is given by a description in the page signalled by the text alternative, that description is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.7.4",
+          "line": 2,
+          "quote": "La description détaillée dans la page et signalée par l’alternative textuelle est pertinente ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "alternative-signalled-description-relevant",
+          "statement": "The description given by a description in the page signalled by the text alternative describes all the information the image conveys.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.7.4",
+              "line": 2,
+              "quote": "La description détaillée dans la page et signalée par l’alternative textuelle est pertinente ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Description détaillée (image)",
+              "quote": "afin de décrire en totalité l’information véhiculée par l’image"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "alternative-signalled-not-used",
+          "statement": "The image gives no detailed description by a description in the page signalled by the text alternative; this condition then has nothing to check.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.7.4",
+              "line": 2,
+              "quote": "La description détaillée dans la page et signalée par l’alternative textuelle est pertinente ;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adjacent-relevant",
+      "statement": "When the image's detailed description is given by a description placed next to the image, that description is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.7.4",
+          "line": 3,
+          "quote": "La description détaillée adjacente à l’image embarquée est pertinente ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "adjacent-description-relevant",
+          "statement": "The description given by a description placed next to the image describes all the information the image conveys.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.7.4",
+              "line": 3,
+              "quote": "La description détaillée adjacente à l’image embarquée est pertinente ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Description détaillée (image)",
+              "quote": "afin de décrire en totalité l’information véhiculée par l’image"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "adjacent-not-used",
+          "statement": "The image gives no detailed description by a description placed next to the image; this condition then has nothing to check.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.7.4",
+              "line": 3,
+              "quote": "La description détaillée adjacente à l’image embarquée est pertinente ;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adjacent-link-or-button-relevant",
+      "statement": "When the image's detailed description is given by a description reached through an adjacent link or button, that description is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.7.4",
+          "line": 4,
+          "quote": "La description détaillée via un lien ou un bouton adjacent est pertinente ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "adjacent-link-or-button-description-relevant",
+          "statement": "The description given by a description reached through an adjacent link or button describes all the information the image conveys.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.7.4",
+              "line": 4,
+              "quote": "La description détaillée via un lien ou un bouton adjacent est pertinente ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Description détaillée (image)",
+              "quote": "afin de décrire en totalité l’information véhiculée par l’image"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "adjacent-link-or-button-not-used",
+          "statement": "The image gives no detailed description by a description reached through an adjacent link or button; this condition then has nothing to check.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.7.4",
+              "line": 4,
+              "quote": "La description détaillée via un lien ou un bouton adjacent est pertinente ;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aria-describedby-relevant",
+      "statement": "When the image's detailed description is given by the passage of text associated by aria-describedby, that description is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.7.4",
+          "line": 5,
+          "quote": "Le passage de texte associé via l’attribut WAI-ARIA `aria-describedby` est pertinent."
+        }
+      ],
+      "routes": [
+        {
+          "id": "aria-describedby-description-relevant",
+          "statement": "The description given by the passage of text associated by aria-describedby describes all the information the image conveys.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.7.4",
+              "line": 5,
+              "quote": "Le passage de texte associé via l’attribut WAI-ARIA `aria-describedby` est pertinent."
+            },
+            {
+              "source": "glossary",
+              "entry": "Description détaillée (image)",
+              "quote": "afin de décrire en totalité l’information véhiculée par l’image"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "aria-describedby-not-used",
+          "statement": "The image gives no detailed description by the passage of text associated by aria-describedby; this condition then has nothing to check.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.7.4",
+              "line": 5,
+              "quote": "Le passage de texte associé via l’attribut WAI-ARIA `aria-describedby` est pertinent."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "No link and candidate none. The test applies to each embedded image (<embed type=\"image/…\">) that carries information and has a detailed description, and asks that the description be relevant. The wording says the image must meet these conditions, all of them; each condition names one means of giving a description, so each is a requirement that holds when its description is relevant and has nothing to check when the image does not use that means. Relevance is judgment: whether a text describes all the information an image conveys cannot be decided by code. The scope is judgment too, since whether an image carries information is judgment. No axe-core rule is tagged for this test, and none examines the content of descriptions. Applicability is judgment, for the same reason. Needs is state: a description reached through an adjacent button is often shown only once the button is activated, and its content must be seen to be judged.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "1.7",
+        "quote": "cette description est-elle pertinente ?"
+      },
+      {
+        "source": "test",
+        "test": "1.7.4",
+        "line": 1,
+        "quote": "porteuse d’information, ayant une description détaillée, vérifie-t-elle ces conditions ?"
+      },
+      {
+        "source": "methodology",
+        "test": "1.7.4",
+        "quote": "vérifier que la description détaillée est pertinente ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Image porteuse d’information",
+        "quote": "Image qui véhicule une information nécessaire à la compréhension du contenu auquel elle est associée."
+      }
+    ]
+  }
+}
