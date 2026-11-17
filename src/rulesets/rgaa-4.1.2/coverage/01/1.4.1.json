@@ -1,0 +1,100 @@
+{
+  "test": "1.4.1",
+  "requirements": [
+    {
+      "id": "img-captcha-alternative-relevant",
+      "statement": "For each image (<img>) used as a CAPTCHA or as an image-test that has a text alternative, the alternative is relevant: it identifies the nature and function of the image.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.4.1",
+          "line": 1,
+          "quote": "utilisée comme CAPTCHA ou comme image-test, ayant une alternative textuelle, cette alternative est-elle pertinente ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "1.4",
+          "quote": "cette alternative permet-elle d’identifier la nature et la fonction de l’image ?"
+        },
+        {
+          "source": "methodology",
+          "test": "1.4.1",
+          "quote": "vérifier que l’alternative textuelle est pertinente"
+        }
+      ],
+      "routes": [
+        {
+          "id": "present-sources-identify",
+          "statement": "Each source present identifies the nature and function of the image: the alt attribute, the title attribute, the aria-label attribute and the passage of text linked by aria-labelledby.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.4.1",
+              "line": 2,
+              "quote": "S’il est présent, le contenu de l’attribut `alt` est pertinent"
+            },
+            {
+              "source": "test",
+              "test": "1.4.1",
+              "line": 3,
+              "quote": "S’il est présent, le contenu de l’attribut `title` est pertinent"
+            },
+            {
+              "source": "test",
+              "test": "1.4.1",
+              "line": 4,
+              "quote": "S’il est présent, le contenu de l’attribut WAI-ARIA `aria-label` est pertinent"
+            },
+            {
+              "source": "test",
+              "test": "1.4.1",
+              "line": 5,
+              "quote": "S’il est présent, le passage de texte associé via l’attribut WAI-ARIA `aria-labelledby` est pertinent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Alternative textuelle (image)",
+              "quote": "Pour une image CAPTCHA ou une image-test, l’alternative textuelle décrit seulement la nature et la fonction de l’image."
+            },
+            {
+              "source": "glossary",
+              "entry": "Image-test",
+              "quote": "L’alternative doit alors se contenter de donner la possibilité d’identifier l’image"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies only to images used as a CAPTCHA or as an image-test, and code cannot identify them: the glossary defines a CAPTCHA by its purpose, telling a human from a computer, and an image-test by its use in a test, a quiz or a game. Relevance here means that the alternative identifies the nature and function of the image without giving away what the image carries, as the criterion title and the glossary say; that is judgment. So no check can fault an alternative as surely irrelevant on an element surely in scope, nor pass a page, and the entry stays at none. The wording lists the sources and asks that each one present be relevant (\"S’il est présent\"); the entry models this as one requirement with one route that names every source. The criterion has no particular case and the wording states no limit, so there is no exception. No axe rule is tagged and no custom check is registered: code cannot find the CAPTCHA and image-test images, and any sign it could read in an alternative would be evidence only. Applicability is judgment, because the test applies only to images used as a CAPTCHA or an image-test. Needs is empty: the methodology asks for no assistive technology.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "CAPTCHA",
+        "quote": "Un CAPTCHA est un test utilisé pour distinguer un utilisateur humain d’un ordinateur."
+      },
+      {
+        "source": "glossary",
+        "entry": "Image-test",
+        "quote": "Image servant dans un test, captcha ou une image servant de test dans un quiz ou un jeu."
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative textuelle (image)",
+        "quote": "l’alternative textuelle ne peut apporter l’information véhiculée par l’image sans rendre la fonction associée inopérante."
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative textuelle (image)",
+        "quote": "pour une image CAPTCHA l’alternative peut être, par exemple : « Code de sécurité anti-spam »"
+      }
+    ]
+  }
+}

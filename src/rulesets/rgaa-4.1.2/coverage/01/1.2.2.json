@@ -1,0 +1,124 @@
+{
+  "test": "1.2.2",
+  "requirements": [
+    {
+      "id": "area-decorative-ignored",
+      "statement": "Each decorative non-clickable area (an <area> without href, or with nohref in a page that is not HTML5) meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.2",
+          "line": 1,
+          "quote": "Chaque zone non cliquable (balise `<area>` sans attribut `href`) de décoration, vérifie-t-elle une de ces conditions ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Zone non cliquable",
+          "quote": "Avec l’attribut nohref lorsque le code HTML de la page n’est pas du HTML5 ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "empty-alt-only",
+          "statement": "The area has an empty alt attribute (alt=\"\") and no other attribute that provides a text alternative; the methodology names aria-labelledby, aria-label and title.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.2",
+              "line": 2,
+              "quote": "La balise `<area>` possède un attribut `alt` vide (`alt=\"\"`) et est dépourvue de tout autre attribut permettant de fournir une alternative textuelle"
+            },
+            {
+              "source": "methodology",
+              "test": "1.2.2",
+              "quote": "vérifier que l’élément `<area>` ne possède pas d’attributs `aria-labelledby`, `aria-label` ou `title`"
+            }
+          ]
+        },
+        {
+          "id": "aria-hidden-true",
+          "statement": "The area has aria-hidden=\"true\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.2",
+              "line": 3,
+              "quote": "La balise `<area>` possède un attribut WAI-ARIA `aria-hidden=\"true\"`"
+            }
+          ]
+        },
+        {
+          "id": "role-presentation",
+          "statement": "The area has role=\"presentation\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.2",
+              "line": 3,
+              "quote": "ou `role=\"presentation\"`."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Un attribut WAI-ARIA `role=\"presentation\"` peut être utilisé sur les images de décoration et les zones non cliquables de décoration."
+            }
+          ]
+        },
+        {
+          "id": "role-none",
+          "statement": "The area has role=\"none\", which technical note 3 accepts as a synonym of role=\"presentation\".",
+          "citations": [
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Le rôle `\"none\"` introduit en ARIA 1.1 et synonyme du rôle `\"presentation\"` peut être aussi utilisé."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-image-map",
+          "statement": "An area of an image map whose image is associated with a caption: technical note 1 makes criterion 1.2 not applicable to a captioned image, and the entry reads it as covering that image's areas.",
+          "citations": [
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies only to decorative images without a caption, and code cannot tell which images those are. The glossary defines a decorative image as one with no function and no particular information relative to the content it goes with, and the caption glossary adds that an image whose adjacent text can stand in for it may be treated as decorative. Whether an image has a caption is partly judgment too: the caption glossary covers adjacent text that informs on the image, not only figure and figcaption. So no check can fault an element as surely in scope, nor pass a page, and the entry stays at none, although each condition of the test is mechanical once an element is known to be in scope. Here the elements are areas without href (with nohref in a page that is not HTML5, as the glossary of a non-clickable area says); being non-clickable is mechanical, being decorative is not. The routes are the same as for an img: an empty alt with no other attribute that provides a text alternative, aria-hidden=\"true\", role=\"presentation\", or role=\"none\", which technical note 3 accepts for decorative non-clickable areas. As in 1.2.1, the methodology asks for the absence of aria-labelledby, aria-label and title whatever the route, while the wording asks it only with the empty alt; the entry keeps the wider reading. The wording of 1.2.2 does not say \"sans légende\", but technical note 1 is a note of the whole criterion, so an area of a captioned image is listed as an exception. That reading is a doubt: whether an area belongs to \"une image associée à une légende\" is not said. Listing it can only make the entry claim less. No axe rule is tagged, and no custom check is registered: decorative non-clickable areas are rare, and a hint check like the one of 1.2.1 could be added later as evidence only. Applicability is judgment. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Image de décoration",
+        "quote": "Image n’ayant aucune fonction et ne véhiculant aucune information particulière par rapport au contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Zone non cliquable",
+        "quote": "Région d’une image réactive à laquelle aucune action n’est associée."
+      },
+      {
+        "source": "methodology",
+        "test": "1.2.2",
+        "quote": "Retrouver dans le document les images décoratives structurées au moyen d’un élément `<area>` (sans attribut `href`)"
+      }
+    ]
+  }
+}

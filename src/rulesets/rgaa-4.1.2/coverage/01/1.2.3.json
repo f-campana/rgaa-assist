@@ -1,0 +1,195 @@
+{
+  "test": "1.2.3",
+  "requirements": [
+    {
+      "id": "object-aria-hidden",
+      "statement": "Each decorative image object (<object type=\"image/…\">) without a caption has aria-hidden=\"true\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.3",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "aria-hidden-present",
+          "statement": "The <object> element has aria-hidden=\"true\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.3",
+              "line": 2,
+              "quote": "La balise `<object>` possède un attribut WAI-ARIA `aria-hidden=\"true\"`"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-hidden",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.3",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "object-no-text-alternative",
+      "statement": "Each decorative image object without a caption has no text alternative.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.3",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "1.2.3",
+          "line": 3,
+          "quote": "La balise `<object>` est dépourvue d’alternative textuelle"
+        }
+      ],
+      "routes": [
+        {
+          "id": "no-alternative-source",
+          "statement": "The opening <object> tag has none of aria-labelledby, aria-label and title.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.2.3",
+              "quote": "vérifier que la balise ouvrante `<object>` ne possède pas d’attributs `aria-labelledby`, `aria-label` ou `title`"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-alternative",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.3",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "object-no-fallback-text",
+      "statement": "Each decorative image object without a caption has no text acting as a text alternative between <object> and </object>.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.3",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "1.2.3",
+          "line": 4,
+          "quote": "Il n’y a aucun texte faisant office d’alternative textuelle entre `<object>` et `</object>`."
+        }
+      ],
+      "routes": [
+        {
+          "id": "no-fallback-text",
+          "statement": "No alternative content is present between the <object> and </object> tags.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.2.3",
+              "quote": "Et est dépourvue d’un contenu alternatif présent entre les balises `<object>` et `</object>`."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-fallback",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.3",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies only to decorative images without a caption, and code cannot tell which images those are. The glossary defines a decorative image as one with no function and no particular information relative to the content it goes with, and the caption glossary adds that an image whose adjacent text can stand in for it may be treated as decorative. Whether an image has a caption is partly judgment too: the caption glossary covers adjacent text that informs on the image, not only figure and figcaption. So no check can fault an element as surely in scope, nor pass a page, and the entry stays at none, although each condition of the test is mechanical once an element is known to be in scope. The wording says \"ces conditions\", and the methodology checks them together before \"le test est validé\", so each condition is its own requirement with one route. The caption limit is an exception on each, from the wording and technical note 1. The elements are <object> elements whose type is image/…, as the wording and the glossary of an image object say. Whether text between the tags acts as a text alternative may itself need judgment. No axe rule is tagged, and no custom check is registered: decorative image objects are rare, and a hint check would be evidence only. Applicability is judgment. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Image de décoration",
+        "quote": "Image n’ayant aucune fonction et ne véhiculant aucune information particulière par rapport au contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende d’image",
+        "quote": "Lorsqu’un texte, adjacent à une image, contient des informations sur l’image"
+      },
+      {
+        "source": "glossary",
+        "entry": "Image objet",
+        "quote": "Image incorporée ou générée par une balise <object>."
+      },
+      {
+        "source": "methodology",
+        "test": "1.2.3",
+        "quote": "Si c’est le cas pour chaque image, **le test est validé**."
+      }
+    ]
+  }
+}

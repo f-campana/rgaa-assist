@@ -1,0 +1,278 @@
+{
+  "test": "1.2.4",
+  "requirements": [
+    {
+      "id": "svg-aria-hidden",
+      "statement": "Each decorative vector image (<svg>) without a caption has aria-hidden=\"true\". Under technical note 2, the condition also applies to the <svg> referenced by a <use href> child through which the image is displayed.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.4",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle ces conditions ?"
+        },
+        {
+          "source": "technical_note",
+          "criterion": "1.2",
+          "quote": "le test 1.2.4 s'appliquera également à l'élément `<svg>` associée par le biais de l'élément `<use>`."
+        }
+      ],
+      "routes": [
+        {
+          "id": "aria-hidden-present",
+          "statement": "The <svg> element has aria-hidden=\"true\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.4",
+              "line": 2,
+              "quote": "La balise `<svg>` possède un attribut WAI-ARIA `aria-hidden=\"true\"`"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-hidden",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.4",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "svg-no-text-alternative",
+      "statement": "The <svg> of each decorative vector image without a caption, and its children, have no text alternative. Under technical note 2, the condition also applies to the <svg> referenced by a <use href> child through which the image is displayed.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.4",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "1.2.4",
+          "line": 3,
+          "quote": "La balise `<svg>` et ses enfants sont dépourvus d’alternative textuelle"
+        },
+        {
+          "source": "technical_note",
+          "criterion": "1.2",
+          "quote": "le test 1.2.4 s'appliquera également à l'élément `<svg>` associée par le biais de l'élément `<use>`."
+        }
+      ],
+      "routes": [
+        {
+          "id": "no-alternative",
+          "statement": "Neither the <svg> nor any of its children provides a text alternative: the methodology names aria-labelledby and aria-label on the <svg>, and the glossary says an svg's alternative may also be in a <title> or a <text> element.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.2.4",
+              "quote": "vérifier que l’élément `<svg>` ne possède pas d’attributs `aria-labelledby` ou `aria-label`"
+            },
+            {
+              "source": "glossary",
+              "entry": "Alternative textuelle (image)",
+              "quote": "pour les images vectorielles (balise <svg>) l’alternative textuelle pourrait se trouver aussi présente dans une balise <title> ou dans une balise <text>"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-alternative",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.4",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "svg-title-desc-empty",
+      "statement": "In each decorative vector image without a caption, the <title> and <desc> elements are absent or empty. Under technical note 2, the condition also applies to the <svg> referenced by a <use href> child through which the image is displayed.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.4",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "1.2.4",
+          "line": 4,
+          "quote": "Les balises `<title>` et `<desc>` sont absentes ou vides"
+        },
+        {
+          "source": "technical_note",
+          "criterion": "1.2",
+          "quote": "le test 1.2.4 s'appliquera également à l'élément `<svg>` associée par le biais de l'élément `<use>`."
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-desc-absent-or-empty",
+          "statement": "The <svg> contains no <title> or <desc> element, or only empty ones.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.2.4",
+              "quote": "Et ne contient pas d’éléments `<title>` et `<desc>` à moins que vides de contenu"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-title-desc",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.4",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "svg-no-title-attribute",
+      "statement": "The <svg> of each decorative vector image without a caption, and its children, have no title attribute. Under technical note 2, the condition also applies to the <svg> referenced by a <use href> child through which the image is displayed.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.4",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "1.2.4",
+          "line": 5,
+          "quote": "La balise `<svg>` et ses enfants sont dépourvus d’attribut `title`."
+        },
+        {
+          "source": "technical_note",
+          "criterion": "1.2",
+          "quote": "le test 1.2.4 s'appliquera également à l'élément `<svg>` associée par le biais de l'élément `<use>`."
+        }
+      ],
+      "routes": [
+        {
+          "id": "no-title-attribute",
+          "statement": "Neither the <svg> nor any of its children has a title attribute.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.2.4",
+              "quote": "Et est dépourvu d’attribut `title` (ainsi que ses éléments enfants)."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-title-attribute",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.4",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/1-2-svg-hidden-title-desc",
+      "requirement": "svg-title-desc-empty",
+      "routes": ["title-desc-absent-or-empty"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies only to decorative images without a caption, and code cannot tell which images those are. The glossary defines a decorative image as one with no function and no particular information relative to the content it goes with, and the caption glossary adds that an image whose adjacent text can stand in for it may be treated as decorative. Whether an image has a caption is partly judgment too: the caption glossary covers adjacent text that informs on the image, not only figure and figcaption. So no check can fault an element as surely in scope, nor pass a page, and the entry stays at none, although each condition of the test is mechanical once an element is known to be in scope. The wording says \"ces conditions\", and the methodology checks them together before \"le test est validé\", so each condition is its own requirement with one route. The caption limit is an exception on each, from the wording and technical note 1. Technical note 2 extends the conditions to an <svg> displayed through a <use href> child, so each requirement says so. Whether a <text> child is a text alternative or decorative lettering, which the glossary leaves open, is judgment as well. No axe rule is tagged. The custom check custom/1-2-svg-hidden-title-desc reports an <svg> that has aria-hidden=\"true\", the author's sign of a decorative image, and still contains a <title> or <desc> with text. It examines only the condition on <title> and <desc>, so it is linked to that requirement alone, through its single route; it does not examine the caption exception. Its scope is partial: it looks only at svg elements that already have aria-hidden=\"true\", and does not follow <use> references. Its fault is evidence only, because an svg hidden with aria-hidden may be informative (wrongly hidden, a failure of another criterion) or captioned. Applicability is judgment. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Image de décoration",
+        "quote": "Image n’ayant aucune fonction et ne véhiculant aucune information particulière par rapport au contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende d’image",
+        "quote": "l’image pouvant être simplement traitée comme une image de décoration"
+      },
+      {
+        "source": "methodology",
+        "test": "1.2.4",
+        "quote": "Retrouver dans le document les images décoratives dépourvues de légende structurées au moyen d’un élément `<svg>`"
+      }
+    ]
+  }
+}
