@@ -1,0 +1,166 @@
+{
+  "test": "11.9.1",
+  "requirements": [
+    {
+      "id": "name-relevant",
+      "statement": "For each button within a form, its accessible name, and its visible label where it shows one, are relevant: they describe the action that results from activating the button.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.9.1",
+          "line": 1,
+          "quote": "L’intitulé de chaque [bouton](#bouton-formulaire) vérifie-t-il ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.9.1",
+          "quote": "Pour chaque bouton, vérifier que son intitulé visible et son nom accessible sont pertinents ;"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "11.9",
+          "quote": "Dans chaque [formulaire](#formulaire), l’intitulé de chaque [bouton](#bouton-formulaire) est-il pertinent (hors cas particuliers) ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "name-describes-action",
+          "statement": "The accessible name, computed in the glossary's strict order, and the visible label describe the action that results from activating the button.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Bouton (formulaire)",
+              "quote": "L’intitulé d’un bouton doit décrire l’action qui résulte de son activation"
+            },
+            {
+              "source": "glossary",
+              "entry": "Bouton (formulaire)",
+              "quote": "Cet ordre doit être utilisé pour l’évaluation de la pertinence du « nom accessible » du bouton."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "present-sources-relevant",
+      "statement": "For each button within a form, each of these that is present is relevant: the aria-label, the passage of text linked by aria-labelledby, the value of an input of type submit, reset or button, the content of a button element, the alt of an input of type image, and the title.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.9.1",
+          "line": 2,
+          "quote": "S’il est présent, le contenu de l’attribut WAI-ARIA `aria-label` est pertinent ;"
+        },
+        {
+          "source": "test",
+          "test": "11.9.1",
+          "line": 3,
+          "quote": "S’il est présent, le [passage de texte](#passage-de-texte-lie-par-aria-labelledby-ou-aria-describedby) lié au bouton via un attribut WAI-ARIA `aria-labelledby` est pertinent ;"
+        },
+        {
+          "source": "test",
+          "test": "11.9.1",
+          "line": 4,
+          "quote": "S’il est présent, le contenu de l’attribut `value` d’une balise `<input>` de type `submit`, `reset` ou `button` est pertinent ;"
+        },
+        {
+          "source": "test",
+          "test": "11.9.1",
+          "line": 5,
+          "quote": "S’il est présent, le contenu de la balise `<button>` est pertinent ;"
+        },
+        {
+          "source": "test",
+          "test": "11.9.1",
+          "line": 6,
+          "quote": "S’il est présent, le contenu de l’attribut `alt` d’une balise `<input>` de type `image` est pertinent ;"
+        },
+        {
+          "source": "test",
+          "test": "11.9.1",
+          "line": 7,
+          "quote": "S’il est présent, le contenu de l’attribut `title` est pertinent."
+        }
+      ],
+      "routes": [
+        {
+          "id": "each-present-source-relevant",
+          "statement": "Every labelling source present on the button describes the action that results from activating it.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Bouton (formulaire)",
+              "quote": "L’intitulé du bouton peut être de six types :"
+            },
+            {
+              "source": "glossary",
+              "entry": "Bouton (formulaire)",
+              "quote": "L’intitulé d’un bouton doit décrire l’action qui résulte de son activation"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/button-name",
+      "requirement": "name-relevant",
+      "routes": ["name-describes-action"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/input-button-name",
+      "requirement": "name-relevant",
+      "routes": ["name-describes-action"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/aria-command-name",
+      "requirement": "name-relevant",
+      "routes": ["name-describes-action"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/11-9-button-name-empty",
+      "requirement": "name-relevant",
+      "routes": ["name-describes-action"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "structural",
+  "needs": [],
+  "rationale": {
+    "text": "The wording lists six labelling sources and asks that each one present be relevant; the methodology asks that the button's visible label and accessible name be relevant, and the glossary says the accessible name is computed in a strict order and that this order is used to judge it. The entry keeps both as requirements, since the conditions must all hold. Relevance is judgment, so the entry is not full. The criterion's only particular case concerns test 11.9.2, so this test has no exception. One case is mechanical: a button within a form whose accessible name is empty. An empty name cannot describe the action that results from activating the button, so the name is not relevant under the methodology, whatever the button shows on screen. A custom check faults such a button, reading the name from the browser's accessibility tree, when the button is in a form, rendered, exposed and visible, has no role other than button, has no non-blank title, aria-label or aria-labelledby, and no associated label element. Those last conditions are a guard: they leave out every button whose name could come from a source the glossary does not list or that the browser computes differently. Hidden or invisible buttons are cannot_tell, since the test gives no exception for them but does not say whether it covers them, and every non-empty name is cannot_tell, its relevance being judgment. The check looks at every button within a form, so its scope is whole; it examines the one route of that requirement, which has no exception, so its fault means failure and the entry is fail_only. It never answers no_fault. The reading this rests on is that the six conditions of the wording, each introduced by 'if present', do not make a button with no label at all pass: the methodology and the criterion title ask that the label of each button be relevant. The three axe-core rules tagged for this test are evidence only and partial: button-name looks at button elements, input-button-name at inputs of type button, submit and reset, and aria-command-name at elements with role button, link or menuitem; each faults an element with no accessible name. They look at every such element on the page, not only within forms, which this test does not cover, none of them looks at inputs of type image, and the exact handling of hidden elements and default labels is not established here. Applicability is structural: the test applies to buttons within a form, which code finds with certainty from the glossary's list of button types and the glossary's definition of a form. Needs is empty: names are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.9.1",
+        "quote": "Retrouver dans le document les boutons présents au sein d’un formulaire ;"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "11.9",
+        "quote": "Pour le test 11.9.2, voir cas particuliers critère 11.2."
+      },
+      {
+        "source": "glossary",
+        "entry": "Formulaire",
+        "quote": "Balise <form> ou balise possédant un attribut WAI-ARIA role=\"form\"."
+      },
+      {
+        "source": "glossary",
+        "entry": "Bouton (formulaire)",
+        "quote": "Il est également possible de restituer un bouton à l’aide du rôle WAI-ARIA button."
+      }
+    ]
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "test": "11.11.2",
+  "requirements": [
+    {
+      "id": "error-suggests-examples",
+      "statement": "For each input error, examples of expected values are suggested, where necessary.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.11.2",
+          "line": 1,
+          "quote": "Pour chaque erreur de saisie, des exemples de valeurs attendues sont-ils suggérés, si nécessaire ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.11.2",
+          "quote": "Pour chaque message d’erreur, vérifier que des exemples de valeurs attendues sont suggérés ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "message-suggests-examples",
+          "statement": "The error message suggests examples of expected values.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.11.2",
+              "quote": "vérifier que des exemples de valeurs attendues sont suggérés"
+            }
+          ]
+        },
+        {
+          "id": "constraint-validation-message-2",
+          "statement": "The browser's own validation message, customised through the Constraint Validation API, or the help message of a pattern attribute given by the title attribute, provides the suggestion.",
+          "citations": [
+            {
+              "source": "technical_note",
+              "criterion": "11.11",
+              "quote": "Ces messages sont personnalisables via l’API Constraint Validation, ce qui permet de personnaliser les messages d’erreur et de valider le critère."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "11.11",
+              "quote": "affiche un message d’aide personnalisable via l’attribut `title` : ce dispositif valide également le critère."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "examples-not-needed",
+          "statement": "Examples are required only where necessary.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.11.2",
+              "line": 1,
+              "quote": "si nécessaire"
+            },
+            {
+              "source": "criterion_title",
+              "criterion": "11.11",
+              "quote": "accompagné, si nécessaire, de suggestions facilitant la correction des erreurs de saisie"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test applies to input errors, which appear only after the user enters something and tries to validate, so it needs a state other than the page as loaded. Whether examples are necessary, and whether a message gives examples of expected values, are judgment: they depend on what the field expects and on the meaning of the message. The technical note of the criterion accepts browser validation messages customised through the Constraint Validation API, and a pattern attribute with a help message in title; whether such a message gives examples is again a reading. No check can decide either way, so the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment. Needs is state.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.11.2",
+        "quote": "Retrouver dans le document les messages d’erreur ;"
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "11.11",
+        "quote": "de suggestions facilitant la correction des erreurs de saisie"
+      }
+    ]
+  }
+}

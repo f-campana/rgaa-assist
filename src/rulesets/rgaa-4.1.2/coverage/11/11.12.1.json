@@ -1,0 +1,86 @@
+{
+  "test": "11.12.1",
+  "requirements": [
+    {
+      "id": "sensitive-input-correctable",
+      "statement": "For each form that modifies or deletes data, sends answers to a test or exam, or whose validation has financial or legal consequences, the user can correct or undo the input by one of the listed means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.12.1",
+          "line": 1,
+          "quote": "Pour chaque formulaire qui modifie ou supprime des données, ou qui transmet des réponses à un test ou un examen, ou dont la validation a des conséquences financières ou juridiques, la saisie des données vérifie-t-elle une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "modify-or-cancel-after",
+          "statement": "The user can modify or cancel the data and the actions taken on them after the form is validated; the page states how long cancellation can be requested and the procedure for it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.12.1",
+              "line": 2,
+              "quote": "L’utilisateur peut [modifier ou annuler les données et les actions effectuées](#modifier-ou-annuler-les-donnees-et-les-actions-effectues) sur ces données après la validation du formulaire ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Modifier ou annuler les données et les actions effectués",
+              "quote": "doit indiquer explicitement la durée pendant laquelle l’utilisateur peut demander l’annulation de sa saisie. Elle devra également contenir la procédure à effectuer pour annuler cette saisie."
+            }
+          ]
+        },
+        {
+          "id": "review-before-multistep",
+          "statement": "The user can check and correct the data before validating a form in several steps.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.12.1",
+              "line": 3,
+              "quote": "L’utilisateur peut vérifier et corriger les données avant la validation d’un formulaire en plusieurs étapes ;"
+            }
+          ]
+        },
+        {
+          "id": "explicit-confirmation",
+          "statement": "An explicit confirmation mechanism is present, through a checkbox (input of type checkbox or role checkbox) or an additional step.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.12.1",
+              "line": 4,
+              "quote": "Un mécanisme de confirmation explicite, via une case à cocher (balise `<input>` de type `checkbox` ou balise ayant un attribut WAI-ARIA `role=\"checkbox\"`) ou une étape supplémentaire, est présent."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test applies to forms that modify or delete data, send answers to a test or exam, or whose validation has financial or legal consequences. Which forms those are depends on what the form does on the server and what it means for the user, which code cannot read from the page. Each route is also judgment: whether data can be modified or cancelled after validation, with the duration and procedure the glossary asks the page to state; whether a form in several steps lets the user check and correct the data; and whether a checkbox or an extra step is an explicit confirmation of the action, rather than, say, a newsletter opt-in. So the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment. Needs is state: the extra step, the review step of a multi-step form and the means of modifying data after validation appear only after the user acts on the form.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "11.12",
+        "quote": "les données saisies peuvent-elles être modifiées, mises à jour ou récupérées par l’utilisateur ?"
+      },
+      {
+        "source": "methodology",
+        "test": "11.12.1",
+        "quote": "Soit disposer d’un mécanisme de confirmation explicite (par exemple, une case à cocher ou une étape supplémentaire)."
+      },
+      {
+        "source": "glossary",
+        "entry": "Modifier ou annuler les données et les actions effectués",
+        "quote": "Cette procédure n’a pas à être obligatoirement réalisable en ligne même si cela reste recommandé."
+      }
+    ]
+  }
+}

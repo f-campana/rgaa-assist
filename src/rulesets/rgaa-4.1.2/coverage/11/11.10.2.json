@@ -1,0 +1,107 @@
+{
+  "test": "11.10.2",
+  "requirements": [
+    {
+      "id": "attribute-backed-by-visible-indication",
+      "statement": "Each required field with aria-required=\"true\" or required also has a visible required-field indication, placed in its label or in the passage of text associated with it, before validation.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.10.2",
+          "line": 1,
+          "quote": "Les champs obligatoires ayant l’attribut `aria-required=\"true\"` ou `required` vérifient-ils une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.10.2",
+          "quote": "Retrouver dans le document les champs de formulaire obligatoires qui possèdent un attribut `aria-required=\"true\"` ou `required` ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "indication-in-label",
+          "statement": "A required-field indication is visible and placed in the label associated with the field, before validation.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.2",
+              "line": 2,
+              "quote": "Une [indication de champ obligatoire](#indication-de-champ-obligatoire) est visible et située dans l’étiquette associée au champ préalablement à la validation du formulaire ;"
+            }
+          ]
+        },
+        {
+          "id": "indication-in-passage",
+          "statement": "A required-field indication is visible and placed in the passage of text associated with the field by aria-labelledby or aria-describedby, before validation.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.2",
+              "line": 3,
+              "quote": "Une [indication de champ obligatoire](#indication-de-champ-obligatoire) est visible et située dans le [passage de texte](#passage-de-texte-lie-par-aria-labelledby-ou-aria-describedby) associé au champ préalablement à la validation du formulaire."
+            },
+            {
+              "source": "glossary",
+              "entry": "Passage de texte lié par `aria-labelledby` ou `aria-describedby`",
+              "quote": "associés à un élément (champ de formulaire, bouton, etc.) par les attributs WAI-ARIA aria-labelledby ou aria-describedby"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "single-field-form-2",
+          "statement": "The test is not applicable when the form has a single form field.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.10",
+              "quote": "Le test 11.10.1 et le test 11.10.2 seront considérés comme non applicables lorsque le formulaire comporte un seul [champ de formulaire](#champ-de-saisie-de-formulaire)"
+            }
+          ]
+        },
+        {
+          "id": "optional-fields-indicated-2",
+          "statement": "The test is not applicable when the form indicates its optional fields visibly, in the label element or in the legend associated with the field.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "11.10",
+              "quote": "ou qu’il indique les champs optionnels de manière :"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "11.10",
+              "quote": "Dans la balise `<label>` ou dans la [légende](#legende) associée au champ."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Fields with aria-required=\"true\" or required are found with certainty, but whether one of them shows a visible required-field indication in its label or associated passage is judgment. The glossary accepts a textual or graphical indication: a word in any language, an asterisk or an icon, possibly drawn by CSS generated content or a background image, and explained elsewhere before its first use. Code cannot list every form such an indication may take, so it cannot conclude that an indication is absent, nor that one is present. The particular cases add two exceptions: the test is not applicable when the form has a single field, which code can count, or when the form indicates its optional fields visibly in the label or legend, which needs reading the labels. A fault would have to rule out the second exception, and that is judgment. So the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment: the fields with the attribute are found mechanically, but the particular case on optional fields can make the test not applicable on a reading of the page. Needs is empty: the test looks at the page before validation, as loaded.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Indication de champ obligatoire",
+        "quote": "Indication textuelle ou graphique (icône)"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "11.10",
+        "quote": "Visible ;"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "11.10",
+        "quote": "Une mention “facultatif” est présente visuellement dans le libellé des champs facultatifs ou dans la légende d’un groupe de champs facultatifs ;"
+      }
+    ]
+  }
+}

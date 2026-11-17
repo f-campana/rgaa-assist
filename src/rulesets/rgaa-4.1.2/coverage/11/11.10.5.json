@@ -1,0 +1,69 @@
+{
+  "test": "11.10.5",
+  "requirements": [
+    {
+      "id": "format-instruction-placed",
+      "statement": "Each instruction or indication of a mandatory data type or format is, before validation, visible and identifies the field by name, or visible in the field's label or associated passage of text.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.10.5",
+          "line": 1,
+          "quote": "Les instructions et indications du type de données et/ou de format obligatoires vérifient-elles une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.10.5",
+          "quote": "Retrouver dans le document les champs de formulaire obligatoires auxquels est associée une instruction ou une indication du type de données et/ou de format obligatoire ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "visible-names-field",
+          "statement": "The instruction or indication is visible and identifies the field concerned by name, before validation.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.5",
+              "line": 2,
+              "quote": "Une instruction ou une indication du type de données et/ou de format obligatoire est visible et permet d’identifier nommément le champ concerné préalablement à la validation du formulaire ;"
+            }
+          ]
+        },
+        {
+          "id": "visible-in-label-or-passage",
+          "statement": "The instruction or indication is visible in the label or the passage of text associated with the field, before validation.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.5",
+              "line": 3,
+              "quote": "Une instruction ou une indication du type de données et/ou de format obligatoire est visible dans l’étiquette ou le [passage de texte](#passage-de-texte-lie-par-aria-labelledby-ou-aria-describedby) associé au champ préalablement à la validation du formulaire."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to instructions and indications of a mandatory data type or format. Whether a field expects a given type or format, and whether a text on the page is such an instruction, is a reading of the form: an attribute such as pattern or a field type says the browser checks a format, not that the page states it. Whether a visible instruction identifies the field by name is judgment too. The wording speaks of the instructions; the methodology starts from required fields that have one, and both readings need the same judgment. No check can list the instructions or say one is missing, so the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment. Needs is empty: the test looks at the page before validation, as loaded.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.10.5",
+        "quote": "Soit visible et permet d’identifier nommément le champ concerné ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Contrôle de saisie (formulaire)",
+        "quote": "ou des types de champ qui produisent de manière automatique des indications de saisie ou d’erreurs"
+      }
+    ]
+  }
+}

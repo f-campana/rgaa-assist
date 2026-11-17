@@ -1,0 +1,64 @@
+{
+  "test": "11.10.7",
+  "requirements": [
+    {
+      "id": "invalid-field-format-instruction-placed",
+      "statement": "For each field with aria-invalid=\"true\" whose input requires a mandatory data type or format, an instruction or indication of that type or format is visible and placed in the field's label element or in the passage of text associated with it.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.10.7",
+          "line": 1,
+          "quote": "Les champs ayant l’attribut `aria-invalid=\"true\"` dont la saisie requiert un type de données et/ou de format obligatoires vérifient-ils une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "instruction-in-label",
+          "statement": "The instruction or indication is visible and placed in the label element associated with the field.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.7",
+              "line": 2,
+              "quote": "Une instruction ou une indication du type de données et/ou de format obligatoire est visible et située dans la balise `<label>` associée au champ ;"
+            }
+          ]
+        },
+        {
+          "id": "instruction-in-passage",
+          "statement": "The instruction or indication is visible and placed in the passage of text associated with the field by aria-labelledby or aria-describedby.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.7",
+              "line": 3,
+              "quote": "Une instruction ou une indication du type de données et/ou de format obligatoire est visible et située dans le [passage de texte](#passage-de-texte-lie-par-aria-labelledby-ou-aria-describedby) associé au champ."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "Fields with aria-invalid=\"true\" are found in the markup, but the test applies only to those whose input requires a mandatory data type or format, and that is a reading of the form: a pattern attribute or a field type says the browser checks a format, while a format can also be checked only by a script or a server. The methodology's first step looks at every field with aria-invalid=\"true\"; the wording narrows it to fields that require a type or format, and the entry follows the wording. Whether the label element or the associated passage holds a visible instruction about the type or format is judgment: code cannot tell such an instruction from other text. So the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment. Needs is state: aria-invalid is set after an attempt to validate, so the page as loaded usually holds no such field.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.10.7",
+        "quote": "Retrouver dans le document les champs de formulaire qui possèdent un attribut `aria-invalid=\"true\"` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "11.10.7",
+        "quote": "Soit une instruction ou une indication du type de données et/ou de format obligatoire est visible et située dans le passage de texte associé au champ."
+      }
+    ]
+  }
+}

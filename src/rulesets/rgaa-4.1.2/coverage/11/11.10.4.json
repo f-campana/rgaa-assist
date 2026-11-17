@@ -1,0 +1,74 @@
+{
+  "test": "11.10.4",
+  "requirements": [
+    {
+      "id": "invalid-field-message-placed",
+      "statement": "For each required field with aria-invalid=\"true\", the error message stating that the input is invalid is visible and placed in the field's label or in the passage of text associated with it.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.10.4",
+          "line": 1,
+          "quote": "Les champs obligatoires ayant l’attribut `aria-invalid=\"true\"` vérifient-ils une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.10.4",
+          "quote": "Retrouver dans le document les champs de formulaire obligatoires qui possèdent un attribut `aria-invalid=\"true\"` ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "message-in-label",
+          "statement": "The error message is visible and placed in the label associated with the field.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.4",
+              "line": 2,
+              "quote": "Le message d’erreur indiquant le caractère invalide de la saisie est visible et situé dans l’étiquette associée au champ ;"
+            }
+          ]
+        },
+        {
+          "id": "message-in-passage",
+          "statement": "The error message is visible and placed in the passage of text associated with the field by aria-labelledby or aria-describedby.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.4",
+              "line": 3,
+              "quote": "Le message d’erreur indiquant le caractère invalide de la saisie est visible et situé dans le [passage de texte](#passage-de-texte-lie-par-aria-labelledby-ou-aria-describedby) associé au champ."
+            },
+            {
+              "source": "glossary",
+              "entry": "Passage de texte lié par `aria-labelledby` ou `aria-describedby`",
+              "quote": "associés à un élément (champ de formulaire, bouton, etc.) par les attributs WAI-ARIA aria-labelledby ou aria-describedby"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "Fields with aria-invalid=\"true\" are found in the markup, but the test applies only to those that are required, and a field can be required without a required or aria-required attribute, so the set of fields is a reading of the form. Whether the label or associated passage of such a field holds a visible error message stating that the input is invalid is judgment: code cannot tell an error message from other text in a label or description. A field with aria-invalid=\"true\", a required attribute, and no label or associated passage at all would fail both routes; it is rare, and the entry does not register a check for it. It could support a fail_only claim later, with a check that also rules out labels given by text that is not associated with the field. So the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment, because whether a field is required is. Needs is state: aria-invalid is set and error messages are shown after an attempt to validate, so the page as loaded usually holds neither.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.10.4",
+        "quote": "Soit le message d’erreur indiquant le caractère invalide de la saisie est visible et situé dans l’étiquette associée au champ ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Contrôle de saisie (formulaire)",
+        "quote": "des erreurs de saisie dans un formulaire"
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "test": "11.10.3",
+  "requirements": [
+    {
+      "id": "missing-input-error-identifies-field",
+      "statement": "Each error message reporting that a required field was left empty identifies the field: the message is visible and names the field, or the field has aria-invalid=\"true\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.10.3",
+          "line": 1,
+          "quote": "Les messages d’erreur indiquant l’absence de saisie d’un champ obligatoire vérifient-ils une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.10.3",
+          "quote": "Retrouver dans le document les messages d’erreur indiquant l’absence de saisie d’un champ obligatoire ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "visible-message-names-field",
+          "statement": "The error message is visible and identifies the field concerned by name.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.3",
+              "line": 2,
+              "quote": "Le message d’erreur indiquant l’absence de saisie d’un champ obligatoire est visible et permet d’identifier nommément le champ concerné ;"
+            }
+          ]
+        },
+        {
+          "id": "field-aria-invalid",
+          "statement": "The required field the message concerns has aria-invalid=\"true\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.10.3",
+              "line": 3,
+              "quote": "Le champ obligatoire dispose de l’attribut `aria-invalid=\"true\"`."
+            },
+            {
+              "source": "methodology",
+              "test": "11.10.3",
+              "quote": "Soit le champ obligatoire associé au message d’erreur possède un attribut `aria-invalid=\"true\"`."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test applies to error messages that report a required field left empty. Those messages appear after the user tries to validate the form, so the test needs a state other than the page as loaded. Recognising a text as such an error message, and tying it to its field, is a reading of the page; whether the message names the field is judgment as well. The second route is mechanical once the field is known (aria-invalid=\"true\" on it), but knowing which field the message is about is not. No check can find every such message or fault one with certainty, so the entry is none with no link. No axe-core rule is tagged for this test. Applicability is judgment, since whether the page shows such a message is a reading of it. Needs is state: the messages exist only after an attempt to validate.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.10.3",
+        "quote": "Soit le message d’erreur est visible et permet d’identifier nommément le champ concerné ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Contrôle de saisie (formulaire)",
+        "quote": "Ensemble des processus qui permettent de prévenir l’utilisateur des champs obligatoires, des indications de type ou de format attendus et des erreurs de saisie dans un formulaire."
+      }
+    ]
+  }
+}
