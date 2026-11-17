@@ -1,0 +1,67 @@
+{
+  "test": "5.5.1",
+  "requirements": [
+    {
+      "id": "title-relevant",
+      "statement": "For each data table that has a title, the title identifies the content of the table clearly and concisely.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.5.1",
+          "line": 1,
+          "quote": "Pour chaque tableau de données ayant un titre, ce titre permet-il d’identifier le contenu du tableau de données de manière claire et concise ?"
+        },
+        {
+          "source": "methodology",
+          "test": "5.5.1",
+          "quote": "Pour chaque titre, vérifier qu’il est pertinent ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-identifies-content",
+          "statement": "The title identifies the content of the data table clearly and concisely.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.5.1",
+              "line": 1,
+              "quote": "ce titre permet-il d’identifier le contenu du tableau de données de manière claire et concise ?"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["assistive_tech"],
+  "rationale": {
+    "text": "Whether a title identifies a table's content clearly and concisely is judgment, and the methodology asks whether it is relevant. Finding the tables the test applies to is judgment too: the glossary counts a table preceded or followed by a text passage that serves as its title, and whether a table element is a data table rather than a layout table depends on its purpose (see 5.1.1). Even an empty caption is not a sure fault under this test: the test applies to tables that have a title, and whether an empty caption gives a table a title, or leaves it without one, is not settled by the text. No axe rule is tagged for this test, and no deterministic check could prove its failure, so there are no links and the entry is none. Applicability is judgment. Needs holds assistive_tech: the glossary counts an element with role=\"table\" as a data table only when assistive technologies render it correctly, and accepts each form of title only in so far as they render it and associate it with the table.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "5.5",
+        "quote": "celui-ci est-il pertinent ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données ayant un titre",
+        "quote": "Tableau de données ayant un attribut ou contenant une balise dont le contenu fait office de titre."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données ayant un titre",
+        "quote": "Tableau de données précédé ou suivi d’un passage de texte associé au tableau faisant office de titre."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données",
+        "quote": "ou lorsqu’il est correctement restitué par les technologies d’assistance par une balise pourvue d’un attribut WAI-ARIA role=\"table\""
+      }
+    ]
+  }
+}
