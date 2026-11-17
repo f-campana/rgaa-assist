@@ -22,9 +22,9 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-- Codex's re-check of the corrections found R1 to R4. All are answered on main at `af60a0a`: 8.3.1 narrowed and lowered to `fail_only` (R1, R2); Q43 decided by Fabien and applied, spec 8.3 step 4 amended, implementation and contract tests by two agents (R3); guide fixed (R4); 11.1.1 sentence rewritten. 414 tests pass; entries none 8, fail_only 6, full 0.
-- Waiting for Codex's focused re-check (bridge, reply to `0mwklyq9i3c1a`). Fabien prompts Codex.
-- Then batch 1, cut to fit before the 85% stop: at 77% all-models, about 8 points remain. Run builders A (1.1, 1.5) and B (8.x) only, about 21 tests and 5 points. Builder C (11.2 to 11.5) waits for the reset of 2026-11-21 16:00 UTC.
+- Codex's re-check of the corrections (R1 to R4) is answered on main. Its follow-up re-check (`rgaa-m1-followup-af60a0a-independent-recheck.md`) closed R2, R3, R4 and the 11.1.1 note, kept 8.3.1 at `fail_only`, and found one blocker: condition (a) of the 8.3.1 witness excluded `body`, so no fault could ever be reached. Fixed on main at `67d2938`, with Codex's non-blocking fill-colour caveat.
+- Waiting for Codex's focused confirmation of `67d2938` (bridge). Fabien prompts Codex.
+- Then batch 1 (`docs/m1/brief-entries.md`): builders A (1.1, 1.5) and B (8.1, 8.2, 8.5 to 8.10), about 21 tests and 5 points. 11.2 to 11.5 wait for the reset of 2026-11-21 16:00 UTC.
 
 ## Where M1 stands, 2026-11-17
 
