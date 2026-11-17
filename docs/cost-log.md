@@ -29,6 +29,7 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-16 23:15 | Codex's cross-check read and verified; decisions Q40 to Q42; guide corrected; handover written | 68% | 26% | 5-hour window at about 90%. |
 | 2026-11-17 02:02 | Fresh Opus orchestrator session started (Q42); corrections builder launched (Opus, high) | 69% | 29% | 5-hour window at 2%, just reset. |
 | 2026-11-17 02:14 | Corrections merged (`0352c75`; Opus, high, about 203k tokens); contract-test builder for `always` launched (Sonnet) | 71% | 29% | 5-hour window at 14%. |
+| 2026-11-17 02:16 | Contract tests for `always` merged (`2b12c9a`; Sonnet, medium, about 105k tokens); Codex re-check requested | 72% | 29% | 5-hour window at 18%. |
 
 ### What day 1 says about cost
 
