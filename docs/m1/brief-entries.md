@@ -15,12 +15,14 @@ Do not read the other entries for answers. Each test is judged from its own offi
 
 Run `pnpm install`, then `pnpm packets`. Then write one entry for every test of the criteria in your row, from `work/packets/by-criterion/<criterion>.md`. The theme packet `work/packets/theme-NN.md` has the theme's glossary and axe material if you need it.
 
-The orchestrator's prompt tells you which builder you are. Batch 1 (cut to two builders to stay under the 85% weekly stop; 11.2 to 11.5 wait for the reset):
+The orchestrator's prompt tells you which builder you are.
 
-| Builder | Criteria | Tests | Theme folder |
-|---|---|---|---|
-| A | 1.1, 1.5 | 10 | `01/` |
-| B | 8.1, 8.2, 8.5, 8.6, 8.7, 8.8, 8.9, 8.10 | 11 | `08/` |
+| Batch | Builder | Criteria | Tests | Theme folder |
+|---|---|---|---|---|
+| 1 (merged) | A | 1.1, 1.5 | 10 | `01/` |
+| 1 (merged) | B | 8.1, 8.2, 8.5, 8.6, 8.7, 8.8, 8.9, 8.10 | 11 | `08/` |
+| 2 | C | 11.2, 11.3, 11.4, 11.5 | 12 | `11/` |
+| 2 | D | 9.1, 9.2, 9.3, 9.4 | 9 | `09/` |
 
 Test 1.1.6 is the spec's reference case (spec 6.1 and 6.2). An entry that contradicts it is wrong.
 

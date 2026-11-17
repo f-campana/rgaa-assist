@@ -22,8 +22,8 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-- Step 3 is done: Codex's focused confirmation of `67d2938` is clean (`rgaa-m1-final-67d2938-focused-confirmation.md`). Entry writing is cleared under Q41.
-- Step 4, batch 1: builder A merged (`ad72cdb`): 10 entries, 9 `none`, 1 `fail_only` (1.1.3). Builder B (8.1, 8.2, 8.5 to 8.10; 11 tests) running. 11.2 to 11.5 next. Entries now 24 of 258.
+- Batch 1 merged: builder A (`ad72cdb`, 1.1 and 1.5) and builder B (`2123b43`, 8.1, 8.2, 8.5 to 8.10). Entries: 35 of 258 (none 24, fail_only 10, full 1: 8.5.1). 414 tests pass.
+- Batch 2 launched 2026-11-17 14:15 UTC: builders C (11.2 to 11.5) and D (theme 9).
 
 ## Where M1 stands, 2026-11-17
 
@@ -56,6 +56,9 @@ Also logged on the bridge, channel `rgaa-assist`.
 - Entry writers work from generated theme packets (`pnpm packets`, into the gitignored `work/packets/`), not from the raw files.
 
 ## Findings to report at the gate
+
+- Builder B's claims, for the cross-check: 8.5.1 `full` (fault only when no HTML title exists anywhere; passed only on a first title in head with a letter or digit; frames abstain); 8.2.1 `fail_only` on duplicate ids, hidden elements included; 8.10.1 `fail_only` faults right-to-left text with no `dir` ancestor, a single Arabic name in French text included, by the wording « chaque texte », where an auditor following WCAG H56 might not; 8.10.2 `fail_only` treats `dir="auto"` as not « conforme (rtl ou ltr) ». Builder B listed 8.10.1 among its least sure, against the guide's rule; the orchestrator kept it because the doubt is about auditors' practice, not the official text. Codex should rule.
+- Tests 8.1.1 to 8.1.3 turn on the served source, which v1 does not read (spec 15, Q9). They stay `none`.
 
 - Builder A: `needs` applies to a whole test, but the glossary makes assistive technology a condition of one route (Note 6 of "Alternative textuelle (image)": a `title` alternative is confirmed with assistive technology). Writers put it in the rationale as a reason no 1.1 entry can be `full`. A guide rule on route-conditional needs would settle it.
 - Builder A added to 1.1.1, 1.1.5 to 1.1.8 the exceptions for an image that is the only content of a link or a button (notes of "Image porteuse d'information"), and gave axe `object-alt` scope `partial` on 1.1.6. Both lower claims; neither contradicts spec 6.1 and 6.2.
