@@ -1,0 +1,76 @@
+{
+  "test": "11.8.3",
+  "requirements": [
+    {
+      "id": "optgroup-label-relevant",
+      "statement": "For each optgroup element that has a label attribute, the content of that attribute is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.8.3",
+          "line": 1,
+          "quote": "Pour chaque balise `<optgroup>` ayant un attribut `label`, le contenu de l’attribut `label` est-il pertinent ?"
+        },
+        {
+          "source": "methodology",
+          "test": "11.8.3",
+          "quote": "Pour chaque attribut `label`, vérifier que son contenu est pertinent ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "label-identifies-group",
+          "statement": "The label lets the user identify the group of items of the same nature that the optgroup gathers.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.8.3",
+              "line": 1,
+              "quote": "le contenu de l’attribut `label` est-il pertinent"
+            },
+            {
+              "source": "glossary",
+              "entry": "Items de même nature d’une liste de choix",
+              "quote": "Le regroupement vise à identifier les items devant être traités comme un ensemble (par exemple, une liste de départements regroupés par régions)."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/11-8-optgroup-label-empty",
+      "requirement": "optgroup-label-relevant",
+      "routes": ["label-identifies-group"],
+      "scope": "whole",
+      "faultMeans": "failure"
+    }
+  ],
+  "candidate": "fail_only",
+  "enabled": "none",
+  "applicability": "structural",
+  "needs": [],
+  "rationale": {
+    "text": "Relevance is judgment: whether a group's label lets the user identify the items gathered under it cannot be decided by code, so the entry is not full. One case is mechanical under this test's own text: an optgroup whose label attribute is empty. The test applies to each optgroup that has a label attribute, and an empty attribute is still an attribute. Its content is then empty, which cannot identify any group, and the test names no other way to meet it and gives no exception, so the requirement fails. A custom check therefore faults an optgroup whose label value is empty or only ASCII whitespace, when it is a child of a select that is inside a form, rendered, exposed to assistive technologies and visible, when the optgroup itself is not hidden, and when it holds at least one option and nothing but options. It abstains on the rest by stated rules: lists outside any form (the criterion is asked of each form, and the glossary defines a form as a form element or role form), hidden or invisible lists (the test gives no exception for them, but whether it covers a native list hidden behind a scripted replacement is open), and optgroups with other content, which may take a label from a legend under a newer form of the HTML standard. Every non-empty label is cannot_tell, including values of invisible characters other than ASCII whitespace; the check never answers no_fault. It examines the one route for every optgroup with a label attribute, so its fault means failure, and the entry is fail_only. No axe-core rule is tagged for this test. Applicability is structural: the test applies to optgroup elements with a label attribute, which code finds with certainty. Needs is empty.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.8.3",
+        "line": 1,
+        "quote": "Pour chaque balise `<optgroup>` ayant un attribut `label`"
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "11.8",
+        "quote": "sont-ils regroupés de manière pertinente ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Formulaire",
+        "quote": "Balise <form> ou balise possédant un attribut WAI-ARIA role=\"form\"."
+      }
+    ]
+  }
+}

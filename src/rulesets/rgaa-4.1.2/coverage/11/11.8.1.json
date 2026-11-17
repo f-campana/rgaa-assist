@@ -1,0 +1,74 @@
+{
+  "test": "11.8.1",
+  "requirements": [
+    {
+      "id": "same-nature-items-grouped",
+      "statement": "For each select element whose items fall into groups of the same nature, those items are grouped with optgroup elements.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "11.8.1",
+          "line": 1,
+          "quote": "Pour chaque balise `<select>`, les [items de même nature d’une liste de choix](#items-de-meme-nature-d-une-liste-de-choix) sont-ils regroupés avec une balise `<optgroup>`, si nécessaire ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "11.8",
+          "quote": "Dans chaque [formulaire](#formulaire), les [items de même nature d’une liste de choix](#items-de-meme-nature-d-une-liste-de-choix) sont-ils regroupés de manière pertinente ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "optgroup-grouping",
+          "statement": "The items of each group of the same nature are placed in an optgroup element.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "11.8.1",
+              "quote": "Pour chaque liste de sélection proposant des groupes d’items de même nature, vérifier que ces items sont regroupés au moyen d’éléments `<optgroup>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "grouping-not-needed",
+          "statement": "Grouping is required only when necessary: a list whose items do not fall into groups of the same nature need not use optgroup.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "11.8.1",
+              "line": 1,
+              "quote": "si nécessaire"
+            },
+            {
+              "source": "glossary",
+              "entry": "Items de même nature d’une liste de choix",
+              "quote": "ensemble d’items (balises <option>) pouvant être regroupés par leur nature. Le regroupement vise à identifier les items devant être traités comme un ensemble (par exemple, une liste de départements regroupés par régions)."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Whether the items of a list fall into groups of the same nature, and so whether grouping is necessary, is judgment: the glossary gives an example (departments grouped by region) but no rule code could apply to the text of the options. A list without optgroup may be correct, and a list with optgroup may group items wrongly, so no check can decide either way, and the entry stays at none with no link. No axe-core rule is tagged for this test. Applicability is judgment. The test asks about each select element, but the technical note of the criterion says that a list built with role listbox that needs groups of options is not conforming to criterion 11.8, since ARIA cannot express groups of options; whether that makes this test applicable to a page with such a listbox and no select is not settled by the text, and deciding whether a list needs groups is judgment anyway. Needs is empty: the options are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Items de même nature d’une liste de choix",
+        "quote": "Le regroupement vise à identifier les items devant être traités comme un ensemble"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "11.8",
+        "quote": "une liste nécessitant un regroupement d’options structurée à l’aide d’une balise ayant un attribut WAI-ARIA `role=\"listbox\"` sera considérée comme non conforme au critère 11.8."
+      }
+    ]
+  }
+}
