@@ -1,0 +1,74 @@
+{
+  "test": "1.5.1",
+  "requirements": [
+    {
+      "id": "captcha-image-alternative-access",
+      "statement": "Each image (<img>, <area>, <object>, <embed>, <svg>, <canvas> or an element with role=\"img\") used as a CAPTCHA meets one of the listed conditions; the methodology also takes in images used as an image-test.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.5.1",
+          "line": 1,
+          "quote": "Chaque image (balises `<img>`, `<area>`, `<object>`, `<embed>`, `<svg>`, `<canvas>` ou possédant un attribut WAI-ARIA `role=\"img\"`) utilisée comme CAPTCHA vérifie-t-elle une de ces conditions ?"
+        },
+        {
+          "source": "methodology",
+          "test": "1.5.1",
+          "quote": "utilisés comme CAPTCHA ou comme image-test ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "non-graphic-captcha",
+          "statement": "At least one other, non-graphic form of CAPTCHA exists.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.5.1",
+              "line": 2,
+              "quote": "Il existe une autre forme de CAPTCHA non graphique, au moins ;"
+            }
+          ]
+        },
+        {
+          "id": "other-access-solution",
+          "statement": "Another way exists to reach the functionality the CAPTCHA protects.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.5.1",
+              "line": 3,
+              "quote": "Il existe une autre solution d’accès à la fonctionnalité qui est sécurisée par le CAPTCHA."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to images used as a CAPTCHA, which the glossary defines by purpose: a test that tells a human user from a computer, often an image of distorted text. The methodology widens it to images used as an image-test. Whether an image serves that purpose is judgment; no element or attribute marks it. The one requirement has two routes, as the wording says one of the conditions is enough: another CAPTCHA form that is not graphic (the glossary names logic questions and sound clips), or another way to reach the protected functionality. Whether a control offers a real non-graphic CAPTCHA, and whether another way of access exists, possibly elsewhere on the site or by another channel, are judgment too. No axe rule is tagged, and no check could find the applicable images or examine either route without judgment, so the entry is none with no link. Applicability is judgment, since it depends on recognising a CAPTCHA. Needs is empty: the methodology asks only that the alternatives exist, not that they be operated.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "CAPTCHA",
+        "quote": "Un CAPTCHA est un test utilisé pour distinguer un utilisateur humain d’un ordinateur."
+      },
+      {
+        "source": "glossary",
+        "entry": "CAPTCHA",
+        "quote": "D’autres formes de CAPTCHA peuvent être basées sur des questions logiques ou des extraits sonores."
+      },
+      {
+        "source": "methodology",
+        "test": "1.5.1",
+        "quote": "Si c’est le cas pour chaque image, **le test est validé**."
+      }
+    ]
+  }
+}
