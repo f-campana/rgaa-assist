@@ -147,6 +147,32 @@ describe("deriveFindings: the cases of spec 8.3", () => {
     expect(f.observations).toContain(adv.id);
   });
 
+  it("one satisfied and one inapplicable requirement on an always entry: needs_review, cannot_tell (Q43)", () => {
+    const mixed = () => [obs(ADVISORY, "no_fault"), obs(FAILURE, "no_fault"), obs("custom/other", "inapplicable")];
+    const f = run(entry({ twoRequirements: true, edit: (x) => (x.applicability = "always") }), mixed());
+    expect(f).toMatchObject({ status: "needs_review", reason: "cannot_tell" });
+    expect(f.requirementFacts).toEqual({ "object-alternative": ["satisfied"], other: ["inapplicable"] });
+    expect(run(entry({ twoRequirements: true }), mixed()).status).toBe("passed");
+    const j = run(entry({ twoRequirements: true, edit: (x) => (x.applicability = "judgment") }), mixed());
+    expect(j.status).toBe("passed");
+    expect(j.reason).toBeUndefined();
+  });
+
+  it("a violation beside an inapplicable requirement on an always entry: still failed", () => {
+    const f = run(entry({ twoRequirements: true, edit: (x) => (x.applicability = "always") }), [
+      obs(ADVISORY, "no_fault"),
+      obs(FAILURE, "fault"),
+      obs("custom/other", "inapplicable"),
+    ]);
+    expect(f).toMatchObject({ status: "failed", requirementFacts: { "object-alternative": ["violation"], other: ["inapplicable"] } });
+    expect(f.reason).toBeUndefined();
+  });
+
+  it("an advisory inapplicable alone on an always entry changes nothing: passed", () => {
+    const f = run(entry({ edit: (x) => (x.applicability = "always") }), [obs(ADVISORY, "inapplicable"), obs(FAILURE, "no_fault")]);
+    expect(f).toMatchObject({ status: "passed", requirementFacts: { "object-alternative": ["satisfied"] } });
+  });
+
   it("an always entry still passes on a resolving no_fault", () => {
     const f = run(entry({ edit: (x) => (x.applicability = "always") }), [obs(ADVISORY, "no_fault"), obs(FAILURE, "no_fault")]);
     expect(f.status).toBe("passed");
