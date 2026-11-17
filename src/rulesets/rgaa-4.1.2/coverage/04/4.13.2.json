@@ -1,0 +1,111 @@
+{
+  "test": "4.13.2",
+  "requirements": [
+    {
+      "id": "alternative-reachable",
+      "statement": "Each temporal and non-temporal media that has an alternative compatible with assistive technologies, outside the particular case of the criterion, has that alternative adjacent to it, reachable through an adjacent link or button, or available through a mechanism that replaces the media with it.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.13.2",
+          "line": 1,
+          "quote": "Chaque média temporel et non temporel qui possède une alternative compatible avec les technologies d’assistance, vérifie-t-il une de ces conditions"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "4.13",
+          "quote": "(hors cas particuliers)"
+        }
+      ],
+      "routes": [
+        {
+          "id": "adjacent-alternative",
+          "statement": "The alternative is adjacent to the media.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.13.2",
+              "line": 2,
+              "quote": "L’alternative est adjacente au média temporel ou non temporel ;"
+            }
+          ]
+        },
+        {
+          "id": "alternative-via-adjacent-link",
+          "statement": "The alternative is reachable through a link or button adjacent to the media, visually and in the code.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.13.2",
+              "line": 3,
+              "quote": "L’alternative est accessible via un lien ou bouton adjacent ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "Le lien ou bouton doit être adjacent visuellement dans la représentation graphique (CSS activé) et dans le code HTML."
+            }
+          ]
+        },
+        {
+          "id": "replacement-mechanism",
+          "statement": "A mechanism lets the user replace the media with its alternative.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.13.2",
+              "line": 4,
+              "quote": "Un mécanisme permet de remplacer le média temporel ou non temporel par son alternative."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "decorative-media",
+          "statement": "The temporal or non-temporal media is decorative: it carries no information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.13",
+              "quote": "lorsque le média temporel ou non temporel est utilisé à des fins décoratives (c’est-à-dire qu’il n’apporte aucune information)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.13",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with three routes for a media that has an alternative compatible with assistive technologies: the alternative is adjacent, reachable through an adjacent link or button, or available through a mechanism that replaces the media. Finding which media have such an alternative, and recognising which content, link or mechanism is that alternative, needs reading and judgment; nothing in the code marks a content as the alternative of a media. No axe rule is tagged for this test and no check is registered, so there are no links and the entry stays at none. The particular case of criterion 4.13, a decorative media, applies to the criterion as a whole and is listed as an exception. Applicability is judgment, for the same reason. Needs lists state, because the replacement mechanism and an alternative behind a button are seen only after interaction.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "4.13.2",
+        "quote": "Retrouver dans le document les médias temporels et non temporels qui possèdent une alternative compatible avec les technologies d’assistance"
+      },
+      {
+        "source": "test",
+        "test": "4.13.2",
+        "line": 1,
+        "quote": "vérifie-t-il une de ces conditions"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "4.13",
+        "quote": "Dans ces situations, le critère est non applicable."
+      }
+    ]
+  }
+}
