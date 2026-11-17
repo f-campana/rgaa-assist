@@ -1,0 +1,73 @@
+{
+  "test": "5.6.4",
+  "requirements": [
+    {
+      "id": "multi-header-cell-structured",
+      "statement": "In each data table, each cell associated with several headers is structured with a td or a th element.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.6.4",
+          "line": 1,
+          "quote": "Pour chaque tableau de données, chaque cellule associée à plusieurs en-têtes est-elle structurée au moyen d’une balise `<td>` ou `<th>` ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "td-element",
+          "statement": "The cell is a td element.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.6.4",
+              "line": 1,
+              "quote": "structurée au moyen d’une balise `<td>` ou `<th>`"
+            }
+          ]
+        },
+        {
+          "id": "th-element",
+          "statement": "The cell is a th element.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "5.6.4",
+              "quote": "Pour chaque cellule associée à plusieurs en-têtes est-elle structurée au moyen d’une balise `<th>` ou `<td>` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["assistive_tech"],
+  "rationale": {
+    "text": "One requirement with two routes: the cell is a td or a th element. The cells of a table element are normally one of the two, so the test mostly concerns cells built another way, typically an element with role=\"cell\" or role=\"gridcell\" in an ARIA table. The entry is none, for three reasons. First, the wording does not say what associated with several headers means. A cell under a column header and beside a row header is associated with two headers, and on that reading every ARIA table with both kinds of header would fail; yet the glossary accepts role=\"rowheader\" and role=\"columnheader\" for headers that apply to a whole row or column, which suggests the test aims at cells under several headers in one direction, such as intermediate headers. Code cannot pick between these readings. Second, which cells a header covers is a matter of what its content means (see 5.6.3). Third, whether a structure is a data table is judgment, and the glossary counts an element with role=\"table\" as one only when assistive technologies render it correctly. Step 3 of the methodology repeats the wording of test 5.6.3 (each header that does not apply to the whole row or column) instead of naming the cells of this test; the entry follows the wording and step 2. No axe rule is tagged for this test, and no deterministic check could prove its failure, so there are no links. Applicability is judgment. Needs holds assistive_tech, for the condition on role=\"table\".",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "En-tête de colonne ou de ligne",
+        "quote": "Lorsque les en-têtes s’appliquent à l’ensemble d’une ligne ou d’une colonne, ils peuvent être structurés avec une balise <th> ou une balise pourvue d’un attribut WAI-ARIA role=\"rowheader\" ou role=\"columnheader\"."
+      },
+      {
+        "source": "glossary",
+        "entry": "En-tête de colonne ou de ligne",
+        "quote": "Une colonne ou une ligne peut contenir plusieurs en-têtes (en-tête intermédiaire)."
+      },
+      {
+        "source": "methodology",
+        "test": "5.6.4",
+        "quote": "Si c’est le cas pour chaque en-tête ne s’appliquant pas à la totalité de la ligne ou de la colonne, **le test est validé**."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données",
+        "quote": "ou lorsqu’il est correctement restitué par les technologies d’assistance par une balise pourvue d’un attribut WAI-ARIA role=\"table\""
+      }
+    ]
+  }
+}
