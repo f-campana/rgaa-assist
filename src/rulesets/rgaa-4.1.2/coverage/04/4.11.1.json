@@ -1,0 +1,202 @@
+{
+  "test": "4.11.1",
+  "requirements": [
+    {
+      "id": "play-and-pause-or-stop",
+      "statement": "Each temporal media that needs them has at least a play function and a pause or stop function.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.11.1",
+          "line": 1,
+          "quote": "Chaque média temporel a-t-il, si nécessaire, les fonctionnalités de contrôle de sa consultation"
+        },
+        {
+          "source": "glossary",
+          "entry": "Contrôle de la consultation (d’un média temporel)",
+          "quote": "L’objet multimédia doit toujours avoir les fonctionnalités suivantes, au minimum : lecture, pause ou stop ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "play-and-pause",
+          "statement": "The media has a play function and a pause function.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "4.11.1",
+              "quote": "Au minimum : lecture, pause ou stop ;"
+            }
+          ]
+        },
+        {
+          "id": "play-and-stop",
+          "statement": "The media has a play function and a stop function.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "4.11.1",
+              "quote": "Au minimum : lecture, pause ou stop ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "sound-toggle",
+      "statement": "A temporal media that has sound has a function to turn the sound on and off.",
+      "citations": [
+        {
+          "source": "glossary",
+          "entry": "Contrôle de la consultation (d’un média temporel)",
+          "quote": "Si l’objet multimédia a du son, il doit avoir une fonctionnalité d’activation / désactivation du son ;"
+        },
+        {
+          "source": "methodology",
+          "test": "4.11.1",
+          "quote": "Si le média a du son, il doit avoir une fonctionnalité d’activation / désactivation du son ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "sound-toggle-present",
+          "statement": "The media has a function that turns its sound on and off.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "4.11.1",
+              "quote": "il doit avoir une fonctionnalité d’activation / désactivation du son"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "media-without-sound",
+          "statement": "The media has no sound, so no sound toggle is needed.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Contrôle de la consultation (d’un média temporel)",
+              "quote": "s’il n’y a pas de son à un média temporel, il n’est pas utile de mettre une fonctionnalité d’activation / désactivation du son."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "captions-toggle",
+      "statement": "A temporal media that has captions which are not burned into the picture has a function to show and hide them.",
+      "citations": [
+        {
+          "source": "glossary",
+          "entry": "Contrôle de la consultation (d’un média temporel)",
+          "quote": "Si l’objet multimédia a des sous-titres non incrustés, il doit avoir une fonctionnalité de contrôle de l’apparition / disparition des sous-titres ;"
+        },
+        {
+          "source": "methodology",
+          "test": "4.11.1",
+          "quote": "Si le média a des sous-titres, il doit avoir une fonctionnalité de contrôle de l’apparition/disparition des sous-titres ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "captions-toggle-present",
+          "statement": "The media has a function that shows and hides its captions.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "4.11.1",
+              "quote": "il doit avoir une fonctionnalité de contrôle de l’apparition/disparition des sous-titres"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "no-separate-captions",
+          "statement": "The media has no captions, or its captions are burned into the picture, so no captions toggle is needed.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Contrôle de la consultation (d’un média temporel)",
+              "quote": "Si l’objet multimédia a des sous-titres non incrustés"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audio-description-toggle",
+      "statement": "A temporal media that has an audio description has a function to turn it on and off.",
+      "citations": [
+        {
+          "source": "glossary",
+          "entry": "Contrôle de la consultation (d’un média temporel)",
+          "quote": "Si l’objet multimédia a une audiodescription, il doit avoir une fonctionnalité de contrôle de l’apparition / disparition de l’audiodescription."
+        },
+        {
+          "source": "methodology",
+          "test": "4.11.1",
+          "quote": "Si le média a une audiodescription, il doit avoir une fonctionnalité de contrôle de l’apparition/disparition de l’audiodescription."
+        }
+      ],
+      "routes": [
+        {
+          "id": "audio-description-toggle-present",
+          "statement": "The media has a function that turns its audio description on and off.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "4.11.1",
+              "quote": "il doit avoir une fonctionnalité de contrôle de l’apparition/disparition de l’audiodescription"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "no-audio-description",
+          "statement": "The media has no audio description, so no audio description toggle is needed.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Contrôle de la consultation (d’un média temporel)",
+              "quote": "Si l’objet multimédia a une audiodescription"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media",
+    "state"
+  ],
+  "rationale": {
+    "text": "The glossary entry on controlling the consultation of a media lists the mandatory functions, and the methodology repeats them. They must all be present, so each is a requirement: play with pause or stop, always; a sound toggle when the media has sound; a captions toggle when it has captions that are not burned in; an audio description toggle when it has an audio description. The last three apply only when their condition holds, which the entry records as exceptions. None of this can be decided by code. Whether a media has sound, separate captions or an audio description is known only by playing it. Which elements of a custom player perform which function is not marked in the code, and the native controls of audio and video elements are drawn by the browser, with buttons that vary by browser and by media. Even a video element without the controls attribute is not a mechanical fault: a custom player may provide every function, and the wording limits the test to media that need controls (si nécessaire), which is judgment, for instance for a decorative background video. No axe rule is tagged for this test and no check is registered, so there are no links and the entry stays at none. Applicability is judgment: whether an element is a temporal media cannot be decided with certainty, and the glossary counts media played through svg, canvas or a plugin. Needs lists media, to know whether the media has sound, captions or an audio description, and state, because player controls often appear only on hover or focus.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "4.11.1",
+        "line": 1,
+        "quote": "a-t-il, si nécessaire, les fonctionnalités de contrôle de sa consultation"
+      },
+      {
+        "source": "glossary",
+        "entry": "Contrôle de la consultation (d’un média temporel)",
+        "quote": "Liste des fonctionnalités obligatoires de contrôle de la consultation"
+      },
+      {
+        "source": "methodology",
+        "test": "4.11.1",
+        "quote": "vérifier la présence des fonctionnalités obligatoires de contrôle de la consultation"
+      }
+    ]
+  }
+}
