@@ -22,8 +22,10 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## In flight
 
-- Step 1 of "Next, in order" is done: corrections merged as `0352c75`, 390 tests pass, 14 entries validate (none 8, fail_only 5, full 1).
-- 2026-11-17 02:14 UTC: the contract-test builder for `always` (Sonnet, own worktree, brief `docs/m1/brief-contract-tests-always.md`) is running step 2.
+- Steps 1 and 2 of "Next, in order" are done. Corrections merged as `0352c75`; contract tests for `always` merged as `2b12c9a`. 405 tests pass, 14 entries validate (none 8, fail_only 5, full 1).
+- Step 3: re-check request sent to Codex on 2026-11-17 (bridge message `0mwk28tghb590`). Waiting for Fabien to prompt Codex, then for its report.
+- Step 4 is ready: `docs/m1/brief-entries.md`, batch 1 is 33 tests over three Opus builders (1.1 and 1.5; 8.1, 8.2, 8.5 to 8.10; 11.2 to 11.5), about 8 points at the pilot's rate.
+- Open for Fabien at the gate: 8.3.1 stays `full`, but a page that meets it only through its second route gets needs_review, so 10.4 point 4 ("one valid case per route") could not be met at activation. Codex is asked to rule on it.
 
 ## Where M1 stands, 2026-11-17
 
