@@ -1,0 +1,135 @@
+{
+  "test": "1.2.6",
+  "requirements": [
+    {
+      "id": "embed-aria-hidden",
+      "statement": "Each decorative embedded image (<embed type=\"image/…\">) without a caption has aria-hidden=\"true\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.6",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "aria-hidden-present",
+          "statement": "The <embed> element has aria-hidden=\"true\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.6",
+              "line": 2,
+              "quote": "La balise `<embed>` possède un attribut WAI-ARIA `aria-hidden=\"true\"`"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-hidden",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.6",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "embed-no-text-alternative",
+      "statement": "The <embed> of each decorative embedded image without a caption, and its children, have no text alternative.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.6",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle ces conditions ?"
+        },
+        {
+          "source": "test",
+          "test": "1.2.6",
+          "line": 3,
+          "quote": "La balise `<embed>` et ses enfants sont dépourvus d’alternative textuelle."
+        }
+      ],
+      "routes": [
+        {
+          "id": "no-alternative-source",
+          "statement": "The <embed> has none of aria-labelledby, aria-label and title.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.2.6",
+              "quote": "vérifier que l’élément `<embed>` ne possède pas d’attributs `aria-labelledby`, `aria-label` ou `title`"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-alternative",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.6",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies only to decorative images without a caption, and code cannot tell which images those are. The glossary defines a decorative image as one with no function and no particular information relative to the content it goes with, and the caption glossary adds that an image whose adjacent text can stand in for it may be treated as decorative. Whether an image has a caption is partly judgment too: the caption glossary covers adjacent text that informs on the image, not only figure and figcaption. So no check can fault an element as surely in scope, nor pass a page, and the entry stays at none, although each condition of the test is mechanical once an element is known to be in scope. The wording says \"ces conditions\", and the methodology checks them together before \"le test est validé\", so each condition is its own requirement with one route. The caption limit is an exception on each, from the wording and technical note 1. The elements are <embed> elements whose type is image/…. No axe rule is tagged, and no custom check is registered: decorative embedded images are rare, and a hint check would be evidence only. Applicability is judgment. Needs is empty.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Image de décoration",
+        "quote": "Image n’ayant aucune fonction et ne véhiculant aucune information particulière par rapport au contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende d’image",
+        "quote": "Lorsqu’un texte, adjacent à une image, contient des informations sur l’image"
+      },
+      {
+        "source": "methodology",
+        "test": "1.2.6",
+        "quote": "Retrouver dans le document les images décoratives dépourvues de légende structurées au moyen d’un élément `<embed>`"
+      }
+    ]
+  }
+}

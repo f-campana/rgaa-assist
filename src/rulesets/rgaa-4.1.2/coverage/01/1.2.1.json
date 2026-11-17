@@ -1,0 +1,143 @@
+{
+  "test": "1.2.1",
+  "requirements": [
+    {
+      "id": "img-decorative-ignored",
+      "statement": "Each decorative image (<img>) without a caption meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.2.1",
+          "line": 1,
+          "quote": "de décoration, sans légende, vérifie-t-elle une de ces conditions ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "1.2",
+          "quote": "est-elle correctement ignorée par les technologies d’assistance ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "empty-alt-only",
+          "statement": "The img has an empty alt attribute (alt=\"\") and no other attribute that provides a text alternative; for an img the methodology names aria-labelledby, aria-label and title.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.1",
+              "line": 2,
+              "quote": "La balise `<img>` possède un attribut `alt` vide (`alt=\"\"`) et est dépourvue de tout autre attribut permettant de fournir une alternative textuelle"
+            },
+            {
+              "source": "methodology",
+              "test": "1.2.1",
+              "quote": "vérifier que l’image ne possède pas d’attributs `aria-labelledby`, `aria-label` ou `title`"
+            }
+          ]
+        },
+        {
+          "id": "aria-hidden-true",
+          "statement": "The img has aria-hidden=\"true\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.1",
+              "line": 3,
+              "quote": "La balise `<img>` possède un attribut WAI-ARIA `aria-hidden=\"true\"`"
+            }
+          ]
+        },
+        {
+          "id": "role-presentation",
+          "statement": "The img has role=\"presentation\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.1",
+              "line": 3,
+              "quote": "ou `role=\"presentation\"`."
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Un attribut WAI-ARIA `role=\"presentation\"` peut être utilisé sur les images de décoration et les zones non cliquables de décoration."
+            }
+          ]
+        },
+        {
+          "id": "role-none",
+          "statement": "The img has role=\"none\", which technical note 3 accepts as a synonym of role=\"presentation\".",
+          "citations": [
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Le rôle `\"none\"` introduit en ARIA 1.1 et synonyme du rôle `\"presentation\"` peut être aussi utilisé."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "captioned-image",
+          "statement": "An image associated with a caption is outside this test: technical note 1 makes criterion 1.2 not applicable to it.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.2.1",
+              "line": 1,
+              "quote": "sans légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Lorsqu'une image est associée à une légende"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.2",
+              "quote": "Dans ce cas le critère 1.2 est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "custom/1-2-img-empty-alt-with-alternative",
+      "requirement": "img-decorative-ignored",
+      "routes": ["empty-alt-only", "aria-hidden-true", "role-presentation", "role-none"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies only to decorative images without a caption, and code cannot tell which images those are. The glossary defines a decorative image as one with no function and no particular information relative to the content it goes with, and the caption glossary adds that an image whose adjacent text can stand in for it may be treated as decorative. Whether an image has a caption is partly judgment too: the caption glossary covers adjacent text that informs on the image, not only figure and figcaption. So no check can fault an element as surely in scope, nor pass a page, and the entry stays at none, although each condition of the test is mechanical once an element is known to be in scope. The routes follow the wording: an empty alt with no other attribute that provides a text alternative, aria-hidden=\"true\", or role=\"presentation\". Technical note 3 accepts role=\"none\" as a synonym, so it is a route too; leaving it out would report as failing an image the text accepts. The methodology asks for the absence of aria-labelledby, aria-label and title on every image, whichever route it uses, while the wording asks it only with the empty alt. The entry keeps the wording's wider reading, so that an image with aria-hidden=\"true\" and a title is not described as failing; this is a reported doubt, and a reviewer applying the methodology would be stricter. The caption limit is an exception, from the wording and technical note 1. No axe rule is tagged for this test. The custom check custom/1-2-img-empty-alt-with-alternative reports an img that has alt=\"\", neither aria-hidden=\"true\" nor a role of presentation or none, and a non-blank aria-label, aria-labelledby or title. If that image is decorative and has no caption, no route holds for it. The check reads all four routes, so the link lists them, but it does not examine the caption exception, and it looks only at images with an empty alt, so its scope is partial. Its fault is evidence only: the image may be informative or captioned, and then this test does not cover it. Applicability is judgment, because the test applies only to decorative images. Needs is empty: the attributes are read on the page as loaded.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Image de décoration",
+        "quote": "Image n’ayant aucune fonction et ne véhiculant aucune information particulière par rapport au contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende d’image",
+        "quote": "l’image pouvant être simplement traitée comme une image de décoration"
+      },
+      {
+        "source": "glossary",
+        "entry": "Légende d’image",
+        "quote": "Lorsqu’un texte, adjacent à une image, contient des informations sur l’image"
+      },
+      {
+        "source": "methodology",
+        "test": "1.2.1",
+        "quote": "Retrouver dans le document les images décoratives dépourvues de légende structurées au moyen d’un élément `<img>`"
+      }
+    ]
+  }
+}
