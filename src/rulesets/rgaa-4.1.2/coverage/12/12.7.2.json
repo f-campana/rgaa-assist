@@ -1,0 +1,206 @@
+{
+  "test": "12.7.2",
+  "requirements": [
+    {
+      "id": "link-same-place",
+      "statement": "In each set of pages, the skip or quick-access link to the main content zone is at the same place in the presentation.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.7.2",
+          "line": 1,
+          "quote": "Dans chaque ensemble de pages, le lien d’évitement ou d’accès rapide à la zone de contenu principal vérifie-t-il ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "test",
+          "test": "12.7.2",
+          "line": 2,
+          "quote": "Le lien est situé à la même place dans la présentation ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "place-matches-set",
+          "statement": "Across the pages of the set, the link is at the same place in the presentation.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.7.2",
+              "quote": "Situé à la même place dans la présentation ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "place-single-page-site",
+          "statement": "On a website made of a single page, the criterion may be not applicable when a quick-access link is shown to be useless.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.7",
+              "quote": "Le critère peut être considéré comme non applicable lorsqu’il est avéré qu’un lien d’accès rapide est inutile."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "link-same-order",
+      "statement": "In each set of pages, the link always comes in the same relative order in the source code.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.7.2",
+          "line": 3,
+          "quote": "Le lien se présente toujours dans le même ordre relatif dans le code source ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "order-matches-set",
+          "statement": "Across the pages of the set, the link comes in the same relative order in the client-side generated source.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.7.2",
+              "quote": "Présent toujours dans le même ordre relatif dans le code source (généré côté client) ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "order-single-page-site",
+          "statement": "On a website made of a single page, the criterion may be not applicable when a quick-access link is shown to be useless.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.7",
+              "quote": "Le critère peut être considéré comme non applicable lorsqu’il est avéré qu’un lien d’accès rapide est inutile."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "link-visible",
+      "statement": "The link is visible, or else visible when it takes focus.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.7.2",
+          "line": 4,
+          "quote": "Le lien est visible ou, à défaut, visible à la prise de focus ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "visible-by-default",
+          "statement": "The link is visible without interaction.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.7.2",
+              "line": 4,
+              "quote": "Le lien est visible"
+            }
+          ]
+        },
+        {
+          "id": "visible-on-focus",
+          "statement": "The link becomes visible when it takes focus by tabbing.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "12.7.2",
+              "line": 4,
+              "quote": "à défaut, visible à la prise de focus"
+            },
+            {
+              "source": "methodology",
+              "test": "12.7.2",
+              "quote": "Visible à la prise de focus lors d’une tabulation ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "visible-single-page-site",
+          "statement": "On a website made of a single page, the criterion may be not applicable when a quick-access link is shown to be useless.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.7",
+              "quote": "Le critère peut être considéré comme non applicable lorsqu’il est avéré qu’un lien d’accès rapide est inutile."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "link-functional",
+      "statement": "The link is functional: activating it lets reading and keyboard navigation resume from its target, with the browsers and assistive technologies of the test environment.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.7.2",
+          "line": 5,
+          "quote": "Le lien est fonctionnel."
+        }
+      ],
+      "routes": [
+        {
+          "id": "resumes-from-target",
+          "statement": "Activating the link lets reading and keyboard navigation resume from its target.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Liens d’évitement ou d’accès rapide",
+              "quote": "Un lien d’évitement ou d’accès rapide fonctionnel est un lien dont l’activation permet de reprendre la lecture et la navigation clavier à partir de la cible du lien lors de l’utilisation des navigateurs et des aides techniques retenus dans l’environnement de test (ou « base de référence ») de l’audit."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "functional-single-page-site",
+          "statement": "On a website made of a single page, the criterion may be not applicable when a quick-access link is shown to be useless.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.7",
+              "quote": "Le critère peut être considéré comme non applicable lorsqu’il est avéré qu’un lien d’accès rapide est inutile."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard", "assistive_tech"],
+  "rationale": {
+    "text": "The wording lists four conditions that must all hold, so they are four requirements. The first two compare the link across the pages of a set, which a check run on one page cannot do. The third needs the link to be visible, or visible when focused by tabbing, which needs a keyboard pass for the second route. The fourth uses the glossary's definition of a functional link: activating it lets reading and keyboard navigation resume from its target with the browsers and assistive technologies of the test environment, so it needs keyboard and assistive-technology work. Before any of this, the link must be identified as the one that skips or reaches the main content zone, and that zone is defined by its content. The single-page exception, listed on each requirement with its own id, turns on the size of the site and on whether a link is useless, which a check cannot establish. No axe rule is tagged for this test and no custom check is registered. The entry is none. Applicability is judgment, because not applicable follows only from the exception. Needs is keyboard, for visibility at focus and following the link, and assistive_tech, for the glossary's definition of functional.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "12.7.2",
+        "quote": "Retrouver dans le document la zone de contenu principal (indiquée par l’élément main visible) ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Liens d’évitement ou d’accès rapide",
+        "quote": "lors de l’utilisation des navigateurs et des aides techniques retenus dans l’environnement de test"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "12.7",
+        "quote": "Il existe une gestion de cas particuliers lorsque le site web est constitué d’une seule page."
+      }
+    ]
+  }
+}

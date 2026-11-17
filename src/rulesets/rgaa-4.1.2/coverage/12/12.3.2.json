@@ -1,0 +1,62 @@
+{
+  "test": "12.3.2",
+  "requirements": [
+    {
+      "id": "sitemap-links-functional",
+      "statement": "Every link of the site map is functional.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.3.2",
+          "line": 1,
+          "quote": "Les liens du plan du site sont-ils fonctionnels ?"
+        },
+        {
+          "source": "methodology",
+          "test": "12.3.2",
+          "quote": "Pour tous les liens du plan du site, vérifier qu’ils sont fonctionnels ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "link-works",
+          "statement": "Each link of the site map, whether an a or an area element, works when followed.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.3.2",
+              "quote": "Pour tous les liens du plan du site, vérifier qu’ils sont fonctionnels ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Page « plan du site »",
+              "quote": "les liens du plan du site peuvent être constitués de balises <a> ou de balises <area>."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Whether a link is functional is known only by following it: the page it leads to must load. That means requesting other addresses, which is outside what a check may do on a rendered page (the DOM, computed styles, the accessibility tree, geometry). Neither the test nor the glossary defines functional for these links, so even a link with no target or an empty fragment could be handled by a script, and a check could not fault it with certainty. Which page is the site map page, and therefore which links are concerned, is also established by the human, not found on the page. No axe rule is tagged and no custom check is registered. The entry is none. What would raise it: a check allowed to request each link's target and a definition of functional, cited from the official text, that the response can decide. Applicability is judgment: the test applies only on the site map page, and a site without one makes it not applicable. Needs is empty: following links leads to other pages, which no prerequisite covers.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "12.3.2",
+        "line": 1,
+        "quote": "Les liens du plan du site sont-ils fonctionnels ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Page « plan du site »",
+        "quote": "Page dédiée présentant l’arborescence d’un site web"
+      }
+    ]
+  }
+}

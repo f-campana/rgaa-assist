@@ -1,0 +1,183 @@
+{
+  "test": "12.2.1",
+  "requirements": [
+    {
+      "id": "same-place-in-presentation",
+      "statement": "In each set of pages, on each page that has them, the menu and navigation bars are always at the same place in the presentation.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.2.1",
+          "line": 1,
+          "quote": "Dans chaque ensemble de pages, chaque page disposant d’un menu et les barres de navigation vérifie-t-elle ces conditions (hors cas particuliers) ?"
+        },
+        {
+          "source": "test",
+          "test": "12.2.1",
+          "line": 2,
+          "quote": "Le menu et les barres de navigation sont toujours à la même place dans la présentation ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "placement-matches-other-page",
+          "statement": "Compared visually with another page of the same set, the menu and navigation bars are at the same place.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.2.1",
+              "quote": "Comparer visuellement les deux pages et vérifier que le menu ou les barres de navigation sont toujours à la même place dans la présentation ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "placement-home-page",
+          "statement": "The page is the home page.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.2",
+              "quote": "La page est la page d’accueil ;"
+            }
+          ]
+        },
+        {
+          "id": "placement-single-page-site",
+          "statement": "The website has a single page.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.2",
+              "quote": "Le site web est constitué d’une seule page ;"
+            }
+          ]
+        },
+        {
+          "id": "placement-user-initiated-change",
+          "statement": "The change follows a modification initiated by the user.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.2",
+              "quote": "Le changement fait suite à une modification initiée par l’utilisateur."
+            }
+          ]
+        },
+        {
+          "id": "placement-process-pages",
+          "statement": "The pages of the set are the result or a part of a process, such as payment or ordering.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.2.1",
+              "quote": "Les pages d'un ensemble de pages sont le résultat ou une partie d'un processus (un processus de paiement ou de prise de commande, par exemple) ;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "same-relative-order-in-source",
+      "statement": "In each set of pages, on each page that has them, the menu and navigation bars always come in the same relative order in the source code.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.2.1",
+          "line": 3,
+          "quote": "Le menu et les barres de navigation se présentent toujours dans le même ordre relatif dans le code source."
+        }
+      ],
+      "routes": [
+        {
+          "id": "order-matches-other-page",
+          "statement": "Compared with the client-side generated source of another page of the same set, the menu and navigation bars come in the same relative order.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.2.1",
+              "quote": "Comparer le code source (généré côté client) des deux pages et vérifier que le menu ou les barres de navigation se présentent toujours dans le même ordre relatif dans la structure ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "order-home-page",
+          "statement": "The page is the home page.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.2",
+              "quote": "La page est la page d’accueil ;"
+            }
+          ]
+        },
+        {
+          "id": "order-single-page-site",
+          "statement": "The website has a single page.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.2",
+              "quote": "Le site web est constitué d’une seule page ;"
+            }
+          ]
+        },
+        {
+          "id": "order-user-initiated-change",
+          "statement": "The change follows a modification initiated by the user.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "12.2",
+              "quote": "Le changement fait suite à une modification initiée par l’utilisateur."
+            }
+          ]
+        },
+        {
+          "id": "order-process-pages",
+          "statement": "The pages of the set are the result or a part of a process, such as payment or ordering.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.2.1",
+              "quote": "Les pages d'un ensemble de pages sont le résultat ou une partie d'un processus (un processus de paiement ou de prise de commande, par exemple) ;"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Both requirements compare two pages: the methodology picks another page of the same set and compares placement visually and order in the generated source. A check runs on one target and sees one page, so it cannot make that comparison. The elements compared need judgment too: a navigation menu or bar is a list of links for navigating the site, a section or a collection of pages, and the glossary lists breadcrumbs, result-list navigation and skip links among the bars. Which lists of links on a page are these, and which page belongs to the same set, is decided by the human. The exceptions also need knowledge beyond one page: whether the page is the home page, whether the site has a single page, whether a difference follows a change the user initiated, and whether the pages are part of a process. The two requirements are separate because the wording lists two conditions that must both hold. The same four exceptions are listed on each, with different ids. No axe rule is tagged and no custom check is registered. The entry is none. Applicability is judgment: whether the page has a menu or navigation bar, and whether an exception applies, need judgment. Needs is empty: the missing input is another page of the set, which no prerequisite covers.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "12.2.1",
+        "quote": "Choisir une page de l’échantillon appartenant au même ensemble que la page en cours d’audit ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Menu et barre de navigation",
+        "quote": "Liste de liens permettant une navigation spécifique dans le site, dans une rubrique ou dans une collection de pages."
+      },
+      {
+        "source": "glossary",
+        "entry": "Menu et barre de navigation",
+        "quote": "Une liste de navigation d’une liste de résultats ;"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "12.2",
+        "quote": "Dans ces situations, le critère est non applicable."
+      }
+    ]
+  }
+}
