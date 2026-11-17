@@ -1,0 +1,125 @@
+{
+  "test": "7.2.1",
+  "requirements": [
+    {
+      "id": "alternative-similar",
+      "statement": "For each script inserted with a script element that has an alternative, the alternative gives access to similar content and functions by one of the listed means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "7.2.1",
+          "line": 1,
+          "quote": "Chaque script débutant par la balise `<script>` et ayant une alternative vérifie-t-il une de ces conditions ?"
+        },
+        {
+          "source": "glossary",
+          "entry": "Alternative (à script)",
+          "quote": "Texte ou procédé associé au script via une technique appropriée et permettant de mettre à disposition une fonction ou un contenu similaire à celui proposé par script."
+        }
+      ],
+      "routes": [
+        {
+          "id": "noscript-alternative",
+          "statement": "The alternative between <noscript> and </noscript> gives access to similar content and functions.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.2.1",
+              "line": 2,
+              "quote": "L’alternative entre `<noscript>` et `</noscript>` permet d’accéder à des contenus et des fonctionnalités similaires ;"
+            }
+          ]
+        },
+        {
+          "id": "page-without-javascript",
+          "statement": "The page displayed with JavaScript disabled gives access to similar content and functions.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.2.1",
+              "line": 3,
+              "quote": "La page affichée, lorsque JavaScript est désactivé, permet d’accéder à des contenus et des fonctionnalités similaires ;"
+            }
+          ]
+        },
+        {
+          "id": "alternative-page",
+          "statement": "An alternative page gives access to similar content and functions.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.2.1",
+              "line": 4,
+              "quote": "La page alternative permet d’accéder à des contenus et des fonctionnalités similaires ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Alternative (à script)",
+              "quote": "Il peut s’agir d’un lien ou d’un bouton permettant d’accéder à une page alternative fonctionnant sans JavaScript"
+            }
+          ]
+        },
+        {
+          "id": "server-side-script",
+          "statement": "The server-side script language gives access to similar content and functions.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.2.1",
+              "line": 5,
+              "quote": "Le langage de script côté serveur permet d’accéder à des contenus et des fonctionnalités similaires ;"
+            }
+          ]
+        },
+        {
+          "id": "in-page-alternative",
+          "statement": "An alternative present in the page gives access to similar content and functions.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "7.2.1",
+              "line": 6,
+              "quote": "L’alternative présente dans la page permet d’accéder à des contenus et des fonctionnalités similaires."
+            },
+            {
+              "source": "glossary",
+              "entry": "Alternative (à script)",
+              "quote": "permettant de remplacer le(s) composant(s) par un composant alternatif fonctionnant sans JavaScript par exemple."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["state"],
+  "rationale": {
+    "text": "The test applies only to scripts that have an alternative, and asks whether the alternative gives access to similar content and functions. Both whether something is an alternative to a given script and whether it is similar are judgment, through any of the five accepted means. The methodology also has the auditor disable JavaScript and look for the alternatives then offered. So the candidate is none and no check is linked. No axe rule is tagged for this test. One case could look mechanical and is not claimed: an empty noscript element. An empty element is arguably not an alternative at all, so the test may not apply to it, and the script may have another alternative through one of the other four means. Applicability is judgment: whether a script has an alternative is not decided by code. Needs is state, since an alternative page or an alternative in the page is often reached by activating a link or button the site provides. Examining the page with JavaScript disabled is a further condition that no prerequisite expresses.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "7.2",
+        "quote": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?"
+      },
+      {
+        "source": "methodology",
+        "test": "7.2.1",
+        "quote": "Désactiver JavaScript dans le document et retrouver les alternatives proposées."
+      },
+      {
+        "source": "methodology",
+        "test": "7.2.1",
+        "quote": "Pour chacune des alternatives proposées, vérifier qu’elle permet d’accéder aux mêmes contenus et à des fonctionnalités similaires."
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative (à script)",
+        "quote": "le moyen d’y accéder doit être fourni par le site lui-même."
+      }
+    ]
+  }
+}
