@@ -1,0 +1,61 @@
+{
+  "test": "8.6.1",
+  "requirements": [
+    {
+      "id": "title-relevant",
+      "statement": "For each page that has a page title, the content of its title element is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "8.6.1",
+          "line": 1,
+          "quote": "Pour chaque page web ayant un titre de page (balise `<title>`), le contenu de cette balise est-il pertinent ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "title-identifies-page",
+          "statement": "The title identifies the content or nature of the page clearly, concisely and uniquely, so that the page can be found in the browsing history or the list of tabs.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Titre de page",
+              "quote": "permettant d’identifier de manière claire, concise et unique les contenus/la nature de la page"
+            },
+            {
+              "source": "methodology",
+              "test": "8.6.1",
+              "quote": "il permet de retrouver la page dans l’historique de navigation ou la liste des onglets"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "Relevance is judgment: whether a title identifies the page's content clearly, concisely and uniquely, and lets the user find it among tabs or in the history, cannot be decided by code. The methodology itself asks whether the content is \"suffisamment pertinent\". No axe rule is tagged. A bounded failure was considered and rejected. An empty title element looks mechanical, but this test applies only to pages \"ayant un titre de page\", and the glossary defines the title as the content of the title tag: under one reading an empty element gives no title, so this test does not apply and 8.5.1 is the one at stake; under the other it is a title whose content is not relevant. The fault would fail this test under one reading only, so it is not claimed. Default titles such as \"Document\" or a title shared by two different pages of the sample are hints, not proofs: a page may truly be about what such a title says, and two addresses may show the same document. They stay with the human. Applicability is judgment, because whether a page with an empty or blank title element \"has a title\" is the same open question. Needs is empty.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "8.6.1",
+        "quote": "Vérifier si le contenu de l’élément `<title>` est suffisamment pertinent"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de page",
+        "quote": "Contenu de la balise <title> d’une page web"
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "8.6",
+        "quote": "Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?"
+      }
+    ]
+  }
+}
