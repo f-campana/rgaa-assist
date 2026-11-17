@@ -5,7 +5,8 @@
 **Next:** M1, started from `docs/m1-kickoff.md` after a weekly reset (14.3). Any later change to this spec goes through the orchestrator and, where it touches a decision, through Fabien (14.4).
 **Amended after approval, on 2026-11-16, by Fabien's decisions:** the M1 ceiling is counted from the usage baseline (Q38, 14.3). Opus 5.5 takes over as orchestrator if Fable 5.2 becomes unavailable (Q39, 14.2). The third official data file is named `methodologies.json` (13). Codex has not re-checked these lines.
 **Amended on 2026-11-17, by Fabien's decision Q40:** `applicability` gains a third value, `always` (6.1, 8.3, 10.4), after Codex's cross-check of the pilot entries. Decisions Q41 and Q42 change how M1 is run, not this text.
-**Inputs:** `docs/decisions.md` (decisions Q1 to Q42). Where this spec and that file disagree, the decisions file wins and the disagreement is a defect in this spec.
+**Amended on 2026-11-17, by Fabien's decision Q43:** on an `always` entry, one inapplicable requirement is enough for "needs review", not only all of them (8.3 step 4), after Codex's re-check of the corrections.
+**Inputs:** `docs/decisions.md` (decisions Q1 to Q43). Where this spec and that file disagree, the decisions file wins and the disagreement is a defect in this spec.
 
 ---
 
@@ -385,8 +386,9 @@ The engine records these facts for each requirement. They are independent: sever
    - the entry is not enabled `full` (`not_enabled`, or `no_check` when it has no link);
    - a prerequisite in `needs` was not met for this target in this run (`prerequisite_unmet`);
    - a requirement has a dispute (`checks_disagree`);
-   - a requirement is unresolved (`alternative_unresolved` or `cannot_tell`).
-4. Otherwise `not_applicable` if every requirement is inapplicable and applicability is `structural`. With `judgment` applicability it is `needs_review` (`judgment_required`). With `always` applicability it is `needs_review` (`cannot_tell`): a check answered `inapplicable` for a test that applies to every page.
+   - a requirement is unresolved (`alternative_unresolved` or `cannot_tell`);
+   - applicability is `always` and any requirement is inapplicable (`cannot_tell`): a check answered `inapplicable` for a test that applies to every page (Q40, Q43).
+4. Otherwise `not_applicable` if every requirement is inapplicable and applicability is `structural`. With `judgment` applicability it is `needs_review` (`judgment_required`). An `always` entry never reaches this line with an inapplicable requirement.
 5. Otherwise `passed`: every requirement is satisfied or inapplicable, and at least one is satisfied.
 
 The finding keeps every fact of every requirement (`requirementFacts`, 8.5), so an error or a dispute that did not decide the status is still visible.
