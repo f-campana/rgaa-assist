@@ -15,34 +15,26 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 | 4 | Implementation of derivation, reduction and effective level by one agent, contract tests by another, both after the freeze | Done 2026-11-16. Implementation and 185 contract tests merged; all 386 tests pass. |
 | 5 | Table of axe rules per RGAA test, and theme packets for entry writers | Done 2026-11-16, merged as `aa4cdd9`. 67 rules, 40 tests, as the spec says. `pnpm packets` writes 13 packets, 595 KB in all; theme 1 is 121 KB, so split it between writers by criterion. |
 | 6 | Pilot of 14 entries, usage projection | Done 2026-11-16, merged as `51880bb`. Projection in the cost log. |
-| 7 | Entries by theme | Not started |
-| 8 | Check-in at 65%, with Codex's cross-check | Not started |
+| 7 | Pilot corrections, then entries by theme | Done 2026-11-17. Pilot corrections passed three Codex re-checks (clean at `67d2938`). All 258 entries merged at `ff4d6c2` (builders A to O). |
+| 8 | Check-in at 65%, with Codex's cross-check | Check-in done. Codex's cross-check of all 258 entries done 2026-11-17: hold until claims are corrected. Corrections in flight (builders P and Q). |
 | 9 | Minimum useful set | Not started |
 | 10 | Gate package for Fabien | Not started |
 
 ## In flight
 
-- All 258 entries are on main at `ff4d6c2` (none 224, fail_only 30, full 4); every `enabled` is `none`. 414 tests pass; 125 check records, sorted, no duplicates. Batches 1 to 8 are merged; no builder is running and no worktree is left.
-- Next: step 5, Codex's cross-check of all entries (request sent on the bridge, `docs/m1/request-cross-check.md`). Fabien prompts Codex. Then the corrections, then step 6, the gate package.
+- All 258 entries are on main (none 224, fail_only 30, full 4 before corrections); every `enabled` is `none`.
+- Codex's cross-check of all entries is in: `~/Documents/Codex/2026-11-17/rgaa-m1-coverage-independent-review/outputs/rgaa-m1-independent-review.md`. Verdict: hold M1 approval until the claims are corrected. The orchestrator verified the confirmed defects and accepts them. Fabien ruled Q45 to Q48 (`docs/decisions.md`).
+- Running: corrections from `docs/m1/brief-corrections-3.md`, launched 2026-11-17 at about 22:25 UTC. Builder P lowers 10.13.2, 10.12.1, 10.11.1, 10.6.1, 9.2.1, 6.1.5, 1.9.1 to 1.9.5, 11.2.2 and 11.2.3 to `none`, and narrows 11.9.1, 10.5.2, 8.10.2, 1.1.3 and 10.1.2. Builder Q corrects the write-up of 3.1.1 to 3.1.3, 4.3.2, 4.12.1, 7.1.3, 7.3.1, 10.5.3 and 11.9.2.
+- Next: review and merge P and Q, then a focused re-check by Codex of the correction diff, then the minimum useful set and the gate package.
 - Merging: `checks.json` conflicts between builders are resolved by `python3 work/orchestrator/merge-checks.py` during the merge (union of added records, sorted; it asserts no base record changed). `work/` is gitignored, so the script is local to this checkout.
-
-## Where M1 stands, 2026-11-17
-
-- **Built:** official data, schemas, the frozen contract, its implementation, 185 contract tests, the validator, the packets, the entry guide.
-- **Entries:** 14 of 258 (the pilot). Codex cross-checked them: 4 findings in 3 entries, 2 of them unsupported claims (8.3.1 `full`, 10.7.1 `fail_only`). Report: `~/Documents/Codex/2026-11-12/rgaa-independent-spec-review/outputs/rgaa-m1-pilot-51880bb-independent-review.md`. The orchestrator verified and accepted all four. The guide has a "Lessons from the pilot" section from them.
-- **Usage:** all-models 68%, so 17 points remain before the 85% stop. The pilot cost about a quarter point per entry.
-- **Fabien's decisions of 2026-11-17:** `applicability` gains `always` (Q40). The remaining entries are written by Opus at high effort, once the corrections pass Codex's re-check (Q41). A fresh Opus session orchestrates (Q42).
 
 ## Next, in order
 
-1. **Corrections.** Launch one Opus builder, high effort, `isolation: worktree`, with `docs/m1/brief-corrections.md` (the `always` value, and entries 8.3.1, 10.7.1, 2.2.1). Review its diff, run `pnpm test`, `pnpm typecheck`, `pnpm validate-coverage`, merge.
-2. **Contract tests for `always`.** A different agent than step 1 (Sonnet is enough) adds to `tests/contract/derive.test.ts`: every requirement inapplicable gives `not_applicable` for `structural`, `needs_review`/`judgment_required` for `judgment`, `needs_review`/`cannot_tell` for `always`. It reads the spec and the doc comment, not the body.
-3. **Codex's re-check.** Bridge message on channel `rgaa-assist` asking Codex to re-check the three corrected entries, the `always` change and the guide's new section, then ask Fabien to prompt Codex. No new entry is written before its answer.
-4. **Entries.** If the re-check is clean: write the remaining 244 entries with Opus at high effort, criterion by criterion from `work/packets/by-criterion/`, a few builders at a time, each owning different criteria. Model the brief on `docs/m1/brief-pilot.md`. `checks.json` is shared: keep it sorted by id and resolve merges by taking both sides. Stop at 85% all-models and continue after the reset of 2026-11-21 16:00 UTC. Log usage per batch in `docs/cost-log.md`.
-5. **Codex's cross-check of all entries**, then corrections.
-6. **The minimum useful set** and **the gate package** (kickoff brief, last sections).
+1. **Corrections** (running): review P's and Q's diffs, especially every link that stays `failure` and the `full` entries; merge; run `pnpm test`, `pnpm typecheck`, `pnpm validate-coverage`.
+2. **Codex's focused re-check** of the correction diff, by bridge message on channel `rgaa-assist`; Fabien prompts Codex.
+3. **The minimum useful set** and **the gate package** (kickoff brief, last sections). Codex found no minimum useful set at its review pin; it names 8.5.1, 10.1.1 and 11.8.2 as coherent `full` candidates.
 
-Keep the orchestrator's own turns few: read reports, read diffs of what makes a claim (`failure` and resolving links, `full` entries), and leave the rest to Codex's cross-check.
+The history before the cross-check (pilot, corrections cycle, batches 1 to 8) is in the steps table, the cost log and the findings below.
 
 ## Decisions taken by the orchestrator
 
