@@ -1,0 +1,115 @@
+{
+  "test": "3.1.4",
+  "requirements": [
+    {
+      "id": "css-colour-info-not-colour-only",
+      "statement": "For each CSS property that sets a colour (color, background-color, background, border-color, border, outline-color, outline, including a background image used to insert a colour) and conveys information, that information is not given by colour alone.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "3.1.4",
+          "line": 1,
+          "quote": "l’information ne doit pas être donnée uniquement par la couleur"
+        },
+        {
+          "source": "glossary",
+          "entry": "Propriété CSS déterminant une couleur",
+          "quote": "Cela concerne les propriétés suivantes : color, background-color, background, border-color, border, outline-color, outline."
+        },
+        {
+          "source": "glossary",
+          "entry": "Propriété CSS déterminant une couleur",
+          "quote": "l’utilisation d’une image de fond pour insérer une couleur (propriété background:url…) est également concernée."
+        },
+        {
+          "source": "methodology",
+          "test": "3.1.4",
+          "quote": "Retrouver dans le document les informations données par la couleur dans une propriété CSS"
+        }
+      ],
+      "routes": [
+        {
+          "id": "visible-text",
+          "statement": "The same information is also given by a visible text.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Une indication textuelle visible"
+            }
+          ]
+        },
+        {
+          "id": "graphic-and-code",
+          "statement": "The same information is also given by a graphic means (pictogram, background image, shape, different border style) together with a complement in the code (aria-label, title, hidden text, aria-current).",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Un moyen faisant intervenir du graphisme (pictogramme, image de fond, forme, style de bordure différent, etc.) et par le biais d’un complément au niveau du code (aria-label, title, texte masqué, aria-current, etc.)"
+            }
+          ]
+        },
+        {
+          "id": "typography-and-code",
+          "statement": "The same information is also given by another typographic style (bold, italic, text size, another font) together with a complement in the code.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Un autre style typographique (gras, italique, taille de texte, autre police, etc) et par le biais d’un complément au niveau du code"
+            }
+          ]
+        },
+        {
+          "id": "other-means",
+          "statement": "Another means lets the user get the same information, from the methodology's open list: a title attribute, an icon, a graphic effect of shape or position, a typographic effect.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "3.1.4",
+              "quote": "vérifier qu’il existe un autre moyen de récupérer cette information (présence d’un attribut title, d’une icône ou d’un effet graphique de forme ou de position, un effet typographique…)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Les moyens de transmettre une information autrement que par la couleur peuvent être"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to each colour set by one of the CSS properties the glossary lists, when that colour conveys information. Code can list the computed colours of every element, but whether a given colour conveys information is judgment: a blue background may mark the current page in a menu, as the glossary's example says, or may only be the design. Comparing an element's colour with its siblings' finds candidates (a menu item whose background differs), not information, and the difference may already be doubled by a style or an attribute whose meaning code cannot match to the colour's. Each route is judgment too: whether a text, a pictogram, a shape, a style or a code complement gives the same information as the colour depends on what both mean. The requirement has one set of routes, taken from the glossary and the methodology: a visible text, a graphic means with a code complement, a typographic style with a code complement, or another means from the methodology's open list (a title attribute, an icon, a shape or position effect, a typographic effect). The glossary's list says the means \"peuvent être\" these, and the methodology's list ends in an ellipsis, so the last route is kept open on purpose: a missed route would make a correct page look failed. The glossary also says that information given by colour and accompanied by another method makes the criterion not applicable, where the methodology says the test is then validated. The entry follows the methodology and lists the means as routes; at none the difference changes nothing, and it is reported. No axe rule is tagged for this test. axe's link-in-text-block, which looks at links set apart from the surrounding text by colour alone, is tagged by axe for 10.6.1, not here, and is not linked: whether a link's colour is information in this glossary's sense is not settled by this test's text, and the rule accepts a link whose colour differs from the text by a 3:1 ratio, which is still colour alone. A custom check for a menu item whose only difference is its background colour was considered and not registered: the item that differs is not surely the current page, aria-current is only one of the code complements the glossary accepts, and the visual means accepted alongside it (a shape, a border style, a typographic style) cannot be matched to the colour's meaning by code. Its fault could not rest on a witness surely in scope. The candidate is none, with no link. Applicability is judgment: every page sets colours with these properties, and whether any of them conveys information cannot be decided by code. Needs is empty: computed styles are read on the page as displayed.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "3.1.4",
+        "line": 1,
+        "quote": "et véhiculant une information"
+      },
+      {
+        "source": "glossary",
+        "entry": "Information (donnée par la couleur)",
+        "quote": "l’utilisation d’un fond bleu pour indiquer la page en cours de consultation dans un menu avec le fond vert"
+      },
+      {
+        "source": "glossary",
+        "entry": "Information (donnée par la couleur)",
+        "quote": "Lorsqu’une information donnée par la couleur est accompagnée d’une autre méthode à destination des utilisateurs qui ne voient pas ou perçoivent mal les couleurs ou leurs associations, le critère sera considéré comme non applicable."
+      },
+      {
+        "source": "methodology",
+        "test": "3.1.4",
+        "quote": "Si c’est le cas pour chaque information, **le test est validé**."
+      }
+    ]
+  }
+}

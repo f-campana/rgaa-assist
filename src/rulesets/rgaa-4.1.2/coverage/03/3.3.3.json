@@ -1,0 +1,210 @@
+{
+  "test": "3.3.3",
+  "requirements": [
+    {
+      "id": "graphic-contiguous-contrast",
+      "statement": "For each graphic element, outside the particular cases, the colours that touch each other and are needed to understand it contrast with each other at a ratio of at least 3:1, or a mechanism gives that ratio.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "3.3.3",
+          "line": 1,
+          "quote": "le rapport de contraste des différentes couleurs contiguës entre elles d’un élément graphique, lorsqu’elles sont nécessaires à sa compréhension, vérifie-t-il une de ces conditions (hors cas particuliers)"
+        },
+        {
+          "source": "glossary",
+          "entry": "Élément graphique",
+          "quote": "Élément faisant appel à une représentation visuelle telle que des images, des pictogrammes ou des graphiques."
+        }
+      ],
+      "routes": [
+        {
+          "id": "ratio-3",
+          "statement": "The contrast ratio between colours of the graphic element that touch each other and are needed to understand it, computed with the glossary's formula, is at least 3:1.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "3.3.3",
+              "line": 2,
+              "quote": "Le rapport de contraste est de 3:1, au moins"
+            },
+            {
+              "source": "glossary",
+              "entry": "Couleur d’arrière-plan contiguë et couleur contiguë",
+              "quote": "Couleur contiguë : couleur directement en contact avec une autre couleur."
+            }
+          ]
+        },
+        {
+          "id": "mechanism",
+          "statement": "A mechanism, an interface component whose activation changes the appearance of the site or page, gives a contrast ratio of at least 3:1.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "3.3.3",
+              "line": 3,
+              "quote": "Un mécanisme permet un rapport de contraste de 3:1, au moins."
+            },
+            {
+              "source": "glossary",
+              "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+              "quote": "Composant d’interface dont l’activation permet de modifier l’apparence du site ou de la page de manière à afficher les contenus avec un ratio de contraste suffisant."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "inactive-component",
+          "statement": "An inactive interface component on which no action is possible, such as a disabled button.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Composant d’interface inactif (par exemple, un bouton avec un attribut `disabled`) sur lequel aucune action n’est possible"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "native-browser-styles",
+          "statement": "An interface component whose appearance is left to the browser's native styles, with no change by the author, such as the native focus style.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Composant d’interface pour lequel l’apparence est gérée par les styles natifs du navigateur sans aucune modification par l’auteur"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "colour-not-needed",
+          "statement": "An interface component for which colour is not needed to identify the component or its state.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Composant d’interface pour lequel la couleur n’est pas nécessaire pour identifier le composant ou son état"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-without-information-or-with-alternative",
+          "statement": "A graphic element, or part of one, that carries no information or has an alternative (a long description, the same information visible in the page).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique non porteur d’information ou ayant une alternative (description longue, informations identiques visibles dans la page)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-logo-or-brand",
+          "statement": "A graphic element, or part of one, that is part of a logo or of the brand name of an organisation or a company.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique faisant partie d’un logo ou du nom de marque d’un organisme ou d’une société"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-presentation-essential",
+          "statement": "A graphic element, or part of one, whose presentation is essential to the information it conveys (flags, logotypes, photos, screenshots, medical diagrams, heat maps).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique dont la présentation est essentielle à l’information véhiculée"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-dynamic-contrast-on-hover-focus",
+          "statement": "A dynamic graphic element, or part of one, whose contrast on hover or focus is sufficient.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique dynamiques dont le contraste au survol / focus est suffisant."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test has one requirement: for each graphic element, the contrast ratio between its colours that touch each other and are needed to understand it is at least 3:1, or a mechanism gives that ratio, unless a particular case applies. It applies only to the colours \"nécessaires à sa compréhension\". Which colours of an image, a pictogram or a chart are needed to understand it is judgment, and so is which graphic elements carry information at all: the glossary's example, each point on each line of a statistics chart, shows that the parts that matter are known only from what the element means. Code cannot find the colours of a raster image's parts, and an svg's fills do not say which shapes matter. The mechanism route keeps any fault from proving failure. The glossary defines the mechanism as an interface component whose activation changes the appearance of the site or the page so that contents show with enough contrast. The wording does not require it to be on the page examined: a switch on another page of the site, or inside a settings dialog, meets the route. Code cannot list every such component, nor tell what activating one does, without judgment, so no check can rule the route out. Most exceptions are judgment as well: a graphic element without information or with an alternative, part of a logo, or essential as presented (flags, photos, heat maps). The criterion's seven particular cases are stated for the whole criterion, so all seven are listed on the requirement: a component can be drawn with graphic elements (an icon button, a logo link), and a graphic element can be part of a component, so neither group can be left off without risking a missed exception. No axe rule is tagged for this test, and axe has no rule for the contrast of graphic elements. No custom check is registered: a fault would need a graphic part surely needed for understanding and surely outside every exception, which code cannot establish. The candidate is none, with no link. Applicability is judgment: whether a page holds a graphic element whose colours are needed to understand it cannot be decided by code. Needs is state: the exception for dynamic graphic elements turns on their contrast on hover or focus, which is seen only after interaction.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "3.3.3",
+        "line": 1,
+        "quote": "lorsqu’elles sont nécessaires à sa compréhension"
+      },
+      {
+        "source": "glossary",
+        "entry": "Couleur d’arrière-plan contiguë et couleur contiguë",
+        "quote": "Exemple dans un panneau de « sens interdit » le rouge du panneau est la couleur contiguë au trait blanc au centre du panneau."
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "3.3",
+        "quote": "Élément graphique ou parties d’élément graphique dynamiques dont le contraste au survol / focus est suffisant."
+      },
+      {
+        "source": "glossary",
+        "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+        "quote": "Composant d’interface dont l’activation permet de modifier l’apparence du site ou de la page"
+      },
+      {
+        "source": "methodology",
+        "test": "3.3.3",
+        "quote": "Si c’est le cas pour chaque élément graphique, **le test est validé**."
+      }
+    ]
+  }
+}

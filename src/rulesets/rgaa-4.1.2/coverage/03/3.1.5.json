@@ -1,0 +1,112 @@
+{
+  "test": "3.1.5",
+  "requirements": [
+    {
+      "id": "temporal-media-colour-info-not-colour-only",
+      "statement": "For each temporal media (audio, video or synchronised) that conveys information through colour, that information is not given by colour alone.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "3.1.5",
+          "line": 1,
+          "quote": "l’information ne doit pas être donnée uniquement par la couleur"
+        },
+        {
+          "source": "methodology",
+          "test": "3.1.5",
+          "quote": "Retrouver dans le document les informations données par la couleur dans un média temporel"
+        },
+        {
+          "source": "glossary",
+          "entry": "Information (donnée par la couleur)",
+          "quote": "Information transmise visuellement par l’intermédiaire d’une couleur."
+        }
+      ],
+      "routes": [
+        {
+          "id": "visible-text",
+          "statement": "The same information is also given by a visible text.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Une indication textuelle visible"
+            }
+          ]
+        },
+        {
+          "id": "graphic-and-code",
+          "statement": "The same information is also given by a graphic means (pictogram, background image, shape, different border style) together with a complement in the code (aria-label, title, hidden text, aria-current).",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Un moyen faisant intervenir du graphisme (pictogramme, image de fond, forme, style de bordure différent, etc.) et par le biais d’un complément au niveau du code (aria-label, title, texte masqué, aria-current, etc.)"
+            }
+          ]
+        },
+        {
+          "id": "typography-and-code",
+          "statement": "The same information is also given by another typographic style (bold, italic, text size, another font) together with a complement in the code.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Un autre style typographique (gras, italique, taille de texte, autre police, etc) et par le biais d’un complément au niveau du code"
+            }
+          ]
+        },
+        {
+          "id": "other-means",
+          "statement": "Another means lets the user get the same information, from the methodology's open list: a title attribute, an icon, a graphic effect of shape or position, a typographic effect.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "3.1.5",
+              "quote": "vérifier qu’il existe un autre moyen de récupérer cette information (présence d’un attribut title, d’une icône ou d’un effet graphique de forme ou de position, un effet typographique…)"
+            },
+            {
+              "source": "glossary",
+              "entry": "Information (donnée par la couleur)",
+              "quote": "Les moyens de transmettre une information autrement que par la couleur peuvent être"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "media"
+  ],
+  "rationale": {
+    "text": "The test applies to each temporal media that conveys information, where that information is given by colour. Finding it means watching the media and understanding what its colours stand for: a coloured line in an animated chart, a speaker identified by the colour of a caption. That is judgment, and it happens over the media's running time. Each route is judgment too: whether a text, a pictogram, a shape, a style or a code complement gives the same information as the colour depends on what both mean. The requirement has one set of routes, taken from the glossary and the methodology: a visible text, a graphic means with a code complement, a typographic style with a code complement, or another means from the methodology's open list (a title attribute, an icon, a shape or position effect, a typographic effect). The glossary's list says the means \"peuvent être\" these, and the methodology's list ends in an ellipsis, so the last route is kept open on purpose: a missed route would make a correct page look failed. The glossary also says that information given by colour and accompanied by another method makes the criterion not applicable, where the methodology says the test is then validated. The entry follows the methodology and lists the means as routes; at none the difference changes nothing, and it is reported. No axe rule is tagged for this test, and no custom check is registered: nothing in the DOM says what colours a media's frames use or mean. The candidate is none, with no link. Applicability is judgment: the glossary counts as temporal media a file to download and play outside the page as well as content embedded through a plugin or the video, audio, svg, canvas and bgsound elements, so even the presence of a temporal media is not certain from the DOM, and whether it conveys information by colour is judgment. Needs is media: the information is seen only when the media plays.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "3.1.5",
+        "line": 1,
+        "quote": "Pour chaque média temporel véhiculant une information"
+      },
+      {
+        "source": "glossary",
+        "entry": "Média temporel (type son, vidéo et synchronisé)",
+        "quote": "Fichier à télécharger consultable avec un logiciel externe à la page web"
+      },
+      {
+        "source": "glossary",
+        "entry": "Information (donnée par la couleur)",
+        "quote": "Lorsqu’une information donnée par la couleur est accompagnée d’une autre méthode à destination des utilisateurs qui ne voient pas ou perçoivent mal les couleurs ou leurs associations, le critère sera considéré comme non applicable."
+      },
+      {
+        "source": "methodology",
+        "test": "3.1.5",
+        "quote": "Si c’est le cas pour chaque information, **le test est validé**."
+      }
+    ]
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "test": "3.3.1",
+  "requirements": [
+    {
+      "id": "component-contrast",
+      "statement": "For each interface component, outside the particular cases, the colours of the component in its different states contrast with the adjacent background colour at a ratio of at least 3:1, or a mechanism gives that ratio.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "3.3.1",
+          "line": 1,
+          "quote": "le rapport de contraste entre les couleurs d’un composant d’interface dans ses différents états et la couleur d’arrière-plan contiguë vérifie-t-il une de ces conditions (hors cas particuliers)"
+        },
+        {
+          "source": "glossary",
+          "entry": "Composant d’interface",
+          "quote": "Un composant d’interface est un élément avec lequel l’utilisateur peut interagir, par exemple un bouton, un lien, une zone de saisie."
+        }
+      ],
+      "routes": [
+        {
+          "id": "ratio-3",
+          "statement": "The contrast ratio between the colours of the component, in each of its states, and the adjacent background colour, computed with the glossary's formula, is at least 3:1.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "3.3.1",
+              "line": 2,
+              "quote": "Le rapport de contraste est de 3:1, au moins"
+            },
+            {
+              "source": "glossary",
+              "entry": "Couleur d’arrière-plan contiguë et couleur contiguë",
+              "quote": "Couleur d’arrière-plan contiguë : couleur d’arrière-plan directement en contact avec le bord extérieur du composant d’interface ou de l’élément graphique."
+            },
+            {
+              "source": "glossary",
+              "entry": "Couleur d’arrière-plan contiguë et couleur contiguë",
+              "quote": "dans le cas de la présence d’un dégradé, c’est la couleur contiguë la moins contrastée du dégradé qui sera à considérer"
+            }
+          ]
+        },
+        {
+          "id": "mechanism",
+          "statement": "A mechanism, an interface component whose activation changes the appearance of the site or page, gives a contrast ratio of at least 3:1.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "3.3.1",
+              "line": 3,
+              "quote": "Un mécanisme permet un rapport de contraste de 3:1, au moins."
+            },
+            {
+              "source": "glossary",
+              "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+              "quote": "Composant d’interface dont l’activation permet de modifier l’apparence du site ou de la page de manière à afficher les contenus avec un ratio de contraste suffisant."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "inactive-component",
+          "statement": "An inactive interface component on which no action is possible, such as a disabled button.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Composant d’interface inactif (par exemple, un bouton avec un attribut `disabled`) sur lequel aucune action n’est possible"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "native-browser-styles",
+          "statement": "An interface component whose appearance is left to the browser's native styles, with no change by the author, such as the native focus style.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Composant d’interface pour lequel l’apparence est gérée par les styles natifs du navigateur sans aucune modification par l’auteur"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "colour-not-needed",
+          "statement": "An interface component for which colour is not needed to identify the component or its state.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Composant d’interface pour lequel la couleur n’est pas nécessaire pour identifier le composant ou son état"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-without-information-or-with-alternative",
+          "statement": "A graphic element, or part of one, that carries no information or has an alternative (a long description, the same information visible in the page).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique non porteur d’information ou ayant une alternative (description longue, informations identiques visibles dans la page)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-logo-or-brand",
+          "statement": "A graphic element, or part of one, that is part of a logo or of the brand name of an organisation or a company.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique faisant partie d’un logo ou du nom de marque d’un organisme ou d’une société"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-presentation-essential",
+          "statement": "A graphic element, or part of one, whose presentation is essential to the information it conveys (flags, logotypes, photos, screenshots, medical diagrams, heat maps).",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique dont la présentation est essentielle à l’information véhiculée"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        },
+        {
+          "id": "graphic-dynamic-contrast-on-hover-focus",
+          "statement": "A dynamic graphic element, or part of one, whose contrast on hover or focus is sufficient.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Élément graphique ou parties d’élément graphique dynamiques dont le contraste au survol / focus est suffisant."
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "3.3",
+              "quote": "Les cas suivants sont non applicables pour ce critère"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state",
+    "keyboard"
+  ],
+  "rationale": {
+    "text": "The test has one requirement: each interface component, in each of its states, meets one of two routes, a ratio of at least 3:1 between its colours and the adjacent background, or a mechanism that gives that ratio, unless a particular case applies. Even the first route is not plain measurement. The glossary defines a component as anything the user can interact with, including widgets built from scratch in JavaScript, so finding every component is not certain from the DOM. Which of a component's colours count (its border, its fill, its focus ring, a check mark) and which background touches its outer edge are geometric questions that code can sometimes answer, but the glossary's notes on gradients and on several adjacent colours make the measure depend on reading the rendered picture. The mechanism route keeps any fault from proving failure. The glossary defines the mechanism as an interface component whose activation changes the appearance of the site or the page so that contents show with enough contrast. The wording does not require it to be on the page examined: a switch on another page of the site, or inside a settings dialog, meets the route. Code cannot list every such component, nor tell what activating one does, without judgment, so no check can rule the route out. Two exceptions are judgment outright: whether colour is needed to identify the component or its state, and whether a graphic part carries information or is essential as presented. The native-styles case needs proof that the author changed nothing, which code can show only partly. The criterion's seven particular cases are stated for the whole criterion, so all seven are listed on the requirement: a component can be drawn with graphic elements (an icon button, a logo link), and a graphic element can be part of a component, so neither group can be left off without risking a missed exception. No axe rule is tagged for this test, and axe has no rule for the contrast of non-text parts of a component; its color-contrast measures text only and is not linked. A custom check for a field whose border is under 3:1 against its background was considered and not registered: a field may be identified without colour, which is an exception, and the mechanism route stays open, so its fault would be evidence at best and would rest on a witness not surely in scope. The candidate is none, with no link. Applicability is judgment: whether a page holds a component outside the particular cases needs judgment. Needs is state and keyboard: the wording covers the component in its different states, such as hovered, focused, checked or expanded, which appear only after interaction, and a focus style that depends on keyboard use (:focus-visible) is seen only through a keyboard pass.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "3.3.1",
+        "line": 1,
+        "quote": "dans ses différents états"
+      },
+      {
+        "source": "glossary",
+        "entry": "Composant d’interface",
+        "quote": "un composant d’interface peut être basé sur des éléments natifs de HTML ou développés de toutes pièces en JavaScript et des attributs WAI-ARIA"
+      },
+      {
+        "source": "glossary",
+        "entry": "Couleur d’arrière-plan contiguë et couleur contiguë",
+        "quote": "dans le cas de la présence de plusieurs couleurs, c’est l’ensemble des couleurs qui seront à considérer comme couleur contiguë ou couleur d’arrière-plan contiguë."
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "3.3",
+        "quote": "Composant d’interface pour lequel la couleur n’est pas nécessaire pour identifier le composant ou son état"
+      },
+      {
+        "source": "glossary",
+        "entry": "Mécanisme qui permet d’afficher un rapport de contraste conforme",
+        "quote": "Composant d’interface dont l’activation permet de modifier l’apparence du site ou de la page"
+      },
+      {
+        "source": "methodology",
+        "test": "3.3.1",
+        "quote": "Si c’est le cas pour chaque composant, **le test est validé**."
+      }
+    ]
+  }
+}
