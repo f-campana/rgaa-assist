@@ -1,0 +1,145 @@
+{
+  "test": "4.8.1",
+  "requirements": [
+    {
+      "id": "non-temporal-media-alternative",
+      "statement": "Each non-temporal media that needs one, outside the particular cases, has an adjacent, clearly identifiable link or button that leads to an alternative, on another page or in the page.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "4.8.1",
+          "line": 1,
+          "quote": "Chaque média non temporel vérifie-t-il, si nécessaire, une de ces conditions (hors cas particuliers)"
+        },
+        {
+          "source": "glossary",
+          "entry": "Média non temporel",
+          "quote": "Contenu qui ne se déroule pas dans le temps, consultable via un plugin (Flash, Java, Silverlight…) ou via les éléments svg et canvas"
+        }
+      ],
+      "routes": [
+        {
+          "id": "link-to-alternative-page",
+          "statement": "An adjacent, clearly identifiable link or button gives access to a page that holds an alternative.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.8.1",
+              "line": 2,
+              "quote": "Un lien ou un bouton adjacent, clairement identifiable, permet d’accéder à une page contenant une alternative"
+            },
+            {
+              "source": "methodology",
+              "test": "4.8.1",
+              "quote": "Soit contient l’adresse (url) d’une page contenant une alternative"
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "Dans le code HTML, le lien ou bouton doit se situer juste avant ou juste après l’élément auquel il est adjacent."
+            }
+          ]
+        },
+        {
+          "id": "link-to-alternative-in-page",
+          "statement": "An adjacent, clearly identifiable link or button gives access to an alternative in the page.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "4.8.1",
+              "line": 3,
+              "quote": "Un lien ou un bouton adjacent, clairement identifiable, permet d’accéder à une alternative dans la page."
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "Le lien ou bouton doit être adjacent visuellement dans la représentation graphique (CSS activé) et dans le code HTML."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "decorative-media",
+          "statement": "The non-temporal media is decorative: it carries no information.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "est utilisé à des fins décoratives (c’est-à-dire qu’il n’apporte aucune information)"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        },
+        {
+          "id": "controlled-environment",
+          "statement": "The non-temporal media is delivered in a controlled environment, which a site or service offering public access never is.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "est diffusé dans un environnement maîtrisé"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "Dans ces situations, le critère est non applicable."
+            },
+            {
+              "source": "glossary",
+              "entry": "Environnement maîtrisé",
+              "quote": "Les services d’information ou les sites Web, quel que soit leur statut, qui offrent un accès public ne peuvent pas être considérés comme des environnements maîtrisés."
+            }
+          ]
+        },
+        {
+          "id": "js-replaces-alternative",
+          "statement": "The non-temporal media is inserted with JavaScript, after checking the plug-in's presence and version, in place of alternative content already present.",
+          "citations": [
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "est inséré via JavaScript en vérifiant la présence et la version du plug-in, en remplacement d’un contenu alternatif déjà présent"
+            },
+            {
+              "source": "particular_cases",
+              "criterion": "4.8",
+              "quote": "Dans ces situations, le critère est non applicable."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "state"
+  ],
+  "rationale": {
+    "text": "The test has one requirement with two routes: an adjacent, clearly identifiable link or button leading to an alternative on another page, or to one in the page. It applies only where needed (si nécessaire) and outside three particular cases: a decorative media, a controlled environment, and a media inserted by script in place of alternative content already present. Every step needs judgment. Whether an svg or canvas element is a non-temporal media (an interactive map, an application, a slideshow) rather than an image is not marked in the code. Whether a link is clearly identifiable, and whether what it leads to is an alternative to the media, needs reading. Even a media with no link or button next to it is not a mechanical fault: the media may be decorative, or inserted in place of alternative content already present. No axe rule is tagged for this test and no deterministic check is registered, so there are no links and the entry stays at none. Applicability is judgment, for the same reason. Needs lists state: an alternative in the page may appear only once the button is activated. Following a link to another page is outside the page as loaded; no prerequisite expresses it, and the entry being none does not depend on it.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "4.8",
+        "quote": "Chaque média non temporel a-t-il, si nécessaire, une alternative (hors cas particuliers)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Média non temporel",
+        "quote": "par exemple, une carte interactive en Flash, une application Flash ou Java, un diaporama sont des médias non temporels"
+      },
+      {
+        "source": "particular_cases",
+        "criterion": "4.8",
+        "quote": "Dans ces situations, le critère est non applicable."
+      }
+    ]
+  }
+}
