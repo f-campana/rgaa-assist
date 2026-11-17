@@ -1,0 +1,53 @@
+{
+  "test": "1.6.8",
+  "requirements": [
+    {
+      "id": "canvas-reference-rendered",
+      "statement": "For each informative <canvas> that implements a reference to an adjacent detailed description, that reference is correctly rendered by assistive technologies.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.6.8",
+          "line": 1,
+          "quote": "qui implémente une référence à une description détaillée adjacente, cette référence est-elle correctement restituée par les technologies d’assistance ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "rendered-by-assistive-technologies",
+          "statement": "Assistive technologies of the reference environment render the reference correctly.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.6.8",
+              "quote": "vérifier que le contenu de la description détaillée est correctement restitué par les technologies d’assistance"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [
+    "assistive_tech"
+  ],
+  "rationale": {
+    "text": "No link and candidate none. The test asks whether assistive technologies render the reference correctly, which can only be observed with assistive technologies; the methodology says so. That prerequisite is never met in v1. \"Correctement\" is also judgment. The scope is judgment too: only informative canvas images that implement a reference to an adjacent description, and whether a text is such a reference is judgment. No axe-core rule is tagged. Applicability is judgment. Needs is assistive_tech.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "1.6.8",
+        "quote": "Retrouver dans le document les éléments `<canvas>` porteurs d’information dont la description détaillée est fournie au moyen d’un attribut `aria-label`, `aria-labelledby` ou `aria-describedby` ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Image porteuse d’information",
+        "quote": "Image qui véhicule une information nécessaire à la compréhension du contenu auquel elle est associée."
+      }
+    ]
+  }
+}

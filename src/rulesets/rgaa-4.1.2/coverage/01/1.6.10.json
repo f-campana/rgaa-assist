@@ -1,0 +1,103 @@
+{
+  "test": "1.6.10",
+  "requirements": [
+    {
+      "id": "role-img-detailed-description",
+      "statement": "Each informative element with role=\"img\" that needs a detailed description is given one by one of the accepted means.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.6.10",
+          "line": 1,
+          "quote": "Chaque balise possédant un attribut WAI-ARIA `role=\"img\"` porteuse d’information, qui nécessite une description détaillée, vérifie-t-elle une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "aria-label-alternative-and-reference",
+          "statement": "An aria-label attribute contains the text alternative and a reference to a detailed description placed next to the image.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.6.10",
+              "line": 2,
+              "quote": "Il existe un attribut WAI-ARIA `aria-label` contenant l’alternative textuelle et une référence à une description détaillée adjacente ;"
+            }
+          ]
+        },
+        {
+          "id": "aria-labelledby-alternative-and-description",
+          "statement": "An aria-labelledby attribute associates one passage of text that serves as the text alternative and another that serves as the detailed description.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.6.10",
+              "line": 3,
+              "quote": "Il existe un attribut WAI-ARIA `aria-labelledby` associant un passage de texte faisant office d’alternative textuelle et un autre faisant office de description détaillée ;"
+            }
+          ]
+        },
+        {
+          "id": "aria-describedby-passage",
+          "statement": "An aria-describedby attribute associates a passage of text that serves as the detailed description.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.6.10",
+              "line": 4,
+              "quote": "Il existe un attribut WAI-ARIA `aria-describedby` associant un passage de texte faisant office de description détaillée ;"
+            },
+            {
+              "source": "technical_note",
+              "criterion": "1.6",
+              "quote": "lorsqu’il est utilisé, l’attribut devra nécessairement faire référence à l’`id` de la zone contenant la description détaillée"
+            }
+          ]
+        },
+        {
+          "id": "adjacent-link-or-button",
+          "statement": "A link or button placed next to the image, visually and in the code, gives access to the detailed description.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.6.10",
+              "line": 5,
+              "quote": "Il existe un lien ou un bouton adjacent permettant d’accéder à la description détaillée."
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "Le lien ou bouton doit être adjacent visuellement dans la représentation graphique (CSS activé) et dans le code HTML."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "No link and candidate none. The test applies only to images that carry information and that need a detailed description. Both are judgment: the glossary defines an informative image by the information it conveys, and the criterion title says a description is needed only \"si nécessaire\". Code can find the elements of this kind and list which of the accepted means each one carries, but it cannot tell whether an image needs a description at all, so a missing description is never a proven fault; and whether what a means points to is a detailed description of the image, that is content describing all its information, is judgment too, so a present means never proves a pass. No axe-core rule is tagged for this test, and none examines detailed descriptions. Applicability is judgment, because whether any image on the page needs a description is judgment. Needs is empty: the means are read in the page as loaded, and following one to its description is part of the same human judgment. The four routes are the wording's; the glossary's means for an element with a role are already among them.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "1.6",
+        "quote": "a-t-elle, si nécessaire, une description détaillée ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Image porteuse d’information",
+        "quote": "Image qui véhicule une information nécessaire à la compréhension du contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Description détaillée (image)",
+        "quote": "Contenu associé à une image en complément de son alternative textuelle afin de décrire en totalité l’information véhiculée par l’image."
+      }
+    ]
+  }
+}
