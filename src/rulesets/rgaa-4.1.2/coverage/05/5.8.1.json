@@ -1,0 +1,104 @@
+{
+  "test": "5.8.1",
+  "requirements": [
+    {
+      "id": "table-free-of-data-markup",
+      "statement": "Each layout table has no summary attribute, unless it is empty, and contains no caption, th, thead or tfoot element and no element with role=\"rowheader\" or role=\"columnheader\".",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.8.1",
+          "line": 1,
+          "quote": "Chaque tableau de mise en forme (balise `<table>`) vérifie-t-il ces conditions ?"
+        },
+        {
+          "source": "criterion_title",
+          "criterion": "5.8",
+          "quote": "ne doit pas utiliser d’éléments propres aux tableaux de données"
+        }
+      ],
+      "routes": [
+        {
+          "id": "no-data-table-markup",
+          "statement": "The table element has no summary attribute or an empty one, and holds none of the listed elements and roles.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.8.1",
+              "line": 2,
+              "quote": "Le tableau de mise en forme (balise `<table>`) n’a pas d’attribut `summary` (sinon vide) et ne contient pas de balises `<caption>`, `<th>`, `<thead>`, `<tfoot>` ou de balises ayant un attribut WAI-ARIA `role=\"rowheader\"`, `role=\"columnheader\"` ;"
+            },
+            {
+              "source": "methodology",
+              "test": "5.8.1",
+              "quote": "L’élément `<table>` ne possède pas d'attribut `summary`, d’éléments enfant `<caption>`, `<thead>`, `<th>`, `<tfoot>` ou d’éléments pourvus d’un attribut WAI-ARIA `role=\"rowheader\"` ou `role=\"columnheader\"` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "id": "td-free-of-data-attributes",
+      "statement": "In each layout table, the td cells have no scope, headers or axis attribute.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "5.8.1",
+          "line": 1,
+          "quote": "vérifie-t-il ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "no-data-cell-attributes",
+          "statement": "No td cell of the table carries a scope, headers or axis attribute.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "5.8.1",
+              "line": 3,
+              "quote": "Les cellules du tableau de mise en forme (balises `<td>`) ne possèdent pas d’attributs `scope`, `headers` et `axis`."
+            },
+            {
+              "source": "methodology",
+              "test": "5.8.1",
+              "quote": "Les éléments `<td>` ne possèdent pas d’attributs `scope`, `headers` et `axis`."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The wording asks each layout table to meet both conditions, so they are two requirements: no data-table markup on or in the table element, and no data-table attributes on its td cells. Each is mechanical once a table is known to be a layout table, but that is the obstacle. The glossary defines a layout table by its purpose, controlling the display of information through cells, and a data table also uses the table element. A table that holds th, caption or a summary is exactly the case this test exists to catch, and it is also what an ordinary data table looks like; telling the two apart is judgment. Neither markup settles it: role=\"presentation\" declares a layout table, but a data table wrongly marked so is still a data table, to which this test does not apply. So no table is surely in scope, a fault could be a false failure, and the entry is none. Two more points would need settling before any check: the wording says the table contains none of the listed elements while the methodology says child elements, though th is never a child of table, and neither says whether a data table nested inside a layout table counts as part of it. The empty summary attribute that the wording allows is part of the first route. No axe rule is tagged for this test, and no deterministic check could prove its failure, so there are no links. What would raise it: an official, markup-based way to recognise a layout table. Applicability is judgment. Needs is empty: the markup is read on the page as loaded.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Tableau de mise en forme",
+        "quote": "Technique qui utilise un élément HTML (balise <table>) pour contrôler l’affichage d’informations via des cellules (balise <td>)."
+      },
+      {
+        "source": "glossary",
+        "entry": "Tableau de données",
+        "quote": "Cette balise permet de structurer des informations en lignes et en colonnes via des cellules de données et des cellules d’en-têtes."
+      },
+      {
+        "source": "methodology",
+        "test": "5.8.1",
+        "quote": "Retrouver dans le document les tableaux de mise en forme ;"
+      },
+      {
+        "source": "methodology",
+        "test": "5.8.1",
+        "quote": "Si c’est le cas pour chaque tableau de mise en forme, **le test est validé**."
+      }
+    ]
+  }
+}
