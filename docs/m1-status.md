@@ -24,15 +24,15 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 - All 258 entries are on main (none 224, fail_only 30, full 4 before corrections); every `enabled` is `none`.
 - Codex's cross-check of all entries is in: `~/Documents/Codex/2026-11-17/rgaa-m1-coverage-independent-review/outputs/rgaa-m1-independent-review.md`. Verdict: hold M1 approval until the claims are corrected. The orchestrator verified the confirmed defects and accepts them. Fabien ruled Q45 to Q48 (`docs/decisions.md`).
-- Running: corrections from `docs/m1/brief-corrections-3.md`, launched 2026-11-17 at about 22:25 UTC. Builder P lowers 10.13.2, 10.12.1, 10.11.1, 10.6.1, 9.2.1, 6.1.5, 1.9.1 to 1.9.5, 11.2.2 and 11.2.3 to `none`, and narrows 11.9.1, 10.5.2, 8.10.2, 1.1.3 and 10.1.2. Builder Q is merged at `310de6c`: it corrected the write-up of 3.1.1 to 3.1.6, 4.3.2, 4.11.2, 4.11.3, 4.12.1, 4.12.2, 7.1.3, 7.3.1, 10.5.3 and 11.9.2 (the last six of 3.1.x and 4.1x.x on the orchestrator's request, same patterns as F13 and F14); all stay `none`. Open point for the gate: in 11.9.2 and 10.5.3 the methodology's reading is the structured requirement and the wording's is recorded in prose, as in 11.2.5; no decision covers that choice.
-- Next: review and merge P and Q, then a focused re-check by Codex of the correction diff, then the minimum useful set and the gate package.
+- Corrections from `docs/m1/brief-corrections-3.md` are merged. Builder P at `8260d67`: lowered 10.13.2, 10.12.1, 10.11.1, 10.6.1, 9.2.1, 6.1.5, 1.9.1 to 1.9.5, 11.2.2, 11.2.3 and 1.1.3 (browsers give an image button a default name) to `none`; narrowed 11.9.1, 10.5.2, 8.10.2 (only `dir="auto"` that demonstrably sets an RTL passage) and 10.1.2 (fault wins, then the abstained pairs, then no_fault). Builder Q at `310de6c`: rewrote 15 `none` entries (3.1.1 to 3.1.6, 4.3.2, 4.11.2, 4.11.3, 4.12.1, 4.12.2, 7.1.3, 7.3.1, 10.5.3, 11.9.2). Open point for the gate: in 11.9.2 and 10.5.3 the methodology's reading is the structured requirement and the wording's is in prose, as in 11.2.5; no decision covers that choice.
+- Levels now: none 238, fail_only 16, full 4 (8.5.1, 10.1.1, 10.1.2, 11.8.2). 414 tests pass; 125 check records.
+- Waiting for Codex's focused re-check of the corrections (`docs/m1/request-recheck-corrections-3.md`, sent on the bridge). Then the minimum useful set and the gate package.
 - Merging: `checks.json` conflicts between builders are resolved by `python3 work/orchestrator/merge-checks.py` during the merge (union of added records, sorted; it asserts no base record changed). `work/` is gitignored, so the script is local to this checkout.
 
 ## Next, in order
 
-1. **Corrections** (running): review P's and Q's diffs, especially every link that stays `failure` and the `full` entries; merge; run `pnpm test`, `pnpm typecheck`, `pnpm validate-coverage`.
-2. **Codex's focused re-check** of the correction diff, by bridge message on channel `rgaa-assist`; Fabien prompts Codex.
-3. **The minimum useful set** and **the gate package** (kickoff brief, last sections). Codex found no minimum useful set at its review pin; it names 8.5.1, 10.1.1 and 11.8.2 as coherent `full` candidates.
+1. **Codex's focused re-check** of the correction diff (sent); Fabien prompts Codex. Then any corrections it asks for.
+2. **The minimum useful set** and **the gate package** (kickoff brief, last sections). Codex found no minimum useful set at its review pin; it names 8.5.1, 10.1.1 and 11.8.2 as coherent `full` candidates.
 
 The history before the cross-check (pilot, corrections cycle, batches 1 to 8) is in the steps table, the cost log and the findings below.
 

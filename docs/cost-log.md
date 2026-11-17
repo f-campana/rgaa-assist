@@ -45,6 +45,7 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-17 21:50 | Builder N merged (Opus high, about 259k tokens, 19 entries: 11.8.2 `full`, 11.8.3 and 11.9.1 `fail_only`) | 19% | n/a | 242 of 258 entries written. 5-hour window at 43%. |
 | 2026-11-17 22:00 | Builder M merged after one correction (Opus high, about 258k tokens, 16 entries: 10.11.1, 10.12.1, 10.13.2 `fail_only`) | 21% | n/a | All 258 entries written. Batches 7 and 8 together: weekly 14% to 21%, about 0.13 point per entry. 5-hour window at 53%. |
 | 2026-11-17 22:25 | Codex's cross-check of all 258 entries (Codex's own plan, not counted here); orchestrator verification, Fabien's rulings Q45 to Q48, corrections builders P and Q launched (Opus high) | 21% | n/a | 5-hour window at 58%. |
+| 2026-11-17 22:35 | Corrections builders P (about 238k tokens, 18 entries) and Q (about 197k tokens, 15 entries, one follow-up) merged | 26% | n/a | Claims now: fail_only 16, full 4. Weekly 21% to 26% for the corrections. 5-hour window at 91%. |
 
 ### What day 1 says about cost
 
