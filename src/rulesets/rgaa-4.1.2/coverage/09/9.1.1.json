@@ -1,0 +1,71 @@
+{
+  "test": "9.1.1",
+  "requirements": [
+    {
+      "id": "heading-hierarchy-relevant",
+      "statement": "The hierarchy between the page's headings (<hx> elements, or elements with role=\"heading\" and aria-level) is relevant.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "9.1.1",
+          "line": 1,
+          "quote": "Dans chaque page web, la hiérarchie entre les titres (balise `<hx>` ou balise possédant un attribut WAI-ARIA `role=\"heading\"` associé à un attribut WAI-ARIA `aria-level`) est-elle pertinente ?"
+        },
+        {
+          "source": "methodology",
+          "test": "9.1.1",
+          "quote": "Vérifier que la hiérarchie entre les titres est pertinente ;"
+        }
+      ],
+      "routes": [
+        {
+          "id": "coherent-hierarchy",
+          "statement": "The heading levels form a coherent hierarchy. Skipped levels and the absence of an h1 are allowed as long as the looser hierarchy stays coherent.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Titre",
+              "quote": "la présence de sauts hiérarchiques n’invalide pas le critère tant que cette hiérarchie plus lâche reste cohérente"
+            },
+            {
+              "source": "glossary",
+              "entry": "Titre",
+              "quote": "La hiérarchie de titres ne doit pas obligatoirement contenir un titre <h1>."
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "structural",
+  "needs": [],
+  "rationale": {
+    "text": "Whether a heading hierarchy is relevant is judgment: the wording says pertinente, and the glossary accepts skipped levels and a missing h1 as long as the hierarchy stays coherent (cohérente), which code cannot decide. No mechanical fault proves the test fails: a skip from h1 to h3 is allowed, a page without h1 is allowed, and neither order nor count of levels is fixed by the text. No axe rule is tagged for this test. axe's heading-order and page-has-heading-one exist but are not linked: the first faults skipped levels and the second a missing h1, both of which the glossary says do not invalidate the criterion. The candidate is none. Applicability is structural: the test is about the hierarchy between headings, and the wording and glossary define a heading by its markup, an <hx> element or an element with role=\"heading\" and aria-level. Headings hidden visually with CSS still count as present, so a check deciding applicability must count every such element, hidden or not, in the page, its shadow trees and its frames. When no <hx> element and no element with a heading role exists anywhere, there is no hierarchy to judge and the test is not applicable. An element with role=\"heading\" but no aria-level leaves open whether it is a heading under this wording, so its presence alone must not lead to not applicable. Needs is empty: the headings are read from the page as loaded.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "9.1",
+        "quote": "l’information est-elle structurée par l’utilisation appropriée de titres"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre",
+        "quote": "Même si ces pratiques ne sont pas encouragées, elles n’invalident pas le critère."
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre",
+        "quote": "les titres visuellement cachés via CSS sont considérés comme présents"
+      },
+      {
+        "source": "methodology",
+        "test": "9.1.1",
+        "quote": "Retrouver dans le document les titres (balise `<hx>` ou balise possédant un attribut WAI-ARIA `role=\"heading\"` associé à un attribut WAI-ARIA `aria-level`) ;"
+      }
+    ]
+  }
+}
