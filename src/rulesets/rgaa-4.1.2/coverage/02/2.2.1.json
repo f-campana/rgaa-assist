@@ -63,19 +63,36 @@
       "routes": ["title-describes-content"],
       "scope": "partial",
       "faultMeans": "evidence_only"
+    },
+    {
+      "check": "custom/2-2-frame-title-empty",
+      "requirement": "frame-title-relevant",
+      "routes": ["title-describes-content", "generic-technical-title", "hidden-technical-frame"],
+      "scope": "whole",
+      "faultMeans": "failure"
     }
   ],
-  "candidate": "none",
+  "candidate": "fail_only",
   "enabled": "none",
   "applicability": "judgment",
   "needs": [],
   "rationale": {
-    "text": "Relevance is judgment: whether a title tells the user what the frame shows cannot be decided by code. The glossary adds a second accepted form, a generic mention for purely technical frames, and the aria-hidden exception, and both turn on whether a frame is technical, which is also judgment. axe's frame-title-unique faults frames that share a title. That is a hint, not a failure: two frames may show the same kind of content, and the glossary's generic mentions for technical frames may legitimately repeat. It only looks at frames whose title is non-empty, so its scope is partial, and axe 4.14.0 itself marks its faults for review (reviewOnFail). The link is evidence only and the entry stays at none. One case looked mechanical, a title attribute that is empty, but the same defect could be read as a missing frame title under 2.1.1 rather than an irrelevant one here, so it is not claimed as a failure of this test. Applicability is judgment, because frames hidden under the exception leave the criterion not applicable only through a judgment. Needs is empty.",
+    "text": "Relevance is judgment: whether a title tells the user what the frame shows cannot be decided by code. The glossary adds a second accepted form, a generic mention for purely technical frames, and the aria-hidden exception, and both turn on whether a frame is technical, which is also judgment. axe's frame-title-unique faults frames that share a title. That is a hint, not a failure: two frames may show the same kind of content, and the glossary's generic mentions for technical frames may legitimately repeat. It only looks at frames whose title is non-empty, so its scope is partial, and axe 4.14.0 itself marks its faults for review (reviewOnFail). The link is evidence only. One case is mechanical under this test's own text: a frame whose title attribute is empty. The test applies to each frame that has a title attribute, and an empty attribute is still an attribute. Its content is then empty, which cannot let the user know the nature of the frame's content and is not a generic mention, so both routes fail. The only exception needs aria-hidden. A custom check therefore faults a frame with a title attribute that is empty or only ASCII whitespace, when the frame is rendered, exposed to assistive technologies, and has no aria-hidden on itself, an ancestor or a hosting frame. It abstains on frames with aria-hidden, since the technical-frame exception may apply and needs judgment, and on unrendered or otherwise hidden frames, since this test gives no exception for them and does not say whether they count. Every other title is cannot_tell, including values of invisible characters other than ASCII whitespace; the check never answers no_fault. It examines both routes and the exception for every frame with a title attribute, so its fault means failure and the entry is fail_only. It is not full: relevance is judgment. Whether test 2.1.1 also fails for such a frame is decided by that test's own wording and does not change this one. Applicability is judgment, because frames hidden under the exception leave the criterion not applicable only through a judgment. Needs is empty.",
     "citations": [
       {
         "source": "criterion_title",
         "criterion": "2.2",
         "quote": "ce titre de cadre est-il pertinent"
+      },
+      {
+        "source": "methodology",
+        "test": "2.2.1",
+        "quote": "Pour chaque cadre pourvu d’un attribut `title`, vérifier que son contenu est pertinent"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de cadre",
+        "quote": "permettant de connaître la nature du contenu diffusé via le cadre"
       },
       {
         "source": "glossary",
