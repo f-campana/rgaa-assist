@@ -1,0 +1,69 @@
+{
+  "test": "12.11.1",
+  "requirements": [
+    {
+      "id": "additional-content-keyboard-reachable",
+      "statement": "Additional content that appears on hover, on focus or on activation of a user interface component is, where needed, reachable with the keyboard.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "12.11.1",
+          "line": 1,
+          "quote": "Dans chaque page web, les contenus additionnels apparaissant au survol, à la prise de focus ou à l’activation d’un composant d’interface sont-ils si nécessaire atteignables au clavier ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "components-reachable",
+          "statement": "The interface components inside the additional content that the user can interact with by keyboard can be reached with the keyboard.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "12.11.1",
+              "quote": "s’il contient des composants d’interface avec lesquels l’utilisateur peut interagir au clavier (par exemple, une infobulle personnalisée qui propose un lien dans son contenu), vérifier que ces composants d’interface sont atteignables au clavier ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "no-interactive-components",
+          "statement": "Additional content that contains no interface component to interact with need not be reachable with the keyboard.",
+          "citations": [
+            {
+              "source": "technical_note",
+              "criterion": "12.11",
+              "quote": "Ce critère adresse les situations où un contenu additionnel contient des composants d’interface avec lesquels il doit être possible d’interagir au clavier."
+            },
+            {
+              "source": "test",
+              "test": "12.11.1",
+              "line": 1,
+              "quote": "sont-ils si nécessaire atteignables au clavier ?"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": ["keyboard", "state"],
+  "rationale": {
+    "text": "The content concerned appears only after hover, focus or activation, so finding it means interacting with the page's components and watching what appears, which needs other states of the page. Which appearing content counts as additional content, and which of its components the user can interact with, are readings of the page. Whether those components are reachable with the keyboard needs a keyboard pass: the content must be opened from the keyboard and focus moved into it. The criterion's technical note limits the test to additional content that contains interface components, such as a custom tooltip holding a link; content without them is the exception. No axe rule is tagged and no custom check is registered. The entry is none. Applicability is judgment: a page with no such content makes the test not applicable, and finding that content needs interaction and judgment. Needs is state, for the content that appears, and keyboard, for reaching it.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "12.11.1",
+        "quote": "Retrouver dans le document l’ensemble des contenus additionnels apparaissant au survol, à la prise de focus ou à l’activation d’un composant d’interface ;"
+      },
+      {
+        "source": "technical_note",
+        "criterion": "12.11",
+        "quote": "Par exemple, une infobulle personnalisée qui propose un lien dans son contenu."
+      }
+    ]
+  }
+}
