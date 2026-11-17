@@ -1,0 +1,85 @@
+{
+  "test": "1.1.2",
+  "requirements": [
+    {
+      "id": "area-alternative",
+      "statement": "Each zone (<area> element) of an image map that carries information has a text alternative.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.2",
+          "line": 1,
+          "quote": "Chaque zone d’une image réactive (balise `<area>`) porteuse d’information a-t-elle une alternative textuelle ?"
+        },
+        {
+          "source": "methodology",
+          "test": "1.1.2",
+          "quote": "Vérifier que la zone réactive est pourvue au moins d’une alternative textuelle parmi les suivantes :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "area-aria-label",
+          "statement": "The zone's aria-label attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.2",
+              "quote": "Contenu de l’attribut WAI-ARIA `aria-label` ;"
+            }
+          ]
+        },
+        {
+          "id": "area-alt",
+          "statement": "The zone's alt attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.2",
+              "quote": "Contenu de l’attribut `alt` ;"
+            }
+          ]
+        }
+      ],
+      "exceptions": []
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/area-alt",
+      "requirement": "area-alternative",
+      "routes": ["area-aria-label", "area-alt"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies to zones that carry information, and whether a zone conveys information needed to understand its content is judgment. A zone in the glossary is a clickable or a non-clickable region of an image map. The methodology accepts two sources for an <area>: aria-label and alt; the glossary order lists <area> for no other source. Neither glossary note on images alone in a link or a button concerns an <area>, so the requirement has no exception. axe's area-alt examines only zones with an href inside a map, so non-clickable zones are never looked at, and its link is partial. It accepts aria-labelledby and a non-empty title as well, which this test does not list for <area>, so its clean result proves nothing. Its fault may land on a zone that carries no information, so it is evidence only; it also examines hidden zones (excludeHidden is off). A custom check that faults a clickable zone with no alt and no aria-label was considered and rejected. The wording of this test does not say that every clickable zone carries information, and the fault would rest on that. What would raise it: an official statement, in this test's text or its glossary, that a clickable zone always carries information. So the entry is none. Applicability is judgment: it depends on which zones carry information. Needs is empty: the methodology reads attributes.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "1.1.2",
+        "quote": "Pour chaque élément `<area>`, déterminer si la zone réactive est porteuse d’information ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Zone (d’une image réactive)",
+        "quote": "Zone cliquable ou zone non cliquable d’une image réactive côté client"
+      },
+      {
+        "source": "glossary",
+        "entry": "Image porteuse d’information",
+        "quote": "Image qui véhicule une information nécessaire à la compréhension du contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative textuelle (image)",
+        "quote": "Sinon, contenu de l’attribut alt pour les balises : <img> ; <area> ; <input type=\"image\">."
+      }
+    ]
+  }
+}

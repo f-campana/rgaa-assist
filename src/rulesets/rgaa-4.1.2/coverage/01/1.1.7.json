@@ -1,0 +1,124 @@
+{
+  "test": "1.1.7",
+  "requirements": [
+    {
+      "id": "embed-alternative",
+      "statement": "Each embedded image (<embed type=\"image/…\">) that carries information meets one of the listed conditions.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.7",
+          "line": 1,
+          "quote": "Chaque image embarquée (balise `<embed>` avec l’attribut `type=\"image/…\"`) porteuse d’information, vérifie-t-elle une de ces conditions ?"
+        }
+      ],
+      "routes": [
+        {
+          "id": "embed-text-alternative-and-role",
+          "statement": "The <embed> has a text alternative (aria-labelledby, aria-label or title) and role=\"img\".",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.7",
+              "line": 2,
+              "quote": "La balise `<embed>` possède une alternative textuelle et un attribut `role=\"img\"` ;"
+            },
+            {
+              "source": "methodology",
+              "test": "1.1.7",
+              "quote": "Vérifier que l’élément `<embed>` est pourvu au moins d’une alternative textuelle parmi les suivantes :"
+            }
+          ]
+        },
+        {
+          "id": "embed-adjacent-link",
+          "statement": "The <embed> is immediately followed by an adjacent link or button to alternative content.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.7",
+              "line": 3,
+              "quote": "L’élément `<embed>` est immédiatement suivi d’un lien ou bouton adjacent permettant d’accéder à un contenu alternatif ;"
+            },
+            {
+              "source": "glossary",
+              "entry": "Lien ou bouton adjacent",
+              "quote": "le lien ou bouton doit se situer juste avant ou juste après l’élément auquel il est adjacent"
+            }
+          ]
+        },
+        {
+          "id": "embed-replace-mechanism",
+          "statement": "A mechanism lets the user replace the <embed> with alternative content.",
+          "citations": [
+            {
+              "source": "test",
+              "test": "1.1.7",
+              "line": 4,
+              "quote": "Un mécanisme permet à l’utilisateur de remplacer l’élément `<embed>` par un contenu alternatif."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "embed-sole-link-content",
+          "statement": "An image that is the only content of a link has the link's text as its alternative, and the glossary sends that alternative to the Links theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsque l’image est le seul contenu d’un lien, son alternative est l’intitulé du lien. Dans ce cas, l’alternative de l’image devrait être évaluée avec la thématique « Liens »."
+            }
+          ]
+        },
+        {
+          "id": "embed-sole-button-content",
+          "statement": "An <embed> that is the only content of a <button> has the button's text as its alternative, and the glossary sends it to the Forms or Scripts theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsqu’un bouton de formulaire, inséré avec l’élément <button>, ne contient qu’une image (balise <img>, <object>, <embed>, <canvas> ou <svg>), l’alternative de l’image est l’intitulé du bouton."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test has the same shape as test 1.1.6, for <embed> instead of <object>. Its one requirement has three routes, any one enough: a text alternative (aria-labelledby, aria-label or title) with role=\"img\", an adjacent link or button to alternative content, or a mechanism to replace the element. The methodology validates the test on an alternative, and otherwise on either of the other two. The glossary notes on images alone in a link or a <button> (which names <embed>) are exceptions: the image's alternative is the link's or the button's text and is evaluated in another theme. No axe rule is tagged for this test. A check could find the first route mechanically, but a fault needs all three routes to fail: the second needs a link that is adjacent visually as well as in the code and leads to content that brings the same information, and the third needs a mechanism to be found and judged. Both are judgment, and so is whether the image carries information. No check here resolves the requirement or proves a failure, so the entry is none with no link. Applicability is judgment, since it depends on which embedded images carry information. Needs is empty: the methodology asks for no interaction or assistive technology.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "1.1.7",
+        "quote": "Si au moins une alternative textuelle est trouvée, **le test est validé** ;"
+      },
+      {
+        "source": "methodology",
+        "test": "1.1.7",
+        "quote": "Soit un mécanisme permet à l’utilisateur de remplacer l’élément `<embed>` par un contenu alternatif."
+      },
+      {
+        "source": "methodology",
+        "test": "1.1.7",
+        "quote": "Pour chaque élément `<embed>` pourvu de l’attribut `type=\"image/…\"`, déterminer si l’image utilisée est porteuse d’information ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Lien ou bouton adjacent",
+        "quote": "Le lien ou bouton doit être adjacent visuellement dans la représentation graphique (CSS activé) et dans le code HTML."
+      },
+      {
+        "source": "glossary",
+        "entry": "Contenu alternatif",
+        "quote": "Contenu venant se substituer à un autre apportant la même information mais pouvant être présenté de façon différente."
+      }
+    ]
+  }
+}

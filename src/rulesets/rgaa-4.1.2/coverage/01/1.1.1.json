@@ -1,0 +1,201 @@
+{
+  "test": "1.1.1",
+  "requirements": [
+    {
+      "id": "img-alternative",
+      "statement": "Each <img> element that carries information has a text alternative.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.1",
+          "line": 1,
+          "quote": "Chaque image (balise `<img>` ou balise possédant l’attribut WAI-ARIA `role=\"img\"`) porteuse d’information a-t-elle une alternative textuelle ?"
+        },
+        {
+          "source": "methodology",
+          "test": "1.1.1",
+          "quote": "Dans le cas où il s’agit d’un élément `<img>`, vérifier que l’image est pourvue au moins d’une alternative textuelle parmi les suivantes :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "img-aria-labelledby",
+          "statement": "A passage of text is associated with the image through aria-labelledby.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.1",
+              "quote": "Passage de texte associé via l’attribut WAI-ARIA `aria-labelledby` ;"
+            }
+          ]
+        },
+        {
+          "id": "img-aria-label",
+          "statement": "The image's aria-label attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.1",
+              "quote": "Contenu de l’attribut WAI-ARIA `aria-label` ;"
+            }
+          ]
+        },
+        {
+          "id": "img-alt",
+          "statement": "The image's alt attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.1",
+              "quote": "Contenu de l’attribut `alt` ;"
+            }
+          ]
+        },
+        {
+          "id": "img-title",
+          "statement": "The image's title attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "methodology",
+              "test": "1.1.1",
+              "quote": "Contenu de l’attribut `title`."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "img-sole-link-content",
+          "statement": "An image that is the only content of a link has the link's text as its alternative, and the glossary sends that alternative to the Links theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsque l’image est le seul contenu d’un lien, son alternative est l’intitulé du lien. Dans ce cas, l’alternative de l’image devrait être évaluée avec la thématique « Liens »."
+            }
+          ]
+        },
+        {
+          "id": "img-sole-button-content",
+          "statement": "An <img> that is the only content of a <button> has the button's text as its alternative, and the glossary sends it to the Forms or Scripts theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsqu’un bouton de formulaire, inséré avec l’élément <button>, ne contient qu’une image (balise <img>, <object>, <embed>, <canvas> ou <svg>), l’alternative de l’image est l’intitulé du bouton."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "role-img-alternative",
+      "statement": "Each element other than <img> that has role=\"img\" and carries information has a text alternative.",
+      "citations": [
+        {
+          "source": "test",
+          "test": "1.1.1",
+          "line": 1,
+          "quote": "balise possédant l’attribut WAI-ARIA `role=\"img\"`) porteuse d’information a-t-elle une alternative textuelle ?"
+        },
+        {
+          "source": "methodology",
+          "test": "1.1.1",
+          "quote": "Dans le cas où il s’agit d’un élément possédant l’attribut WAI-ARIA `role=\"img\"`, vérifier que l’image est pourvue au moins d’une alternative textuelle parmi les suivantes :"
+        }
+      ],
+      "routes": [
+        {
+          "id": "role-img-aria-labelledby",
+          "statement": "A passage of text is associated with the element through aria-labelledby.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Alternative textuelle (image)",
+              "quote": "Passage de texte associé via l’attribut WAI-ARIA aria-labelledby pour les balises : <img> ; <input type=\"image\"> ; <svg> ; <object type=\"image/…\"> ; <embed type=\"image/…\"> ; <canvas> ; balises possédant un attribut WAI-ARIA role=\"img\"."
+            }
+          ]
+        },
+        {
+          "id": "role-img-aria-label",
+          "statement": "The element's aria-label attribute gives the alternative.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Alternative textuelle (image)",
+              "quote": "balises ouvrantes possédant un attribut WAI-ARIA role=\"img\"."
+            },
+            {
+              "source": "methodology",
+              "test": "1.1.1",
+              "quote": "Contenu de l’attribut WAI-ARIA `aria-label`."
+            }
+          ]
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "role-img-sole-link-content",
+          "statement": "An image that is the only content of a link has the link's text as its alternative, and the glossary sends that alternative to the Links theme.",
+          "citations": [
+            {
+              "source": "glossary",
+              "entry": "Image porteuse d’information",
+              "quote": "lorsque l’image est le seul contenu d’un lien, son alternative est l’intitulé du lien."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "check": "axe/image-alt",
+      "requirement": "img-alternative",
+      "routes": ["img-aria-labelledby", "img-aria-label", "img-alt", "img-title"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    },
+    {
+      "check": "axe/role-img-alt",
+      "requirement": "role-img-alternative",
+      "routes": ["role-img-aria-labelledby", "role-img-aria-label"],
+      "scope": "partial",
+      "faultMeans": "evidence_only"
+    }
+  ],
+  "candidate": "none",
+  "enabled": "none",
+  "applicability": "judgment",
+  "needs": [],
+  "rationale": {
+    "text": "The test applies only to images that carry information, and whether an image conveys information needed to understand its content is judgment. The methodology gives a different list of accepted sources for each kind of element, so the entry splits the test by element type, as spec 6.2 allows: <img> elements, with four sources (aria-labelledby, aria-label, alt, title), and other elements with role=\"img\", with two (aria-labelledby, aria-label). An <img> that also has role=\"img\" falls under the first, since the methodology chooses the list by element. Whether an <svg> with role=\"img\" falls here or only under test 1.1.5, which accepts other sources, is not stated; it changes no level here. Each requirement carries the glossary's limits: an image that is the only content of a link has the link's text as alternative and is evaluated with the Links theme, and an <img> that is the only content of a <button> is evaluated with the Forms or Scripts theme. No fault can prove this test fails. An <img> with no alternative may be decorative, and then this test does not apply to it. For role=\"img\" a mechanical case was considered and rejected: the glossary says such an element can serve as a decorative image only with aria-hidden=\"true\", but that sentence can be read as the condition for a conforming decorative image, under which an element without it is a faulty decorative image and still outside this test. So the entry is none. axe's image-alt examines <img> elements against the four sources, but it accepts an empty alt and a presentational role, which give an informative image no alternative, so its clean result proves nothing; its fault may land on a decorative image or on the only content of a link; it skips hidden images. Its link is partial and evidence only. axe's role-img-alt examines elements with role img or image other than img, area, input and object, in the HTML namespace only, so it never sees an <svg>; it also accepts a non-empty title, which neither the methodology nor the glossary order lists for role=\"img\". Its link is partial and evidence only. A check that passes a page when every image has a non-empty source would not need to know which images carry information, and was considered. It is not proposed: the glossary asks that a title alternative be confirmed with the assistive technologies of the test environment, and says that where the name computation is only partly supported, the value those technologies really render is the alternative. The title route could then never pass without assistive technology, so the entry could not be full. What would raise it: a reading, cited from the official text, under which a computed name is enough. Applicability is judgment: it depends on which images carry information. Needs is empty: the methodology reads attributes and asks for no assistive technology; the glossary's assistive-technology clauses bear on confirming that a route holds, which no link here claims.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Image porteuse d’information",
+        "quote": "Image qui véhicule une information nécessaire à la compréhension du contenu auquel elle est associée."
+      },
+      {
+        "source": "glossary",
+        "entry": "Image de décoration",
+        "quote": "les balises possédant un attribut WAI-ARIA role=\"img\" ne peuvent faire office d’image de décoration qu’à la condition qu’elles possèdent un attribut WAI-ARIA aria-hidden=\"true\"."
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative textuelle (image)",
+        "quote": "Il faut s’assurer que les assistances techniques présentes dans l’environnement de test retenu restituent correctement l’alternative proposée par l’attribut title."
+      },
+      {
+        "source": "glossary",
+        "entry": "Alternative textuelle (image)",
+        "quote": "en cas de support partiel de l’algorithme de calcul du « nom accessible », c’est la valeur réellement restituée par les technologies d’assistance utilisées dans l’environnement de test (ou « base de référence ») qu’il faudra considérer comme alternative textuelle."
+      },
+      {
+        "source": "methodology",
+        "test": "1.1.1",
+        "quote": "Pour chaque image, déterminer si l’image est porteuse d’information ;"
+      }
+    ]
+  }
+}
