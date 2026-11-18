@@ -16,7 +16,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | 4 | Minimal sanitiser | Done with step 3 (`src/engine/sanitise.ts`): URL, form-value and token masking, snippets capped at 1000 characters, redactions counted. |
 | 5 | Axe adapter | Done 2026-11-18, merged as `83df023`. 67 rules, all reported; `frame-tested` runs as a scope probe only; frames where scripts are blocked are detected and count as a scope gap. 435 tests pass. |
 | 6 | Ten custom checks | Not started. |
-| 7 | Working set | Not started. |
+| 7 | Working set | Cases merged 2026-11-18 (92 planted cases, ten tests, `tests/corpus/working.test.ts`); 521 tests pass. Numbers wait for the checks and the harness. |
 | 8 | Wiring and CLI (`audit`, `coverage`) | Not started. |
 | 9 | Two runs, Aubay comparison | Not started. |
 | 10 | Check-in at 20 points (60%) | Not reached. |
@@ -28,13 +28,13 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 |---|---|---|---|---|
 | Engine | Opus 5.5, high | `src/engine/`, `check-sample.ts`, `tests/engine/` | `docs/m2/brief-engine.md` | Merged `1e7bf67` (about 273k tokens) |
 | Axe adapter | Sonnet 5.5, medium | `src/checks/axe/`, `tests/checks/axe/`, axe `exists` flags | `docs/m2/brief-axe.md` | Merged `83df023` (about 155k tokens) |
-| Working set | Opus 5.5, medium | `corpus/working/`, `tests/corpus/` | `docs/m2/brief-working-set.md` | Launched 15:00 UTC |
+| Working set | Opus 5.5, medium | `corpus/working/`, `tests/corpus/` | `docs/m2/brief-working-set.md` | Merged (about 315k tokens) |
 | Checks A, B, C | Opus 5.5, high | `src/checks/custom/<name>/` (A reads the vendored `source/` of 8.4, never edits it), family helpers, their tests | `docs/m2/brief-custom-checks.md` | Briefed; launch after the engine merges |
 | CLI and harness | Sonnet 5.5, medium | `src/cli/`, `src/checks/index.ts`, `src/evaluation/`, `corpus/results/` | `docs/m2/brief-cli-harness.md` | Briefed; launch after engine and axe merge |
 
 ## In flight
 
-- Phase 1: axe and engine merged; the working-set writer is still running.
+- Phase 1 done: axe adapter, engine and working set merged.
 - **Phase 2 held until the 5-hour window resets (19:20 UTC):** it was at 89% at 15:20. A one-shot reminder in this session resumes at about 19:23 UTC. If this session has ended, a successor launches families A, B, C and the CLI/harness builder from their briefs.
 - ISO 639 sources for 8.4.1: Fabien said "Yes, both" (Q54). Vendored 2026-11-18 15:09 UTC in `src/checks/custom/8-4-default-lang-code-valid/source/` (see its `SOURCE.md`). Family A derives the pinned list from them.
 
@@ -55,6 +55,12 @@ Also logged on the bridge, channel `rgaa-assist`.
 - **Axe adapter, as built:** it runs `frame-tested` as a 68th rule, only to learn which frames axe could not analyse (it never becomes an observation). Frames whose scripts are blocked (sandbox without `allow-scripts`, CSP `sandbox`) made axe hang; the adapter probes each frame for a timer first and makes the blocked ones fail fast, which axe then reports as untested. A frame not analysed turns `no_fault` or `inapplicable` into `cannot_tell`. axe skips `display: none` frames entirely, without reporting them. `window.axe` stays as a global in each frame axe enters.
 - **Engine, as built:** Chromium is launched with `--site-per-process` (otherwise headless Chromium keeps cross-site frames in-process and they have no CDP session of their own). Default viewport 1280×800 (the sample schema has no default). It also refuses `model.enabled: true` (M6) and rulesets other than `rgaa-4.1.2`. The run file has no field for: why a target was not established, timezone, reduced motion, launch arguments, the snippet cap, whether network idle was reached. They are in the engine's messages only.
 - **Sanitiser risk:** the base64 token pattern (32+ characters mixing upper case, lower case and digits) may mask long generated class names or ids in locators on real pages. To watch in the two runs.
+- **From the working-set writer (cases not written, for Fabien):**
+  1. 8.5.1: a page whose only title element is an SVG `<title>`. The record faults it (no HTML title element); the test says only « balise `<title>` ». Does an SVG title count?
+  2. 10.1.2: `height` on `table`. The gate package (approved with Q50) says "can't tell", and the family B brief applies that; the record's own text does not name it.
+  3. A definite fault beside an unreadable frame, and no `optgroup` beside one (2.1.1, 6.2.1, 11.1.1, 11.8.2). The records say both "a nested document cannot be read: cannot_tell for the page" and "fault if any". The gate package's order (a fault wins; an unread frame comes before inapplicable) is applied in the family C brief, not written in the records. No local case can make a frame unreadable yet.
+- **Records that abstain where the official text reads as failing (no false "passed"; for Fabien):** 10.1.2 `width`/`height` on `iframe` (the methodology's exception names only img, object, embed, canvas, svg); 11.1.1 `aria-labelledby` to a missing id; 6.2.1 a link named only by `aria-label` and `title`; 8.3.1 XHTML 1.0 as text/html with `lang` only (test line « lang et/ou xml:lang » against methodology and glossary). The cases encode the records' answers as `outside_support`.
+- **Three `fail_only` entries (11.1.1, 8.4.1, 8.2.1) cannot run at `full`:** their partial links fail the schema at `candidate: full`. Only their `fail_only` expectation is measurable.
 - **Agent worktrees started from an old commit.** The axe builder's worktree started at `717420b`, before the M2 briefs; it fast-forwarded itself. Launch messages now tell builders to check that their branch contains the latest main.
 
 ## Open points for Fabien
