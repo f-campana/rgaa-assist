@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "about": "Lists pinned by the record of custom/10-1-presentation-attributes (RGAA test 10.1.2). Names are compared exactly. definedPairs is the record's 'defined pair' table: for each listed attribute, the HTML elements for which HTML 4.01 or the current HTML standard (conforming or obsolete features) defines it. It holds every example the record gives, completed from the attribute index of HTML 4.01 and the HTML standard's lists of conforming and obsolete attributes, as the builder knew them (no source was downloaded). Pairs absent from it give cannot tell, never a fault: height on table is absent on purpose (M1 gate package: neither HTML 4.01 nor the HTML standard's lists define it). Pairs listed in exceptedPairs and dimensionPairs are tested first, so their presence in definedPairs never makes them a fault. color on link is not a defined pair: the record names it among the abstentions.",
+  "presentationAttributes": [
+    "align", "alink", "background", "bgcolor", "border", "cellpadding", "cellspacing", "char", "charoff", "clear",
+    "color", "compact", "frameborder", "hspace", "link", "marginheight", "marginwidth", "text", "valign", "vlink",
+    "vspace", "size", "width", "height"
+  ],
+  "exceptedPairs": {
+    "size": ["select"],
+    "width": ["img", "object", "embed", "canvas"],
+    "height": ["img", "object", "embed", "canvas"]
+  },
+  "dimensionPairs": {
+    "width": ["iframe", "video", "input", "source"],
+    "height": ["iframe", "video", "input", "source"]
+  },
+  "obsoleteAttributes": {
+    "bordercolor": null,
+    "face": null,
+    "frame": ["table"],
+    "rules": null,
+    "nowrap": null,
+    "noshade": null,
+    "scrolling": null,
+    "leftmargin": null,
+    "rightmargin": null,
+    "topmargin": null,
+    "bottommargin": null
+  },
+  "definedPairs": {
+    "align": ["applet", "caption", "col", "colgroup", "div", "embed", "fieldset", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "iframe", "img", "input", "legend", "object", "p", "table", "tbody", "td", "tfoot", "th", "thead", "tr"],
+    "alink": ["body"],
+    "background": ["body", "table", "thead", "tbody", "tfoot", "tr", "td", "th"],
+    "bgcolor": ["body", "table", "tr", "td", "th"],
+    "border": ["table", "img", "object"],
+    "cellpadding": ["table"],
+    "cellspacing": ["table"],
+    "char": ["col", "colgroup", "tbody", "thead", "tfoot", "tr", "td", "th"],
+    "charoff": ["col", "colgroup", "tbody", "thead", "tfoot", "tr", "td", "th"],
+    "clear": ["br"],
+    "color": ["font", "basefont", "hr"],
+    "compact": ["dl", "ol", "ul", "menu", "dir"],
+    "frameborder": ["iframe", "frame"],
+    "hspace": ["applet", "img", "object", "embed", "iframe", "input"],
+    "link": ["body"],
+    "marginheight": ["iframe", "frame", "body"],
+    "marginwidth": ["iframe", "frame", "body"],
+    "text": ["body"],
+    "valign": ["col", "colgroup", "tbody", "thead", "tfoot", "tr", "td", "th"],
+    "vlink": ["body"],
+    "vspace": ["applet", "img", "object", "embed", "iframe", "input"],
+    "size": ["input", "font", "basefont", "hr", "select"],
+    "width": ["applet", "hr", "pre", "table", "col", "colgroup", "td", "th", "img", "object", "embed", "canvas", "iframe", "video", "input", "source"],
+    "height": ["applet", "td", "th", "tr", "img", "object", "embed", "canvas", "iframe", "video", "input", "source"]
+  }
+}
