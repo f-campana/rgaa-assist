@@ -17,7 +17,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | 5 | Axe adapter | Done 2026-11-18, merged as `83df023`. 67 rules, all reported; `frame-tested` runs as a scope probe only; frames where scripts are blocked are detected and count as a scope gap. 435 tests pass. |
 | 6 | Ten custom checks | Not started. |
 | 7 | Working set | Cases merged 2026-11-18 (92 planted cases, ten tests, `tests/corpus/working.test.ts`); 521 tests pass. Numbers wait for the checks and the harness. |
-| 8 | Wiring and CLI (`audit`, `coverage`) | Not started. |
+| 8 | Wiring and CLI (`audit`, `coverage`) | Done 2026-11-18: `audit`, `coverage`, `check-sample`, `report` (placeholder, exit 2); `allProviders()`; harness `pnpm evaluate`. 549 tests pass. |
 | 9 | Two runs, Aubay comparison | Not started. |
 | 10 | Check-in at 20 points (60%) | Not reached. |
 | 11 | Codex's review, corrections, gate | Not started. |
@@ -30,7 +30,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | Axe adapter | Sonnet 5.5, medium | `src/checks/axe/`, `tests/checks/axe/`, axe `exists` flags | `docs/m2/brief-axe.md` | Merged `83df023` (about 155k tokens) |
 | Working set | Opus 5.5, medium | `corpus/working/`, `tests/corpus/` | `docs/m2/brief-working-set.md` | Merged (about 315k tokens) |
 | Checks A, B, C | Opus 5.5, high | `src/checks/custom/<name>/` (A reads the vendored `source/` of 8.4, never edits it), family helpers, their tests | `docs/m2/brief-custom-checks.md` | Launched 19:25 UTC (three builders) |
-| CLI and harness | Sonnet 5.5, medium | `src/cli/`, `src/checks/index.ts`, `src/evaluation/`, `corpus/results/` | `docs/m2/brief-cli-harness.md` | Launched 19:25 UTC |
+| CLI and harness | Sonnet 5.5, medium | `src/cli/`, `src/checks/index.ts`, `src/evaluation/`, `corpus/results/` | `docs/m2/brief-cli-harness.md` | Merged (about 210k tokens) |
 
 ## In flight
 
@@ -49,6 +49,8 @@ Also logged on the bridge, channel `rgaa-assist`.
   - A provider runs once per target and returns one result per declared check. The axe adapter is one provider.
   - The engine gives each provider the page, the list of frames with whether each could be read, and a CDP session per frame target (for the accessibility tree).
 - **`@axe-core/playwright` needs a page from `browser.newContext()`**: it opens a blank page in the same context to finish a run. The engine creates a fresh context per target anyway (7.4).
+
+- **Harness counts (logged on the bridge):** false assurance is a `passed` or `not_applicable` over the cases that expected neither; a swap between the two is a mismatch and shows in the table. Per-link tables reuse the test's findings (a finding is per test); only missing observations are per link. `corpus/results/working-20261118T193148Z.json` was produced before any custom check existed (every case `not_tested`); it is superseded by the run after the checks merge.
 
 ## Findings to report at the gate
 
