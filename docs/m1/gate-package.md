@@ -1,6 +1,6 @@
 # M1 gate package
 
-**Draft, 2026-11-18.** Prepared by the M1 orchestrator for Fabien. Codex has confirmed the last corrections. One correction remains before the gate: 10.1.1 (builder S, `docs/m1/brief-corrections-5.md`), then Codex's focused re-check of it. The sections marked *pending* depend on that.
+**Draft, 2026-11-18.** Prepared by the M1 orchestrator for Fabien. Codex has confirmed the last corrections. The 10.1.1 correction is merged at `98434bc` (builder S); Codex's focused re-check of it is pending. The sections marked *pending* depend on that.
 
 Approving M1 approves the candidate map, the minimum useful set and the schemas. It enables nothing: every entry has `enabled: none`. No figure here is a conformance rate.
 
