@@ -5,403 +5,403 @@
       "id": "axe/area-alt",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `area-alt` examines, as shipped: Ensure <area> elements of image maps have alternative text. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-allowed-attr",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-allowed-attr` examines, as shipped: Ensure an element's role supports its ARIA attributes. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-command-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-command-name` examines, as shipped: Ensure every ARIA button, link and menuitem has an accessible name. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-conditional-attr",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-conditional-attr` examines, as shipped: Ensure ARIA attributes are used as described in the specification of the element's role. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-deprecated-role",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-deprecated-role` examines, as shipped: Ensure elements do not use deprecated roles. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-hidden-body",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-hidden-body` examines, as shipped: Ensure aria-hidden=\"true\" is not present on the document body.. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-hidden-focus",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-hidden-focus` examines, as shipped: Ensure aria-hidden elements are not focusable nor contain focusable elements. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-input-field-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-input-field-name` examines, as shipped: Ensure every ARIA input field has an accessible name. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-meter-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-meter-name` examines, as shipped: Ensure every ARIA meter node has an accessible name. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-progressbar-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-progressbar-name` examines, as shipped: Ensure every ARIA progressbar node has an accessible name. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-prohibited-attr",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-prohibited-attr` examines, as shipped: Ensure ARIA attributes are not prohibited for an element's role. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-required-attr",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-required-attr` examines, as shipped: Ensure elements with ARIA roles have all required ARIA attributes. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-required-children",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-required-children` examines, as shipped: Ensure elements with an ARIA role that require child roles contain them. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-required-parent",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-required-parent` examines, as shipped: Ensure elements with an ARIA role that require parent roles are contained by them. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-roles",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-roles` examines, as shipped: Ensure all elements with a role attribute use a valid value. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-tab-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-tab-name` examines, as shipped: Ensure every ARIA tab node has an accessible name. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-toggle-field-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-toggle-field-name` examines, as shipped: Ensure every ARIA toggle field has an accessible name. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-valid-attr",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-valid-attr` examines, as shipped: Ensure attributes that begin with aria- are valid ARIA attributes. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/aria-valid-attr-value",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `aria-valid-attr-value` examines, as shipped: Ensure all ARIA attributes have valid values. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/autocomplete-valid",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `autocomplete-valid` examines, as shipped: Ensure the autocomplete attribute is correct and suitable for the form field. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/blink",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `blink` examines, as shipped: Ensure <blink> elements are not used. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/button-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `button-name` examines, as shipped: Ensure buttons have discernible text. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/bypass",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `bypass` examines, as shipped: Ensure each page has at least one mechanism for a user to bypass navigation and jump straight to the content. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/color-contrast",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `color-contrast` examines, as shipped: Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/css-orientation-lock",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `css-orientation-lock` examines, as shipped: Ensure content is not locked to any specific display orientation, and the content is operable in all display orientations. Marked experimental, off by default in axe-core. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/definition-list",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `definition-list` examines, as shipped: Ensure <dl> elements are structured correctly. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/dlitem",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `dlitem` examines, as shipped: Ensure <dt> and <dd> elements are contained by a <dl>. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/document-title",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `document-title` examines, as shipped: Ensure each HTML document contains a non-empty <title> element. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/duplicate-id-aria",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `duplicate-id-aria` examines, as shipped: Ensure every id attribute value used in ARIA and in labels is unique. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/focus-order-semantics",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `focus-order-semantics` examines, as shipped: Ensure elements in the focus order have a role appropriate for interactive content. Marked best-practice, experimental, off by default in axe-core. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/form-field-multiple-labels",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `form-field-multiple-labels` examines, as shipped: Ensure form field does not have multiple label elements. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/frame-focusable-content",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `frame-focusable-content` examines, as shipped: Ensure <frame> and <iframe> elements with focusable content do not have tabindex=-1. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/frame-title",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `frame-title` examines, as shipped: Ensure <iframe> and <frame> elements have an accessible name. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/frame-title-unique",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `frame-title-unique` examines, as shipped: Ensure <iframe> and <frame> elements contain a unique title attribute. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/html-has-lang",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `html-has-lang` examines, as shipped: Ensure every HTML document has a lang attribute. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/html-lang-valid",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `html-lang-valid` examines, as shipped: Ensure the lang attribute of the <html> element has a valid value. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/html-xml-lang-mismatch",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `html-xml-lang-mismatch` examines, as shipped: Ensure that HTML elements with both valid lang and xml:lang attributes agree on the base language of the page. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/image-alt",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `image-alt` examines, as shipped: Ensure <img> elements have alternative text or a role of none or presentation. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/input-button-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `input-button-name` examines, as shipped: Ensure input buttons have discernible text. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/input-image-alt",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `input-image-alt` examines, as shipped: Ensure <input type=\"image\"> elements have alternative text. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/label",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `label` examines, as shipped: Ensure every form element has a label. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/label-content-name-mismatch",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `label-content-name-mismatch` examines, as shipped: Ensure that elements labelled through their content must have their visible text as part of their accessible name. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/link-in-text-block",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `link-in-text-block` examines, as shipped: Ensure links are distinguished from surrounding text in a way that does not rely on color. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/link-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `link-name` examines, as shipped: Ensure links have discernible text. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/list",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `list` examines, as shipped: Ensure that lists are structured correctly. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/listitem",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `listitem` examines, as shipped: Ensure <li> elements are used semantically. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/marquee",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `marquee` examines, as shipped: Ensure <marquee> elements are not used. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/meta-refresh",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `meta-refresh` examines, as shipped: Ensure <meta http-equiv=\"refresh\"> is not used for delayed refresh. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/meta-viewport",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `meta-viewport` examines, as shipped: Ensure <meta name=\"viewport\"> does not disable text scaling and zooming. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/nested-interactive",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `nested-interactive` examines, as shipped: Ensure interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/no-autoplay-audio",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `no-autoplay-audio` examines, as shipped: Ensure <video> or <audio> elements do not autoplay audio for more than 3 seconds without a control mechanism to stop or mute the audio. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/object-alt",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `object-alt` examines, as shipped: Ensure <object> elements have alternative text. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/p-as-heading",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `p-as-heading` examines, as shipped: Ensure bold, italic text and font-size is not used to style <p> elements as a heading. Marked experimental, off by default in axe-core. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/region",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `region` examines, as shipped: Ensure all page content is contained by landmarks. Marked best-practice in axe-core. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/role-img-alt",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `role-img-alt` examines, as shipped: Ensure [role=\"img\"] and [role=\"image\"] elements have alternative text. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/scrollable-region-focusable",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `scrollable-region-focusable` examines, as shipped: Ensure elements that have scrollable content are accessible by keyboard in Safari. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/select-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `select-name` examines, as shipped: Ensure select element has an accessible name. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/server-side-image-map",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `server-side-image-map` examines, as shipped: Ensure that server-side image maps are not used. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/skip-link",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `skip-link` examines, as shipped: Ensure all skip links have a focusable target. Marked best-practice in axe-core. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/svg-img-alt",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `svg-img-alt` examines, as shipped: Ensure <svg> elements with an img, image, graphics-document or graphics-symbol role have accessible text. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/table-duplicate-name",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `table-duplicate-name` examines, as shipped: Ensure the <caption> element does not contain the same text as the summary attribute. Marked best-practice in axe-core. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/table-fake-caption",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `table-fake-caption` examines, as shipped: Ensure that tables with a caption use the <caption> element.. Marked experimental, off by default in axe-core. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/td-has-header",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `td-has-header` examines, as shipped: Ensure that each non-empty data cell in a <table> larger than 3 by 3  has one or more table headers. Marked experimental, off by default in axe-core. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/td-headers-attr",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `td-headers-attr` examines, as shipped: Ensure that each cell in a table that uses the headers attribute refers only to other <th> elements in that table. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/th-has-data-cells",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `th-has-data-cells` examines, as shipped: Ensure that <th> elements and elements with role=columnheader/rowheader have data cells they describe. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/valid-lang",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `valid-lang` examines, as shipped: Ensure lang attributes have valid values. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "axe/video-caption",
       "kind": "axe",
       "examines": "What the axe-core 4.14.0 rule `video-caption` examines, as shipped: Ensure <video> elements have captions. The adapter that runs it is not built yet.",
-      "exists": false
+      "exists": true
     },
     {
       "id": "custom/1-1-input-image-no-alternative",
