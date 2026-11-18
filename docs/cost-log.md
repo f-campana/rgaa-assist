@@ -93,3 +93,19 @@ Q51 counts from this baseline: **check-in at 60% all-models, stop at 80%.** The 
 | 2026-11-18 15:25 | Working set merged (Opus medium, about 315k tokens, 92 cases); 521 tests | 50% | Phase 2 still held for the 5-hour window. |
 | 2026-11-18 19:25 | 5-hour window reset; phase 2 launched: checks A, B, C (Opus high), CLI and harness (Sonnet medium) | 51% | 5-hour window at 0%. Weekly rose 49% to 51% during the pause, from the working-set builder and other work. |
 | 2026-11-18 19:35 | CLI and harness merged (Sonnet medium, about 210k tokens; 549 tests); `coverage` command checked; checks A, B, C running | 57% | 5-hour window at 47% ten minutes after its reset: three Opus high builders together use about 4 points of the 5-hour window a minute. |
+| 2026-11-18 19:50 | Family B merged (Opus high, about 264k tokens) | ~60% | |
+| 2026-11-18 20:00 | Family C merged (Opus high, about 319k tokens); 685 tests; **check-in reached** | 62% | 5-hour window at 87%, resets 2026-11-19 00:20 UTC. Family A still running. |
+
+### Check-in at 20 points (2026-11-18 20:00 UTC)
+
+22 points used (40% to 62%). Builders paused: no new launch until Fabien answers; family A, already running, finishes its task.
+
+| Role | Model, effort | Tokens (builder's own count) | Share of the 22 points |
+|---|---|---|---|
+| Orchestrator | Opus 5.5, high | not measured; its context is about 355k tokens and every turn pays for it again | not separable; estimated 6 to 8 points |
+| Core builders: engine, checks B, checks C | Opus 5.5, high | 273k, 264k, 319k | most of the rest, with family A still running |
+| Core builder: working set | Opus 5.5, medium | 315k | |
+| Module builders: axe adapter, CLI and harness | Sonnet 5.5, medium | 155k, 210k | small |
+| Reviewer | Codex | Codex's own plan | not counted |
+
+Three Opus high builders running together filled about 85% of a 5-hour window in 35 minutes.

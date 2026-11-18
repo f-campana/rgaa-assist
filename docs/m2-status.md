@@ -19,7 +19,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | 7 | Working set | Cases merged 2026-11-18 (92 planted cases, ten tests, `tests/corpus/working.test.ts`); 521 tests pass. Numbers wait for the checks and the harness. |
 | 8 | Wiring and CLI (`audit`, `coverage`) | Done 2026-11-18: `audit`, `coverage`, `check-sample`, `report` (placeholder, exit 2); `allProviders()`; harness `pnpm evaluate`. 549 tests pass. |
 | 9 | Two runs, Aubay comparison | Not started. |
-| 10 | Check-in at 20 points (60%) | Not reached. |
+| 10 | Check-in at 20 points (60%) | **Reached 2026-11-18 20:00 UTC at 62%.** Builders paused; report sent to Fabien (below and in the cost log). Waiting for his word to continue. |
 | 11 | Codex's review, corrections, gate | Not started. |
 
 ## Builders
@@ -75,4 +75,9 @@ Also logged on the bridge, channel `rgaa-assist`.
 
 ## Open points for Fabien
 
-None.
+- **Check-in (62%, 22 of 40 points).**
+  - Merged: engine, sanitiser, run file, axe adapter, working set (92 cases), CLI and harness, checks of families B and C (6 of the 10 custom checks). 685 tests pass.
+  - Running: family A (8.5.1, 8.3.1, 8.4.1, 8.2.1), launched before the check-in.
+  - Remaining: merge family A; the working-set numbers (`pnpm evaluate`, the orchestrator's run); the PremiumShot and Aubay runs (`audit`, orchestrator); the Aubay comparison (orchestrator); Codex's review; one round of corrections; the gate report.
+  - Does the rest fit? Estimate, not a measurement: family A about 3 points; numbers, runs and comparison 3 to 5 points of orchestrator time; Codex's review costs Codex's plan; one correction cycle 3 to 8 points (M1's ran 2 to 11). That gives about 71% to 78%, under the 80% stop, with little margin. A second correction cycle would not fit this week; it would continue after the reset of 2026-11-21 16:00 UTC.
+  - To lower the orchestrator's cost per turn, the rest of M2 could run in a fresh orchestrator session started from this file, as M1 did after Q42.
