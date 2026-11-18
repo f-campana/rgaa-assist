@@ -3,6 +3,8 @@
  * Each family builder adds its own providers here, one line each.
  */
 import type { CheckProvider } from "../types.ts";
+import { familyCProvider } from "./family-c/provider.ts";
 
 export const customProviders: readonly CheckProvider[] = [
+  familyCProvider,
 ];
