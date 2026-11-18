@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "about": "Lists pinned by the record of custom/10-1-presentation-elements (RGAA test 10.1.1). Element names and the doctype name are compared exactly. The public identifiers are the formal public identifiers published by the W3C for each version the record names, compared exactly: a public identifier written in another case or form is not recognised, which gives the u element an unrecognised doctype (cannot tell), never a fault.",
+  "presentationElements": ["basefont", "big", "blink", "center", "font", "marquee", "s", "strike", "tt", "u"],
+  "otherObsoleteElements": ["multicol", "nobr", "spacer"],
+  "html5Doctype": {
+    "name": "html",
+    "publicId": "",
+    "systemIds": ["", "about:legacy-compat"]
+  },
+  "earlierDoctypePublicIds": {
+    "HTML 3.2": ["-//W3C//DTD HTML 3.2 Final//EN"],
+    "HTML 4.0": ["-//W3C//DTD HTML 4.0//EN", "-//W3C//DTD HTML 4.0 Transitional//EN", "-//W3C//DTD HTML 4.0 Frameset//EN"],
+    "HTML 4.01": ["-//W3C//DTD HTML 4.01//EN", "-//W3C//DTD HTML 4.01 Transitional//EN", "-//W3C//DTD HTML 4.01 Frameset//EN"],
+    "XHTML 1.0": ["-//W3C//DTD XHTML 1.0 Strict//EN", "-//W3C//DTD XHTML 1.0 Transitional//EN", "-//W3C//DTD XHTML 1.0 Frameset//EN"],
+    "XHTML 1.1": ["-//W3C//DTD XHTML 1.1//EN"]
+  }
+}
