@@ -1,13 +1,13 @@
 # M1 gate package
 
-**Draft, 2026-11-18.** Prepared by the M1 orchestrator for Fabien. Codex has confirmed the last corrections. The 10.1.1 correction is merged at `98434bc` (builder S); Codex's focused re-check of it is pending. The sections marked *pending* depend on that.
+**2026-11-18.** Prepared by the M1 orchestrator for Fabien's M1 decision. Codex has confirmed every correction, the last one (10.1.1) at `98434bc`. Nothing is pending.
 
 Approving M1 approves the candidate map, the minimum useful set and the schemas. It enables nothing: every entry has `enabled: none`. No figure here is a conformance rate.
 
 ## Where it stands
 
-- Main at `0c26254`. All 258 entries validate and cite the official text (DINUM RGAA 4.1.2, pin `ca4019f`). 414 tests pass, including the contract tests of 8.3, 6.3 and 8.4. The type check is clean. There are 125 check records, all `exists: false`.
-- Codex has cross-checked all 258 entries (131 in depth, 127 on inventory and validation), re-checked the corrections and confirmed the last round at `cc2955b`: no other capability blocker. *Pending: the 10.1.1 correction and its re-check.*
+- Source at `98434bc` (main carries only documentation after it). All 258 entries validate and cite the official text (DINUM RGAA 4.1.2, pin `ca4019f`). 414 tests pass, including the contract tests of 8.3, 6.3 and 8.4. The type check is clean. There are 125 check records, all `exists: false`.
+- Codex has cross-checked all 258 entries (131 in depth, 127 on inventory and validation), re-checked the corrections, confirmed the last round at `cc2955b`, and closed 10.1.1 at `98434bc`. Its last word: no further blocker; the proposed set can go to you with the map and the schemas. Its reviews are not M1 approval.
 - The orchestrator reviewed every diff before merging it.
 
 ## Counts by candidate level
@@ -34,12 +34,13 @@ Approving M1 approves the candidate map, the minimum useful set and the schemas.
 
 ## Proposed minimum useful set
 
-Taken from the claims argued most firmly: each one has a definite fault that Codex confirmed at its cross-check, and none rests on a contested reading. A test on this list must be enabled at the level shown before v1 can be accepted (spec 6.4, 10.4 point 5).
+Taken from the claims argued most firmly: each one has a definite fault that Codex has confirmed, and none rests on a contested reading. Ten tests, four of them `full`. A test on this list must be enabled at the level shown before v1 can be accepted (spec 6.4, 10.4 point 5).
 
 | Test | Level | Why |
 |---|---|---|
 | 8.5.1 Page has a title | full | Codex named it as a coherent `full`. A title element with a letter or digit passes, none at all fails, and frames abstain. Every page is in scope (`always`). |
-| 10.1.1 No presentation elements | full | Codex named it as a coherent `full`. The methodology gives a closed list of elements. *Condition: the case-matching point under "Unsure" is fixed first.* |
+| 10.1.1 No presentation elements | full | Codex named it as a coherent `full`, and re-checked it after the case correction. The methodology gives a closed list of elements. |
+| 10.1.2 No presentation attributes | full | A closed list of attributes, like 10.1.1, and built alongside it. Corrected twice (order of decision, then case), and both corrections confirmed by Codex with browser fixtures. |
 | 11.8.2 Option groups have a label | full | Codex named it as a coherent `full`. It is the only `full` entry with `structural` applicability, so the gate exercises the "not applicable" branch. |
 | 8.3.1 Default language present | fail_only | Went through three Codex re-checks in the pilot. `always` applicability. |
 | 8.4.1 Default language code valid | fail_only | Confirmed. The fault is narrow: an invalid primary code checked against a pinned ISO list. |
@@ -49,7 +50,6 @@ Taken from the claims argued most firmly: each one has a definite fault that Cod
 | 8.2.1 Unique ids | fail_only | Confirmed. The fault is duplicate `id` values in the top document. |
 
 **Left out, and why:**
-- **10.1.2** was corrected twice: once for the order of its decisions, once for upper- and lower-case attribute names. It can join the set after Codex confirms R2.
 - **11.9.1, 10.5.2, 8.10.1 and 8.10.2** rest on a ruling or a disputed reading: Q45, Q46, « chaque texte » against WCAG H56, and `dir="auto"`.
 - **13.2.1** needs evidence of the page lifecycle before it is enabled, as Codex noted.
 - **2.2.1, 9.1.2, 10.5.1, 11.2.1 and 11.8.3** are sound but add little: each covers a narrow case or a rare element.
@@ -86,7 +86,8 @@ These are the entries where a wrong reading would matter most: the four that can
   - R2: 10.1.2 ignored case where XHTML doesn't.
 
   Both were fixed at `cc2955b`, along with the wording it asked for.
-- **Confirmation of the last round (2026-11-18):** R1 and R2 are closed, with browser fixtures for each. The wording follow-through is in place. It holds the decision on one point: 10.1.1 matches element names ignoring case (the orchestrator had found the same in its draft). Being corrected by builder S. It also corrected this draft's 2.1.1 line: an empty frame `title` gives "can't tell" there, and belongs to 2.2.1.
+- **Confirmation of the last round (2026-11-18):** R1 and R2 are closed, with browser fixtures for each. The wording follow-through is in place. It held the decision on one point: 10.1.1 matched element names ignoring case (the orchestrator had found the same in its draft). It also corrected this draft's 2.1.1 line: an empty frame `title` gives "can't tell" there, and belongs to 2.2.1.
+- **10.1.1 (2026-11-18):** builder S made names match exactly; case variants, and anything under `noscript`, give "can't tell"; a definite fault still wins. Codex re-checked it in Chrome (HTML normalisation, XHTML variants, the `u` doctype rule, `noscript`, shadow, frame and template scopes): closed, stays `full`.
 - **Errors in the orchestrator's own work:**
   - It summarised 10.5.3 and 11.2.5 wrongly in the status file. Codex caught it, and it is corrected.
   - It kept builder M's 10.13.2 after one fix, and Codex's browser probe then defeated that fix.
@@ -107,16 +108,16 @@ Figures are shares of the Claude Pro weekly all-models limit (`docs/cost-log.md`
 |---|---|---|---|
 | Orchestrator, day 1 | Fable 5.2, high | not measured | The Fable limit rose 27 points (2% to 29%). It was the largest single cost on day 1. |
 | Orchestrator, from 11-17 | Opus 5.5, high | not measured | Included in the total below. |
-| Core builders (24 runs) | Opus 5.5, high | about 5.3M | Most of the total. |
+| Core builders (25 runs) | Opus 5.5, high | about 5.5M | Most of the total. |
 | Core builder (1 run) | Opus 5.5, medium | about 0.1M | Small. |
 | Module builders (5 runs) | Sonnet 5.5, medium | about 0.47M | Small. |
 | Reviewer | Codex | Codex's own plan | Not counted. |
 
-- **Total:** about 78 points of the weekly all-models limit: 52 before your limit reset on 11-17, 26 after it. That is an upper bound, because other work of yours fell in the same windows.
+- **Total:** about 81 points of the weekly all-models limit: 52 before your limit reset on 11-17, 29 after it. That is an upper bound, because other work of yours fell in the same windows.
 - **What the work cost:**
   - Foundations (schemas, contract, implementation, tests and tooling): about 18 points.
   - Entries: 0.1 to 0.29 point each, depending on whether a claim was made.
-  - Each correction cycle after a Codex review: 5 to 11 points.
+  - Each correction cycle after a Codex review: 5 to 11 points; the last two small ones (builders R and S) about 2 each.
 - **API-equivalent cost:** not computed. The builders report one token total, with no split between input, cached input and output, so any dollar figure would be a guess.
 - **Proposed M2 ceiling:** 40 points of the weekly all-models limit, with a check-in at 20.
   - M2 builds code (the engine on one page, the axe adapter, and derivation wired to a real run), not 258 entries. It is closer to M1's foundations (18 points) plus two review cycles (10 to 20).
@@ -124,10 +125,7 @@ Figures are shares of the Claude Pro weekly all-models limit (`docs/cost-log.md`
 
 ## Unsure, and open
 
-- **10.1.1 compares element names ignoring case.**
-  - In an XHTML page served as XML, `<CENTER>` is not the `center` element, yet the check faults it. This is the pattern R2 fixed for attributes in 10.1.2.
-  - The orchestrator found it on 2026-11-18, after the last round was sent to Codex. The proposed fix is the same as R2: such a variant answers "can't tell".
-  - It is a one-entry correction, to be made before the gate.
+- **Every claim is a specification, not code.** All 125 check records are `exists: false`. Codex's browser probes tested the facts the checks rely on, not a running check. Corpus cases (working and held-back sets) are still needed before anything is enabled (spec 10.4).
 - **Gaps in the schema, recorded and not settled:**
   - A prerequisite that applies to one route only, not the whole test.
   - Evidence from another page: a link target, another page of the sample, or a downloaded file.

@@ -16,9 +16,9 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 | 5 | Table of axe rules per RGAA test, and theme packets for entry writers | Done 2026-11-16, merged as `aa4cdd9`. 67 rules, 40 tests, as the spec says. `pnpm packets` writes 13 packets, 595 KB in all; theme 1 is 121 KB, so split it between writers by criterion. |
 | 6 | Pilot of 14 entries, usage projection | Done 2026-11-16, merged as `51880bb`. Projection in the cost log. |
 | 7 | Pilot corrections, then entries by theme | Done 2026-11-17. Pilot corrections passed three Codex re-checks (clean at `67d2938`). All 258 entries merged at `ff4d6c2` (builders A to O). |
-| 8 | Check-in at 65%, with Codex's cross-check | Check-in done. Codex's cross-check of all 258 entries done 2026-11-17: hold until claims are corrected. Corrections in flight (builders P and Q). |
-| 9 | Minimum useful set | Proposed in the gate package draft (`docs/m1/gate-package.md`), 2026-11-18. |
-| 10 | Gate package for Fabien | Drafted 2026-11-18; waits for Codex's confirmation and the 10.1.1 fix. |
+| 8 | Check-in at 65%, with Codex's cross-check | Done. Cross-check 2026-11-17 (hold); corrections P, Q, R, S; Codex confirmed each round, the last (10.1.1) at `98434bc` on 2026-11-18: no further blocker. |
+| 9 | Minimum useful set | Proposed in `docs/m1/gate-package.md`: ten tests (8.5.1, 10.1.1, 10.1.2, 11.8.2 `full`; 8.3.1, 8.4.1, 2.1.1, 6.2.1, 11.1.1, 8.2.1 `fail_only`). |
+| 10 | Gate package for Fabien | Ready 2026-11-18 (`docs/m1/gate-package.md`); waiting for Fabien's M1 decision. |
 
 ## In flight
 
@@ -35,10 +35,9 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## Next, in order
 
-1. **Codex's focused confirmation is in** (`rgaa-m1-corrections-cc2955b-focused-confirmation.md`): R1 and R2 closed, wording in place, no other blocker; it holds on 10.1.1 only. Builder S corrected 10.1.1 (`docs/m1/brief-corrections-5.md`), merged at `98434bc`: exact element names, case variants and noscript content abstain; stays `full`. Codex re-checks that one record (`docs/m1/request-recheck-10-1-1.md`). Then the gate.
-2. **The minimum useful set** and **the gate package** (kickoff brief, last sections). Codex found no minimum useful set at its review pin; it names 8.5.1, 10.1.1 and 11.8.2 as coherent `full` candidates.
+1. **Fabien's M1 decision** on the gate package (`docs/m1/gate-package.md`): the candidate map, the minimum useful set and the schemas. Approval enables nothing. Then the M2 ceiling, set from the cost log.
 
-The history before the cross-check (pilot, corrections cycle, batches 1 to 8) is in the steps table, the cost log and the findings below.
+Codex's last report: `rgaa-m1-10-1-1-98434bc-focused-recheck.md` (same outputs folder). Nothing is in flight.
 
 ## Decisions taken by the orchestrator
 
