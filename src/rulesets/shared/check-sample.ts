@@ -1,5 +1,5 @@
+import { FIXED_PAGE_KINDS } from "../../schema/index.ts";
 import type { SampleFile, SampleWarning } from "../../schema/index.ts";
-import { NotImplementedError } from "./not-implemented.ts";
 
 /**
  * Warnings about a sample (spec 7.5). Never blocks a run. Ruleset-neutral.
@@ -22,6 +22,37 @@ import { NotImplementedError } from "./not-implemented.ts";
  * statements of every output, not returned here.
  */
 export function checkSample(sample: SampleFile): SampleWarning[] {
-  void sample;
-  throw new NotImplementedError("checkSample");
+  const warnings: SampleWarning[] = [];
+
+  const kindsPresent = new Set(sample.pages.flatMap((p) => p.kinds));
+  const absent = new Set<string>(sample.absentKinds);
+  for (const kind of FIXED_PAGE_KINDS) {
+    if (!kindsPresent.has(kind) && !absent.has(kind)) warnings.push({ code: "fixed_kind_missing", kind });
+  }
+
+  const servicesUsed = new Set(sample.pages.flatMap((p) => (p.service === undefined ? [] : [p.service])));
+  for (const service of sample.services) {
+    if (!servicesUsed.has(service.id)) warnings.push({ code: "service_without_page", service: service.id });
+  }
+
+  const pageIds = new Set(sample.pages.map((p) => p.id));
+  for (const process of sample.processes) {
+    for (const step of process.steps) {
+      if (!pageIds.has(step)) warnings.push({ code: "process_step_not_in_pages", process: process.id, step });
+    }
+  }
+
+  const listedSteps = new Set(sample.processes.flatMap((p) => p.steps));
+  for (const page of sample.pages) {
+    if (page.kinds.includes("process_step") && !listedSteps.has(page.id)) {
+      warnings.push({ code: "process_step_without_process", page: page.id });
+    }
+  }
+
+  const randomPages = sample.pages.filter((p) => p.kinds.length === 1 && p.kinds[0] === "random").length;
+  const otherPages = sample.pages.length - randomPages;
+  const required = Math.ceil(otherPages / 10);
+  if (randomPages < required) warnings.push({ code: "too_few_random_pages", randomPages, otherPages, required });
+
+  return warnings;
 }
