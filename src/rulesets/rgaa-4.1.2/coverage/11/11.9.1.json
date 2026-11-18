@@ -41,67 +41,6 @@
         }
       ],
       "exceptions": []
-    },
-    {
-      "id": "present-sources-relevant",
-      "statement": "For each button within a form, each of these that is present is relevant: the aria-label, the passage of text linked by aria-labelledby, the value of an input of type submit, reset or button, the content of a button element, the alt of an input of type image, and the title.",
-      "citations": [
-        {
-          "source": "test",
-          "test": "11.9.1",
-          "line": 2,
-          "quote": "S’il est présent, le contenu de l’attribut WAI-ARIA `aria-label` est pertinent ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.1",
-          "line": 3,
-          "quote": "S’il est présent, le [passage de texte](#passage-de-texte-lie-par-aria-labelledby-ou-aria-describedby) lié au bouton via un attribut WAI-ARIA `aria-labelledby` est pertinent ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.1",
-          "line": 4,
-          "quote": "S’il est présent, le contenu de l’attribut `value` d’une balise `<input>` de type `submit`, `reset` ou `button` est pertinent ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.1",
-          "line": 5,
-          "quote": "S’il est présent, le contenu de la balise `<button>` est pertinent ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.1",
-          "line": 6,
-          "quote": "S’il est présent, le contenu de l’attribut `alt` d’une balise `<input>` de type `image` est pertinent ;"
-        },
-        {
-          "source": "test",
-          "test": "11.9.1",
-          "line": 7,
-          "quote": "S’il est présent, le contenu de l’attribut `title` est pertinent."
-        }
-      ],
-      "routes": [
-        {
-          "id": "each-present-source-relevant",
-          "statement": "Every labelling source present on the button describes the action that results from activating it.",
-          "citations": [
-            {
-              "source": "glossary",
-              "entry": "Bouton (formulaire)",
-              "quote": "L’intitulé du bouton peut être de six types :"
-            },
-            {
-              "source": "glossary",
-              "entry": "Bouton (formulaire)",
-              "quote": "L’intitulé d’un bouton doit décrire l’action qui résulte de son activation"
-            }
-          ]
-        }
-      ],
-      "exceptions": []
     }
   ],
   "links": [
@@ -139,12 +78,18 @@
   "applicability": "structural",
   "needs": [],
   "rationale": {
-    "text": "The wording lists six labelling sources and asks that each one present be relevant; the methodology asks that the button's visible label and accessible name be relevant, and the glossary says the accessible name is computed in a strict order and that this order is used to judge it. The entry keeps both as requirements, since the conditions must all hold. Relevance is judgment, so the entry is not full. The criterion's only particular case concerns test 11.9.2, so this test has no exception. One case is mechanical: a button within a form whose accessible name is empty. Decision Q45 settles that it fails 11.9.1: Fabien ruled that a button inside a form whose accessible name is empty fails, even though each of the wording's conditions begins « S'il est présent », because the criterion title and the methodology require a relevant name and an empty name cannot be one. A custom check faults such a button, reading the name from the browser's accessibility tree. It examines only buttons proven to be within a form: a flat-tree ancestor that is a <form> element or has role form, or, for a <button> or <input>, a form owner, which includes a button associated through its form attribute with a form it does not sit inside. The button must be rendered, exposed and visible, have no role other than button, no non-blank title, aria-label or aria-labelledby, and no associated label element; these conditions leave out every button whose name could come from a source the glossary does not list or that the browser computes differently. Any non-empty name is cannot_tell, its relevance being judgment, and that includes a name the browser supplies by default, such as the default label of an input of type submit or reset with no value, or the fallback name of an input of type image with no alt: whether a default name stands for one of the glossary's six types of label is not settled. The check writes two fault branches apart. With no labelling source at all (for example an empty <button></button>, or an input of type button with no value), none of the six conditions applies, and the fault rests on Q45 alone. With a present but blank source (for example aria-label=\"\", or value=\"\" on an input of type submit, and still an empty name), the present source is not relevant under the wording, and the name is empty under Q45. Both readings fault both branches, so the narrowed rule holds whichever is taken. Hidden or invisible buttons are cannot_tell, since the test gives no exception for them but does not say whether it covers them. The check looks at every button within a form, so its scope is whole; it examines the one route of the name-relevant requirement, which has no exception, so its fault means failure and the entry is fail_only. It never answers no_fault. The three axe-core rules tagged for this test are evidence only and partial: button-name looks at button elements, input-button-name at inputs of type button, submit and reset, and aria-command-name at elements with role button, link or menuitem; each faults an element with no accessible name. They look at every such element on the page, not only within forms, which this test does not cover, none of them looks at inputs of type image, and the exact handling of hidden elements and default labels is not established here. Applicability is structural: the test applies to buttons within a form, which code finds with certainty from the glossary's list of button types and the glossary's definition of a form. Needs is empty: names are read on the page as loaded.",
+    "text": "The wording lists six labelling sources and asks that each one present be relevant; the methodology asks that the button's visible label and accessible name be relevant, and the glossary says the accessible name is computed in a strict order and that this order is used to judge it. The entry has one operational requirement, name-relevant, drawn from the criterion title, the methodology and the glossary's order, and every link points to it. Open question, with no requirement and no link: the wording can also be read as asking that every labelling source present be relevant on its own, even one that loses to a higher-priority source in the name computation (a relevant button content beside a title that does not describe the action). Decision Q45 settles only that an empty name fails; it does not settle that reading, which must be decided before any claim beyond the empty name. Relevance is judgment, so the entry is not full. The criterion's only particular case concerns test 11.9.2, so this test has no exception. One case is mechanical: a button within a form whose accessible name is empty. Decision Q45 settles that it fails 11.9.1: Fabien ruled that a button inside a form whose accessible name is empty fails, even though each of the wording's conditions begins « S'il est présent », because the criterion title and the methodology require a relevant name and an empty name cannot be one. A custom check faults such a button, reading the name from the browser's accessibility tree. It examines only buttons proven to be within a form: a flat-tree ancestor that is a <form> element or has role form, or, for a <button> or <input>, a form owner, which includes a button associated through its form attribute with a form it does not sit inside. The button must be rendered, exposed and visible, have no role other than button, no non-blank title, aria-label or aria-labelledby, and no associated label element; these conditions leave out every button whose name could come from a source the glossary does not list or that the browser computes differently. Any non-empty name is cannot_tell, its relevance being judgment, and that includes a name the browser supplies by default, such as the default label of an input of type submit or reset with no value, or the fallback name of an input of type image with no alt: whether a default name stands for one of the glossary's six types of label is not settled. The check writes two fault branches apart. With no labelling source at all (for example an empty <button></button>, or an input of type button with no value), none of the six conditions applies. With a present but blank source (for example aria-label=\"\", or value=\"\" on an input of type submit, and still an empty name), the name is empty too. In both branches the fault rests on Q45, the empty name; under the open every-source reading the blank source would also not be relevant, but the fault does not depend on that reading. When the effective name is not empty, the check abstains whatever other sources are present, an unrelated lower-priority source included (steps 3 and 4 of the check give cannot_tell for any non-blank title, aria-label or aria-labelledby, any associated label and any non-empty name), so it never judges a losing source. Hidden or invisible buttons are cannot_tell, since the test gives no exception for them but does not say whether it covers them. The check looks at every button within a form, so its scope is whole; it examines the one route of the name-relevant requirement, which has no exception, so its fault means failure and the entry is fail_only. It never answers no_fault. The three axe-core rules tagged for this test are evidence only and partial: button-name looks at button elements, input-button-name at inputs of type button, submit and reset, and aria-command-name at elements with role button, link or menuitem; each faults an element with no accessible name. They look at every such element on the page, not only within forms, which this test does not cover, none of them looks at inputs of type image, and the exact handling of hidden elements and default labels is not established here. Applicability is structural: the test applies to buttons within a form, which code finds with certainty from the glossary's list of button types and the glossary's definition of a form. Needs is empty: names are read on the page as loaded.",
     "citations": [
       {
         "source": "methodology",
         "test": "11.9.1",
         "quote": "Retrouver dans le document les boutons présents au sein d’un formulaire ;"
+      },
+      {
+        "source": "test",
+        "test": "11.9.1",
+        "line": 7,
+        "quote": "S’il est présent, le contenu de l’attribut `title` est pertinent."
       },
       {
         "source": "particular_cases",
