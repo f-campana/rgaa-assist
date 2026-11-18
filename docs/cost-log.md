@@ -53,6 +53,8 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-18 13:00 | Codex's 10.1.1 re-check read (clean); gate package finished | 33% | n/a | 5-hour window at 37%. M1 in all: about 81 points of the weekly limit (52 before Fabien's reset, 29 after), an upper bound. |
 | 2026-11-18 13:25 | Dry run on a published audit (Q49), two proposals, Fabien's M1 approval (Q50) | 37% | n/a | 5-hour window at 62%. M1 closed at about 85 points of the weekly limit (52 before Fabien's reset, 33 after), an upper bound that includes the dry run and the proposals. |
 
+**M2 ceiling (Q51):** 40 points of the weekly all-models limit, check-in at 20, counted from a baseline recorded when M2 starts.
+
 ### What day 1 says about cost
 
 - One full 5-hour window is worth about 13 points of the weekly all-models limit.

@@ -151,3 +151,4 @@ The ten entries of the proposed set were applied by hand to the page of a publis
   - the schemas and the ruleset contract, frozen at `ca5c92b` and amended only by Q40 and Q43.
 - **Approval enables nothing.** Every entry keeps `enabled: none`, and all 125 check records keep `exists: false`. Enabling any entry still needs a working and a held-back corpus and its own approval (spec 10.4, Q32, Q36). The spot-check list, the schema gaps and the open readings in the gate package stay open for M2 and later.
 - **M2 is not started by this approval.** Its ceiling is still to be set by Fabien. The package proposes 40 points of the weekly all-models limit, with a check-in at 20.
+- **M2 ceiling (Q51).** Fabien: "Yes, 40 and 20." M2 may use 40 points of the weekly all-models limit, with a check-in at 20. Points are counted from the all-models usage when M2 starts, recorded then in the cost log as M2's baseline. This sets the ceiling only: M2 still starts on Fabien's word.
