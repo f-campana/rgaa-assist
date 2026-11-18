@@ -123,6 +123,22 @@ Figures are shares of the Claude Pro weekly all-models limit (`docs/cost-log.md`
   - M2 builds code (the engine on one page, the axe adapter, and derivation wired to a real run), not 258 entries. It is closer to M1's foundations (18 points) plus two review cycles (10 to 20).
   - A fresh Opus orchestrator session, kept short, avoids paying again for a long context.
 
+## Dry run on a published audit (2026-11-18)
+
+The ten entries were applied by hand to the page of a published ARA audit (aubay.com, careers page), first by the orchestrator and then independently by Codex: [dry-run-aubay.md](dry-run-aubay.md). No code ran.
+
+- **Seven agree** with the auditor's result for their criterion. Three of those seven (8.5.1, 10.1.1, 11.8.2) hold only if the engine reads a cross-origin frame. Otherwise they become "needs review".
+- **11.1.1 finds the auditor's blocking fault:** filter fields inserted by a script, with no label.
+- **8.2.1:** same status as the auditor, but for a different fault.
+- **10.1.2 (`full`) disagrees:** `frameborder` on the reCAPTCHA `iframe`, inserted by Google's script, where the auditor rated 10.1 C. Codex and the orchestrator would keep the fault. Whether the `iframe` was there at audit time isn't established.
+- **No "passed" contradicts an NC.**
+- **Decided (Q49, 2026-11-18):** 10.1.2 keeps the fault. The check record is unchanged.
+- **For the M2 briefs:**
+  - a definite fault wins over an unread frame;
+  - an unread frame comes before "not applicable";
+  - `height` on `table` gives "can't tell";
+  - the engine reads cross-origin frames and records those it couldn't read.
+
 ## Unsure, and open
 
 - **Every claim is a specification, not code.** All 125 check records are `exists: false`. Codex's browser probes tested the facts the checks rely on, not a running check. Corpus cases (working and held-back sets) are still needed before anything is enabled (spec 10.4).
