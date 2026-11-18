@@ -35,7 +35,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## Next, in order
 
-1. **Codex's focused confirmation** of R1 and R2 (sent; Fabien prompted Codex on 2026-11-18). Then one correction round: the 10.1.1 case matching, plus anything Codex finds.
+1. **Codex's focused confirmation is in** (`rgaa-m1-corrections-cc2955b-focused-confirmation.md`): R1 and R2 closed, wording in place, no other blocker; it holds on 10.1.1 only. Builder S corrects 10.1.1 (`docs/m1/brief-corrections-5.md`), then Codex re-checks that one record. Then the gate.
 2. **The minimum useful set** and **the gate package** (kickoff brief, last sections). Codex found no minimum useful set at its review pin; it names 8.5.1, 10.1.1 and 11.8.2 as coherent `full` candidates.
 
 The history before the cross-check (pilot, corrections cycle, batches 1 to 8) is in the steps table, the cost log and the findings below.

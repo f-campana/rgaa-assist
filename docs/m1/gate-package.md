@@ -1,13 +1,13 @@
 # M1 gate package
 
-**Draft, 2026-11-18.** Prepared by the M1 orchestrator for Fabien. It waits for Codex's focused confirmation of the last corrections (`docs/m1/request-confirm-corrections-4.md`). The sections marked *pending* are completed when that report arrives.
+**Draft, 2026-11-18.** Prepared by the M1 orchestrator for Fabien. Codex has confirmed the last corrections. One correction remains before the gate: 10.1.1 (builder S, `docs/m1/brief-corrections-5.md`), then Codex's focused re-check of it. The sections marked *pending* depend on that.
 
 Approving M1 approves the candidate map, the minimum useful set and the schemas. It enables nothing: every entry has `enabled: none`. No figure here is a conformance rate.
 
 ## Where it stands
 
 - Main at `0c26254`. All 258 entries validate and cite the official text (DINUM RGAA 4.1.2, pin `ca4019f`). 414 tests pass, including the contract tests of 8.3, 6.3 and 8.4. The type check is clean. There are 125 check records, all `exists: false`.
-- Codex has cross-checked all 258 entries (131 in depth, 127 on inventory and validation) and re-checked two rounds of corrections. *Pending: its confirmation of the last round.*
+- Codex has cross-checked all 258 entries (131 in depth, 127 on inventory and validation), re-checked the corrections and confirmed the last round at `cc2955b`: no other capability blocker. *Pending: the 10.1.1 correction and its re-check.*
 - The orchestrator reviewed every diff before merging it.
 
 ## Counts by candidate level
@@ -86,7 +86,7 @@ These are the entries where a wrong reading would matter most: the four that can
   - R2: 10.1.2 ignored case where XHTML doesn't.
 
   Both were fixed at `cc2955b`, along with the wording it asked for.
-- **Confirmation of the last round:** *pending.*
+- **Confirmation of the last round (2026-11-18):** R1 and R2 are closed, with browser fixtures for each. The wording follow-through is in place. It holds the decision on one point: 10.1.1 matches element names ignoring case (the orchestrator had found the same in its draft). Being corrected by builder S. It also corrected this draft's 2.1.1 line: an empty frame `title` gives "can't tell" there, and belongs to 2.2.1.
 - **Errors in the orchestrator's own work:**
   - It summarised 10.5.3 and 11.2.5 wrongly in the status file. Codex caught it, and it is corrected.
   - It kept builder M's 10.13.2 after one fix, and Codex's browser probe then defeated that fix.
