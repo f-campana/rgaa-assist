@@ -49,7 +49,7 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-17 23:00 | Codex's focused re-check read; last corrections briefed, launch held for the 5-hour window | 26% | n/a | 5-hour window at 96%, resets 02:30 UTC. |
 | 2026-11-18 02:50 | Builder R merged (Opus high, about 159k tokens, last corrections: 10.5.2, 10.1.2, wording) | 28% | n/a | 5-hour window at 14% after its reset. |
 | 2026-11-18 09:30 | Confirmation request sent; gate package drafted with the minimum useful set | 30% | n/a | 5-hour window at 10%. M1 so far: about 78 points of the weekly limit (52 before Fabien's reset, 26 after), an upper bound. |
-| 2026-11-18 11:30 | Codex's confirmation read; builder S merged (Opus high, about 117k tokens, 10.1.1 case and noscript) | 30% | n/a | 5-hour window at about 15%. |
+| 2026-11-18 11:30 | Codex's confirmation read; builder S merged (Opus high, about 117k tokens, 10.1.1 case and noscript) | 32% | n/a | 5-hour window at 28%. |
 
 ### What day 1 says about cost
 
