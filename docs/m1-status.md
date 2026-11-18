@@ -17,8 +17,8 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 | 6 | Pilot of 14 entries, usage projection | Done 2026-11-16, merged as `51880bb`. Projection in the cost log. |
 | 7 | Pilot corrections, then entries by theme | Done 2026-11-17. Pilot corrections passed three Codex re-checks (clean at `67d2938`). All 258 entries merged at `ff4d6c2` (builders A to O). |
 | 8 | Check-in at 65%, with Codex's cross-check | Check-in done. Codex's cross-check of all 258 entries done 2026-11-17: hold until claims are corrected. Corrections in flight (builders P and Q). |
-| 9 | Minimum useful set | Not started |
-| 10 | Gate package for Fabien | Not started |
+| 9 | Minimum useful set | Proposed in the gate package draft (`docs/m1/gate-package.md`), 2026-11-18. |
+| 10 | Gate package for Fabien | Drafted 2026-11-18; waits for Codex's confirmation and the 10.1.1 fix. |
 
 ## In flight
 
@@ -29,11 +29,13 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 - Codex's focused re-check is in (`rgaa-m1-corrections-8260d67-independent-recheck.md`, same outputs folder as the cross-check): the 14 lowered claims are contained; 11.9.1 under Q45, 8.10.2 and the write-up fixes hold. Two narrowed checks still need a fix: 10.5.2 (an author colour from a CSS animation escapes the check) and 10.1.2 (case-distinct XHTML attribute names). Plus wording follow-through in 11.9.1, 11.9.2, 10.6.1, 1.9.x, 11.2.2/.3 and 10.13.2.
 - Builder R applied `docs/m1/brief-corrections-4.md`, merged at `cc2955b` (2026-11-18): 10.5.2 now abstains when any animation or transition could supply the colour (stays `fail_only`); 10.1.2 compares names exactly as parsed and abstains on case variants (stays `full`); 11.9.1 keeps one requirement; wording caveats added to 10.6.1 (link now `partial`), 1.9.x, 11.2.2/.3, 10.13.2 and 11.9.2. Levels unchanged: none 238, fail_only 16, full 4.
 - Waiting for Codex's focused confirmation (`docs/m1/request-confirm-corrections-4.md`, sent on the bridge). Then the minimum useful set and the gate package.
+- Gate package drafted at `docs/m1/gate-package.md`, with the minimum useful set proposed (8.5.1, 10.1.1, 11.8.2 `full`; 8.3.1, 8.4.1, 2.1.1, 6.2.1, 11.1.1, 8.2.1 `fail_only`). Codex's earlier report allowed drafting the set while corrections were made.
+- Found by the orchestrator on 2026-11-18: `custom/10-1-presentation-elements` (10.1.1, `full`) compares element names ASCII case-insensitively, so an uppercase `<CENTER>` in an XHTML page served as XML faults although it is not the `center` element. Same pattern as R2. To correct, with any findings from Codex's confirmation, before the gate.
 - Merging: `checks.json` conflicts between builders are resolved by `python3 work/orchestrator/merge-checks.py` during the merge (union of added records, sorted; it asserts no base record changed). `work/` is gitignored, so the script is local to this checkout.
 
 ## Next, in order
 
-1. **Codex's focused confirmation** of R1 and R2 (sent); Fabien prompts Codex.
+1. **Codex's focused confirmation** of R1 and R2 (sent; Fabien prompted Codex on 2026-11-18). Then one correction round: the 10.1.1 case matching, plus anything Codex finds.
 2. **The minimum useful set** and **the gate package** (kickoff brief, last sections). Codex found no minimum useful set at its review pin; it names 8.5.1, 10.1.1 and 11.8.2 as coherent `full` candidates.
 
 The history before the cross-check (pilot, corrections cycle, batches 1 to 8) is in the steps table, the cost log and the findings below.
