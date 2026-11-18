@@ -1,0 +1,55 @@
+{
+  "id": "11.1.1-invalid-field-in-cross-origin-frame",
+  "kind": "test",
+  "test": "11.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "aria-labelledby-passage",
+    "aria-label",
+    "label-for",
+    "title-attribute",
+    "adjacent-button-hidden-label",
+    "implicit-label"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "newsletter.html"
+  ],
+  "rationale": {
+    "text": "A newsletter form from another site is shown in a frame; its visible email field has no labelling mechanism at all. The test asks it of each form field, and the frame displays this field in the page. The custom check examines every document nested through frames, reads this one, and faults the field (step 2), so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 1,
+        "quote": "Chaque champ de formulaire vérifie-t-il une de ces conditions"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 3,
+        "quote": "Le champ de formulaire possède un attribut WAI-ARIA `aria-label`"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 4,
+        "quote": "Une balise `<label>` ayant un attribut `for` est associée au champ de formulaire"
+      }
+    ]
+  }
+}

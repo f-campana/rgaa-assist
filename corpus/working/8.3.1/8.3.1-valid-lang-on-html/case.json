@@ -1,0 +1,48 @@
+{
+  "id": "8.3.1-valid-lang-on-html",
+  "kind": "test",
+  "test": "8.3.1",
+  "branch": "valid",
+  "routes": [
+    "html-element-lang"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "An HTML 5 page whose html element carries lang=\"fr\". The test's first condition is that the language indication is given for the html element, and the glossary requires the lang attribute for HTML5. The condition holds. The custom check answers no_fault through the html element (step 1). At fail_only the entry may not say passed, so the finding is needs_review, not_enabled. The check's link is resolving, so at full the derivation would give passed; the entry's candidate level is fail_only, and the harness measures it there.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 2,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée pour l’élément `html`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Langue par défaut",
+        "quote": "Pour HTML5 : attribut lang obligatoire."
+      },
+      {
+        "source": "methodology",
+        "test": "8.3.1",
+        "quote": "Soit au moyen de l’attribut lang sur la balise html si le code est du HTML5 ou du HTML4 ;"
+      }
+    ]
+  }
+}

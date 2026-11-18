@@ -1,0 +1,45 @@
+{
+  "id": "8.2.1-outside-same-id-in-cross-origin-frame",
+  "kind": "test",
+  "test": "8.2.1",
+  "branch": "outside_support",
+  "routes": [
+    "no-shared-id-value"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "frame.html"
+  ],
+  "rationale": {
+    "text": "The page and the cross-site document in its frame each have one element with id contenu. Within each document the ids are unique. The test asks that id values be unique in the page, and the methodology runs the markup checker on every frame, but the text does not say whether a framed document's ids belong to the same page. The custom check does not examine framed documents and answers cannot_tell; this branch is outside what it supports. The finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 5,
+        "quote": "Les valeurs d’attribut id sont uniques dans la page ;"
+      },
+      {
+        "source": "methodology",
+        "test": "8.2.1",
+        "quote": "Dans le menu « Check », activer l’option « W3C Nu markup checker (all frames) »."
+      }
+    ]
+  }
+}

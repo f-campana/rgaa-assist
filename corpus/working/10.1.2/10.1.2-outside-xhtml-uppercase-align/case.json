@@ -1,0 +1,44 @@
+{
+  "id": "10.1.2-outside-xhtml-uppercase-align",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "outside_support",
+  "routes": [
+    "attributes-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.xhtml"
+  ],
+  "rationale": {
+    "text": "The page is served as application/xhtml+xml, where attribute names are case-sensitive, and a div carries an attribute named ALIGN in capitals. The methodology lists align; whether an attribute spelt ALIGN, which the browser does not treat as align, is the listed attribute is not settled by the text. The custom check answers cannot_tell on such a case variant (step 2); only the record supports this branch. The finding is needs_review at both levels: not_enabled at fail_only, cannot_tell at full.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "Vérifier l’absence des attributs de présentation : `align`, `alink`, `background`, `bgcolor`, `border`, `cellpadding`, `cellspacing`, `char`, `charoff`, `clear`, `color`, `compact`, `frameborder`, `hspace`, `link`, `marginheight`, `marginwidth`, `text`, `valign`, `vlink`, `vspace`,"
+      },
+      {
+        "source": "test",
+        "test": "10.1.2",
+        "line": 1,
+        "quote": "les attributs servant à la présentation de l’information ne doivent pas être présents dans le code source généré des pages"
+      }
+    ]
+  }
+}

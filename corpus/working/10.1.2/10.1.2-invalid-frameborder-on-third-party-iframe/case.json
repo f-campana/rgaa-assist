@@ -1,0 +1,44 @@
+{
+  "id": "10.1.2-invalid-frameborder-on-third-party-iframe",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "attributes-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "widget.js",
+    "badge.html"
+  ],
+  "rationale": {
+    "text": "A script loaded from another site inserts a badge iframe carrying frameborder, as anti-robot services do. The test forbids presentation attributes in the generated source of the page, and the methodology lists frameborder with no exception. The iframe element and its attributes belong to the generated source of the page that embeds it, whoever inserted it (decision Q49). The custom check faults frameborder on iframe (step 1); the same element also carries width, height and scrolling, on which the check would abstain, but its fault wins over every abstention. The finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.2",
+        "line": 1,
+        "quote": "les attributs servant à la présentation de l’information ne doivent pas être présents dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "Vérifier l’absence des attributs de présentation : `align`, `alink`, `background`, `bgcolor`, `border`, `cellpadding`, `cellspacing`, `char`, `charoff`, `clear`, `color`, `compact`, `frameborder`, `hspace`, `link`, `marginheight`, `marginwidth`, `text`, `valign`, `vlink`, `vspace`,"
+      }
+    ]
+  }
+}

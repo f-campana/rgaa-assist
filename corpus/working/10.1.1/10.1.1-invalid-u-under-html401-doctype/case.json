@@ -1,0 +1,42 @@
+{
+  "id": "10.1.1-invalid-u-under-html401-doctype",
+  "kind": "test",
+  "test": "10.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "elements-absent",
+    "u-in-html5"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page declares the HTML 4.01 Transitional doctype and holds a u element. The methodology and the glossary forbid u when the doctype does not correspond to HTML 5, and HTML 4.01 is not HTML 5, so the exception does not apply. The custom check faults u under an earlier doctype (step 1), so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence de l’élément `<u>` uniquement si le DOCTYPE du document ne correspond pas à HTML 5 ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "L’élément <u> est interdit uniquement si le DOCTYPE du document ne correspond pas à HTML 5."
+      }
+    ]
+  }
+}

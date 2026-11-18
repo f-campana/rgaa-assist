@@ -1,0 +1,44 @@
+{
+  "id": "11.1.1-inapplicable-only-buttons",
+  "kind": "test",
+  "test": "11.1.1",
+  "branch": "inapplicable",
+  "routes": [
+    "not-a-field"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page holds only buttons, a hidden input and an element with role button. The glossary lists input of type submit, reset, hidden, image and button, the button element and role=\"button\" as not form fields, so the test has no field to apply to. The custom check skips them and answers inapplicable. The check's link is partial and the entry is not full, so the tool never says not applicable: the finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Champ de saisie de formulaire",
+        "quote": "Les objets de formulaires et rôle WAI-ARIA suivants ne sont pas considérés comme des champs de formulaires :"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 1,
+        "quote": "Chaque champ de formulaire vérifie-t-il une de ces conditions"
+      }
+    ]
+  }
+}

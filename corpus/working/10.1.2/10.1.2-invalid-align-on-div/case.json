@@ -1,0 +1,42 @@
+{
+  "id": "10.1.2-invalid-align-on-div",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "attributes-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A div carries align. The test forbids presentation attributes in the generated source, and the methodology lists align with no exception. The custom check faults this defined pair (step 1) through a link whose fault means failure, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.2",
+        "line": 1,
+        "quote": "les attributs servant à la présentation de l’information ne doivent pas être présents dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "Vérifier l’absence des attributs de présentation : `align`, `alink`, `background`, `bgcolor`, `border`, `cellpadding`, `cellspacing`, `char`, `charoff`, `clear`, `color`, `compact`, `frameborder`, `hspace`, `link`, `marginheight`, `marginwidth`, `text`, `valign`, `vlink`, `vspace`,"
+      }
+    ]
+  }
+}

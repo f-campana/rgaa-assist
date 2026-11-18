@@ -1,0 +1,46 @@
+{
+  "id": "6.2.1-invalid-empty-link-in-cross-origin-frame",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "text-content",
+    "image-alternative",
+    "svg-title-or-text",
+    "anchor-not-link"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "feed.html"
+  ],
+  "rationale": {
+    "text": "A news feed from another site is shown in a frame; it holds a visible link with href and no content, aria-label, aria-labelledby or title. The test asks it of each link in the page, and the frame displays this link inside the page. The custom check examines every document nested through frames, reads this one, and faults the link (step 6), so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "6.2.1",
+        "line": 1,
+        "quote": "Dans chaque page web, chaque lien a-t-il un intitulé entre `<a>` et `</a>`"
+      },
+      {
+        "source": "methodology",
+        "test": "6.2.1",
+        "quote": "Pour chaque lien, vérifier que le contenu de l’élément `<a>` (ou d’un élément pourvu d’un attribut WAI-ARIA `role=link`) contient un intitulé (texte ou alternative)"
+      }
+    ]
+  }
+}

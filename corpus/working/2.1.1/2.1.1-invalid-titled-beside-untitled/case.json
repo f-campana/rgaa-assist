@@ -1,0 +1,44 @@
+{
+  "id": "2.1.1-invalid-titled-beside-untitled",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "title-attribute",
+    "hidden-technical-frame"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "map.html",
+    "hours.html"
+  ],
+  "rationale": {
+    "text": "One visible iframe has a title attribute and the other has none. The methodology validates the test only when every frame has the attribute, so the untitled frame fails it whatever the other one carries. The custom check faults the untitled frame, so the finding is failed at both levels, never passed.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "2.1.1",
+        "quote": "Pour chaque cadre, vérifier qu’il possède un attribut"
+      },
+      {
+        "source": "methodology",
+        "test": "2.1.1",
+        "quote": "Si c’est le cas pour chaque cadre, **le test est validé**."
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "8.4.1-valid-three-letter-code",
+  "kind": "test",
+  "test": "8.4.1",
+  "branch": "valid",
+  "routes": [
+    "iso-639-code",
+    "matches-main-language"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A French page with lang=\"fra\". The glossary accepts a 3-character code from ISO 639-2 and later parts, and fra is the ISO 639-2 code for French. The custom check finds it in its list and answers no_fault. axe's html-lang-valid may fault this code (its list rejects some valid ISO 639-2 codes), but its link is evidence only and changes nothing. Relevance has no check, so the finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Code de langue",
+        "quote": "Code de 2 caractères (ISO 639-1) ou 3 caractères (ISO 639-2 et suivants) permettant d’indiquer la langue d’un document ou d’un passage de texte."
+      },
+      {
+        "source": "test",
+        "test": "8.4.1",
+        "line": 2,
+        "quote": "Le code de langue est valide ;"
+      }
+    ]
+  }
+}

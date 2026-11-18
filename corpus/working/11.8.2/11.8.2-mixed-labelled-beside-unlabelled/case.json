@@ -1,0 +1,41 @@
+{
+  "id": "11.8.2-mixed-labelled-beside-unlabelled",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "Second half of the mixed pair: in the same select, one optgroup has a label attribute and the next has none. The methodology validates the test only when every optgroup has a label attribute, so one optgroup without it fails the test whatever the others carry. The custom check faults the unlabelled optgroup, so the finding is failed at both levels, never passed.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Pour chaque élément `<optgroup>`, vérifier qu’il possède un attribut `label` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Si c’est le cas pour chaque élément `<optgroup>`, **le test est validé**."
+      }
+    ]
+  }
+}

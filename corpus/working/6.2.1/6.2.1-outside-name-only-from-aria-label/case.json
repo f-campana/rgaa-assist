@@ -1,0 +1,54 @@
+{
+  "id": "6.2.1-outside-name-only-from-aria-label",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "outside_support",
+  "routes": [
+    "text-content"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A social-network link has no content and takes its name only from aria-label and title. The wording puts the name between <a> and </a>, and the methodology checks the content of the element, while the glossary's name computation uses aria-label before the content. The check record does not let a failure rest on the wording alone and answers cannot_tell (step 4); only the record supports this branch. axe's link-name accepts aria-label and reports no fault, so the reason at full is cannot_tell; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "6.2.1",
+        "line": 1,
+        "quote": "Dans chaque page web, chaque lien a-t-il un intitulé entre `<a>` et `</a>`"
+      },
+      {
+        "source": "methodology",
+        "test": "6.2.1",
+        "quote": "Pour chaque lien, vérifier que le contenu de l’élément `<a>` (ou d’un élément pourvu d’un attribut WAI-ARIA `role=link`) contient un intitulé (texte ou alternative)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "sinon, contenu de l’attribut WAI-ARIA aria-label ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "sinon, contenu du lien ;"
+      }
+    ]
+  }
+}

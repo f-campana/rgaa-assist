@@ -1,0 +1,47 @@
+{
+  "id": "11.1.1-invalid-select-without-label",
+  "kind": "test",
+  "test": "11.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "aria-labelledby-passage",
+    "aria-label",
+    "label-for",
+    "title-attribute",
+    "adjacent-button-hidden-label",
+    "implicit-label"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A visible select element, which the glossary lists as a form field, has a nearby paragraph but no labelling mechanism: no aria-labelledby, aria-label, title, associated label or label ancestor. It meets none of the test's conditions. The custom check faults it (step 2), so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 1,
+        "quote": "Chaque champ de formulaire vérifie-t-il une de ces conditions"
+      },
+      {
+        "source": "glossary",
+        "entry": "Champ de saisie de formulaire",
+        "quote": "Objet d’un formulaire permettant à l’utilisateur"
+      }
+    ]
+  }
+}

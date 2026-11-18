@@ -1,0 +1,45 @@
+{
+  "id": "10.1.1-outside-center-in-cross-origin-frame",
+  "kind": "test",
+  "test": "10.1.1",
+  "branch": "outside_support",
+  "routes": [
+    "elements-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "frame.html"
+  ],
+  "rationale": {
+    "text": "The page itself holds no listed element; the cross-site document shown in its frame holds a center element. The test speaks of the generated source of the pages and does not say whether a framed document belongs to it. The custom check answers cannot_tell for a listed element in a nested browsing context (step 2); only the record supports this branch. The finding is needs_review at both levels: not_enabled at fail_only, cannot_tell at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.1",
+        "line": 1,
+        "quote": "les balises servant à la présentation de l’information ne doivent pas être présentes dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence des éléments de présentation `<basefont>`, `<big>`, `<blink>`, `<center>`, `<font>`, `<marquee>`, `<s>`, `<strike>`, `<tt>` ;"
+      }
+    ]
+  }
+}

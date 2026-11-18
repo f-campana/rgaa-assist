@@ -1,0 +1,44 @@
+{
+  "id": "2.1.1-outside-aria-hidden-untitled-iframe",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "outside_support",
+  "routes": [
+    "hidden-technical-frame"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "sync.html"
+  ],
+  "rationale": {
+    "text": "An untitled iframe is hidden from assistive technologies with aria-hidden=\"true\". The glossary says some frames serve only technical operations and may be made unavailable to assistive technologies with aria-hidden=\"true\", in which case criterion 2.1 does not apply; whether this frame is such a technical frame, and whether hiding it does not hinder it, needs judgment. The custom check answers cannot_tell (step 3); only the record supports this branch. axe's frame-title does not examine this aria-hidden frame and reports no fault, so the reason at full is cannot_tell; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Titre de cadre",
+        "quote": "Certains cadres servent uniquement à des opérations techniques"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de cadre",
+        "quote": "Si cela ne gêne pas le fonctionnement de ce type de cadre, il est possible de les rendre indisponibles aux technologies d’assistance en utilisant l’attribut WAI-ARIA aria-hidden=\"true\". Dans ce cas le critère 2.1 et le critère 2.2 seront non applicables."
+      }
+    ]
+  }
+}

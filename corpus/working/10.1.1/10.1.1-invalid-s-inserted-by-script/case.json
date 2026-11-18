@@ -1,0 +1,48 @@
+{
+  "id": "10.1.1-invalid-s-inserted-by-script",
+  "kind": "test",
+  "test": "10.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "elements-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "price-widget.js"
+  ],
+  "rationale": {
+    "text": "A script run while the page loads inserts an s element to strike out an old price. The test is about the generated source of the page, which holds what scripts insert, and the methodology lists s among the presentation elements. The custom check reads the page as loaded and faults it, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.1",
+        "line": 1,
+        "quote": "les balises servant à la présentation de l’information ne doivent pas être présentes dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence des éléments de présentation `<basefont>`, `<big>`, `<blink>`, `<center>`, `<font>`, `<marquee>`, `<s>`, `<strike>`, `<tt>` ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "La présentation de l’information doit être réalisée via CSS."
+      }
+    ]
+  }
+}

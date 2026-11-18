@@ -1,0 +1,39 @@
+{
+  "id": "8.2.1-outside-duplicate-id-without-doctype",
+  "kind": "test",
+  "test": "8.2.1",
+  "branch": "outside_support",
+  "routes": [
+    "no-shared-id-value"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "Two elements share the id titre, but the page has no doctype. The test applies for each document type declaration, and the DOM cannot show whether the source held a declaration that the parser dropped. The custom check answers cannot_tell when there is no doctype node (step 1); only the record supports this branch. The finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 1,
+        "quote": "Pour chaque déclaration de type de document, le code source généré de la page vérifie-t-il ces conditions ?"
+      }
+    ]
+  }
+}

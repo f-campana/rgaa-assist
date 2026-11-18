@@ -1,0 +1,48 @@
+{
+  "id": "10.1.1-mixed-u-allowed-beside-big",
+  "kind": "test",
+  "test": "10.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "elements-absent",
+    "u-in-html5"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The second half of the mixed pair. Under the HTML 5 doctype the u element is allowed by the exception, but the big element beside it has no route: the methodology lists big and no exception covers it. One element valid beside one with no valid route fails the test. The custom check faults on big and never on u, so the finding is failed at both levels, never passed.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence des éléments de présentation `<basefont>`, `<big>`, `<blink>`, `<center>`, `<font>`, `<marquee>`, `<s>`, `<strike>`, `<tt>` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence de l’élément `<u>` uniquement si le DOCTYPE du document ne correspond pas à HTML 5 ;"
+      },
+      {
+        "source": "test",
+        "test": "10.1.1",
+        "line": 1,
+        "quote": "les balises servant à la présentation de l’information ne doivent pas être présentes dans le code source généré des pages"
+      }
+    ]
+  }
+}

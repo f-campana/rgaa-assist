@@ -1,0 +1,50 @@
+{
+  "id": "2.1.1-invalid-untitled-frame-inside-cross-origin-frame",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "title-attribute",
+    "hidden-technical-frame"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "booking.html",
+    "calendar.html"
+  ],
+  "rationale": {
+    "text": "The page's own iframe has a title, but the cross-site document it shows contains a visible iframe without a title attribute. That inner frame is displayed in the page, and the test asks each frame for a title attribute. The custom check examines every frame element in the top document and in every document nested in it, reads the cross-site document and faults the inner frame (step 5), so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "2.1.1",
+        "line": 1,
+        "quote": "Chaque cadre (balise `<iframe>` ou `<frame>`) a-t-il un attribut `title`"
+      },
+      {
+        "source": "methodology",
+        "test": "2.1.1",
+        "quote": "Pour chaque cadre, vérifier qu’il possède un attribut"
+      },
+      {
+        "source": "glossary",
+        "entry": "Cadre",
+        "quote": "Cadre en ligne : élément HTML (balise <iframe>) permettant d’afficher un contenu dans la page web dans laquelle il est implémenté."
+      }
+    ]
+  }
+}

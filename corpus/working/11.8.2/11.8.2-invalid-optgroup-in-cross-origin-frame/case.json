@@ -1,0 +1,48 @@
+{
+  "id": "11.8.2-invalid-optgroup-in-cross-origin-frame",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "booking.html"
+  ],
+  "rationale": {
+    "text": "A booking form from another site is embedded in a frame; its visible select holds optgroups without a label attribute. The test asks it of each optgroup in each select, and the frame displays this form inside the page. The custom check examines every document nested through frames and reads this one, so it faults these optgroups (step 7); the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.8.2",
+        "line": 1,
+        "quote": "Dans chaque balise `<select>`, chaque balise `<optgroup>` possède-t-elle un attribut `label` ?"
+      },
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Retrouver dans le document les listes de sélection (élément `<select>`) qui possèdent des éléments `<optgroup>` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Pour chaque élément `<optgroup>`, vérifier qu’il possède un attribut `label` ;"
+      }
+    ]
+  }
+}

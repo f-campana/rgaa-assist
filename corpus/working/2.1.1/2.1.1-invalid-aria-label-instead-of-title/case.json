@@ -1,0 +1,44 @@
+{
+  "id": "2.1.1-invalid-aria-label-instead-of-title",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "title-attribute",
+    "hidden-technical-frame"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "map.html"
+  ],
+  "rationale": {
+    "text": "A visible iframe is named with aria-label and has no title attribute. The test asks for a title attribute specifically, and the glossary defines the frame title as the content of the title attribute; an aria-label is not one. The frame is not hidden with aria-hidden, so the technical-frame note cannot apply. The custom check ignores aria-label and faults the frame (step 5), so the finding is failed at both levels. axe's frame-title accepts aria-label and reports no fault, which changes nothing: its link is evidence only.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "2.1.1",
+        "line": 1,
+        "quote": "Chaque cadre (balise `<iframe>` ou `<frame>`) a-t-il un attribut `title`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de cadre",
+        "quote": "Contenu de l’attribut title de la balise <iframe> ou <frame>"
+      }
+    ]
+  }
+}

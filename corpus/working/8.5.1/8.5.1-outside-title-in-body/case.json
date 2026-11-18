@@ -1,0 +1,44 @@
+{
+  "id": "8.5.1-outside-title-in-body",
+  "kind": "test",
+  "test": "8.5.1",
+  "branch": "outside_support",
+  "routes": [
+    "title-element"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The only title element is in body: a template wrote it after the head. The methodology looks for the title structured with a title element in the document and does not say whether one outside head gives the page its title. The custom check answers cannot_tell (step 4: the first title element is not a child of head); only the record supports this branch. axe's document-title reads document.title, which the browser takes from the first title element wherever it is, so it reports no fault. With no fault on the unresolved requirement and a resolving link answering cannot_tell, the reason at full is cannot_tell; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "8.5.1",
+        "quote": "Retrouver dans le document le titre structuré au moyen d’un élément `<title>` ;"
+      },
+      {
+        "source": "test",
+        "test": "8.5.1",
+        "line": 1,
+        "quote": "Chaque page web a-t-elle un titre de page (balise `<title>`) ?"
+      }
+    ]
+  }
+}

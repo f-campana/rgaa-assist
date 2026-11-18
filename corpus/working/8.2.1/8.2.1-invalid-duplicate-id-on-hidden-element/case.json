@@ -1,0 +1,43 @@
+{
+  "id": "8.2.1-invalid-duplicate-id-on-hidden-element",
+  "kind": "test",
+  "test": "8.2.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "no-shared-id-value"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A visible paragraph and a paragraph inside a hidden element share the id horaires. The test is about the generated source code, which holds hidden elements too, and asks that id values be unique in the page. The custom check ignores visibility and faults the pair, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 1,
+        "quote": "Pour chaque déclaration de type de document, le code source généré de la page vérifie-t-il ces conditions ?"
+      },
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 5,
+        "quote": "Les valeurs d’attribut id sont uniques dans la page ;"
+      }
+    ]
+  }
+}

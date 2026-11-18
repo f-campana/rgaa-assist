@@ -1,0 +1,52 @@
+{
+  "id": "8.3.1-outside-no-lang-text-in-page-font",
+  "kind": "test",
+  "test": "8.3.1",
+  "branch": "outside_support",
+  "routes": [
+    "html-element-lang",
+    "every-text-element-lang"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "No element carries a language indication, and all the text is drawn in a font family the page defines itself with @font-face, as most sites do. By the wording, the page has no indication on html or on its texts. But the custom check takes a text as a witness only in a generic or pinned system family that the page does not define, so that a fault never rests on an icon or symbol font; here no text qualifies and it answers cannot_tell (step 4). Only the record supports this branch; the tool leaves it to a human. axe's html-has-lang faults through an evidence-only link, so the reason at full is alternative_unresolved; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 1,
+        "quote": "Pour chaque page web, l’indication de langue par défaut vérifie-t-elle une de ces conditions"
+      },
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 2,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée pour l’élément `html`"
+      },
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 3,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée sur chaque élément de texte ou sur l’un des éléments parents."
+      }
+    ]
+  }
+}

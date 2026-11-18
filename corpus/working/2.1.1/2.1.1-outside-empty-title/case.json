@@ -1,0 +1,45 @@
+{
+  "id": "2.1.1-outside-empty-title",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "outside_support",
+  "routes": [
+    "title-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "map.html"
+  ],
+  "rationale": {
+    "text": "A visible iframe has a title attribute with an empty value. The test asks for a title attribute, which is present, while the glossary defines the frame title as the content of that attribute; the text does not say whether an empty one meets the test. The custom check answers cannot_tell (step 2); only the record supports this branch. axe's frame-title faults an empty title, through an evidence-only link, so the reason at full is alternative_unresolved; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "2.1.1",
+        "line": 1,
+        "quote": "Chaque cadre (balise `<iframe>` ou `<frame>`) a-t-il un attribut `title`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de cadre",
+        "quote": "Contenu de l’attribut title de la balise <iframe> ou <frame>"
+      }
+    ]
+  }
+}

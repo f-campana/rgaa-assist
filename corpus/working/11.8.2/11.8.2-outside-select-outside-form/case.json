@@ -1,0 +1,43 @@
+{
+  "id": "11.8.2-outside-select-outside-form",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "outside_support",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A select with an unlabelled optgroup is used to filter a list and sits outside any form, with no form owner. Criterion 11.8 is asked of each form, which the glossary defines as a form tag or a tag with role form, and the text does not say whether a list outside a form is covered. The custom check answers cannot_tell (step 1); only the record supports this branch. The finding is needs_review at both levels: not_enabled at fail_only, cannot_tell at full.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "11.8",
+        "quote": "Dans chaque [formulaire](#formulaire)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Formulaire",
+        "quote": "Balise <form> ou balise possédant un attribut WAI-ARIA role=\"form\"."
+      }
+    ]
+  }
+}

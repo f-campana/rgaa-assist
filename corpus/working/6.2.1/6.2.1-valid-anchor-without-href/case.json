@@ -1,0 +1,48 @@
+{
+  "id": "6.2.1-valid-anchor-without-href",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "valid",
+  "routes": [
+    "anchor-not-link",
+    "text-content"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page holds an empty a element without href, used as an anchor, and a text link to it. The technical note of criterion 6.2 says an anchor is not a link and is not concerned by the criterion, and the glossary defines an HTML link as an a tag with an href attribute. The only link has text. The custom check skips the anchor and answers no_fault on the link, so the finding is needs_review, not_enabled, at fail_only, and would be passed at full.",
+    "citations": [
+      {
+        "source": "technical_note",
+        "criterion": "6.2",
+        "quote": "Une ancre n’est pas un lien même si pendant longtemps l’élément `<a>` a servi de support à cette technique. Elle n’est donc pas concernée par le présent critère."
+      },
+      {
+        "source": "glossary",
+        "entry": "Lien",
+        "quote": "Balise <a> possédant un attribut href ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "du texte contenu dans les éléments enfants du lien."
+      }
+    ]
+  }
+}

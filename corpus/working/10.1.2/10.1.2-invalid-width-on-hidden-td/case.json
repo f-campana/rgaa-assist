@@ -1,0 +1,48 @@
+{
+  "id": "10.1.2-invalid-width-on-hidden-td",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "attributes-absent",
+    "dimensions-on-embedded"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A td element inside a hidden table carries width. The methodology and the glossary allow width only on img, object, embed, canvas and svg, so on td it is forbidden, and the test is about presence in the generated source, where the hidden table still is. The custom check treats hidden elements like the others and faults the page, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.2",
+        "line": 1,
+        "quote": "les attributs servant à la présentation de l’information ne doivent pas être présents dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "`width` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`), `height` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "Les attributs width et height utilisés sur d’autres éléments que les éléments <img>, <object>, <embed>, <canvas> et <svg> sont également interdits ;"
+      }
+    ]
+  }
+}

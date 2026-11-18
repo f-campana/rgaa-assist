@@ -1,0 +1,47 @@
+{
+  "id": "6.2.1-valid-svg-link-title-and-text",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "valid",
+  "routes": [
+    "svg-title-or-text"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page's only link is an SVG a element with xlink:href, holding a title element as a direct child and a text element. The glossary counts an a tag with xlink:href in SVG 1.1 as a link, and builds an SVG link's name from the title element that is a direct child of the link, or else from the text of its text elements. Both give Accueil. The custom check collects them and answers no_fault, so the finding is needs_review, not_enabled, at fail_only, and would be passed at full.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Lien",
+        "quote": "Balise <a> possédant un attribut xlink:href en SVG 1.1."
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "Sinon, contenu de l’élément <title> enfant direct du lien ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "Sinon, contenu texte d’un ou plusieurs éléments <text>."
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "10.1.1-invalid-center-element",
+  "kind": "test",
+  "test": "10.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "elements-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page holds a center element. The test forbids presentation tags in the generated source, and the methodology and the glossary name center among them, with no exception for it. The custom check faults the page (step 1) through a link whose fault means failure, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.1",
+        "line": 1,
+        "quote": "les balises servant à la présentation de l’information ne doivent pas être présentes dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence des éléments de présentation `<basefont>`, `<big>`, `<blink>`, `<center>`, `<font>`, `<marquee>`, `<s>`, `<strike>`, `<tt>` ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "Les éléments (basefont, big, blink, center, font, marquee, s, strike et tt)"
+      }
+    ]
+  }
+}

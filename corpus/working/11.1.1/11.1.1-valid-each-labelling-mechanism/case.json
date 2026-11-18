@@ -1,0 +1,72 @@
+{
+  "id": "11.1.1-valid-each-labelling-mechanism",
+  "kind": "test",
+  "test": "11.1.1",
+  "branch": "valid",
+  "routes": [
+    "label-for",
+    "implicit-label",
+    "aria-label",
+    "aria-labelledby-passage",
+    "title-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "Each field has a labelling mechanism the test names: a label with for, aria-label, aria-labelledby pointing to an identified passage, a title attribute; and one field sits inside a label without for, which the glossary's label definition accepts. Each field meets one of the conditions. The check record never answers no_fault: it does not decide whether a present mechanism is sufficient and answers cannot_tell (step 3). The finding is needs_review: not_enabled at fail_only, and alternative_unresolved at full, since the check's link is partial and so not resolving.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 1,
+        "quote": "Chaque champ de formulaire vérifie-t-il une de ces conditions"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 2,
+        "quote": "Le champ de formulaire possède un attribut WAI-ARIA `aria-labelledby` référençant un passage de texte identifié"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 3,
+        "quote": "Le champ de formulaire possède un attribut WAI-ARIA `aria-label`"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 4,
+        "quote": "Une balise `<label>` ayant un attribut `for` est associée au champ de formulaire"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 5,
+        "quote": "Le champ de formulaire possède un attribut `title`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Étiquette de champ de formulaire",
+        "quote": "Par l’utilisation d’une balise <label> ;"
+      }
+    ]
+  }
+}

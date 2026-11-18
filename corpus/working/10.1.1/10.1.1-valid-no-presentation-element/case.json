@@ -1,0 +1,53 @@
+{
+  "id": "10.1.1-valid-no-presentation-element",
+  "kind": "test",
+  "test": "10.1.1",
+  "branch": "valid",
+  "routes": [
+    "elements-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page centres, strikes and emphasises text through CSS and semantic elements (small, em, strong, del, ins), none of which is on the list. The test forbids the presentation tags in the generated source, the methodology lists basefont, big, blink, center, font, marquee, s, strike and tt, and the glossary says presentation must be done with CSS. None is present and there is no u element, so the methodology validates the test. The custom check answers no_fault, so the finding is passed at full and needs_review, not_enabled, at fail_only.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.1",
+        "line": 1,
+        "quote": "les balises servant à la présentation de l’information ne doivent pas être présentes dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence des éléments de présentation `<basefont>`, `<big>`, `<blink>`, `<center>`, `<font>`, `<marquee>`, `<s>`, `<strike>`, `<tt>` ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "La présentation de l’information doit être réalisée via CSS."
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Si c’est le cas, **le test est validé**."
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "8.2.1-invalid-duplicate-id-added-by-script",
+  "kind": "test",
+  "test": "8.2.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "no-shared-id-value"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "form-plugin.js"
+  ],
+  "rationale": {
+    "text": "The served source has one element with id formulaire; a plugin script adds an empty div with the same id while the page loads. The test is about the generated source code of the page, which holds what scripts insert, and asks that id values be unique in the page. The custom check reads the page as established and faults the pair, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 1,
+        "quote": "Pour chaque déclaration de type de document, le code source généré de la page vérifie-t-il ces conditions ?"
+      },
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 5,
+        "quote": "Les valeurs d’attribut id sont uniques dans la page ;"
+      }
+    ]
+  }
+}

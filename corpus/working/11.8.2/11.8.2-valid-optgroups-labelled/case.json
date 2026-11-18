@@ -1,0 +1,48 @@
+{
+  "id": "11.8.2-valid-optgroups-labelled",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "valid",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A form holds two visible select elements, and each optgroup in them carries a label attribute. The test asks whether each optgroup in each select has a label attribute, and the methodology validates it when that holds for every optgroup. The custom check answers no_fault (step 6 for every optgroup), so the finding is passed at full and needs_review, not_enabled, at fail_only. Whether the labels are relevant is test 11.8.3.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.8.2",
+        "line": 1,
+        "quote": "Dans chaque balise `<select>`, chaque balise `<optgroup>` possède-t-elle un attribut `label` ?"
+      },
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Pour chaque élément `<optgroup>`, vérifier qu’il possède un attribut `label` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Si c’est le cas pour chaque élément `<optgroup>`, **le test est validé**."
+      }
+    ]
+  }
+}

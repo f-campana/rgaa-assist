@@ -1,0 +1,50 @@
+{
+  "id": "6.2.1-invalid-empty-icon-link",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "text-content",
+    "image-alternative",
+    "svg-title-or-text",
+    "anchor-not-link"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A visible link with href, drawn as a coloured square by CSS, has no content at all, and no aria-label, aria-labelledby or title. The test asks for a name between <a> and </a>, and the methodology for text or an alternative in the content; this link has neither, so it has no name. It has href, so it is a link and not an anchor. The custom check faults it (step 6) through a link whose fault means failure, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "6.2.1",
+        "line": 1,
+        "quote": "Dans chaque page web, chaque lien a-t-il un intitulé entre `<a>` et `</a>`"
+      },
+      {
+        "source": "methodology",
+        "test": "6.2.1",
+        "quote": "Pour chaque lien, vérifier que le contenu de l’élément `<a>` (ou d’un élément pourvu d’un attribut WAI-ARIA `role=link`) contient un intitulé (texte ou alternative)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Lien",
+        "quote": "Balise <a> possédant un attribut href ;"
+      }
+    ]
+  }
+}

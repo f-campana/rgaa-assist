@@ -1,0 +1,44 @@
+{
+  "id": "8.3.1-outside-empty-lang-on-html",
+  "kind": "test",
+  "test": "8.3.1",
+  "branch": "outside_support",
+  "routes": [
+    "html-element-lang"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The html element carries lang with an empty value. The first condition asks that the indication be given for the html element with the lang attribute; the text does not say whether an empty attribute gives it. The custom check answers cannot_tell (step 2); only the record supports this branch. axe's html-has-lang faults on an empty lang, through an evidence-only link, so the reason at full is alternative_unresolved; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 2,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée pour l’élément `html`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Langue par défaut",
+        "quote": "Pour HTML5 : attribut lang obligatoire."
+      }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "10.1.2-valid-no-presentation-attribute",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "valid",
+  "routes": [
+    "attributes-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page aligns, borders and spaces its table with CSS; no element carries an attribute from the list. The test forbids presentation attributes in the generated source, the methodology lists them, and the glossary says presentation must be done with CSS. None is present, so the methodology validates the test. The custom check answers no_fault (step 3), so the finding is passed at full and needs_review, not_enabled, at fail_only.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.2",
+        "line": 1,
+        "quote": "les attributs servant à la présentation de l’information ne doivent pas être présents dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "Vérifier l’absence des attributs de présentation : `align`, `alink`, `background`, `bgcolor`, `border`, `cellpadding`, `cellspacing`, `char`, `charoff`, `clear`, `color`, `compact`, `frameborder`, `hspace`, `link`, `marginheight`, `marginwidth`, `text`, `valign`, `vlink`, `vspace`,"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "La présentation de l’information doit être réalisée via CSS."
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "Si c’est le cas, **le test est validé**."
+      }
+    ]
+  }
+}

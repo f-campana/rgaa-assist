@@ -1,0 +1,54 @@
+{
+  "id": "10.1.2-mixed-size-on-select-and-width-on-img",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "invalid_by_route_valid_by_alternative",
+  "routes": [
+    "size-on-select",
+    "dimensions-on-embedded"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "logo.svg"
+  ],
+  "rationale": {
+    "text": "First half of the mixed pair: two elements carry listed attributes, each allowed by a different exception. size is on a select element, which the methodology excepts for size; width and height are on an img element, which it excepts for those two. Each element meets the requirement through its own exception, so the test is met. The custom check answers no_fault (step 3), so the finding is passed at full and needs_review, not_enabled, at fail_only.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "`size`(exception faite de l'élément `<select>`)"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "`width` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`), `height` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "L'attribut size utilisé sur d’autres éléments que l'élément <select> est également interdit ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "Les attributs width et height utilisés sur d’autres éléments que les éléments <img>, <object>, <embed>, <canvas> et <svg> sont également interdits ;"
+      }
+    ]
+  }
+}

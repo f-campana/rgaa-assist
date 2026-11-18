@@ -1,0 +1,42 @@
+{
+  "id": "10.1.1-invalid-hidden-font-element",
+  "kind": "test",
+  "test": "10.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "elements-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A font element sits inside an element hidden with display none. The test is about presence in the generated source of the page, not about what is displayed: the hidden element is still in that source. The methodology lists font, with no exception for hidden content. The custom check does not abstain on hidden elements and faults the page, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.1",
+        "line": 1,
+        "quote": "les balises servant à la présentation de l’information ne doivent pas être présentes dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence des éléments de présentation `<basefont>`, `<big>`, `<blink>`, `<center>`, `<font>`, `<marquee>`, `<s>`, `<strike>`, `<tt>` ;"
+      }
+    ]
+  }
+}
