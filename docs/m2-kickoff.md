@@ -1,6 +1,6 @@
 # M2 kickoff brief
 
-**Draft, 2026-11-18.** Written by the M1 orchestrator after Fabien approved M1 (Q50) and set the M2 ceiling (Q51). Choices 2 to 5 are answered (Q52, "Confirmed with Fabien"). M2 does not start until Fabien names the page (choice 1) and says to start; this line is then removed.
+**2026-11-18.** Written by the M1 orchestrator after Fabien approved M1 (Q50) and set the M2 ceiling (Q51). Every choice is answered (Q52, Q53, "Confirmed with Fabien"). M2 starts when Fabien says to start; record the baseline first.
 
 You are starting milestone M2 of rgaa-assist. You split the work, brief the builders, review every diff and run the gate. You write no feature code, no check and no corpus case.
 
@@ -17,13 +17,14 @@ You are starting milestone M2 of rgaa-assist. You split the work, brief the buil
 - **The engine on one page in its initial state.** It reads a sample file, loads each page in a fresh Chromium context through Playwright, runs the checks, hands the observations to the ruleset, and writes the run file (8.8).
 - **The axe adapter.** It runs axe-core 4.14.0 through `@axe-core/playwright` and returns observations under the check ids of the registry (`axe/<rule>`), with the effective options recorded.
 - **Derivation and reduction for RGAA 4.1.2, wired to real runs.** The pure functions exist since M1. M2 feeds them real observations and writes findings and reduced results.
-- **A run on one PremiumShot page (Q20).** One page, initial state only, without a saved session.
+- **A run on one PremiumShot page (Q20):** `https://premiumshot.app/`, initial state only, without a saved session (Q53).
+- **A second run on Aubay's careers page (Q53):** `https://aubay.com/carriere-accueil/`, the page of the M1 dry run (`docs/m1/dry-run-aubay.md`), initial state only. Its own sample file: it is another site. Its purpose is to compare what the implemented checks observe with what the dry run applied by hand from the same check records.
 - **The CLI commands that this needs:** `audit` and `coverage` (11.1), with the exit codes of 11.1.
 - **The start of the corpus (M5 starts with M2).** A working set in `corpus/working/`, served locally, and the first working-set numbers.
 
 Not in M2: steps, `expect`, states other than `initial`, saved sessions, the full capture policy and its channel tests, `checkSample`, reports, the model. Those are M3, M4 and M6.
 
-**Nothing is enabled in M2.** Every entry stays `enabled: none`, so every finding of the PremiumShot run is `needs_review` with reason `not_enabled`, or `not_tested`. That is the expected result, not a defect. The run shows that the engine produces valid observations and a valid run file; the working-set numbers show how the checks behave against labelled cases.
+**Nothing is enabled in M2.** Every entry stays `enabled: none`, so every finding of both runs is `needs_review` with reason `not_enabled`, or `not_tested`. That is the expected result, not a defect. The run shows that the engine produces valid observations and a valid run file; the working-set numbers show how the checks behave against labelled cases.
 
 ## What M1 hands over
 
@@ -42,7 +43,11 @@ Not in M2: steps, `expect`, states other than `initial`, saved sessions, the ful
 6. **The ten custom checks of the minimum useful set** (Q52, choice 5 (b)). One core builder per check family, each owning its own files under `src/checks/custom/`.
 7. **Working set.** Cases in `corpus/working/`, written by an agent that wrote none of the checks they test (10.5). Each case names one test, one branch and its exact expected status (10.2), its source and its licence. Evaluation serves them locally and makes no network request.
 8. **Wiring and the CLI.** `audit` runs the engine and writes the run folder; `coverage` prints the map summary.
-9. **The PremiumShot run**, on the page Fabien names (choice 1).
+9. **The two runs.** PremiumShot's home page, then Aubay's careers page.
+   - **Compare the Aubay run with the dry run, check by check.** Compare observation outcomes (`fault`, `no_fault`, `inapplicable`, `cannot_tell`), not findings, since nothing is enabled. For each of the ten checks, record whether the code's outcome matches the outcome the dry run reached by hand, and explain every difference: the page changed since 2026-11-18, the code departs from its record, or the dry run misapplied the record. A departure from a record is a finding for Fabien (Q50), never a quiet fix.
+   - The dry run expects, among others, a `fault` from `custom/10-1-presentation-attributes` on the reCAPTCHA `iframe` (Q49), from `custom/11-1-field-label-mechanism` on three filter fields, and from `custom/8-2-id-duplicate` on `id="formulaire"`. Finding 6 of the dry run says several results depend on whether the engine reads the reCAPTCHA frame: record what it actually did.
+   - **Aubay's content stays out of git and off the bridge.** The run folder goes under the gitignored `work/`. Only the comparison is committed, in `docs/m2/`, quoting no more of the page than locators and short snippets. The comparison is a list per check with counts out of ten, never a rate, and says nothing about the page's conformance.
+   - Load the page once per run, as a visitor: no steps, no cookie choice, no form submitted.
 10. **The check-in at 20 points** (below).
 11. **Codex's review**, then corrections, then the gate.
 
@@ -94,7 +99,8 @@ Everything else you decide, and log on the bridge.
 M2 is done when all of this is true:
 
 - Tests, typecheck and coverage validation are green.
-- The PremiumShot run file validates against the run-file schema, with its manifest complete.
+- Both run files validate against the run-file schema, with their manifests complete.
+- The Aubay comparison with the dry run is written, with every difference explained.
 - First working-set numbers are reported, as counts with their population ("x of n cases on corpus X", 10.3), per link and per check. Never as a rate, a score or a verdict.
 - Every implemented check matches its registry record, and every mismatch is reported to Fabien.
 - Codex has reviewed the gate. Its findings are answered or listed as open.
@@ -119,7 +125,7 @@ On 2026-11-18 Fabien took the recommendations for choices 2 to 5 (Q52, "Take rec
 - **Commits and pushes (4).** Builders commit on their own branches in their own worktrees; the orchestrator merges to main after reviewing the diff, and may push `main` to GitHub after a merge whose tests, typecheck and validation pass. Never a builder branch, never a force push.
 - **Custom checks (5), option (b).** M2 also builds the ten custom checks behind the minimum useful set, each with working-set cases for its branches. No entry is enabled. If the check-in at 20 points shows it does not fit, the orchestrator says so and stops at the ceiling.
 
-Still open: **choice 1, the PremiumShot page.** M2 does not start until Fabien names it and says to start.
+- **Pages (1), and a second run (Q53).** Fabien chose PremiumShot's home page, `https://premiumshot.app/`, and added a run on Aubay's careers page, `https://aubay.com/carriere-accueil/`, as in the M1 dry run. This amends spec 14.1, which named one PremiumShot page.
 
 ## Choices for Fabien
 
