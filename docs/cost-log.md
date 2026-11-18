@@ -51,6 +51,7 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 | 2026-11-18 09:30 | Confirmation request sent; gate package drafted with the minimum useful set | 30% | n/a | 5-hour window at 10%. M1 so far: about 78 points of the weekly limit (52 before Fabien's reset, 26 after), an upper bound. |
 | 2026-11-18 11:30 | Codex's confirmation read; builder S merged (Opus high, about 117k tokens, 10.1.1 case and noscript) | 32% | n/a | 5-hour window at 28%. |
 | 2026-11-18 13:00 | Codex's 10.1.1 re-check read (clean); gate package finished | 33% | n/a | 5-hour window at 37%. M1 in all: about 81 points of the weekly limit (52 before Fabien's reset, 29 after), an upper bound. |
+| 2026-11-18 13:25 | Dry run on a published audit (Q49), two proposals, Fabien's M1 approval (Q50) | 37% | n/a | 5-hour window at 62%. M1 closed at about 85 points of the weekly limit (52 before Fabien's reset, 33 after), an upper bound that includes the dry run and the proposals. |
 
 ### What day 1 says about cost
 

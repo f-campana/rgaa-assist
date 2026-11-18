@@ -143,3 +143,11 @@ Codex cross-checked every entry above `none` and a sample of 97 `none` entries (
 The ten entries of the proposed set were applied by hand to the page of a published ARA audit, first by the orchestrator and then independently by Codex (`docs/m1/dry-run-aubay.md`). One `full` entry disagreed with the auditor.
 
 - **10.1.2 keeps its fault on third-party `iframe`s (Q49).** Fabien: "Keep the fault." A presentation attribute on an `iframe` element, such as `frameborder` on the reCAPTCHA badge, is a fault under 10.1.2 even when a third-party script inserted the element. The element and its attributes belong to the generated source of the page that embeds it. Who inserted it doesn't matter, and code can't reliably tell. The check record is unchanged. The document *inside* a cross-origin frame remains a separate question of scope, where the record's abstentions apply. A page where a third-party `iframe` carries the attribute becomes a corpus case at M5.
+## M1 approval (2026-11-18)
+
+- **Fabien approved M1 (Q50).** Fabien: "Approve M1". This is the second of his three approvals (spec, M1 coverage map, final v1). What was approved is the gate package `docs/m1/gate-package.md` at `f73b81f`, read with Q49:
+  - the candidate map: 238 `none`, 16 `fail_only`, 4 `full`, as Codex last verified it at `98434bc`;
+  - the minimum useful set of ten tests: 8.5.1, 10.1.1, 10.1.2 and 11.8.2 at `full`; 8.3.1, 8.4.1, 2.1.1, 6.2.1, 11.1.1 and 8.2.1 at `fail_only`;
+  - the schemas and the ruleset contract, frozen at `ca5c92b` and amended only by Q40 and Q43.
+- **Approval enables nothing.** Every entry keeps `enabled: none`, and all 125 check records keep `exists: false`. Enabling any entry still needs a working and a held-back corpus and its own approval (spec 10.4, Q32, Q36). The spot-check list, the schema gaps and the open readings in the gate package stay open for M2 and later.
+- **M2 is not started by this approval.** Its ceiling is still to be set by Fabien. The package proposes 40 points of the weekly all-models limit, with a check-in at 20.

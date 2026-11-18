@@ -18,7 +18,8 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 | 7 | Pilot corrections, then entries by theme | Done 2026-11-17. Pilot corrections passed three Codex re-checks (clean at `67d2938`). All 258 entries merged at `ff4d6c2` (builders A to O). |
 | 8 | Check-in at 65%, with Codex's cross-check | Done. Cross-check 2026-11-17 (hold); corrections P, Q, R, S; Codex confirmed each round, the last (10.1.1) at `98434bc` on 2026-11-18: no further blocker. |
 | 9 | Minimum useful set | Proposed in `docs/m1/gate-package.md`: ten tests (8.5.1, 10.1.1, 10.1.2, 11.8.2 `full`; 8.3.1, 8.4.1, 2.1.1, 6.2.1, 11.1.1, 8.2.1 `fail_only`). |
-| 10 | Gate package for Fabien | Ready 2026-11-18 (`docs/m1/gate-package.md`); waiting for Fabien's M1 decision. |
+| 10 | Gate package for Fabien | Ready 2026-11-18 (`docs/m1/gate-package.md`, `f73b81f`). |
+| 11 | Fabien's M1 decision | **Approved 2026-11-18 (Q50).** Candidate map, minimum useful set and schemas. Nothing enabled. |
 
 ## In flight
 
@@ -35,9 +36,12 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 
 ## Next, in order
 
-1. **Fabien's M1 decision** on the gate package (`docs/m1/gate-package.md`): the candidate map, the minimum useful set and the schemas. Approval enables nothing. Then the M2 ceiling, set from the cost log.
+M1 is approved (Q50, `docs/decisions.md`). Every entry stays `enabled: none`; M2 has not started.
 
-Codex's last report: `rgaa-m1-10-1-1-98434bc-focused-recheck.md` (same outputs folder). Nothing is in flight.
+1. **Fabien sets the M2 ceiling.** Proposed in the gate package: 40 points of the weekly all-models limit, check-in at 20.
+2. M2 starts only on Fabien's word.
+
+Open from M1, carried forward: the spot-check list, the schema gaps and the open readings in the gate package; Q49's third-party `iframe` corpus case (M5); the two proposals in `docs/` sent to Codex for review (`507e90d`). Nothing is in flight.
 
 ## Decisions taken by the orchestrator
 
