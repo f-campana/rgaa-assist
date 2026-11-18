@@ -88,3 +88,4 @@ Q51 counts from this baseline: **check-in at 60% all-models, stop at 80%.** The 
 | When (UTC) | After | All models | Notes |
 |---|---|---|---|
 | 2026-11-18 14:56 | Baseline | 40% | 5-hour window at 21%. |
+| 2026-11-18 15:15 | Axe adapter merged (`83df023`; Sonnet medium, about 155k tokens; 67 rules, 67 records `exists: true`); engine and working set still running; ISO 639 sources vendored (Q54) | 47% | 5-hour window at 76%, resets 19:20 UTC: the two Opus builders may be cut off before then. |
