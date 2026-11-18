@@ -1,0 +1,48 @@
+{
+  "id": "11.8.2-valid-role-form-container",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "valid",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The select sits in an element with role=\"form\" instead of a form element, and each of its optgroups carries a label attribute. The criterion is asked of each form, and the glossary defines a form as a form tag or a tag with the WAI-ARIA role form, so this list is in a form. The custom check counts an ancestor with role form (step 1) and answers no_fault, so the finding is passed at full and needs_review, not_enabled, at fail_only.",
+    "citations": [
+      {
+        "source": "criterion_title",
+        "criterion": "11.8",
+        "quote": "Dans chaque [formulaire](#formulaire)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Formulaire",
+        "quote": "Balise <form> ou balise possédant un attribut WAI-ARIA role=\"form\"."
+      },
+      {
+        "source": "test",
+        "test": "11.8.2",
+        "line": 1,
+        "quote": "Dans chaque balise `<select>`, chaque balise `<optgroup>` possède-t-elle un attribut `label` ?"
+      }
+    ]
+  }
+}

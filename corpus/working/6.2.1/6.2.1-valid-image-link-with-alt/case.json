@@ -1,0 +1,43 @@
+{
+  "id": "6.2.1-valid-image-link-with-alt",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "valid",
+  "routes": [
+    "image-alternative"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "logo.svg"
+  ],
+  "rationale": {
+    "text": "The page's only link holds an img element whose alt attribute has text. The methodology accepts an alternative as the link's content, and the glossary builds the name of an image link from the text alternative of the image in it. The custom check computes the name from the alt and answers no_fault (step 1), so the finding is needs_review, not_enabled, at fail_only, and would be passed at full.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "6.2.1",
+        "quote": "Pour chaque lien, vérifier que le contenu de l’élément `<a>` (ou d’un élément pourvu d’un attribut WAI-ARIA `role=link`) contient un intitulé (texte ou alternative)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "le « nom accessible » correspond au texte constitué à partir de l’alternative textuelle d’une ou plusieurs images dans le lien du type :"
+      }
+    ]
+  }
+}

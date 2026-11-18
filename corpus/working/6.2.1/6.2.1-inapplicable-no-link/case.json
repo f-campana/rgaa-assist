@@ -1,0 +1,44 @@
+{
+  "id": "6.2.1-inapplicable-no-link",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "inapplicable",
+  "routes": [
+    "text-content"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "judgment_required"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page holds no a element, no SVG link and no element with role link. The test asks something of each link, and the glossary defines links as these elements, so there is nothing it applies to. The custom check answers inapplicable. The entry's applicability is judgment, so the tool never says not applicable: the finding is needs_review, not_enabled, at fail_only, and judgment_required at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "6.2.1",
+        "line": 1,
+        "quote": "Dans chaque page web, chaque lien a-t-il un intitulé entre `<a>` et `</a>`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Lien",
+        "quote": "Balise <a> possédant un attribut href ;"
+      }
+    ]
+  }
+}

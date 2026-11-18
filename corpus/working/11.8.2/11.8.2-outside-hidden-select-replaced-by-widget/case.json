@@ -1,0 +1,44 @@
+{
+  "id": "11.8.2-outside-hidden-select-replaced-by-widget",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "outside_support",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A script widget is shown in place of the native select, which is hidden with display none and holds optgroups without a label attribute. The test gives no exception for hidden lists, but it does not say whether a native list hidden behind a scripted replacement is one it covers. The custom check answers cannot_tell when the select is not rendered (step 2); only the record supports this branch. The finding is needs_review at both levels: not_enabled at fail_only, cannot_tell at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.8.2",
+        "line": 1,
+        "quote": "Dans chaque balise `<select>`, chaque balise `<optgroup>` possède-t-elle un attribut `label` ?"
+      },
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Retrouver dans le document les listes de sélection (élément `<select>`) qui possèdent des éléments `<optgroup>` ;"
+      }
+    ]
+  }
+}

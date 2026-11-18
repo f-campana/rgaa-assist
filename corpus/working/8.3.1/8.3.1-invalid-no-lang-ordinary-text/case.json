@@ -1,0 +1,50 @@
+{
+  "id": "8.3.1-invalid-no-lang-ordinary-text",
+  "kind": "test",
+  "test": "8.3.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "html-element-lang",
+    "every-text-element-lang"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The html element has neither lang nor xml:lang, and no element of the page carries a language indication. The paragraphs are ordinary visible text in a generic sans-serif family, black on white. The test is met only if the indication is given for the html element or on each text element or one of its parents; neither holds for these paragraphs, whichever texts are counted as text elements. The custom check faults on the first uncovered witness (step 3), through a link whose fault means failure, so the finding is failed at both levels. axe's html-has-lang also faults, as evidence only.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 1,
+        "quote": "Pour chaque page web, l’indication de langue par défaut vérifie-t-elle une de ces conditions"
+      },
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 2,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée pour l’élément `html`"
+      },
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 3,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée sur chaque élément de texte ou sur l’un des éléments parents."
+      }
+    ]
+  }
+}

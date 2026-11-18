@@ -1,0 +1,44 @@
+{
+  "id": "8.4.1-inapplicable-no-default-language",
+  "kind": "test",
+  "test": "8.4.1",
+  "branch": "inapplicable",
+  "routes": [
+    "iso-639-code"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "No element of the page carries lang or xml:lang, so the page has no default language, which the glossary places on the html element or on each element of the page. The test applies to each page having a default language, so it does not apply here (the missing indication is a matter for 8.3.1). The entry's applicability is judgment and its level is below full, so the tool never says not applicable: the custom check answers cannot_tell when html has no required attribute, and the finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.4.1",
+        "line": 1,
+        "quote": "Pour chaque page web ayant une langue par défaut, le code de langue vérifie-t-il ces conditions"
+      },
+      {
+        "source": "glossary",
+        "entry": "Langue par défaut",
+        "quote": "Indication de la langue de traitement principale du document qui peut être présente sur l’élément racine html ou sur chaque élément de la page concerné via les attributs lang et/ou xml:lang"
+      }
+    ]
+  }
+}

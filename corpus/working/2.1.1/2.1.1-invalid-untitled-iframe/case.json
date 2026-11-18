@@ -1,0 +1,44 @@
+{
+  "id": "2.1.1-invalid-untitled-iframe",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "title-attribute",
+    "hidden-technical-frame"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "map.html"
+  ],
+  "rationale": {
+    "text": "A visible iframe has no title attribute and no aria-hidden. The test asks each frame for a title attribute; the only way out in the official text is the glossary's note on technical frames made unavailable to assistive technologies with aria-hidden=\"true\", which this frame does not use. The custom check faults it (step 5) through a link whose fault means failure, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "2.1.1",
+        "line": 1,
+        "quote": "Chaque cadre (balise `<iframe>` ou `<frame>`) a-t-il un attribut `title`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de cadre",
+        "quote": "Si cela ne gêne pas le fonctionnement de ce type de cadre, il est possible de les rendre indisponibles aux technologies d’assistance en utilisant l’attribut WAI-ARIA aria-hidden=\"true\". Dans ce cas le critère 2.1 et le critère 2.2 seront non applicables."
+      }
+    ]
+  }
+}

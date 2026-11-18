@@ -1,0 +1,53 @@
+{
+  "id": "8.5.1-valid-title-in-head",
+  "kind": "test",
+  "test": "8.5.1",
+  "branch": "valid",
+  "routes": [
+    "title-element"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page holds one title element, a child of head, with text. The test asks whether each page has a page title given by the title tag, and the methodology validates the test once it finds the title structured with a title element. The custom check answers no_fault (its step 3: the first title element is a child of head and its text holds letters), so the one resolving link is satisfied. At full the finding is passed; at fail_only the entry may not say passed, so it is needs_review, not_enabled. Whether the title is relevant is criterion 8.6, not this test.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.5.1",
+        "line": 1,
+        "quote": "Chaque page web a-t-elle un titre de page (balise `<title>`) ?"
+      },
+      {
+        "source": "methodology",
+        "test": "8.5.1",
+        "quote": "Retrouver dans le document le titre structuré au moyen d’un élément `<title>` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "8.5.1",
+        "quote": "Si c’est le cas, **le test est validé**."
+      },
+      {
+        "source": "criterion_title",
+        "criterion": "8.6",
+        "quote": "Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?"
+      }
+    ]
+  }
+}

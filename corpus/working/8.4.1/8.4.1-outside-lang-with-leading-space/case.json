@@ -1,0 +1,43 @@
+{
+  "id": "8.4.1-outside-lang-with-leading-space",
+  "kind": "test",
+  "test": "8.4.1",
+  "branch": "outside_support",
+  "routes": [
+    "iso-639-code"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The html element carries lang=\" fr\", with a leading space. The glossary describes a code and an option separated by a hyphen, and does not say what the code part of a padded value is. The custom check answers cannot_tell on a value with surrounding whitespace; only the record supports this branch. The finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Code de langue",
+        "quote": "L’indication du code de langue est constituée de deux parties séparées par un tiret"
+      },
+      {
+        "source": "glossary",
+        "entry": "Code de langue",
+        "quote": "L’indication du code de langue ne concerne que la partie [code] avant le tiret."
+      }
+    ]
+  }
+}

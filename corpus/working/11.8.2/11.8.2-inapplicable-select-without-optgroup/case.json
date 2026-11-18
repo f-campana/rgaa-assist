@@ -1,0 +1,43 @@
+{
+  "id": "11.8.2-inapplicable-select-without-optgroup",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "inapplicable",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "not_applicable"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page has a select, but no optgroup anywhere. The test asks something of each optgroup in a select, and the methodology starts from the lists that have optgroup elements; with none, there is nothing the test applies to. The custom check answers inapplicable, and the entry's applicability is structural, so the finding is not_applicable at full and needs_review, not_enabled, at fail_only. Whether these options should have been grouped is test 11.8.1.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Retrouver dans le document les listes de sélection (élément `<select>`) qui possèdent des éléments `<optgroup>` ;"
+      },
+      {
+        "source": "test",
+        "test": "11.8.2",
+        "line": 1,
+        "quote": "Dans chaque balise `<select>`, chaque balise `<optgroup>` possède-t-elle un attribut `label` ?"
+      }
+    ]
+  }
+}

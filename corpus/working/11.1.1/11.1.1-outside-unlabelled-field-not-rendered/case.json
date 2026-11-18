@@ -1,0 +1,44 @@
+{
+  "id": "11.1.1-outside-unlabelled-field-not-rendered",
+  "kind": "test",
+  "test": "11.1.1",
+  "branch": "outside_support",
+  "routes": [
+    "label-for"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A labelled email field sits beside a text field without any label inside a paragraph hidden with display none, as anti-spam traps do. The test gives no exception for fields that are not displayed, and the text does not say whether such a field counts. The custom check answers cannot_tell for a field that is not rendered (step 1), and for the labelled one (step 3); only the record supports this branch. The finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 1,
+        "quote": "Chaque champ de formulaire vérifie-t-il une de ces conditions"
+      },
+      {
+        "source": "glossary",
+        "entry": "Champ de saisie de formulaire",
+        "quote": "Objet d’un formulaire permettant à l’utilisateur"
+      }
+    ]
+  }
+}

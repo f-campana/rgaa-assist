@@ -1,0 +1,44 @@
+{
+  "id": "11.8.2-valid-empty-label-attribute",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "valid",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "One optgroup has a label attribute with text, the other a label attribute with an empty value. The test asks only whether each optgroup possesses a label attribute; the content of that attribute is the subject of test 11.8.3, which applies to each optgroup having a label attribute. Both possess it, so this test is met. The custom check answers no_fault whatever the value (step 6), so the finding is passed at full and needs_review, not_enabled, at fail_only. With the labelled case, this is the first half of the mixed pair.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.8.2",
+        "line": 1,
+        "quote": "Dans chaque balise `<select>`, chaque balise `<optgroup>` possède-t-elle un attribut `label` ?"
+      },
+      {
+        "source": "test",
+        "test": "11.8.3",
+        "line": 1,
+        "quote": "Pour chaque balise `<optgroup>` ayant un attribut `label`, le contenu de l’attribut `label` est-il pertinent ?"
+      }
+    ]
+  }
+}

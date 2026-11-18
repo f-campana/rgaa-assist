@@ -1,0 +1,42 @@
+{
+  "id": "11.8.2-invalid-optgroup-without-label",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A visible select in a form holds optgroup elements without a label attribute. The test asks whether each optgroup has a label attribute, and it names no other way and no exception. The custom check faults these optgroups (step 7) through a link whose fault means failure, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.8.2",
+        "line": 1,
+        "quote": "Dans chaque balise `<select>`, chaque balise `<optgroup>` possède-t-elle un attribut `label` ?"
+      },
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Pour chaque élément `<optgroup>`, vérifier qu’il possède un attribut `label` ;"
+      }
+    ]
+  }
+}

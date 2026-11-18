@@ -1,0 +1,43 @@
+{
+  "id": "6.2.1-outside-role-link-without-content",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "outside_support",
+  "routes": [
+    "text-content"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A span with role=\"link\" and a script that navigates on click has no content and no attribute name. The glossary counts a tag with role link as a link only when a script handles its navigation, which code cannot establish. The custom check answers cannot_tell for an element with role link whose content gives no name (step 5); only the record supports this branch. axe's link-name does not examine this element and reports no fault, so the reason at full is cannot_tell; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Lien",
+        "quote": "Balise possédant un attribut WAI-ARIA role=\"link\" et dont l’action de navigation est prise en charge par un script."
+      },
+      {
+        "source": "methodology",
+        "test": "6.2.1",
+        "quote": "Pour chaque lien, vérifier que le contenu de l’élément `<a>` (ou d’un élément pourvu d’un attribut WAI-ARIA `role=link`) contient un intitulé (texte ou alternative)"
+      }
+    ]
+  }
+}

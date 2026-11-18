@@ -1,0 +1,51 @@
+{
+  "id": "6.2.1-invalid-image-link-empty-alt",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "text-content",
+    "image-alternative",
+    "svg-title-or-text",
+    "anchor-not-link"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "logo.svg"
+  ],
+  "rationale": {
+    "text": "A link's only content is an img with an empty alt, and the link has no aria-label, aria-labelledby or title. The glossary builds an image link's name from the text alternative of its image, which here is empty, and there is no text; the content gives no name, as the wording requires between <a> and </a>. The custom check computes an empty name from content and faults the link (step 6), so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "6.2.1",
+        "line": 1,
+        "quote": "Dans chaque page web, chaque lien a-t-il un intitulé entre `<a>` et `</a>`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "le « nom accessible » correspond au texte constitué à partir de l’alternative textuelle d’une ou plusieurs images dans le lien du type :"
+      },
+      {
+        "source": "methodology",
+        "test": "6.2.1",
+        "quote": "Pour chaque lien, vérifier que le contenu de l’élément `<a>` (ou d’un élément pourvu d’un attribut WAI-ARIA `role=link`) contient un intitulé (texte ou alternative)"
+      }
+    ]
+  }
+}

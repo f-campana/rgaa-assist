@@ -1,0 +1,48 @@
+{
+  "id": "8.3.1-valid-xhtml10-text-html-lang-and-xml-lang",
+  "kind": "test",
+  "test": "8.3.1",
+  "branch": "valid",
+  "routes": [
+    "html-element-lang"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A page with an XHTML 1.0 doctype, served as text/html, whose html element carries both lang and xml:lang. For XHTML 1.0 the methodology asks for the lang and xml:lang attributes on the html tag, and the glossary makes both mandatory for XHTML 1.0 served as text/html. The first condition holds. The custom check answers no_fault through the html element (step 1), so the finding is needs_review, not_enabled, at fail_only, and would be passed at full.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "8.3.1",
+        "quote": "Soit au moyen des attributs lang et xml:lang sur la balise html si le code est du XHTML 1.0 ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Langue par défaut",
+        "quote": "Pour XHTML 1.0 servi en \"text/html\" : attribut lang et xml:lang obligatoires ;"
+      },
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 2,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée pour l’élément `html`"
+      }
+    ]
+  }
+}

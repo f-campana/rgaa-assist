@@ -1,0 +1,45 @@
+{
+  "id": "8.2.1-valid-unique-ids",
+  "kind": "test",
+  "test": "8.2.1",
+  "branch": "valid",
+  "routes": [
+    "no-shared-id-value"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "Every id value of the page is distinct, and the markup is written plainly. The test's condition that id values are unique in the page holds. The custom check never answers no_fault, since it does not examine template contents, shadow trees or frames, and here it answers cannot_tell; the other four conditions have no check. The finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 5,
+        "quote": "Les valeurs d’attribut id sont uniques dans la page ;"
+      },
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 1,
+        "quote": "Pour chaque déclaration de type de document, le code source généré de la page vérifie-t-il ces conditions ?"
+      }
+    ]
+  }
+}

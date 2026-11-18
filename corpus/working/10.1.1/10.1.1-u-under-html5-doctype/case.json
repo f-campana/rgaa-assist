@@ -1,0 +1,48 @@
+{
+  "id": "10.1.1-u-under-html5-doctype",
+  "kind": "test",
+  "test": "10.1.1",
+  "branch": "invalid_by_route_valid_by_alternative",
+  "routes": [
+    "elements-absent",
+    "u-in-html5"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page has the HTML 5 doctype and holds a u element, and no other listed element. A u element would be forbidden under another doctype, so the page does not meet the plain absence route, but the methodology checks for u only when the doctype does not correspond to HTML 5, and the glossary says the same. The exception applies, so the test is met. The custom check never faults u under the HTML 5 doctype and answers no_fault, so the finding is passed at full and needs_review, not_enabled, at fail_only. This is also the first half of the mixed pair: an element allowed by the exception beside text styled by CSS.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence de l’élément `<u>` uniquement si le DOCTYPE du document ne correspond pas à HTML 5 ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "L’élément <u> est interdit uniquement si le DOCTYPE du document ne correspond pas à HTML 5."
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence des éléments de présentation `<basefont>`, `<big>`, `<blink>`, `<center>`, `<font>`, `<marquee>`, `<s>`, `<strike>`, `<tt>` ;"
+      }
+    ]
+  }
+}

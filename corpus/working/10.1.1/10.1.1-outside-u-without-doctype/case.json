@@ -1,0 +1,43 @@
+{
+  "id": "10.1.1-outside-u-without-doctype",
+  "kind": "test",
+  "test": "10.1.1",
+  "branch": "outside_support",
+  "routes": [
+    "u-in-html5"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page has no doctype and holds a u element. The methodology forbids u only when the doctype does not correspond to HTML 5; it does not say how to read a page with no doctype at all. The custom check answers cannot_tell for a u element with no doctype (step 2); only the record supports this branch. The finding is needs_review at both levels: not_enabled at fail_only, cannot_tell at full.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.1.1",
+        "quote": "Vérifier l’absence de l’élément `<u>` uniquement si le DOCTYPE du document ne correspond pas à HTML 5 ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "L’élément <u> est interdit uniquement si le DOCTYPE du document ne correspond pas à HTML 5."
+      }
+    ]
+  }
+}

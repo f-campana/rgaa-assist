@@ -1,0 +1,44 @@
+{
+  "id": "8.3.1-outside-lang-on-body-only",
+  "kind": "test",
+  "test": "8.3.1",
+  "branch": "outside_support",
+  "routes": [
+    "every-text-element-lang"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The html element has no language attribute, and body carries lang=\"fr\", so every text inside body has a parent with the indication. The second condition asks for the indication on each text element or one of its parents; whether it holds here depends on which texts count as text elements, for example the page title in head, which is outside body. The custom check never concludes the second condition and answers cannot_tell (step 4); only the record supports this branch. axe's html-has-lang faults because html has no lang, through an evidence-only link, so the reason at full is alternative_unresolved; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 3,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée sur chaque élément de texte ou sur l’un des éléments parents."
+      },
+      {
+        "source": "methodology",
+        "test": "8.3.1",
+        "quote": "Sinon, vérifier la présence d’une indication de langue sur chaque élément de texte ou l’un de ses parents."
+      }
+    ]
+  }
+}

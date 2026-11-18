@@ -1,0 +1,46 @@
+{
+  "id": "11.1.1-valid-search-field-adjacent-button",
+  "kind": "test",
+  "test": "11.1.1",
+  "branch": "valid",
+  "routes": [
+    "adjacent-button-hidden-label",
+    "aria-label"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A search field with no visible label has an adjacent button that reads Rechercher and an aria-label. The test accepts an adjacent button giving the field a visible label while aria-label gives it an accessible name. The custom check answers cannot_tell (step 3: a mechanism is present); only judgment can confirm the adjacent-button condition. The finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 6,
+        "quote": "Un bouton adjacent au champ de formulaire lui fournit une étiquette visible et un élément `<label>` visuellement caché ou un attribut WAI-ARIA `aria-label`, `aria-labelledby` ou `title` lui fournit un nom accessible."
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 3,
+        "quote": "Le champ de formulaire possède un attribut WAI-ARIA `aria-label`"
+      }
+    ]
+  }
+}

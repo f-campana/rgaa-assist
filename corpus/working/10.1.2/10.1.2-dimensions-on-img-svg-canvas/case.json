@@ -1,0 +1,44 @@
+{
+  "id": "10.1.2-dimensions-on-img-svg-canvas",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "invalid_by_route_valid_by_alternative",
+  "routes": [
+    "attributes-absent",
+    "dimensions-on-embedded"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "logo.svg"
+  ],
+  "rationale": {
+    "text": "width and height appear only on img, svg and canvas elements. Both are on the list, so the plain absence route does not hold, but the methodology excepts img, object, embed, canvas and svg for width and height, and the glossary forbids them only on other elements. The exception applies. The custom check answers no_fault (step 3), so the finding is passed at full and needs_review, not_enabled, at fail_only. The circle inside the svg uses cx, cy and r, not a listed attribute.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "`width` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`), `height` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "Les attributs width et height utilisés sur d’autres éléments que les éléments <img>, <object>, <embed>, <canvas> et <svg> sont également interdits ;"
+      }
+    ]
+  }
+}

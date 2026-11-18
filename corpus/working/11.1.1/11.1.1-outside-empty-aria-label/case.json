@@ -1,0 +1,39 @@
+{
+  "id": "11.1.1-outside-empty-aria-label",
+  "kind": "test",
+  "test": "11.1.1",
+  "branch": "outside_support",
+  "routes": [
+    "aria-label"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The field's only mechanism is an aria-label attribute with an empty value. The test's condition is that the field has an aria-label attribute; it does not say whether an empty one meets it. The custom check answers cannot_tell (step 3); only the record supports this branch. The finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 3,
+        "quote": "Le champ de formulaire possède un attribut WAI-ARIA `aria-label`"
+      }
+    ]
+  }
+}

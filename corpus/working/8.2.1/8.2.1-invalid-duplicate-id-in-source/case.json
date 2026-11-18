@@ -1,0 +1,43 @@
+{
+  "id": "8.2.1-invalid-duplicate-id-in-source",
+  "kind": "test",
+  "test": "8.2.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "no-shared-id-value"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "Two elements of the page carry the same id value, titre, and the page has a doctype. The test's condition that id values are unique in the page fails, under any reading, for the declared document type. The custom check faults the pair (step 3), through a link whose fault means failure, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 1,
+        "quote": "Pour chaque déclaration de type de document, le code source généré de la page vérifie-t-il ces conditions ?"
+      },
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 5,
+        "quote": "Les valeurs d’attribut id sont uniques dans la page ;"
+      }
+    ]
+  }
+}

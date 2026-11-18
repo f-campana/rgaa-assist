@@ -1,0 +1,49 @@
+{
+  "id": "8.3.1-outside-xhtml10-lang-without-xml-lang",
+  "kind": "test",
+  "test": "8.3.1",
+  "branch": "outside_support",
+  "routes": [
+    "html-element-lang"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A page with an XHTML 1.0 doctype, served as text/html, whose html element carries lang but not xml:lang. The test line reads lang and/or xml:lang, while the methodology and the glossary ask for both on XHTML 1.0 served as text/html; the official text does not settle which reading applies. The custom check answers cannot_tell when the attribute present is not the one the document type requires (step 2); only the record supports this branch. axe's html-has-lang finds a lang attribute and reports no fault, so the reason at full is cannot_tell; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 2,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée pour l’élément `html`"
+      },
+      {
+        "source": "methodology",
+        "test": "8.3.1",
+        "quote": "Soit au moyen des attributs lang et xml:lang sur la balise html si le code est du XHTML 1.0 ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Langue par défaut",
+        "quote": "Pour XHTML 1.0 servi en \"text/html\" : attribut lang et xml:lang obligatoires ;"
+      }
+    ]
+  }
+}

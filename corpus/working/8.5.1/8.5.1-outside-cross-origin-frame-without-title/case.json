@@ -1,0 +1,45 @@
+{
+  "id": "8.5.1-outside-cross-origin-frame-without-title",
+  "kind": "test",
+  "test": "8.5.1",
+  "branch": "outside_support",
+  "routes": [
+    "title-element"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "frame.html"
+  ],
+  "rationale": {
+    "text": "The page has its title in head, but the cross-site frame it embeds shows text and has no title element. The wording asks whether each web page has a title and does not say whether a framed document is itself a web page for this test. The custom check answers cannot_tell for that reason (step 3); only the record supports this branch. This is the second half of the mixed pair: a titled document beside an untitled one is never passed. axe's document-title reports no fault on this page (it does not fault the framed document), so with a resolving link answering cannot_tell and no fault on the requirement, the reason at full is cannot_tell; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.5.1",
+        "line": 1,
+        "quote": "Chaque page web a-t-elle un titre de page (balise `<title>`) ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de page",
+        "quote": "Contenu de la balise <title> d’une page web"
+      }
+    ]
+  }
+}

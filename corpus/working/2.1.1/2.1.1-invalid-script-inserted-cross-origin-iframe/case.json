@@ -1,0 +1,45 @@
+{
+  "id": "2.1.1-invalid-script-inserted-cross-origin-iframe",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "title-attribute",
+    "hidden-technical-frame"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "chat-widget.js",
+    "chat.html"
+  ],
+  "rationale": {
+    "text": "A chat script loaded from another site inserts a visible iframe without a title attribute. The test asks each frame of the page for a title attribute, whoever inserted it; the frame is not hidden with aria-hidden, so the technical-frame note cannot apply. The custom check examines the page as loaded and faults the frame (step 5), so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "2.1.1",
+        "line": 1,
+        "quote": "Chaque cadre (balise `<iframe>` ou `<frame>`) a-t-il un attribut `title`"
+      },
+      {
+        "source": "methodology",
+        "test": "2.1.1",
+        "quote": "Pour chaque cadre, vérifier qu’il possède un attribut"
+      }
+    ]
+  }
+}

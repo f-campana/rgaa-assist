@@ -1,0 +1,48 @@
+{
+  "id": "8.5.1-valid-title-set-by-script",
+  "kind": "test",
+  "test": "8.5.1",
+  "branch": "valid",
+  "routes": [
+    "title-element"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The served source has no title element; a script sets document.title while the page loads, which makes the browser create a title element in head holding that text. The test is about the page as examined: the page then has a title element in head with text, the structure the methodology looks for. The custom check reads the page as established and answers no_fault, so the finding is passed at full and needs_review, not_enabled, at fail_only. This is the shape of pages built by script, where the title exists only in the generated document.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.5.1",
+        "line": 1,
+        "quote": "Chaque page web a-t-elle un titre de page (balise `<title>`) ?"
+      },
+      {
+        "source": "methodology",
+        "test": "8.5.1",
+        "quote": "Retrouver dans le document le titre structuré au moyen d’un élément `<title>` ;"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de page",
+        "quote": "Contenu de la balise <title> d’une page web"
+      }
+    ]
+  }
+}

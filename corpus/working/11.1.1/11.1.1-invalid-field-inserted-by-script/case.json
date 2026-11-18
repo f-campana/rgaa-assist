@@ -1,0 +1,53 @@
+{
+  "id": "11.1.1-invalid-field-inserted-by-script",
+  "kind": "test",
+  "test": "11.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "aria-labelledby-passage",
+    "aria-label",
+    "label-for",
+    "title-attribute",
+    "adjacent-button-hidden-label",
+    "implicit-label"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "select-widget.js"
+  ],
+  "rationale": {
+    "text": "A filter script hides the labelled native select and inserts its own widget, which holds a focusable text input (no type attribute) clipped out of sight, with no aria-labelledby, aria-label, title, associated label or label ancestor. The glossary lists the text input among form fields, and the test asks each field to meet one of its conditions; this one meets none. It is rendered (clipping does not remove it) and exposed. The custom check faults it (step 2), whatever the hidden native select gives; the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 1,
+        "quote": "Chaque champ de formulaire vérifie-t-il une de ces conditions"
+      },
+      {
+        "source": "glossary",
+        "entry": "Champ de saisie de formulaire",
+        "quote": "Objet d’un formulaire permettant à l’utilisateur"
+      },
+      {
+        "source": "glossary",
+        "entry": "Étiquette de champ de formulaire",
+        "quote": "L’étiquette peut être associée au champ de formulaire de plusieurs manières :"
+      }
+    ]
+  }
+}

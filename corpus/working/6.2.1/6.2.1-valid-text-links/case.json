@@ -1,0 +1,48 @@
+{
+  "id": "6.2.1-valid-text-links",
+  "kind": "test",
+  "test": "6.2.1",
+  "branch": "valid",
+  "routes": [
+    "text-content"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "Each link is an a element with href whose content is text, directly or in a child span. The test asks whether each link has a name between <a> and </a>, the methodology checks that the content of the element contains a name (text or alternative), and the glossary builds the name of a text link from the text in it and in its child elements. Every link has one. The custom check answers no_fault (step 1), so the finding is needs_review, not_enabled, at fail_only; its link is resolving, so at full the derivation would give passed.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "6.2.1",
+        "line": 1,
+        "quote": "Dans chaque page web, chaque lien a-t-il un intitulé entre `<a>` et `</a>`"
+      },
+      {
+        "source": "methodology",
+        "test": "6.2.1",
+        "quote": "Pour chaque lien, vérifier que le contenu de l’élément `<a>` (ou d’un élément pourvu d’un attribut WAI-ARIA `role=link`) contient un intitulé (texte ou alternative)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Intitulé (ou nom accessible) de lien",
+        "quote": "du texte contenu dans les éléments enfants du lien."
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "8.3.1-outside-cross-origin-frame-without-lang",
+  "kind": "test",
+  "test": "8.3.1",
+  "branch": "outside_support",
+  "routes": [
+    "html-element-lang"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "frame.html"
+  ],
+  "rationale": {
+    "text": "The page's html element carries lang=\"fr\", but the cross-site document in its frame shows text and its html element has no language attribute. The test asks it of each web page and does not say whether a framed document is part of the page here. The custom check answers cannot_tell for such a frame (step 1); only the record supports this branch. axe's html-has-lang examines only the top-level document's html element and reports no fault, so the reason at full is cannot_tell; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 1,
+        "quote": "Pour chaque page web, l’indication de langue par défaut vérifie-t-elle une de ces conditions"
+      },
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 2,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée pour l’élément `html`"
+      }
+    ]
+  }
+}

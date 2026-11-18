@@ -1,0 +1,44 @@
+{
+  "id": "8.5.1-outside-empty-title",
+  "kind": "test",
+  "test": "8.5.1",
+  "branch": "outside_support",
+  "routes": [
+    "title-element"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page has a title element in head with no content. The glossary defines the page title as the content of the title tag, and the wording asks whether the page has a title; it does not say whether an element with no content gives the page one. The custom check record leaves this open and answers cannot_tell (its step 4); only the record supports this branch. The requirement is unresolved. axe's document-title faults on an empty document.title, through an evidence-only link, so at full the reason is alternative_unresolved (an unresolved requirement with a reported fault); at fail_only it is needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.5.1",
+        "line": 1,
+        "quote": "Chaque page web a-t-elle un titre de page (balise `<title>`) ?"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de page",
+        "quote": "Contenu de la balise <title> d’une page web"
+      }
+    ]
+  }
+}

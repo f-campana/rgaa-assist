@@ -1,0 +1,43 @@
+{
+  "id": "10.1.2-mixed-width-on-img-beside-width-on-td",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "attributes-absent",
+    "dimensions-on-embedded"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "logo.svg"
+  ],
+  "rationale": {
+    "text": "Second half of the mixed pair: width on an img element is allowed by the exception, and width on a td element beside it has no route, since the methodology and the glossary allow width only on img, object, embed, canvas and svg. One valid element beside one with no valid route fails the test. The custom check faults the td width whatever else the page holds, so the finding is failed at both levels, never passed.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "`width` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`), `height` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "Les attributs width et height utilisés sur d’autres éléments que les éléments <img>, <object>, <embed>, <canvas> et <svg> sont également interdits ;"
+      }
+    ]
+  }
+}

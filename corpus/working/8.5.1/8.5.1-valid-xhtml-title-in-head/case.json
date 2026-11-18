@@ -1,0 +1,48 @@
+{
+  "id": "8.5.1-valid-xhtml-title-in-head",
+  "kind": "test",
+  "test": "8.5.1",
+  "branch": "valid",
+  "routes": [
+    "title-element"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.xhtml"
+  ],
+  "rationale": {
+    "text": "The page is served as application/xhtml+xml and holds one title element, in the XHTML namespace, as a child of head, with text. The test asks for a page title given by the title tag; the document type does not change that. The custom check accepts application/xhtml+xml documents (its step 1) and answers no_fault under its step 3, so the finding is passed at full and needs_review, not_enabled, at fail_only.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.5.1",
+        "line": 1,
+        "quote": "Chaque page web a-t-elle un titre de page (balise `<title>`) ?"
+      },
+      {
+        "source": "methodology",
+        "test": "8.5.1",
+        "quote": "Retrouver dans le document le titre structuré au moyen d’un élément `<title>` ;"
+      },
+      {
+        "source": "methodology",
+        "test": "8.5.1",
+        "quote": "Si c’est le cas, **le test est validé**."
+      }
+    ]
+  }
+}

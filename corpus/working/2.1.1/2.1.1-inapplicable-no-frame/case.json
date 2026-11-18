@@ -1,0 +1,44 @@
+{
+  "id": "2.1.1-inapplicable-no-frame",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "inapplicable",
+  "routes": [
+    "title-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "judgment_required"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The page holds no iframe and no frame element. The test asks something of each frame, iframe or frame tag, so it has nothing to apply to. The custom check answers inapplicable. The entry's applicability is judgment (frames hidden under the glossary's exception make the criterion not applicable only through judgment), so the tool never says not applicable here: the finding is needs_review, not_enabled, at fail_only, and judgment_required at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "2.1.1",
+        "line": 1,
+        "quote": "Chaque cadre (balise `<iframe>` ou `<frame>`) a-t-il un attribut `title`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Cadre",
+        "quote": "Cadre en ligne : élément HTML (balise <iframe>) permettant d’afficher un contenu dans la page web dans laquelle il est implémenté."
+      }
+    ]
+  }
+}

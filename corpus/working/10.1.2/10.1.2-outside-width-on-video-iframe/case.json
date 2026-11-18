@@ -1,0 +1,45 @@
+{
+  "id": "10.1.2-outside-width-on-video-iframe",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "outside_support",
+  "routes": [
+    "attributes-absent",
+    "dimensions-on-embedded"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "video.html"
+  ],
+  "rationale": {
+    "text": "The only listed attributes are width and height on an iframe showing a video, as video embeds are written. The methodology's exception for width and height names img, object, embed, canvas and svg, not iframe. The custom check record does not fault this pair: it abstains (cannot_tell) on width and height on iframe, video, input and source, which the HTML standard treats as dimensions of embedded content; only the record supports this branch. The finding is needs_review at both levels: not_enabled at fail_only, cannot_tell at full.",
+    "citations": [
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "`width` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`), `height` (exception faite des éléments `<img>`, `<object>`, `<embed>`, `<canvas>` et `<svg>`)"
+      },
+      {
+        "source": "glossary",
+        "entry": "Présentation de l’information",
+        "quote": "Les attributs width et height utilisés sur d’autres éléments que les éléments <img>, <object>, <embed>, <canvas> et <svg> sont également interdits ;"
+      }
+    ]
+  }
+}

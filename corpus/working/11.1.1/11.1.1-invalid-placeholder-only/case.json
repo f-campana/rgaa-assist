@@ -1,0 +1,53 @@
+{
+  "id": "11.1.1-invalid-placeholder-only",
+  "kind": "test",
+  "test": "11.1.1",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "aria-labelledby-passage",
+    "aria-label",
+    "label-for",
+    "title-attribute",
+    "adjacent-button-hidden-label",
+    "implicit-label"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A visible email field has only a placeholder: no aria-labelledby, aria-label, title, associated label or label ancestor. Each condition of the test needs one of these (the adjacent-button condition too needs a hidden label, aria-label, aria-labelledby or title), and a placeholder is none of them, so the field meets no condition. The custom check faults it (step 2) through a link whose fault means failure, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 1,
+        "quote": "Chaque champ de formulaire vérifie-t-il une de ces conditions"
+      },
+      {
+        "source": "test",
+        "test": "11.1.1",
+        "line": 6,
+        "quote": "Un bouton adjacent au champ de formulaire lui fournit une étiquette visible et un élément `<label>` visuellement caché ou un attribut WAI-ARIA `aria-label`, `aria-labelledby` ou `title` lui fournit un nom accessible."
+      },
+      {
+        "source": "glossary",
+        "entry": "Étiquette de champ de formulaire",
+        "quote": "L’étiquette peut être associée au champ de formulaire de plusieurs manières :"
+      }
+    ]
+  }
+}

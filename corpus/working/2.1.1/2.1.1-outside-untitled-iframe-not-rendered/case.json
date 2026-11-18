@@ -1,0 +1,45 @@
+{
+  "id": "2.1.1-outside-untitled-iframe-not-rendered",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "outside_support",
+  "routes": [
+    "title-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "sync.html"
+  ],
+  "rationale": {
+    "text": "An iframe without a title attribute is not rendered (display none), as tracking and synchronisation frames often are. The test gives no exception for frames that are not displayed, and the only exception in the official text is the aria-hidden note in the glossary; no text says whether a frame hidden another way counts. The custom check answers cannot_tell (step 4); only the record supports this branch. axe skips hidden elements, so frame-title reports no fault and the reason at full is cannot_tell; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "2.1.1",
+        "line": 1,
+        "quote": "Chaque cadre (balise `<iframe>` ou `<frame>`) a-t-il un attribut `title`"
+      },
+      {
+        "source": "glossary",
+        "entry": "Titre de cadre",
+        "quote": "Si cela ne gêne pas le fonctionnement de ce type de cadre, il est possible de les rendre indisponibles aux technologies d’assistance en utilisant l’attribut WAI-ARIA aria-hidden=\"true\". Dans ce cas le critère 2.1 et le critère 2.2 seront non applicables."
+      }
+    ]
+  }
+}

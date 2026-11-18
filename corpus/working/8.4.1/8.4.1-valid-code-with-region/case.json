@@ -1,0 +1,49 @@
+{
+  "id": "8.4.1-valid-code-with-region",
+  "kind": "test",
+  "test": "8.4.1",
+  "branch": "valid",
+  "routes": [
+    "iso-639-code",
+    "matches-main-language"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A French page with lang=\"fr-FR\". The glossary says the language code indication has two parts separated by a hyphen, that the option after it is left to the author, and that validity concerns only the code part before the hyphen; fr is an ISO 639-1 code. The custom check compares only that part and answers no_fault. Relevance has no check, so the finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "glossary",
+        "entry": "Code de langue",
+        "quote": "L’indication du code de langue est constituée de deux parties séparées par un tiret"
+      },
+      {
+        "source": "glossary",
+        "entry": "Code de langue",
+        "quote": "[option] est une indication laissée à l’appréciation de l’auteur."
+      },
+      {
+        "source": "glossary",
+        "entry": "Code de langue",
+        "quote": "L’indication du code de langue ne concerne que la partie [code] avant le tiret."
+      }
+    ]
+  }
+}

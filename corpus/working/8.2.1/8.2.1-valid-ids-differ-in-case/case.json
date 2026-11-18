@@ -1,0 +1,39 @@
+{
+  "id": "8.2.1-valid-ids-differ-in-case",
+  "kind": "test",
+  "test": "8.2.1",
+  "branch": "valid",
+  "routes": [
+    "no-shared-id-value"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "Two id values differ only in case, Contact and contact. Under the HTML 5 doctype id values are compared exactly, so these are two different values and the condition that id values are unique in the page holds. The custom check never faults values that differ only in case, and answers cannot_tell (it never answers no_fault). The finding is needs_review: not_enabled at fail_only, alternative_unresolved at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.2.1",
+        "line": 5,
+        "quote": "Les valeurs d’attribut id sont uniques dans la page ;"
+      }
+    ]
+  }
+}

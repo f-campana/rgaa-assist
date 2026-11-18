@@ -1,0 +1,49 @@
+{
+  "id": "2.1.1-valid-titled-iframe",
+  "kind": "test",
+  "test": "2.1.1",
+  "branch": "valid",
+  "routes": [
+    "title-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "passed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Opus 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html",
+    "map.html"
+  ],
+  "rationale": {
+    "text": "The page's only frame is an iframe with a title attribute. The test asks whether each frame has a title attribute, and the methodology validates it when every frame has one. The custom check answers no_fault (step 1), so the finding is needs_review, not_enabled, at fail_only. Its link is resolving, so at full the derivation would give passed; the entry is measured at fail_only.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "2.1.1",
+        "line": 1,
+        "quote": "Chaque cadre (balise `<iframe>` ou `<frame>`) a-t-il un attribut `title`"
+      },
+      {
+        "source": "methodology",
+        "test": "2.1.1",
+        "quote": "Pour chaque cadre, vérifier qu’il possède un attribut"
+      },
+      {
+        "source": "methodology",
+        "test": "2.1.1",
+        "quote": "Si c’est le cas pour chaque cadre, **le test est validé**."
+      }
+    ]
+  }
+}
