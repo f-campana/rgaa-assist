@@ -29,13 +29,13 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | Engine | Opus 5.5, high | `src/engine/`, `check-sample.ts`, `tests/engine/` | `docs/m2/brief-engine.md` | Launched 15:00 UTC |
 | Axe adapter | Sonnet 5.5, medium | `src/checks/axe/`, `tests/checks/axe/`, axe `exists` flags | `docs/m2/brief-axe.md` | Launched 15:00 UTC |
 | Working set | Opus 5.5, medium | `corpus/working/`, `tests/corpus/` | `docs/m2/brief-working-set.md` | Launched 15:00 UTC |
-| Checks A, B, C | Opus 5.5, high | `src/checks/custom/<name>/`, family helpers, their tests | `docs/m2/brief-custom-checks.md` | Briefed; launch after the engine merges |
+| Checks A, B, C | Opus 5.5, high | `src/checks/custom/<name>/` (A reads the vendored `source/` of 8.4, never edits it), family helpers, their tests | `docs/m2/brief-custom-checks.md` | Briefed; launch after the engine merges |
 | CLI and harness | Sonnet 5.5, medium | `src/cli/`, `src/checks/index.ts`, `src/evaluation/`, `corpus/results/` | `docs/m2/brief-cli-harness.md` | Briefed; launch after engine and axe merge |
 
 ## In flight
 
 - Phase 1: engine, axe adapter, working set, in parallel.
-- **Waiting for Fabien:** a download yes for the ISO 639 code list that `custom/8-4-default-lang-code-valid` pins (IANA Language Subtag Registry and the Library of Congress ISO 639-2 table). Asked 2026-11-18 15:05 UTC through the M1 orchestrator's session. Without it, 8.4.1's check cannot be built as its record says.
+- ISO 639 sources for 8.4.1: Fabien said "Yes, both" (Q54). Vendored 2026-11-18 15:09 UTC in `src/checks/custom/8-4-default-lang-code-valid/source/` (see its `SOURCE.md`). Family A derives the pinned list from them.
 
 ## Decisions taken by the orchestrator
 
