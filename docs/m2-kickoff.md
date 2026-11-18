@@ -1,6 +1,6 @@
 # M2 kickoff brief
 
-**Draft, 2026-11-18.** Written by the M1 orchestrator after Fabien approved M1 (Q50) and set the M2 ceiling (Q51). M2 does not start until Fabien has answered the choices at the end of this brief and said to start. His answers are then written into the section "Confirmed with Fabien", and the draft line above is removed.
+**Draft, 2026-11-18.** Written by the M1 orchestrator after Fabien approved M1 (Q50) and set the M2 ceiling (Q51). Choices 2 to 5 are answered (Q52, "Confirmed with Fabien"). M2 does not start until Fabien names the page (choice 1) and says to start; this line is then removed.
 
 You are starting milestone M2 of rgaa-assist. You split the work, brief the builders, review every diff and run the gate. You write no feature code, no check and no corpus case.
 
@@ -35,11 +35,11 @@ Not in M2: steps, `expect`, states other than `initial`, saved sessions, the ful
 ## Order of work
 
 1. **Record the baseline** in `docs/cost-log.md`: weekly all-models usage at the start. The ceiling of Q51 is counted from it.
-2. **Pin and install** Playwright, its Chromium build and `@axe-core/playwright`, as Fabien authorised (choice 2). Record the exact versions; they go into the run file's manifest.
+2. **Pin and install** Playwright, its Chromium build and `@axe-core/playwright`, as Fabien authorised (Q52). Record the exact versions; they go into the run file's manifest.
 3. **Engine skeleton and run-file writer.** One core builder. Sample reading (the `initial` state of each page, no session), a fresh context per target, a `TargetExecution` per target, the manifest of 8.8, and a run file that validates against the M1 schema.
 4. **Minimal sanitiser.** In M2 the sanitiser applies the rules of 8.7 that do not depend on a session: query-string values and fragments masked unless listed in `safeQueryParams`, form-field values dropped from snippets, token-shaped strings masked, error messages passed through it, every redaction counted. Screenshots stay off in M2. The full channel tests are the M3 gate.
 5. **Axe adapter.** One module builder, in parallel with step 3 once the observation type is fixed (it is, since M1).
-6. **Custom checks**, to the extent of choice 5. One core builder per check family, each owning its own files under `src/checks/custom/`.
+6. **The ten custom checks of the minimum useful set** (Q52, choice 5 (b)). One core builder per check family, each owning its own files under `src/checks/custom/`.
 7. **Working set.** Cases in `corpus/working/`, written by an agent that wrote none of the checks they test (10.5). Each case names one test, one branch and its exact expected status (10.2), its source and its licence. Evaluation serves them locally and makes no network request.
 8. **Wiring and the CLI.** `audit` runs the engine and writes the run folder; `coverage` prints the map summary.
 9. **The PremiumShot run**, on the page Fabien names (choice 1).
@@ -59,7 +59,7 @@ Not in M2: steps, `expect`, states other than `initial`, saved sessions, the ful
 
 | Role | Model | In M2 |
 |---|---|---|
-| Orchestrator | Choice 3 | Briefs, diff review, gate, logs, cost. |
+| Orchestrator | Opus 5.5, high effort (Q52) | Briefs, diff review, gate, logs, cost. |
 | Core builder | Opus 5.5, medium to high | Engine, run-file writer, sanitiser, wiring of derivation and reduction, custom checks. |
 | Module builder | Sonnet 5.5, low to medium | Axe adapter, CLI wiring, corpus cases from labelled sources. |
 | Reviewer | Codex | Reviews the gate: engine, run file, checks against their records, working-set labels. Edits nothing in this repo. |
@@ -112,7 +112,14 @@ You report the gate to Fabien, with the cost log and a proposed ceiling for M3.
 
 ## Confirmed with Fabien
 
-Nothing yet. This section is filled in from his answers below.
+On 2026-11-18 Fabien took the recommendations for choices 2 to 5 (Q52, "Take recommendations"):
+
+- **Downloads (2).** Authorised: Playwright and the Chromium build it ships with, at a stable release at least two weeks old, pinned and recorded; `@axe-core/playwright` at the release matching axe-core 4.14.0. The W3C ACT rule test cases were optional and are **not** authorised: the working set is planted cases only, unless Fabien says otherwise. Anything else to download needs a new yes.
+- **Orchestrator (3).** Opus 5.5 at high effort, in a fresh session started from this brief and `docs/m2-status.md`. Q39 carries over to M2: the orchestrator does what the spec gives Fable, including the diff review at the gate and the sign-off on changed expected results.
+- **Commits and pushes (4).** Builders commit on their own branches in their own worktrees; the orchestrator merges to main after reviewing the diff, and may push `main` to GitHub after a merge whose tests, typecheck and validation pass. Never a builder branch, never a force push.
+- **Custom checks (5), option (b).** M2 also builds the ten custom checks behind the minimum useful set, each with working-set cases for its branches. No entry is enabled. If the check-in at 20 points shows it does not fit, the orchestrator says so and stops at the ceiling.
+
+Still open: **choice 1, the PremiumShot page.** M2 does not start until Fabien names it and says to start.
 
 ## Choices for Fabien
 

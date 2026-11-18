@@ -39,7 +39,7 @@ Kept current by the orchestrator. If you are taking over, read this after `docs/
 M1 is approved (Q50, `docs/decisions.md`). Every entry stays `enabled: none`; M2 has not started.
 
 1. **M2 ceiling set (Q51):** 40 points of the weekly all-models limit, check-in at 20, counted from M2's baseline in the cost log.
-2. **M2 kickoff brief drafted** (`docs/m2-kickoff.md`). Fabien answers its five choices (page, downloads, orchestrator, pushes, custom-check scope), then says to start. M2 starts only on his word.
+2. **M2 kickoff brief drafted** (`docs/m2-kickoff.md`). Choices 2 to 5 answered (Q52). Fabien names the PremiumShot page (choice 1), then says to start. M2 starts only on his word.
 
 Open from M1, carried forward: the spot-check list, the schema gaps and the open readings in the gate package; Q49's third-party `iframe` corpus case (M5); the two proposals in `docs/`, revised after Codex's review (`9b27d39`), waiting for Fabien's decisions. Nothing is in flight.
 
