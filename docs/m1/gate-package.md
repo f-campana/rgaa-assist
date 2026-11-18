@@ -43,7 +43,7 @@ Taken from the claims argued most firmly: each one has a definite fault that Cod
 | 11.8.2 Option groups have a label | full | Codex named it as a coherent `full`. It is the only `full` entry with `structural` applicability, so the gate exercises the "not applicable" branch. |
 | 8.3.1 Default language present | fail_only | Went through three Codex re-checks in the pilot. `always` applicability. |
 | 8.4.1 Default language code valid | fail_only | Confirmed. The fault is narrow: an invalid primary code checked against a pinned ISO list. |
-| 2.1.1 Frames have a title | fail_only | Confirmed. The fault is a missing or empty `title` on a frame, decided per element. |
+| 2.1.1 Frames have a title | fail_only | Confirmed. The fault is a rendered, exposed frame with no `title` attribute at all, decided per element. An empty `title` gives "can't tell"; that case belongs to 2.2.1. |
 | 6.2.1 Links have a name | fail_only | Confirmed. The fault is a link with empty content. Anchors and uncertain script links are excluded. |
 | 11.1.1 Fields have a label | fail_only | Confirmed after a pilot correction. The fault is an exposed native field with no labelling mechanism at all. |
 | 8.2.1 Unique ids | fail_only | Confirmed. The fault is duplicate `id` values in the top document. |
