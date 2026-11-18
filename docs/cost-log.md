@@ -109,4 +109,4 @@ Q51 counts from this baseline: **check-in at 60% all-models, stop at 80%.** The 
 | Reviewer | Codex | Codex's own plan | not counted |
 
 Three Opus high builders running together filled about 85% of a 5-hour window in 35 minutes.
-| 2026-11-18 20:05 | Family A merged (Opus high, about 357k tokens); 828 tests; working-set numbers run by the orchestrator: matched 92 of 92 cases | see the next line | |
+| 2026-11-18 20:05 | Family A merged (Opus high, about 357k tokens); 828 tests; working-set numbers run by the orchestrator: matched 92 of 92 cases | 63% | 5-hour window at 94%, resets 2026-11-19 00:20 UTC. Paused at the check-in. |
