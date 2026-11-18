@@ -12,8 +12,8 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | 1 | Baseline in the cost log | Done 2026-11-18 14:56 UTC: weekly all-models 40%, 5-hour 21%. |
 | 2 | Pin and install Playwright, Chromium, `@axe-core/playwright` | Done 2026-11-18. `playwright` 1.64.1 (2026-10-14), its Chromium 156.0.8078.4 (build 1248) and headless shell; `@axe-core/playwright` 4.14.0 (2026-10-15), resolving the one `axe-core` 4.14.0. Smoke run: Chromium launches, axe 4.14.0 analyses a page. |
 | 2b | Check interface | Written by the orchestrator: `src/checks/types.ts` (types only). See "Decisions taken by the orchestrator". |
-| 3 | Engine skeleton, run-file writer | Not started. |
-| 4 | Minimal sanitiser | Not started (with step 3). |
+| 3 | Engine skeleton, run-file writer | Done 2026-11-18, merged as `1e7bf67`. `runAudit`, fresh context per target, frames with CDP sessions (`--site-per-process`), providers, run file validated before writing, two-origin fixtures in `src/engine/testing/`. 509 tests pass. Axe checked through the engine path with a cross-site frame. |
+| 4 | Minimal sanitiser | Done with step 3 (`src/engine/sanitise.ts`): URL, form-value and token masking, snippets capped at 1000 characters, redactions counted. |
 | 5 | Axe adapter | Done 2026-11-18, merged as `83df023`. 67 rules, all reported; `frame-tested` runs as a scope probe only; frames where scripts are blocked are detected and count as a scope gap. 435 tests pass. |
 | 6 | Ten custom checks | Not started. |
 | 7 | Working set | Not started. |
@@ -26,7 +26,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 
 | Builder | Model, effort | Owns | Brief | State |
 |---|---|---|---|---|
-| Engine | Opus 5.5, high | `src/engine/`, `check-sample.ts`, `tests/engine/` | `docs/m2/brief-engine.md` | Launched 15:00 UTC |
+| Engine | Opus 5.5, high | `src/engine/`, `check-sample.ts`, `tests/engine/` | `docs/m2/brief-engine.md` | Merged `1e7bf67` (about 273k tokens) |
 | Axe adapter | Sonnet 5.5, medium | `src/checks/axe/`, `tests/checks/axe/`, axe `exists` flags | `docs/m2/brief-axe.md` | Merged `83df023` (about 155k tokens) |
 | Working set | Opus 5.5, medium | `corpus/working/`, `tests/corpus/` | `docs/m2/brief-working-set.md` | Launched 15:00 UTC |
 | Checks A, B, C | Opus 5.5, high | `src/checks/custom/<name>/` (A reads the vendored `source/` of 8.4, never edits it), family helpers, their tests | `docs/m2/brief-custom-checks.md` | Briefed; launch after the engine merges |
@@ -34,7 +34,8 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 
 ## In flight
 
-- Phase 1: engine, axe adapter, working set, in parallel.
+- Phase 1: axe and engine merged; the working-set writer is still running.
+- **Phase 2 held until the 5-hour window resets (19:20 UTC):** it was at 89% at 15:20. A one-shot reminder in this session resumes at about 19:23 UTC. If this session has ended, a successor launches families A, B, C and the CLI/harness builder from their briefs.
 - ISO 639 sources for 8.4.1: Fabien said "Yes, both" (Q54). Vendored 2026-11-18 15:09 UTC in `src/checks/custom/8-4-default-lang-code-valid/source/` (see its `SOURCE.md`). Family A derives the pinned list from them.
 
 ## Decisions taken by the orchestrator
@@ -52,6 +53,8 @@ Also logged on the bridge, channel `rgaa-assist`.
 
 - **Axe records.** The 67 `axe/` records now have `exists: true`, but their `examines` text still ends "The adapter that runs it is not built yet." Builders may change only `exists`, so the text is stale; correcting it is Fabien's call.
 - **Axe adapter, as built:** it runs `frame-tested` as a 68th rule, only to learn which frames axe could not analyse (it never becomes an observation). Frames whose scripts are blocked (sandbox without `allow-scripts`, CSP `sandbox`) made axe hang; the adapter probes each frame for a timer first and makes the blocked ones fail fast, which axe then reports as untested. A frame not analysed turns `no_fault` or `inapplicable` into `cannot_tell`. axe skips `display: none` frames entirely, without reporting them. `window.axe` stays as a global in each frame axe enters.
+- **Engine, as built:** Chromium is launched with `--site-per-process` (otherwise headless Chromium keeps cross-site frames in-process and they have no CDP session of their own). Default viewport 1280×800 (the sample schema has no default). It also refuses `model.enabled: true` (M6) and rulesets other than `rgaa-4.1.2`. The run file has no field for: why a target was not established, timezone, reduced motion, launch arguments, the snippet cap, whether network idle was reached. They are in the engine's messages only.
+- **Sanitiser risk:** the base64 token pattern (32+ characters mixing upper case, lower case and digits) may mask long generated class names or ids in locators on real pages. To watch in the two runs.
 - **Agent worktrees started from an old commit.** The axe builder's worktree started at `717420b`, before the M2 briefs; it fast-forwarded itself. Launch messages now tell builders to check that their branch contains the latest main.
 
 ## Open points for Fabien
