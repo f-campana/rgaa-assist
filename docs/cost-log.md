@@ -69,3 +69,22 @@ The all-models figure was not zero, so Fabien decided the ceilings are counted f
 - The 244 remaining entries would take about 61 points at that rate. That is an estimate from one batch of 14, not a measurement of the whole.
 - 18 points remain before the 85% stop: about 70 entries this week.
 - So M1 needs roughly one and a half more weekly allowances of 40 points, unless the cost per entry falls (lower effort, or a cheaper pass for tests that are plainly judgment).
+
+## M2
+
+### Baseline, 2026-11-18 14:56 UTC
+
+Read by the M2 orchestrator (fresh Opus 5.5 session, high effort) before any M2 work, after Fabien said "Push and start M2".
+
+| Limit | Used | Resets |
+|---|---|---|
+| 5-hour | 21% | 2026-11-18 19:20 UTC |
+| Weekly, all models | 40% | 2026-11-21 16:00 UTC |
+
+Q51 counts from this baseline: **check-in at 60% all-models, stop at 80%.** The usage card shows no per-model weekly line.
+
+### Usage by step
+
+| When (UTC) | After | All models | Notes |
+|---|---|---|---|
+| 2026-11-18 14:56 | Baseline | 40% | 5-hour window at 21%. |
