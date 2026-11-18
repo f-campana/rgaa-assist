@@ -29,13 +29,14 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | Engine | Opus 5.5, high | `src/engine/`, `check-sample.ts`, `tests/engine/` | `docs/m2/brief-engine.md` | Merged `1e7bf67` (about 273k tokens) |
 | Axe adapter | Sonnet 5.5, medium | `src/checks/axe/`, `tests/checks/axe/`, axe `exists` flags | `docs/m2/brief-axe.md` | Merged `83df023` (about 155k tokens) |
 | Working set | Opus 5.5, medium | `corpus/working/`, `tests/corpus/` | `docs/m2/brief-working-set.md` | Merged (about 315k tokens) |
-| Checks A, B, C | Opus 5.5, high | `src/checks/custom/<name>/` (A reads the vendored `source/` of 8.4, never edits it), family helpers, their tests | `docs/m2/brief-custom-checks.md` | Briefed; launch after the engine merges |
-| CLI and harness | Sonnet 5.5, medium | `src/cli/`, `src/checks/index.ts`, `src/evaluation/`, `corpus/results/` | `docs/m2/brief-cli-harness.md` | Briefed; launch after engine and axe merge |
+| Checks A, B, C | Opus 5.5, high | `src/checks/custom/<name>/` (A reads the vendored `source/` of 8.4, never edits it), family helpers, their tests | `docs/m2/brief-custom-checks.md` | Launched 19:25 UTC (three builders) |
+| CLI and harness | Sonnet 5.5, medium | `src/cli/`, `src/checks/index.ts`, `src/evaluation/`, `corpus/results/` | `docs/m2/brief-cli-harness.md` | Launched 19:25 UTC |
 
 ## In flight
 
 - Phase 1 done: axe adapter, engine and working set merged.
-- **Phase 2 held until the 5-hour window resets (19:20 UTC):** it was at 89% at 15:20. A one-shot reminder in this session resumes at about 19:23 UTC. If this session has ended, a successor launches families A, B, C and the CLI/harness builder from their briefs.
+- Phase 2 launched 19:25 UTC after the 5-hour reset: checks families A, B, C (Opus high) and CLI/harness (Sonnet medium), in parallel.
+- **Check-in at 60% weekly:** likely to be crossed while phase 2 runs. Builders already running finish their task (stopping them mid-way would waste what they spent); no new builder is launched past 60% until the check-in report goes to Fabien.
 - ISO 639 sources for 8.4.1: Fabien said "Yes, both" (Q54). Vendored 2026-11-18 15:09 UTC in `src/checks/custom/8-4-default-lang-code-valid/source/` (see its `SOURCE.md`). Family A derives the pinned list from them.
 
 ## Decisions taken by the orchestrator
