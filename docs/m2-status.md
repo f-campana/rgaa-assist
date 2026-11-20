@@ -20,7 +20,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | 8 | Wiring and CLI (`audit`, `coverage`) | Done 2026-11-18: `audit`, `coverage`, `check-sample`, `report` (placeholder, exit 2); `allProviders()`; harness `pnpm evaluate`. 549 tests pass. |
 | 9 | Two runs, Aubay comparison | Done 2026-11-20 (`docs/m2/runs.md`). Both run files valid, manifests complete, no `error` observation. Aubay: same outcome as the dry run on 10 of 10 checks; the engine read the reCAPTCHA frame (finding 6). Run folders in gitignored `work/m2/runs/`. |
 | 10 | Check-in at 20 points (60%) | Reached 2026-11-18 20:00 UTC at 62%. Fabien: continue, under 90% weekly (Q55, 2026-11-20). |
-| 11 | Codex's review, corrections, gate | Review requested 2026-11-20 (`docs/m2/request-codex-review.md`, bridge message `0mwp9mo2deed3`). **Fabien needs to prompt Codex.** Then corrections and the gate. |
+| 11 | Codex's review, corrections, gate | Codex's review 2026-11-20: **hold** (four findings). Fabien decided them (Q56, 2026-11-21). Corrections builder (Sonnet medium, `docs/m2/brief-corrections.md`) launched 2026-11-20 23:50 UTC. Then Codex's full pass (`docs/m2/request-codex-full-pass.md`, sent after the merge), then the gate. |
 
 ## Builders
 
@@ -34,10 +34,9 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 
 ## In flight
 
-- All builders done and merged; nothing running.
-- Both runs done (`docs/m2/runs.md`).
-- Waiting for Codex's gate review (Fabien prompts Codex). Then: corrections if any, the gate report to Fabien with the cost log and a proposed M3 ceiling.
-- Usage 81% weekly at 2026-11-20 17:45 UTC; cap 90% (Q55); window resets 2026-11-21 16:00 UTC.
+- Corrections builder running (Q56: 10.1.2 `fieldset` pair, editable boxes in snippets, false-assurance count, per-link tables removed).
+- After its merge: rerun `pnpm evaluate` and both audits, send `docs/m2/request-codex-full-pass.md` on the bridge, ask Fabien to prompt Codex.
+- Usage 85% weekly at 2026-11-20 23:41 UTC; cap 90% (Q55); window resets 2026-11-21 16:00 UTC.
 
 ## Decisions taken by the orchestrator
 
@@ -50,7 +49,7 @@ Also logged on the bridge, channel `rgaa-assist`.
   - The engine gives each provider the page, the list of frames with whether each could be read, and a CDP session per frame target (for the accessibility tree).
 - **`@axe-core/playwright` needs a page from `browser.newContext()`**: it opens a blank page in the same context to finish a run. The engine creates a fresh context per target anyway (7.4).
 
-- **Harness counts (logged on the bridge):** false assurance is a `passed` or `not_applicable` over the cases that expected neither; a swap between the two is a mismatch and shows in the table. Per-link tables reuse the test's findings (a finding is per test); only missing observations are per link. `corpus/results/working-20261118T193148Z.json` was produced before any custom check existed (every case `not_tested`); it is superseded by the run after the checks merge.
+- **Harness counts (logged on the bridge), superseded by Q56:** false assurance was counted over the cases that expected neither `passed` nor `not_applicable`; Q56 counts swaps too, over all cases. Per-link tables are removed (Q56). Per-link tables reuse the test's findings (a finding is per test); only missing observations are per link. `corpus/results/working-20261118T193148Z.json` was produced before any custom check existed (every case `not_tested`); it is superseded by the run after the checks merge.
 
 ## Findings to report at the gate
 
