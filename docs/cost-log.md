@@ -110,3 +110,5 @@ Q51 counts from this baseline: **check-in at 60% all-models, stop at 80%.** The 
 
 Three Opus high builders running together filled about 85% of a 5-hour window in 35 minutes.
 | 2026-11-18 20:05 | Family A merged (Opus high, about 357k tokens); 828 tests; working-set numbers run by the orchestrator: matched 92 of 92 cases | 63% | 5-hour window at 94%, resets 2026-11-19 00:20 UTC. Paused at the check-in. |
+| 2026-11-20 17:38 | Resumed on Fabien's word (Q55: stay under 90% weekly) | 80% | Weekly rose 63% to 80% during the two-day pause, from Fabien's other work, not M2. |
+| 2026-11-20 17:45 | Both audits run (about 3 s and 4 s), run files validated, Aubay comparison written, Codex's review requested | 81% | About 1 point of orchestrator time. 5-hour window at 18%. |

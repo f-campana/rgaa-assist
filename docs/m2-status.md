@@ -3,7 +3,7 @@
 Kept current by the orchestrator. If you are taking over, read `docs/decisions.md` (Q50 to Q53 are the latest), then `docs/m2-kickoff.md`, then this file, then the M2 part of `docs/cost-log.md`.
 
 **Orchestrator:** a fresh Opus 5.5 session at high effort (Q52), started 2026-11-18 from the M1 orchestrator's session after Fabien said "Push and start M2". Q39 carries over: the orchestrator does what the spec gives Fable.
-**Ceiling (Q51):** 40 points of the weekly all-models limit from the baseline of 40% (2026-11-18 14:56 UTC). **Check-in at 60%, stop at 80%.** The weekly window resets 2026-11-21 16:00 UTC.
+**Ceiling (Q51, amended by Q55):** baseline 40% (2026-11-18 14:56 UTC); check-in reached at 62%. Fabien (Q55, 2026-11-20): continue, staying **under 90% weekly** in this window. The weekly window resets 2026-11-21 16:00 UTC.
 
 ## Steps
 
@@ -18,9 +18,9 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | 6 | Ten custom checks | All ten merged: family B (10.1.1, 10.1.2) `46746ee`; family C (2.1.1, 6.2.1, 11.1.1, 11.8.2) `d609681`, fixed by `ec90905`; family A (8.5.1, 8.3.1, 8.4.1, 8.2.1) `d8b8e74`. 828 tests pass. All ten records `exists: true`. |
 | 7 | Working set | 92 planted cases. **First numbers, 2026-11-18 20:00 UTC** (`corpus/results/working-20261118T200029Z.json`), each entry measured at its candidate level: matched 92 of 92 cases on corpus working@112aadc59374; false assurance 0 of 78; missed fault 0 of 32; false alarm 0 of 60; unexpected error 0 of 92. Per test and per link in the results file. The evaluation summary validates. These are counts on cases the project wrote itself, not on the held-back set, and say nothing beyond this corpus. |
 | 8 | Wiring and CLI (`audit`, `coverage`) | Done 2026-11-18: `audit`, `coverage`, `check-sample`, `report` (placeholder, exit 2); `allProviders()`; harness `pnpm evaluate`. 549 tests pass. |
-| 9 | Two runs, Aubay comparison | Not started. |
-| 10 | Check-in at 20 points (60%) | **Reached 2026-11-18 20:00 UTC at 62%.** Builders paused; report sent to Fabien (below and in the cost log). Waiting for his word to continue. |
-| 11 | Codex's review, corrections, gate | Not started. |
+| 9 | Two runs, Aubay comparison | Done 2026-11-20 (`docs/m2/runs.md`). Both run files valid, manifests complete, no `error` observation. Aubay: same outcome as the dry run on 10 of 10 checks; the engine read the reCAPTCHA frame (finding 6). Run folders in gitignored `work/m2/runs/`. |
+| 10 | Check-in at 20 points (60%) | Reached 2026-11-18 20:00 UTC at 62%. Fabien: continue, under 90% weekly (Q55, 2026-11-20). |
+| 11 | Codex's review, corrections, gate | Review requested 2026-11-20 (`docs/m2/request-codex-review.md`, bridge message `0mwp9mo2deed3`). **Fabien needs to prompt Codex.** Then corrections and the gate. |
 
 ## Builders
 
@@ -34,10 +34,10 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 
 ## In flight
 
-- Phase 1 done: axe adapter, engine and working set merged.
-- Phase 2 launched 19:25 UTC after the 5-hour reset: checks families A, B, C (Opus high) and CLI/harness (Sonnet medium), in parallel.
-- **Check-in at 60% weekly:** likely to be crossed while phase 2 runs. Builders already running finish their task (stopping them mid-way would waste what they spent); no new builder is launched past 60% until the check-in report goes to Fabien.
-- ISO 639 sources for 8.4.1: Fabien said "Yes, both" (Q54). Vendored 2026-11-18 15:09 UTC in `src/checks/custom/8-4-default-lang-code-valid/source/` (see its `SOURCE.md`). Family A derives the pinned list from them.
+- All builders done and merged; nothing running.
+- Both runs done (`docs/m2/runs.md`).
+- Waiting for Codex's gate review (Fabien prompts Codex). Then: corrections if any, the gate report to Fabien with the cost log and a proposed M3 ceiling.
+- Usage 81% weekly at 2026-11-20 17:45 UTC; cap 90% (Q55); window resets 2026-11-21 16:00 UTC.
 
 ## Decisions taken by the orchestrator
 
@@ -76,7 +76,9 @@ Also logged on the bridge, channel `rgaa-assist`.
 
 ## Open points for Fabien
 
-- **Check-in (62%, 22 of 40 points).**
+- **Prompt Codex** to do the M2 gate review (`docs/m2/request-codex-review.md`).
+- **PremiumShot, 10.1.2:** the record abstains on `width`/`height` on `source`, so a responsive-image page gets "needs review" on 10.1.2 (`docs/m2/runs.md`).
+- **Check-in (62%, 22 of 40 points), answered by Q55.**
   - Merged: engine, sanitiser, run file, axe adapter, working set (92 cases), CLI and harness, checks of families B and C (6 of the 10 custom checks). 685 tests pass.
   - Family A (8.5.1, 8.3.1, 8.4.1, 8.2.1) finished and merged after the check-in (`d8b8e74`); all ten custom checks exist. Working-set numbers: matched 92 of 92 cases on corpus working@112aadc59374 (the orchestrator's run, no builder).
   - Remaining: the PremiumShot and Aubay runs (`audit`, orchestrator); the Aubay comparison (orchestrator); Codex's review; one round of corrections; the gate report.
