@@ -113,3 +113,4 @@ Three Opus high builders running together filled about 85% of a 5-hour window in
 | 2026-11-20 17:38 | Resumed on Fabien's word (Q55: stay under 90% weekly) | 80% | Weekly rose 63% to 80% during the two-day pause, from Fabien's other work, not M2. |
 | 2026-11-20 17:45 | Both audits run (about 3 s and 4 s), run files validated, Aubay comparison written, Codex's review requested | 81% | About 1 point of orchestrator time. 5-hour window at 18%. |
 | 2026-11-20 23:50 | Codex review read (hold, four findings); Q56 recorded; one corrections builder launched (Sonnet medium) | 85% | Weekly rose 81% to 85% since the runs, outside M2. 5-hour window at 24%. |
+| 2026-11-21 00:10 | Q56 corrections merged (`3d80b49`; Sonnet medium, about 150k tokens; 840 tests); evaluate and both audits rerun; full-pass request sent | see usage | |

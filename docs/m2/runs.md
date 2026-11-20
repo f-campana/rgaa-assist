@@ -1,6 +1,6 @@
 # M2 runs: PremiumShot home page, and Aubay's careers page compared with the dry run
 
-**2026-11-20.** Written by the M2 orchestrator. Both runs were made with `rgaa-assist audit` at main `e2b4ae7` (the run files record a `.dirty` tool version: the two sample files and this note were not yet committed). Each page was loaded once, as a visitor, in a fresh Chromium context: no steps, no cookie choice, no form submitted, no saved session.
+**2026-11-20, rerun 2026-11-21.** Written by the M2 orchestrator. Both runs were first made with `rgaa-assist audit` at main `e2b4ae7` (a `.dirty` tool version: the sample files were not yet committed). After the Q56 corrections (`custom/10-1-presentation-attributes` 1.0.1, editable boxes dropped from snippets), both were run again at `3d80b49`, tool version `0.0.0+git.3d80b49…` with no `.dirty`. Both rerun files validate; every observation outcome, every finding count and every redaction count below is unchanged by the rerun. Each page was loaded once, as a visitor, in a fresh Chromium context: no steps, no cookie choice, no form submitted, no saved session.
 
 Nothing is enabled (every entry `enabled: none`), so every finding of both runs is `needs_review` or `not_tested`. That is the expected result, not a defect. Nothing here says anything about the conformance of either site. Status letters are not used.
 

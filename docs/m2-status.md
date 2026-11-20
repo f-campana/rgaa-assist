@@ -20,7 +20,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | 8 | Wiring and CLI (`audit`, `coverage`) | Done 2026-11-18: `audit`, `coverage`, `check-sample`, `report` (placeholder, exit 2); `allProviders()`; harness `pnpm evaluate`. 549 tests pass. |
 | 9 | Two runs, Aubay comparison | Done 2026-11-20 (`docs/m2/runs.md`). Both run files valid, manifests complete, no `error` observation. Aubay: same outcome as the dry run on 10 of 10 checks; the engine read the reCAPTCHA frame (finding 6). Run folders in gitignored `work/m2/runs/`. |
 | 10 | Check-in at 20 points (60%) | Reached 2026-11-18 20:00 UTC at 62%. Fabien: continue, under 90% weekly (Q55, 2026-11-20). |
-| 11 | Codex's review, corrections, gate | Codex's review 2026-11-20: **hold** (four findings). Fabien decided them (Q56, 2026-11-21). Corrections builder (Sonnet medium, `docs/m2/brief-corrections.md`) launched 2026-11-20 23:50 UTC. Then Codex's full pass (`docs/m2/request-codex-full-pass.md`, sent after the merge), then the gate. |
+| 11 | Codex's review, corrections, gate | Codex's review 2026-11-20: **hold** (four findings). Fabien decided them (Q56, 2026-11-21). Corrections merged as `3d80b49` (840 tests; working set 92 of 92 matched, false assurance 0 of 92 over all cases; `corpus/results/working-20261120T235124Z.json`); both audits rerun, outcomes unchanged. Codex's full pass requested (`docs/m2/request-codex-full-pass.md`). **Fabien needs to prompt Codex.** Then the gate. |
 
 ## Builders
 
@@ -34,9 +34,9 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 
 ## In flight
 
-- Corrections builder running (Q56: 10.1.2 `fieldset` pair, editable boxes in snippets, false-assurance count, per-link tables removed).
-- After its merge: rerun `pnpm evaluate` and both audits, send `docs/m2/request-codex-full-pass.md` on the bridge, ask Fabien to prompt Codex.
-- Usage 85% weekly at 2026-11-20 23:41 UTC; cap 90% (Q55); window resets 2026-11-21 16:00 UTC.
+- Q56 corrections merged (`3d80b49`); both audits rerun at `3d80b49`, outcomes unchanged.
+- Codex's full pass requested on the bridge (`docs/m2/request-codex-full-pass.md`). Waiting for Fabien to prompt Codex.
+- Then: answer its findings, the gate report to Fabien with the cost log and a proposed M3 ceiling.
 
 ## Decisions taken by the orchestrator
 
