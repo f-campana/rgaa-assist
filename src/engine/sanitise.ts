@@ -14,7 +14,18 @@
  *   `ftp`) is passed through `url`, then token masking runs on the whole text.
  * - **Snippets** (`snippet`):
  *   1. form-field values: the `value` attribute of `input` and `option`
- *      elements, and the content of `textarea` elements, become `MASK`;
+ *      elements, and the content of `textarea` elements, become `MASK`; so does
+ *      the content of every editable box (spec 8.7): an element with a
+ *      `contenteditable` attribute whose value is not `false` (empty, `true`,
+ *      `plaintext-only` and any other value, any ASCII case), or whose `role`
+ *      tokens include `textbox`, `searchbox` or `combobox`. The tag and its
+ *      attributes stay (they locate the element); everything between the start
+ *      tag and the matching end tag, nested markup included, is replaced by
+ *      one `MASK`, and counts as one redaction per outermost editable element
+ *      (editable boxes nested inside it vanish with its content and are not
+ *      counted again). A snippet may be cut or unbalanced: when the end tag is
+ *      missing, everything after the start tag is dropped. This rule runs
+ *      first, so a `textarea` or `input` inside an editable box is gone with it;
  *   2. URL attributes (`href`, `src`, `srcset`, `action`, `formaction`,
  *      `poster`, `data`, `cite`, `background`, `longdesc`, `xlink:href`),
  *      relative ones included, are passed through the URL rule. A value that
@@ -176,6 +187,71 @@ const FORM_VALUE_TAG = /<(?:input|option)\b(?:[^>"']|"[^"]*"|'[^']*')*>/gi;
 const VALUE_ATTRIBUTE = /(\svalue\s*=\s*)("[^"]*"|'[^']*'|[^\s"'=<>`]+)/gi;
 const TEXTAREA = /(<textarea\b(?:[^>"']|"[^"]*"|'[^']*')*>)([\s\S]*?)(<\/textarea\s*>|$)/gi;
 
+const START_TAG = /<([a-zA-Z][^\s/>]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g;
+const ATTRIBUTE = /[\s/]([^\s"'<>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
+const VOID_ELEMENTS = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"]);
+const TEXTBOX_ROLES = new Set(["textbox", "searchbox", "combobox"]);
+
+/** True when the start tag's attributes make the element an editable box. */
+function isEditableBox(attributes: string): boolean {
+  let editable = false;
+  let seenEditable = false;
+  let roleSeen = false;
+  ATTRIBUTE.lastIndex = 0;
+  for (let m = ATTRIBUTE.exec(attributes); m !== null; m = ATTRIBUTE.exec(attributes)) {
+    const name = (m[1] ?? "").toLowerCase();
+    const value = m[2] ?? m[3] ?? m[4] ?? "";
+    // The first occurrence of an attribute wins, as in HTML parsing.
+    if (name === "contenteditable" && !seenEditable) {
+      seenEditable = true;
+      if (value.trim().toLowerCase() !== "false") editable = true;
+    } else if (name === "role" && !roleSeen) {
+      roleSeen = true;
+      if (value.split(/[\t\n\f\r ]+/).some((t) => TEXTBOX_ROLES.has(t.toLowerCase()))) editable = true;
+    }
+  }
+  return editable;
+}
+
+/** Where the content of the element whose start tag ends at `from` stops, and where its end tag ends; null when there is no end tag. */
+function findContentEnd(s: string, name: string, from: number): { contentEnd: number; after: number } | null {
+  const escaped = name.replace(/[^a-zA-Z0-9]/g, "\\$&");
+  const re = new RegExp(`<(/?)${escaped}(?=[\\s/>])(?:[^>"']|"[^"]*"|'[^']*')*>`, "gi");
+  re.lastIndex = from;
+  let depth = 1;
+  for (let m = re.exec(s); m !== null; m = re.exec(s)) {
+    if (m[1] === "/") depth -= 1;
+    else if (!m[0].endsWith("/>")) depth += 1;
+    if (depth === 0) return { contentEnd: m.index, after: m.index + m[0].length };
+  }
+  return null;
+}
+
+/** Replace the content of editable boxes by MASK. Returns the cleaned markup and the redactions made. */
+function maskEditableBoxes(s: string): Sanitised {
+  let redactions = 0;
+  let out = "";
+  let pos = 0;
+  START_TAG.lastIndex = 0;
+  for (let m = START_TAG.exec(s); m !== null; m = START_TAG.exec(s)) {
+    const name = (m[1] ?? "").toLowerCase();
+    if (VOID_ELEMENTS.has(name) || m[0].endsWith("/>") || !isEditableBox(m[2] ?? "")) continue;
+    const start = m.index + m[0].length;
+    const end = findContentEnd(s, m[1] ?? "", start);
+    const contentEnd = end === null ? s.length : end.contentEnd;
+    const content = s.slice(start, contentEnd);
+    out += s.slice(pos, start);
+    if (content.length === 0 || content === MASK) out += content;
+    else {
+      out += MASK;
+      redactions += 1;
+    }
+    pos = contentEnd;
+    START_TAG.lastIndex = contentEnd;
+  }
+  return { value: out + s.slice(pos), redactions };
+}
+
 function unquote(v: string): { quote: string; inner: string } {
   if (v.length >= 2 && (v.startsWith('"') || v.startsWith("'")) && v.endsWith(v[0] ?? "")) {
     return { quote: v[0] ?? "", inner: v.slice(1, -1) };
@@ -220,9 +296,10 @@ export function createSanitiser(safeQueryParams: readonly string[] = []): Saniti
   };
 
   const snippet = (s: string): Sanitised => {
-    let redactions = 0;
-    // 1. Form-field values.
-    let value = s.replace(FORM_VALUE_TAG, (tag) =>
+    // 1. Content of editable boxes, then form-field values.
+    const editable = maskEditableBoxes(s);
+    let redactions = editable.redactions;
+    let value = editable.value.replace(FORM_VALUE_TAG, (tag) =>
       tag.replace(VALUE_ATTRIBUTE, (_m, prefix: string, raw: string) => {
         const { quote, inner } = unquote(raw);
         if (inner.length === 0 || inner === MASK) return `${prefix}${raw}`;

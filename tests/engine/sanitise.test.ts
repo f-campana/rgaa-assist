@@ -123,6 +123,60 @@ describe("token rule", () => {
   });
 });
 
+describe("snippet rule: editable boxes", () => {
+  const s = createSanitiser();
+  it("masks the content of contenteditable elements, whatever the value except false", () => {
+    for (const attr of ["contenteditable", 'contenteditable=""', 'contenteditable="true"', "contenteditable=plaintext-only", 'CONTENTEDITABLE="TRUE"', "contenteditable='Plaintext-Only'"]) {
+      const r = s.snippet(`<div ${attr} class="x">private words<b>more</b></div><p>kept</p>`);
+      expect(r.value, attr).toBe(`<div ${attr} class="x">${MASK}</div><p>kept</p>`);
+      expect(r.redactions, attr).toBe(1);
+    }
+  });
+  it("keeps the content of contenteditable=false", () => {
+    const r = s.snippet('<div contenteditable="false">public</div><div contenteditable=" False ">public</div>');
+    expect(r.value).toBe('<div contenteditable="false">public</div><div contenteditable=" False ">public</div>');
+    expect(r.redactions).toBe(0);
+  });
+  it("masks the content of textbox, searchbox and combobox roles, any case, among other tokens", () => {
+    for (const role of ["textbox", "SearchBox", "combobox", "presentation TextBox", "  combobox  "]) {
+      const r = s.snippet(`<div role="${role}">private words</div>`);
+      expect(r.value, role).toBe(`<div role="${role}">${MASK}</div>`);
+      expect(r.redactions, role).toBe(1);
+    }
+    const other = s.snippet('<div role="button textboxes">public</div>');
+    expect(other.value).toBe('<div role="button textboxes">public</div>');
+    expect(other.redactions).toBe(0);
+  });
+  it("drops nested markup, handles nested editable boxes and same-name nesting, one redaction for the outermost", () => {
+    const r = s.snippet('<div contenteditable><div><div role="textbox">inner</div>mid</div>tail</div><div>after</div>');
+    expect(r.value).toBe(`<div contenteditable>${MASK}</div><div>after</div>`);
+    expect(r.redactions).toBe(1);
+  });
+  it("counts one redaction per element for sibling editable boxes", () => {
+    const r = s.snippet('<span contenteditable>a</span><span contenteditable>b</span>');
+    expect(r.value).toBe(`<span contenteditable>${MASK}</span><span contenteditable>${MASK}</span>`);
+    expect(r.redactions).toBe(2);
+  });
+  it("drops everything after the start tag when the end tag is missing (a cut or unbalanced snippet)", () => {
+    const r = s.snippet('<p>x</p><div role="textbox" contenteditable="true">private visitor wo');
+    expect(r.value).toBe(`<p>x</p><div role="textbox" contenteditable="true">${MASK}`);
+    expect(r.redactions).toBe(1);
+    const cut = s.snippet(`<div contenteditable><b>${"a".repeat(2000)}`);
+    expect(cut.value).toBe(`<div contenteditable>${MASK}`);
+  });
+  it("is idempotent and leaves empty boxes alone", () => {
+    const once = s.snippet('<div contenteditable>private</div><div contenteditable></div>');
+    const twice = s.snippet(once.value);
+    expect(twice.value).toBe(once.value);
+    expect(twice.redactions).toBe(0);
+    expect(once.redactions).toBe(1);
+  });
+  it("is not fooled by a '>' in a quoted attribute or by an editable-looking attribute value", () => {
+    const r = s.snippet('<div data-x="a>b" contenteditable>secret</div><div title=" contenteditable role=textbox ">public</div>');
+    expect(r.value).toBe(`<div data-x="a>b" contenteditable>${MASK}</div><div title=" contenteditable role=textbox ">public</div>`);
+  });
+});
+
 describe("snippet rule", () => {
   it("drops the value of input and option elements and the content of textarea", () => {
     const html =

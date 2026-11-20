@@ -37,9 +37,9 @@ async function run(files: FixtureFiles | string, pageName?: string): Promise<Obs
 const notes = (o: Observation): string => o.evidence.map((e) => `${e.note ?? ""} ${e.locator ?? ""} ${e.snippet ?? ""}`).join("\n");
 
 describe("definition", () => {
-  it("declares version 1.0.0 and records the version of its lists", () => {
-    expect(attributesDefinition.version).toBe("1.0.0");
-    expect(attributesDefinition.defaultOptions["listsVersion"]).toBe("1.0.0");
+  it("declares version 1.0.1 and records the version of its lists", () => {
+    expect(attributesDefinition.version).toBe("1.0.1");
+    expect(attributesDefinition.defaultOptions["listsVersion"]).toBe("1.0.1");
     expect(ATTRIBUTE_LISTS.presentationAttributes).toHaveLength(24);
   });
 
@@ -184,7 +184,16 @@ describe("(2) cannot tell", () => {
     }
   });
 
-  it("(2) height on table abstains (neither HTML 4.01 nor the HTML standard's lists define it)", async () => {
+  it("(2) align on fieldset abstains: neither HTML 4.01 nor the HTML standard defines it, so it is not a fault", async () => {
+    const o = await run(page("<fieldset align='left'><legend>x</legend></fieldset>"));
+    expect(o.outcome).toBe("cannot_tell");
+    expect(o.outcome).not.toBe("fault");
+    expect(notes(o)).toContain("defines no such attribute");
+    expect(ATTRIBUTE_LISTS.definedPairs["align"]).not.toContain("fieldset");
+    expect(ATTRIBUTE_LISTS.definedPairs["align"]).toContain("embed");
+  });
+
+  it("(2) height on table abstains (the standard lists it as obsolete, but M1's gate package chose abstention, Q50)", async () => {
     const o = await run(page("<table height='29'><tr><td>x</td></tr></table>"));
     expect(o.outcome).toBe("cannot_tell");
     expect(notes(o)).toContain("defines no such attribute");
