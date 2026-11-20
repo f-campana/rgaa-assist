@@ -19,19 +19,11 @@ import type { CheckProvider } from "../checks/types.ts";
 import { examineFixture } from "../engine/testing/index.ts";
 import { toolVersion } from "../engine/index.ts";
 import type { RulesetPlugin } from "../rulesets/contract.ts";
-import {
-  EvaluationSummarySchema,
-  STATUSES,
-  caseMatches,
-  compareDottedIds,
-  entryHash,
-  tabulate,
-} from "../schema/index.ts";
+import { STATUSES, caseMatches, compareDottedIds, entryHash, tabulate } from "../schema/index.ts";
 import type {
   CaseResult,
   CheckId,
   CoverageEntry,
-  EvaluationSummary,
   ExpectedResult,
   Level,
   Outcome,
@@ -75,18 +67,6 @@ export interface TestMeasurement {
   matched: { x: number; n: number };
 }
 
-export interface LinkMeasurementReport {
-  test: string;
-  check: CheckId;
-  requirement: string;
-  built: boolean;
-  /** Version of the provider's check, or null when no provider declares it. */
-  checkVersion: string | null;
-  /** The cases of the link's test, with missing observations counted for this check only. */
-  table: ResultTable;
-  measures: Measures;
-}
-
 export interface CheckMeasurement {
   check: CheckId;
   built: boolean;
@@ -107,14 +87,17 @@ export interface EvaluationReport {
   cases: CaseReport[];
   unmeasured: UnmeasuredCase[];
   tests: TestMeasurement[];
-  links: LinkMeasurementReport[];
   checks: CheckMeasurement[];
   /** All cases measured. */
   overall: { table: ResultTable; measures: Measures; matched: { x: number; n: number } };
-  /** Present when every number the schema asks for is known. */
-  summary: EvaluationSummary | null;
-  /** Why `summary` is null, when it is. */
-  summaryNote: string | null;
+  /**
+   * Always null. The schema's EvaluationSummary asks for per-link measurements,
+   * and this harness measures whole tests only (Q56): cloning a test's result
+   * onto each of its links would not measure the link.
+   */
+  summary: null;
+  /** Why `summary` is null. */
+  summaryNote: string;
 }
 
 export interface EvaluateInput {
@@ -148,8 +131,10 @@ type Row = Pick<CaseResult, "expected" | "actual" | "missingObservations">;
 
 /**
  * The four counts of 10.3, each over its population.
- * - False assurance: a `passed` or `not_applicable` the case did not expect,
- *   over the cases that expected neither.
+ * - False assurance: an unexpected `passed` or `not_applicable`, that is, an
+ *   actual status of `passed` or `not_applicable` that differs from the
+ *   expected status (a swap between the two included), over ALL cases: any
+ *   case could return one it did not expect (spec 10.3, Q56).
  * - Missed fault: anything other than `failed`, over the cases that expected `failed`.
  * - False alarm: a `failed` the case did not expect, over the cases that did not expect `failed`.
  * - Unexpected error: a crash, or a `not_tested` or a missing observation the
@@ -157,7 +142,7 @@ type Row = Pick<CaseResult, "expected" | "actual" | "missingObservations">;
  */
 export function measures(rows: readonly Row[]): Measures {
   const m: Measures = {
-    falseAssurance: { x: 0, n: 0 },
+    falseAssurance: { x: 0, n: rows.length },
     missedFault: { x: 0, n: 0 },
     falseAlarm: { x: 0, n: 0 },
     unexpectedError: { x: 0, n: rows.length },
@@ -165,10 +150,7 @@ export function measures(rows: readonly Row[]): Measures {
   for (const r of rows) {
     const expected = r.expected.status;
     const actual = r.actual.kind === "finding" ? r.actual.status : "crash";
-    if (expected !== "passed" && expected !== "not_applicable") {
-      m.falseAssurance.n += 1;
-      if (actual === "passed" || actual === "not_applicable") m.falseAssurance.x += 1;
-    }
+    if ((actual === "passed" || actual === "not_applicable") && actual !== expected) m.falseAssurance.x += 1;
     if (expected === "failed") {
       m.missedFault.n += 1;
       if (actual !== "failed") m.missedFault.x += 1;
@@ -316,30 +298,8 @@ export async function evaluate(input: EvaluateInput): Promise<EvaluationReport> 
     });
   }
 
-  // Per link: the test's cases, with missing observations counted for the link's check only.
-  const links: LinkMeasurementReport[] = [];
-  for (const test of testIds) {
-    const entry = entryOf.get(test) as CoverageEntry;
-    const rows = reports.filter((r) => r.test === test);
-    const sortedLinks = [...entry.links].sort((a, b) =>
-      a.check === b.check ? (a.requirement < b.requirement ? -1 : 1) : a.check < b.check ? -1 : 1,
-    );
-    for (const link of sortedLinks) {
-      const forLink = rows.map((r) => ({ ...r, missingObservations: r.missingObservations.filter((m) => m === link.check) }));
-      links.push({
-        test,
-        check: link.check,
-        requirement: link.requirement,
-        built: exists.get(link.check) ?? false,
-        checkVersion: declared.get(link.check) ?? null,
-        table: tabulate(forLink),
-        measures: measures(forLink),
-      });
-    }
-  }
-
   // Per check: outcomes over the cases that link it.
-  const checkIds = [...new Set(links.map((l) => l.check))].sort();
+  const checkIds = [...new Set([...entryOf.values()].flatMap((e) => e.links.map((l) => l.check)))].sort();
   const checks: CheckMeasurement[] = checkIds.map((check) => {
     const rows = reports.filter((r) => check in r.outcomes);
     const outcomes = emptyOutcomes();
@@ -348,7 +308,6 @@ export async function evaluate(input: EvaluateInput): Promise<EvaluationReport> 
   });
 
   const createdAt = (input.now?.() ?? new Date()).toISOString();
-  const { summary, note } = buildSummary({ reports, entryOf, testIds, declared, plugin, corpus, createdAt });
 
   return {
     schemaVersion: 1,
@@ -360,112 +319,21 @@ export async function evaluate(input: EvaluateInput): Promise<EvaluationReport> 
     cases: reports,
     unmeasured,
     tests,
-    links,
     checks,
     overall: { table: tabulate(reports), measures: measures(reports), matched: matchedCount(reports) },
-    summary,
-    summaryNote: note,
+    summary: null,
+    summaryNote: SUMMARY_NOTE,
   };
 }
 
 // ---------------------------------------------------------------------------
-// The EvaluationSummary of spec 8.6, when everything it asks for is known
+// The EvaluationSummary of spec 8.6
 // ---------------------------------------------------------------------------
 
-function buildSummary(args: {
-  reports: CaseReport[];
-  entryOf: Map<string, CoverageEntry>;
-  testIds: string[];
-  declared: Map<string, string>;
-  plugin: RulesetPlugin;
-  corpus: LoadedCorpus;
-  createdAt: string;
-}): { summary: EvaluationSummary | null; note: string | null } {
-  const { reports, entryOf, testIds, declared, plugin, corpus, createdAt } = args;
-  if (corpus.set !== "working" && corpus.set !== "acceptance") {
-    return { summary: null, note: `corpus set "${corpus.set}" is neither working nor acceptance` };
-  }
-  const unknown = new Set<string>();
-  for (const test of testIds) {
-    for (const link of (entryOf.get(test) as CoverageEntry).links) {
-      if (!declared.has(link.check)) unknown.add(link.check);
-    }
-  }
-  if (unknown.size > 0) {
-    return {
-      summary: null,
-      note:
-        `not written: the schema asks for the measured version of every linked check, and ${unknown.size} linked check(s) have no provider ` +
-        `(no version to record): ${[...unknown].sort().join(", ")}`,
-    };
-  }
-
-  const scopeOf = (rows: CaseReport[], what: string) => {
-    const branches = [...new Set(rows.flatMap((r) => (r.branch === undefined ? [] : [r.branch])))].sort();
-    return {
-      branches: branches as ("valid" | "invalid_fault_proves_failure" | "invalid_by_route_valid_by_alternative" | "inapplicable" | "outside_support")[],
-      routes: [] as string[],
-      description: `${rows.length} case(s) of ${what} in the ${corpus.set} set; routes are not tabulated by the harness.`,
-    };
-  };
-  const toResult = (r: CaseReport, only?: CheckId): CaseResult => ({
-    case: r.case,
-    expected: r.expected,
-    actual: r.actual,
-    missingObservations: only === undefined ? r.missingObservations : r.missingObservations.filter((m) => m === only),
-    matched: r.matched,
-  });
-
-  const links: EvaluationSummary["links"] = [];
-  const entries: EvaluationSummary["entries"] = [];
-  for (const test of testIds) {
-    const entry = entryOf.get(test) as CoverageEntry;
-    const rows = reports.filter((r) => r.test === test);
-    const results = rows.map((r) => toResult(r)).sort(byId);
-    entries.push({
-      test,
-      entryHash: entryHash(entry),
-      level: entry.candidate as Exclude<Level, "none">,
-      checkVersions: Object.fromEntries(
-        [...new Set(entry.links.map((l) => l.check))].sort().map((c) => [c, declared.get(c) as string]),
-      ),
-      scope: scopeOf(rows, `test ${test}`),
-      cases: results,
-      table: tabulate(results),
-    });
-    for (const link of entry.links) {
-      const forLink = rows.map((r) => toResult(r, link.check)).sort(byId);
-      links.push({
-        test,
-        check: link.check,
-        requirement: link.requirement,
-        checkVersion: declared.get(link.check) as string,
-        scope: scopeOf(rows, `test ${test}, link ${link.check} to ${link.requirement}`),
-        cases: forLink,
-        table: tabulate(forLink),
-      });
-    }
-  }
-  links.sort((a, b) => compareDottedIds(a.test, b.test) || (a.check < b.check ? -1 : a.check > b.check ? 1 : a.requirement < b.requirement ? -1 : 1));
-
-  const engineRows = reports.filter((r) => r.kind === "engine").map((r) => toResult(r)).sort(byId);
-  const candidate = {
-    schemaVersion: 1 as const,
-    ruleset: { id: plugin.id, version: plugin.version },
-    corpus: { name: corpus.set, set: corpus.set, hash: corpus.hash },
-    toolVersion: toolVersion(),
-    createdAt,
-    links,
-    entries,
-    engine: { cases: engineRows, table: tabulate(engineRows) },
-  };
-  const parsed = EvaluationSummarySchema.safeParse(candidate);
-  if (!parsed.success) {
-    const issues = parsed.error.issues.slice(0, 5).map((i) => `${i.path.join(".")}: ${i.message}`);
-    return { summary: null, note: `not written: the summary did not validate: ${issues.join("; ")}` };
-  }
-  return { summary: parsed.data, note: null };
-}
+/** Why no EvaluationSummary is written (Q56). */
+export const SUMMARY_NOTE =
+  "not written: the schema asks for a measurement per link, and this harness measures whole tests only. Per-link measurement is M5 work, " +
+  "required before any entry is enabled (Q56).";
 
 /** The statuses in table order, for printing. */
 export const STATUS_ORDER: readonly Status[] = STATUSES;

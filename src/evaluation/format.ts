@@ -32,10 +32,10 @@ export function formatTable(table: ResultTable, indent = "  "): string[] {
 
 export function formatMeasures(m: Measures, label: string, indent = "  "): string[] {
   return [
-    `${indent}False assurance: ${countPhrase(m.falseAssurance, label)}`,
-    `${indent}Missed fault:    ${countPhrase(m.missedFault, label)}`,
-    `${indent}False alarm:     ${countPhrase(m.falseAlarm, label)}`,
-    `${indent}Unexpected error: ${countPhrase(m.unexpectedError, label)}`,
+    `${indent}False assurance (an unexpected passed or not_applicable, over all cases): ${countPhrase(m.falseAssurance, label)}`,
+    `${indent}Missed fault (not failed, over the cases expecting failed): ${countPhrase(m.missedFault, label)}`,
+    `${indent}False alarm (a failed, over the cases not expecting failed): ${countPhrase(m.falseAlarm, label)}`,
+    `${indent}Unexpected error (over all cases): ${countPhrase(m.unexpectedError, label)}`,
   ];
 }
 
@@ -80,14 +80,6 @@ export function formatReport(r: EvaluationReport, filePath?: string): string {
   }
 
   out.push("");
-  out.push("Per link (the test's cases; missing observations counted for this link's check only):");
-  for (const l of r.links) {
-    out.push(`  ${l.test}  ${l.check} -> ${l.requirement}  [${l.built ? `built, version ${l.checkVersion ?? "unknown"}` : "not built"}]`);
-    out.push(`    missing observations for this check: ${countPhrase({ x: l.table.missingObservations, n: l.table.cases }, label)}`);
-    out.push(...formatMeasures(l.measures, label, "    "));
-  }
-
-  out.push("");
   out.push("Per check (outcomes over the cases that link it):");
   for (const c of r.checks) {
     const o = Object.entries(c.outcomes)
@@ -108,7 +100,7 @@ export function formatReport(r: EvaluationReport, filePath?: string): string {
   }
 
   out.push("");
-  out.push(r.summary === null ? `Evaluation summary ${r.summaryNote ?? "not written"}.` : "Evaluation summary: filled and validated (in the results file).");
+  out.push(`Evaluation summary ${r.summaryNote}`);
   if (filePath !== undefined) out.push(`Results file: ${filePath}`);
   out.push("");
   out.push(WHAT_THIS_IS_NOT);

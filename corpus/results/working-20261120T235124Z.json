@@ -1,0 +1,3233 @@
+{
+  "schemaVersion": 1,
+  "ruleset": {
+    "id": "rgaa-4.1.2",
+    "version": "4.1.2"
+  },
+  "corpus": {
+    "name": "working",
+    "set": "working",
+    "hash": "112aadc59374be05778a8c78d557a6329714851c08a46f0ea227872800db6b8c",
+    "label": "working@112aadc59374",
+    "cases": 92
+  },
+  "toolVersion": "0.0.0+git.b946b6b4dd8d7d7e08c70a7dfc074b4657a01b2b.dirty",
+  "createdAt": "2026-11-20T23:51:24.652Z",
+  "checkVersions": {
+    "axe/area-alt": "axe-core@4.14.0+adapter.1",
+    "axe/aria-allowed-attr": "axe-core@4.14.0+adapter.1",
+    "axe/aria-command-name": "axe-core@4.14.0+adapter.1",
+    "axe/aria-conditional-attr": "axe-core@4.14.0+adapter.1",
+    "axe/aria-deprecated-role": "axe-core@4.14.0+adapter.1",
+    "axe/aria-hidden-body": "axe-core@4.14.0+adapter.1",
+    "axe/aria-hidden-focus": "axe-core@4.14.0+adapter.1",
+    "axe/aria-input-field-name": "axe-core@4.14.0+adapter.1",
+    "axe/aria-meter-name": "axe-core@4.14.0+adapter.1",
+    "axe/aria-progressbar-name": "axe-core@4.14.0+adapter.1",
+    "axe/aria-prohibited-attr": "axe-core@4.14.0+adapter.1",
+    "axe/aria-required-attr": "axe-core@4.14.0+adapter.1",
+    "axe/aria-required-children": "axe-core@4.14.0+adapter.1",
+    "axe/aria-required-parent": "axe-core@4.14.0+adapter.1",
+    "axe/aria-roles": "axe-core@4.14.0+adapter.1",
+    "axe/aria-tab-name": "axe-core@4.14.0+adapter.1",
+    "axe/aria-toggle-field-name": "axe-core@4.14.0+adapter.1",
+    "axe/aria-valid-attr": "axe-core@4.14.0+adapter.1",
+    "axe/aria-valid-attr-value": "axe-core@4.14.0+adapter.1",
+    "axe/autocomplete-valid": "axe-core@4.14.0+adapter.1",
+    "axe/blink": "axe-core@4.14.0+adapter.1",
+    "axe/button-name": "axe-core@4.14.0+adapter.1",
+    "axe/bypass": "axe-core@4.14.0+adapter.1",
+    "axe/color-contrast": "axe-core@4.14.0+adapter.1",
+    "axe/css-orientation-lock": "axe-core@4.14.0+adapter.1",
+    "axe/definition-list": "axe-core@4.14.0+adapter.1",
+    "axe/dlitem": "axe-core@4.14.0+adapter.1",
+    "axe/document-title": "axe-core@4.14.0+adapter.1",
+    "axe/duplicate-id-aria": "axe-core@4.14.0+adapter.1",
+    "axe/focus-order-semantics": "axe-core@4.14.0+adapter.1",
+    "axe/form-field-multiple-labels": "axe-core@4.14.0+adapter.1",
+    "axe/frame-focusable-content": "axe-core@4.14.0+adapter.1",
+    "axe/frame-title": "axe-core@4.14.0+adapter.1",
+    "axe/frame-title-unique": "axe-core@4.14.0+adapter.1",
+    "axe/html-has-lang": "axe-core@4.14.0+adapter.1",
+    "axe/html-lang-valid": "axe-core@4.14.0+adapter.1",
+    "axe/html-xml-lang-mismatch": "axe-core@4.14.0+adapter.1",
+    "axe/image-alt": "axe-core@4.14.0+adapter.1",
+    "axe/input-button-name": "axe-core@4.14.0+adapter.1",
+    "axe/input-image-alt": "axe-core@4.14.0+adapter.1",
+    "axe/label": "axe-core@4.14.0+adapter.1",
+    "axe/label-content-name-mismatch": "axe-core@4.14.0+adapter.1",
+    "axe/link-in-text-block": "axe-core@4.14.0+adapter.1",
+    "axe/link-name": "axe-core@4.14.0+adapter.1",
+    "axe/list": "axe-core@4.14.0+adapter.1",
+    "axe/listitem": "axe-core@4.14.0+adapter.1",
+    "axe/marquee": "axe-core@4.14.0+adapter.1",
+    "axe/meta-refresh": "axe-core@4.14.0+adapter.1",
+    "axe/meta-viewport": "axe-core@4.14.0+adapter.1",
+    "axe/nested-interactive": "axe-core@4.14.0+adapter.1",
+    "axe/no-autoplay-audio": "axe-core@4.14.0+adapter.1",
+    "axe/object-alt": "axe-core@4.14.0+adapter.1",
+    "axe/p-as-heading": "axe-core@4.14.0+adapter.1",
+    "axe/region": "axe-core@4.14.0+adapter.1",
+    "axe/role-img-alt": "axe-core@4.14.0+adapter.1",
+    "axe/scrollable-region-focusable": "axe-core@4.14.0+adapter.1",
+    "axe/select-name": "axe-core@4.14.0+adapter.1",
+    "axe/server-side-image-map": "axe-core@4.14.0+adapter.1",
+    "axe/skip-link": "axe-core@4.14.0+adapter.1",
+    "axe/svg-img-alt": "axe-core@4.14.0+adapter.1",
+    "axe/table-duplicate-name": "axe-core@4.14.0+adapter.1",
+    "axe/table-fake-caption": "axe-core@4.14.0+adapter.1",
+    "axe/td-has-header": "axe-core@4.14.0+adapter.1",
+    "axe/td-headers-attr": "axe-core@4.14.0+adapter.1",
+    "axe/th-has-data-cells": "axe-core@4.14.0+adapter.1",
+    "axe/valid-lang": "axe-core@4.14.0+adapter.1",
+    "axe/video-caption": "axe-core@4.14.0+adapter.1",
+    "custom/10-1-presentation-attributes": "1.0.1",
+    "custom/10-1-presentation-elements": "1.0.0",
+    "custom/11-1-field-label-mechanism": "1.0.0",
+    "custom/11-8-optgroup-label-attribute": "1.0.0",
+    "custom/2-1-frame-title-attribute": "1.0.0",
+    "custom/6-2-link-content-name": "1.0.0",
+    "custom/8-2-id-duplicate": "1.0.0",
+    "custom/8-3-default-lang-present": "1.0.0",
+    "custom/8-4-default-lang-code-valid": "1.0.0",
+    "custom/8-5-page-title-present": "1.0.0"
+  },
+  "cases": [
+    {
+      "case": "10.1.1-invalid-center-element",
+      "test": "10.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-elements": "fault"
+      }
+    },
+    {
+      "case": "10.1.1-invalid-hidden-font-element",
+      "test": "10.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-elements": "fault"
+      }
+    },
+    {
+      "case": "10.1.1-invalid-s-inserted-by-script",
+      "test": "10.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-elements": "fault"
+      }
+    },
+    {
+      "case": "10.1.1-invalid-u-under-html401-doctype",
+      "test": "10.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-elements": "fault"
+      }
+    },
+    {
+      "case": "10.1.1-mixed-u-allowed-beside-big",
+      "test": "10.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-elements": "fault"
+      }
+    },
+    {
+      "case": "10.1.1-outside-center-in-cross-origin-frame",
+      "test": "10.1.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "cannot_tell"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "cannot_tell",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-elements": "cannot_tell"
+      }
+    },
+    {
+      "case": "10.1.1-outside-u-without-doctype",
+      "test": "10.1.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "cannot_tell"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "cannot_tell",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-elements": "cannot_tell"
+      }
+    },
+    {
+      "case": "10.1.1-u-under-html5-doctype",
+      "test": "10.1.1",
+      "kind": "test",
+      "branch": "invalid_by_route_valid_by_alternative",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-elements": "no_fault"
+      }
+    },
+    {
+      "case": "10.1.1-valid-no-presentation-element",
+      "test": "10.1.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-elements": "no_fault"
+      }
+    },
+    {
+      "case": "10.1.2-dimensions-on-img-svg-canvas",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_by_route_valid_by_alternative",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "no_fault"
+      }
+    },
+    {
+      "case": "10.1.2-invalid-align-on-div",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "fault"
+      }
+    },
+    {
+      "case": "10.1.2-invalid-frameborder-on-third-party-iframe",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "fault"
+      }
+    },
+    {
+      "case": "10.1.2-invalid-width-on-hidden-td",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "fault"
+      }
+    },
+    {
+      "case": "10.1.2-mixed-size-on-select-and-width-on-img",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_by_route_valid_by_alternative",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "no_fault"
+      }
+    },
+    {
+      "case": "10.1.2-mixed-width-on-img-beside-width-on-td",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "fault"
+      }
+    },
+    {
+      "case": "10.1.2-outside-align-in-cross-origin-frame",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "cannot_tell"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "cannot_tell",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "cannot_tell"
+      }
+    },
+    {
+      "case": "10.1.2-outside-width-on-video-iframe",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "cannot_tell"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "cannot_tell",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "cannot_tell"
+      }
+    },
+    {
+      "case": "10.1.2-outside-xhtml-uppercase-align",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "cannot_tell"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "cannot_tell",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "cannot_tell"
+      }
+    },
+    {
+      "case": "10.1.2-size-on-select",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_by_route_valid_by_alternative",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "no_fault"
+      }
+    },
+    {
+      "case": "10.1.2-valid-no-presentation-attribute",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "valid",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "no_fault"
+      }
+    },
+    {
+      "case": "11.1.1-inapplicable-only-buttons",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "inapplicable",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "inapplicable",
+        "axe/select-name": "inapplicable",
+        "custom/11-1-field-label-mechanism": "inapplicable"
+      }
+    },
+    {
+      "case": "11.1.1-invalid-field-in-cross-origin-frame",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "fault",
+        "axe/select-name": "inapplicable",
+        "custom/11-1-field-label-mechanism": "fault"
+      }
+    },
+    {
+      "case": "11.1.1-invalid-field-inserted-by-script",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "fault",
+        "axe/select-name": "inapplicable",
+        "custom/11-1-field-label-mechanism": "fault"
+      }
+    },
+    {
+      "case": "11.1.1-invalid-placeholder-only",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "no_fault",
+        "axe/select-name": "inapplicable",
+        "custom/11-1-field-label-mechanism": "fault"
+      }
+    },
+    {
+      "case": "11.1.1-invalid-select-without-label",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "inapplicable",
+        "axe/select-name": "fault",
+        "custom/11-1-field-label-mechanism": "fault"
+      }
+    },
+    {
+      "case": "11.1.1-outside-aria-labelledby-missing-id",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "fault",
+        "axe/select-name": "inapplicable",
+        "custom/11-1-field-label-mechanism": "cannot_tell"
+      }
+    },
+    {
+      "case": "11.1.1-outside-empty-aria-label",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "fault",
+        "axe/select-name": "inapplicable",
+        "custom/11-1-field-label-mechanism": "cannot_tell"
+      }
+    },
+    {
+      "case": "11.1.1-outside-unlabelled-field-not-rendered",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "no_fault",
+        "axe/select-name": "inapplicable",
+        "custom/11-1-field-label-mechanism": "cannot_tell"
+      }
+    },
+    {
+      "case": "11.1.1-valid-each-labelling-mechanism",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "no_fault",
+        "axe/select-name": "inapplicable",
+        "custom/11-1-field-label-mechanism": "cannot_tell"
+      }
+    },
+    {
+      "case": "11.1.1-valid-search-field-adjacent-button",
+      "test": "11.1.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/aria-input-field-name": "inapplicable",
+        "axe/aria-meter-name": "inapplicable",
+        "axe/aria-progressbar-name": "inapplicable",
+        "axe/label": "no_fault",
+        "axe/select-name": "inapplicable",
+        "custom/11-1-field-label-mechanism": "cannot_tell"
+      }
+    },
+    {
+      "case": "11.8.2-inapplicable-select-without-optgroup",
+      "test": "11.8.2",
+      "kind": "test",
+      "branch": "inapplicable",
+      "level": "full",
+      "expected": {
+        "status": "not_applicable"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "not_applicable",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/11-8-optgroup-label-attribute": "inapplicable"
+      }
+    },
+    {
+      "case": "11.8.2-invalid-optgroup-in-cross-origin-frame",
+      "test": "11.8.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/11-8-optgroup-label-attribute": "fault"
+      }
+    },
+    {
+      "case": "11.8.2-invalid-optgroup-without-label",
+      "test": "11.8.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/11-8-optgroup-label-attribute": "fault"
+      }
+    },
+    {
+      "case": "11.8.2-mixed-labelled-beside-unlabelled",
+      "test": "11.8.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/11-8-optgroup-label-attribute": "fault"
+      }
+    },
+    {
+      "case": "11.8.2-outside-hidden-select-replaced-by-widget",
+      "test": "11.8.2",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "cannot_tell"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "cannot_tell",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/11-8-optgroup-label-attribute": "cannot_tell"
+      }
+    },
+    {
+      "case": "11.8.2-outside-select-outside-form",
+      "test": "11.8.2",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "cannot_tell"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "cannot_tell",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/11-8-optgroup-label-attribute": "cannot_tell"
+      }
+    },
+    {
+      "case": "11.8.2-valid-empty-label-attribute",
+      "test": "11.8.2",
+      "kind": "test",
+      "branch": "valid",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/11-8-optgroup-label-attribute": "no_fault"
+      }
+    },
+    {
+      "case": "11.8.2-valid-optgroups-labelled",
+      "test": "11.8.2",
+      "kind": "test",
+      "branch": "valid",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/11-8-optgroup-label-attribute": "no_fault"
+      }
+    },
+    {
+      "case": "11.8.2-valid-role-form-container",
+      "test": "11.8.2",
+      "kind": "test",
+      "branch": "valid",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/11-8-optgroup-label-attribute": "no_fault"
+      }
+    },
+    {
+      "case": "2.1.1-inapplicable-no-frame",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "inapplicable",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "inapplicable",
+        "custom/2-1-frame-title-attribute": "inapplicable"
+      }
+    },
+    {
+      "case": "2.1.1-invalid-aria-label-instead-of-title",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "no_fault",
+        "custom/2-1-frame-title-attribute": "fault"
+      }
+    },
+    {
+      "case": "2.1.1-invalid-script-inserted-cross-origin-iframe",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "fault",
+        "custom/2-1-frame-title-attribute": "fault"
+      }
+    },
+    {
+      "case": "2.1.1-invalid-titled-beside-untitled",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "fault",
+        "custom/2-1-frame-title-attribute": "fault"
+      }
+    },
+    {
+      "case": "2.1.1-invalid-untitled-frame-inside-cross-origin-frame",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "fault",
+        "custom/2-1-frame-title-attribute": "fault"
+      }
+    },
+    {
+      "case": "2.1.1-invalid-untitled-iframe",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "fault",
+        "custom/2-1-frame-title-attribute": "fault"
+      }
+    },
+    {
+      "case": "2.1.1-outside-aria-hidden-untitled-iframe",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "inapplicable",
+        "custom/2-1-frame-title-attribute": "cannot_tell"
+      }
+    },
+    {
+      "case": "2.1.1-outside-empty-title",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "fault",
+        "custom/2-1-frame-title-attribute": "cannot_tell"
+      }
+    },
+    {
+      "case": "2.1.1-outside-untitled-iframe-not-rendered",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "inapplicable",
+        "custom/2-1-frame-title-attribute": "cannot_tell"
+      }
+    },
+    {
+      "case": "2.1.1-valid-titled-iframe",
+      "test": "2.1.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/frame-title": "no_fault",
+        "custom/2-1-frame-title-attribute": "no_fault"
+      }
+    },
+    {
+      "case": "6.2.1-inapplicable-no-link",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "inapplicable",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "inapplicable",
+        "custom/6-2-link-content-name": "inapplicable"
+      }
+    },
+    {
+      "case": "6.2.1-invalid-empty-icon-link",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "fault",
+        "custom/6-2-link-content-name": "fault"
+      }
+    },
+    {
+      "case": "6.2.1-invalid-empty-link-in-cross-origin-frame",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "fault",
+        "custom/6-2-link-content-name": "fault"
+      }
+    },
+    {
+      "case": "6.2.1-invalid-image-link-empty-alt",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "fault",
+        "custom/6-2-link-content-name": "fault"
+      }
+    },
+    {
+      "case": "6.2.1-outside-name-only-from-aria-label",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "no_fault",
+        "custom/6-2-link-content-name": "cannot_tell"
+      }
+    },
+    {
+      "case": "6.2.1-outside-role-link-without-content",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "inapplicable",
+        "custom/6-2-link-content-name": "cannot_tell"
+      }
+    },
+    {
+      "case": "6.2.1-valid-anchor-without-href",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "no_fault",
+        "custom/6-2-link-content-name": "no_fault"
+      }
+    },
+    {
+      "case": "6.2.1-valid-image-link-with-alt",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "no_fault",
+        "custom/6-2-link-content-name": "no_fault"
+      }
+    },
+    {
+      "case": "6.2.1-valid-svg-link-title-and-text",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "inapplicable",
+        "custom/6-2-link-content-name": "no_fault"
+      }
+    },
+    {
+      "case": "6.2.1-valid-text-links",
+      "test": "6.2.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/link-name": "no_fault",
+        "custom/6-2-link-content-name": "no_fault"
+      }
+    },
+    {
+      "case": "8.2.1-invalid-duplicate-id-added-by-script",
+      "test": "8.2.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/duplicate-id-aria": "inapplicable",
+        "custom/8-2-id-duplicate": "fault"
+      }
+    },
+    {
+      "case": "8.2.1-invalid-duplicate-id-in-source",
+      "test": "8.2.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/duplicate-id-aria": "inapplicable",
+        "custom/8-2-id-duplicate": "fault"
+      }
+    },
+    {
+      "case": "8.2.1-invalid-duplicate-id-on-hidden-element",
+      "test": "8.2.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/duplicate-id-aria": "inapplicable",
+        "custom/8-2-id-duplicate": "fault"
+      }
+    },
+    {
+      "case": "8.2.1-outside-duplicate-id-without-doctype",
+      "test": "8.2.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/duplicate-id-aria": "inapplicable",
+        "custom/8-2-id-duplicate": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.2.1-outside-same-id-in-cross-origin-frame",
+      "test": "8.2.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/duplicate-id-aria": "inapplicable",
+        "custom/8-2-id-duplicate": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.2.1-valid-ids-differ-in-case",
+      "test": "8.2.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/duplicate-id-aria": "inapplicable",
+        "custom/8-2-id-duplicate": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.2.1-valid-unique-ids",
+      "test": "8.2.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/duplicate-id-aria": "inapplicable",
+        "custom/8-2-id-duplicate": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.3.1-invalid-lang-on-header-only",
+      "test": "8.3.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-has-lang": "fault",
+        "custom/8-3-default-lang-present": "fault"
+      }
+    },
+    {
+      "case": "8.3.1-invalid-no-lang-ordinary-text",
+      "test": "8.3.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-has-lang": "fault",
+        "custom/8-3-default-lang-present": "fault"
+      }
+    },
+    {
+      "case": "8.3.1-outside-cross-origin-frame-without-lang",
+      "test": "8.3.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-has-lang": "no_fault",
+        "custom/8-3-default-lang-present": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.3.1-outside-empty-lang-on-html",
+      "test": "8.3.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-has-lang": "fault",
+        "custom/8-3-default-lang-present": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.3.1-outside-lang-on-body-only",
+      "test": "8.3.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-has-lang": "fault",
+        "custom/8-3-default-lang-present": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.3.1-outside-no-lang-text-in-page-font",
+      "test": "8.3.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-has-lang": "fault",
+        "custom/8-3-default-lang-present": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.3.1-outside-xhtml10-lang-without-xml-lang",
+      "test": "8.3.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-has-lang": "no_fault",
+        "custom/8-3-default-lang-present": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.3.1-valid-lang-on-html",
+      "test": "8.3.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-has-lang": "no_fault",
+        "custom/8-3-default-lang-present": "no_fault"
+      }
+    },
+    {
+      "case": "8.3.1-valid-xhtml10-text-html-lang-and-xml-lang",
+      "test": "8.3.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-has-lang": "no_fault",
+        "custom/8-3-default-lang-present": "no_fault"
+      }
+    },
+    {
+      "case": "8.4.1-inapplicable-no-default-language",
+      "test": "8.4.1",
+      "kind": "test",
+      "branch": "inapplicable",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-lang-valid": "inapplicable",
+        "custom/8-4-default-lang-code-valid": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.4.1-invalid-language-name",
+      "test": "8.4.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-lang-valid": "fault",
+        "custom/8-4-default-lang-code-valid": "fault"
+      }
+    },
+    {
+      "case": "8.4.1-invalid-underscore-region",
+      "test": "8.4.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "fail_only",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-lang-valid": "fault",
+        "custom/8-4-default-lang-code-valid": "fault"
+      }
+    },
+    {
+      "case": "8.4.1-outside-empty-lang",
+      "test": "8.4.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-lang-valid": "inapplicable",
+        "custom/8-4-default-lang-code-valid": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.4.1-outside-lang-with-leading-space",
+      "test": "8.4.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-lang-valid": "no_fault",
+        "custom/8-4-default-lang-code-valid": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.4.1-valid-code-with-region",
+      "test": "8.4.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-lang-valid": "no_fault",
+        "custom/8-4-default-lang-code-valid": "no_fault"
+      }
+    },
+    {
+      "case": "8.4.1-valid-three-letter-code",
+      "test": "8.4.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-lang-valid": "fault",
+        "custom/8-4-default-lang-code-valid": "no_fault"
+      }
+    },
+    {
+      "case": "8.4.1-valid-two-letter-code",
+      "test": "8.4.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "fail_only",
+      "expected": {
+        "status": "needs_review",
+        "reason": "not_enabled"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "not_enabled",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/html-lang-valid": "no_fault",
+        "custom/8-4-default-lang-code-valid": "no_fault"
+      }
+    },
+    {
+      "case": "8.5.1-invalid-no-title-element",
+      "test": "8.5.1",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/document-title": "fault",
+        "custom/8-5-page-title-present": "fault"
+      }
+    },
+    {
+      "case": "8.5.1-outside-cross-origin-frame-without-title",
+      "test": "8.5.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "cannot_tell"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "cannot_tell",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/document-title": "no_fault",
+        "custom/8-5-page-title-present": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.5.1-outside-empty-title",
+      "test": "8.5.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "alternative_unresolved"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "alternative_unresolved",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/document-title": "fault",
+        "custom/8-5-page-title-present": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.5.1-outside-first-title-empty-second-filled",
+      "test": "8.5.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "alternative_unresolved"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "alternative_unresolved",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/document-title": "fault",
+        "custom/8-5-page-title-present": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.5.1-outside-title-in-body",
+      "test": "8.5.1",
+      "kind": "test",
+      "branch": "outside_support",
+      "level": "full",
+      "expected": {
+        "status": "needs_review",
+        "reason": "cannot_tell"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "needs_review",
+        "reason": "cannot_tell",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/document-title": "no_fault",
+        "custom/8-5-page-title-present": "cannot_tell"
+      }
+    },
+    {
+      "case": "8.5.1-valid-cross-origin-frame-with-title",
+      "test": "8.5.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/document-title": "no_fault",
+        "custom/8-5-page-title-present": "no_fault"
+      }
+    },
+    {
+      "case": "8.5.1-valid-title-in-head",
+      "test": "8.5.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/document-title": "no_fault",
+        "custom/8-5-page-title-present": "no_fault"
+      }
+    },
+    {
+      "case": "8.5.1-valid-title-set-by-script",
+      "test": "8.5.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/document-title": "no_fault",
+        "custom/8-5-page-title-present": "no_fault"
+      }
+    },
+    {
+      "case": "8.5.1-valid-xhtml-title-in-head",
+      "test": "8.5.1",
+      "kind": "test",
+      "branch": "valid",
+      "level": "full",
+      "expected": {
+        "status": "passed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "passed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "axe/document-title": "no_fault",
+        "custom/8-5-page-title-present": "no_fault"
+      }
+    }
+  ],
+  "unmeasured": [],
+  "tests": [
+    {
+      "test": "2.1.1",
+      "entryHash": "31a1b82b1cfa829d24e95642a7483bcfe6a8612f461ce4442d2f92fa01574160",
+      "level": "fail_only",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 5,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 5,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 10
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 10
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 5
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 5
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 10
+        }
+      },
+      "matched": {
+        "x": 10,
+        "n": 10
+      }
+    },
+    {
+      "test": "6.2.1",
+      "entryHash": "bb1626ea596451f869d5587ce946f43c898ce9efb7bc49bf744bdee746ba86db",
+      "level": "fail_only",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 3,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 7,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 10
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 10
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 3
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 7
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 10
+        }
+      },
+      "matched": {
+        "x": 10,
+        "n": 10
+      }
+    },
+    {
+      "test": "8.2.1",
+      "entryHash": "a56d5ac62f46a9cfe91c823792984dda7b191ca15f80ebd9cca72d9f9e4a9491",
+      "level": "fail_only",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 3,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 4,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 7
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 7
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 3
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 4
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 7
+        }
+      },
+      "matched": {
+        "x": 7,
+        "n": 7
+      }
+    },
+    {
+      "test": "8.3.1",
+      "entryHash": "7d266fdc3e0645c6bd9ee57ddcc821838e96f951ab2d40d85c9b9e43ee1e65dc",
+      "level": "fail_only",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 2,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 7,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 9
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 9
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 2
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 7
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 9
+        }
+      },
+      "matched": {
+        "x": 9,
+        "n": 9
+      }
+    },
+    {
+      "test": "8.4.1",
+      "entryHash": "1f2719167646fb71de11bb3c42218dba36ce7b37c0c3f4d6696b37a6d1fe63a4",
+      "level": "fail_only",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 2,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 6,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 8
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 8
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 2
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 6
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 8
+        }
+      },
+      "matched": {
+        "x": 8,
+        "n": 8
+      }
+    },
+    {
+      "test": "8.5.1",
+      "entryHash": "b730b619339400a8ed03e1aa3b0fd24e72c89557c881c2395a471f8f252c8d1f",
+      "level": "full",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 4,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 1,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 4,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 9
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 9
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 1
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 8
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 9
+        }
+      },
+      "matched": {
+        "x": 9,
+        "n": 9
+      }
+    },
+    {
+      "test": "10.1.1",
+      "entryHash": "884b3f32eb80872b60f6e2ca7670b52e2798e16fac8a83ef0de5de77bae50522",
+      "level": "full",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 2,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 5,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 2,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 9
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 9
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 5
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 4
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 9
+        }
+      },
+      "matched": {
+        "x": 9,
+        "n": 9
+      }
+    },
+    {
+      "test": "10.1.2",
+      "entryHash": "42ad5a2dc79dab04fe1a34e57d72a59bd33548bdd00bac30bc307960237aeb6c",
+      "level": "full",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 4,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 4,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 3,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 11
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 11
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 4
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 7
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 11
+        }
+      },
+      "matched": {
+        "x": 11,
+        "n": 11
+      }
+    },
+    {
+      "test": "11.1.1",
+      "entryHash": "0104964c7939f92680ed7ab390ed07198b88ce4a3bc0162d24dbf4177062213b",
+      "level": "fail_only",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 4,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 6,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 10
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 10
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 4
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 6
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 10
+        }
+      },
+      "matched": {
+        "x": 10,
+        "n": 10
+      }
+    },
+    {
+      "test": "11.8.2",
+      "entryHash": "5254b6567e855bca99940abd814c1f4cb975786335890899509325e954f25755",
+      "level": "full",
+      "table": {
+        "expected": {
+          "passed": {
+            "passed": 3,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "failed": {
+            "passed": 0,
+            "failed": 3,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_applicable": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 1,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "needs_review": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 2,
+            "not_tested": 0,
+            "crash": 0
+          },
+          "not_tested": {
+            "passed": 0,
+            "failed": 0,
+            "not_applicable": 0,
+            "needs_review": 0,
+            "not_tested": 0,
+            "crash": 0
+          }
+        },
+        "missingObservations": 0,
+        "cases": 9
+      },
+      "measures": {
+        "falseAssurance": {
+          "x": 0,
+          "n": 9
+        },
+        "missedFault": {
+          "x": 0,
+          "n": 3
+        },
+        "falseAlarm": {
+          "x": 0,
+          "n": 6
+        },
+        "unexpectedError": {
+          "x": 0,
+          "n": 9
+        }
+      },
+      "matched": {
+        "x": 9,
+        "n": 9
+      }
+    }
+  ],
+  "checks": [
+    {
+      "check": "axe/aria-input-field-name",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 10,
+      "outcomes": {
+        "fault": 0,
+        "no_fault": 0,
+        "inapplicable": 10,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/aria-meter-name",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 10,
+      "outcomes": {
+        "fault": 0,
+        "no_fault": 0,
+        "inapplicable": 10,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/aria-progressbar-name",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 10,
+      "outcomes": {
+        "fault": 0,
+        "no_fault": 0,
+        "inapplicable": 10,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/document-title",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 9,
+      "outcomes": {
+        "fault": 3,
+        "no_fault": 6,
+        "inapplicable": 0,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/duplicate-id-aria",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 7,
+      "outcomes": {
+        "fault": 0,
+        "no_fault": 0,
+        "inapplicable": 7,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/frame-title",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 10,
+      "outcomes": {
+        "fault": 5,
+        "no_fault": 2,
+        "inapplicable": 3,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/html-has-lang",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 9,
+      "outcomes": {
+        "fault": 5,
+        "no_fault": 4,
+        "inapplicable": 0,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/html-lang-valid",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 8,
+      "outcomes": {
+        "fault": 3,
+        "no_fault": 3,
+        "inapplicable": 2,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/label",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 10,
+      "outcomes": {
+        "fault": 4,
+        "no_fault": 4,
+        "inapplicable": 2,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/link-name",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 10,
+      "outcomes": {
+        "fault": 3,
+        "no_fault": 4,
+        "inapplicable": 3,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "axe/select-name",
+      "built": true,
+      "checkVersion": "axe-core@4.14.0+adapter.1",
+      "cases": 10,
+      "outcomes": {
+        "fault": 1,
+        "no_fault": 0,
+        "inapplicable": 9,
+        "cannot_tell": 0,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/10-1-presentation-attributes",
+      "built": true,
+      "checkVersion": "1.0.1",
+      "cases": 11,
+      "outcomes": {
+        "fault": 4,
+        "no_fault": 4,
+        "inapplicable": 0,
+        "cannot_tell": 3,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/10-1-presentation-elements",
+      "built": true,
+      "checkVersion": "1.0.0",
+      "cases": 9,
+      "outcomes": {
+        "fault": 5,
+        "no_fault": 2,
+        "inapplicable": 0,
+        "cannot_tell": 2,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/11-1-field-label-mechanism",
+      "built": true,
+      "checkVersion": "1.0.0",
+      "cases": 10,
+      "outcomes": {
+        "fault": 4,
+        "no_fault": 0,
+        "inapplicable": 1,
+        "cannot_tell": 5,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/11-8-optgroup-label-attribute",
+      "built": true,
+      "checkVersion": "1.0.0",
+      "cases": 9,
+      "outcomes": {
+        "fault": 3,
+        "no_fault": 3,
+        "inapplicable": 1,
+        "cannot_tell": 2,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/2-1-frame-title-attribute",
+      "built": true,
+      "checkVersion": "1.0.0",
+      "cases": 10,
+      "outcomes": {
+        "fault": 5,
+        "no_fault": 1,
+        "inapplicable": 1,
+        "cannot_tell": 3,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/6-2-link-content-name",
+      "built": true,
+      "checkVersion": "1.0.0",
+      "cases": 10,
+      "outcomes": {
+        "fault": 3,
+        "no_fault": 4,
+        "inapplicable": 1,
+        "cannot_tell": 2,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/8-2-id-duplicate",
+      "built": true,
+      "checkVersion": "1.0.0",
+      "cases": 7,
+      "outcomes": {
+        "fault": 3,
+        "no_fault": 0,
+        "inapplicable": 0,
+        "cannot_tell": 4,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/8-3-default-lang-present",
+      "built": true,
+      "checkVersion": "1.0.0",
+      "cases": 9,
+      "outcomes": {
+        "fault": 2,
+        "no_fault": 2,
+        "inapplicable": 0,
+        "cannot_tell": 5,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/8-4-default-lang-code-valid",
+      "built": true,
+      "checkVersion": "1.0.0",
+      "cases": 8,
+      "outcomes": {
+        "fault": 2,
+        "no_fault": 3,
+        "inapplicable": 0,
+        "cannot_tell": 3,
+        "error": 0,
+        "missing": 0
+      }
+    },
+    {
+      "check": "custom/8-5-page-title-present",
+      "built": true,
+      "checkVersion": "1.0.0",
+      "cases": 9,
+      "outcomes": {
+        "fault": 1,
+        "no_fault": 4,
+        "inapplicable": 0,
+        "cannot_tell": 4,
+        "error": 0,
+        "missing": 0
+      }
+    }
+  ],
+  "overall": {
+    "table": {
+      "expected": {
+        "passed": {
+          "passed": 13,
+          "failed": 0,
+          "not_applicable": 0,
+          "needs_review": 0,
+          "not_tested": 0,
+          "crash": 0
+        },
+        "failed": {
+          "passed": 0,
+          "failed": 32,
+          "not_applicable": 0,
+          "needs_review": 0,
+          "not_tested": 0,
+          "crash": 0
+        },
+        "not_applicable": {
+          "passed": 0,
+          "failed": 0,
+          "not_applicable": 1,
+          "needs_review": 0,
+          "not_tested": 0,
+          "crash": 0
+        },
+        "needs_review": {
+          "passed": 0,
+          "failed": 0,
+          "not_applicable": 0,
+          "needs_review": 46,
+          "not_tested": 0,
+          "crash": 0
+        },
+        "not_tested": {
+          "passed": 0,
+          "failed": 0,
+          "not_applicable": 0,
+          "needs_review": 0,
+          "not_tested": 0,
+          "crash": 0
+        }
+      },
+      "missingObservations": 0,
+      "cases": 92
+    },
+    "measures": {
+      "falseAssurance": {
+        "x": 0,
+        "n": 92
+      },
+      "missedFault": {
+        "x": 0,
+        "n": 32
+      },
+      "falseAlarm": {
+        "x": 0,
+        "n": 60
+      },
+      "unexpectedError": {
+        "x": 0,
+        "n": 92
+      }
+    },
+    "matched": {
+      "x": 92,
+      "n": 92
+    }
+  },
+  "summary": null,
+  "summaryNote": "not written: the schema asks for a measurement per link, and this harness measures whole tests only. Per-link measurement is M5 work, required before any entry is enabled (Q56)."
+}

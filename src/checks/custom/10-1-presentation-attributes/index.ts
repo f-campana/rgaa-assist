@@ -42,7 +42,7 @@ export const ATTRIBUTE_LISTS = JSON.parse(readFileSync(join(import.meta.dirname,
 
 export const attributesDefinition: CheckDefinition = {
   id: ATTRIBUTES_CHECK_ID,
-  version: "1.0.0",
+  version: "1.0.1",
   defaultOptions: Object.freeze({
     listsVersion: ATTRIBUTE_LISTS.version,
     /** Instances listed per abstention (and locators in a no_fault scope). */

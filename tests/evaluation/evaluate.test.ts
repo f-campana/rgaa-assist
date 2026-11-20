@@ -15,7 +15,7 @@ import type { EvaluationReport } from "../../src/evaluation/evaluate.ts";
 import { formatReport } from "../../src/evaluation/format.ts";
 import { utcStamp } from "../../src/evaluation/main.ts";
 import { loadRgaa412 } from "../../src/rulesets/rgaa-4.1.2/index.ts";
-import { EvaluationSummarySchema, WHAT_THIS_IS_NOT } from "../../src/schema/index.ts";
+import { WHAT_THIS_IS_NOT } from "../../src/schema/index.ts";
 import type { CheckId } from "../../src/schema/index.ts";
 
 const RATIONALE = {
@@ -145,7 +145,7 @@ describe("evaluate on a fake corpus", () => {
     expect(report.overall.table.expected.failed.failed).toBe(1);
     expect(report.overall.matched).toEqual({ x: 2, n: 3 });
     expect(report.overall.measures).toEqual({
-      falseAssurance: { x: 0, n: 1 }, // only the failed-expecting case expected neither passed nor not_applicable
+      falseAssurance: { x: 0, n: 3 }, // over all cases: none returned a passed or not_applicable it did not expect
       missedFault: { x: 0, n: 1 },
       falseAlarm: { x: 1, n: 2 }, // the mislabelled case got failed where passed was expected
       unexpectedError: { x: 1, n: 3 }, // the missing observation
@@ -154,12 +154,10 @@ describe("evaluate on a fake corpus", () => {
     expect(test851?.matched).toEqual({ x: 1, n: 2 });
   });
 
-  it("per link: the missing count is for that link's check only", () => {
-    const lang = report.links.filter((l) => l.test === "8.3.1");
-    expect(lang.find((l) => l.check === "axe/html-has-lang")?.table.missingObservations).toBe(1);
-    expect(lang.find((l) => l.check === "custom/8-3-default-lang-present")?.table.missingObservations).toBe(0);
-    expect(lang.find((l) => l.check === "axe/html-has-lang")?.checkVersion).toBeNull();
-    expect(lang.find((l) => l.check === "custom/8-3-default-lang-present")?.checkVersion).toBe("stub-1");
+  it("reports no per-link tables or measures: per-test numbers and per-check outcome counts only", () => {
+    expect("links" in report).toBe(false);
+    expect(JSON.stringify(report)).not.toContain('"links"');
+    expect(report.tests.map((t) => t.test)).toEqual(["8.3.1", "8.5.1"]);
   });
 
   it("per check: outcomes over the cases that link it", () => {
@@ -169,33 +167,26 @@ describe("evaluate on a fake corpus", () => {
     expect(axeLang).toMatchObject({ cases: 1, outcomes: { missing: 1 } });
   });
 
-  it("records check versions and a corpus hash, and does not write a summary it cannot complete", () => {
+  it("records check versions and a corpus hash, and writes no summary: per-link measurement is M5 work (Q56)", () => {
     expect(report.checkVersions["custom/8-5-page-title-present"]).toBe("stub-1");
     expect(report.corpus.hash).toMatch(/^[0-9a-f]{64}$/);
     expect(report.summary).toBeNull();
-    expect(report.summaryNote).toContain("axe/html-has-lang");
+    expect(report.summaryNote).toContain("Per-link measurement is M5 work");
+    expect(report.summaryNote).toContain("M5");
+    expect(report.summaryNote).toContain("Q56");
   });
 
   it("the printed report states counts as 'x of n cases on corpus working@<hash>' and never a rate", () => {
     const text = formatReport(report, "/tmp/results.json");
     expect(text).toContain(`Matched: 2 of 3 cases on corpus ${corpusLabel("working", report.corpus.hash)}`);
-    expect(text).toMatch(/False alarm:\s+1 of 2 cases on corpus working@[0-9a-f]{12}/);
+    expect(text).toMatch(/False alarm \(a failed, over the cases not expecting failed\): 1 of 2 cases on corpus working@[0-9a-f]{12}/);
+    expect(text).toMatch(/False assurance \(an unexpected passed or not_applicable, over all cases\): 0 of 3 cases on corpus working@[0-9a-f]{12}/);
+    expect(text).not.toContain("Per link");
     expect(text).not.toMatch(/%/);
     expect(text).not.toMatch(/\b(rate|percent|percentage|score|verdict)\b/i);
     expect(text.trimEnd().endsWith(WHAT_THIS_IS_NOT)).toBe(true);
     expect(JSON.stringify(report)).not.toMatch(/%|percent|"rate"|"score"|verdict/i);
   });
-
-  it("writes a valid EvaluationSummary when every linked check has a version", async () => {
-    const only = mkdtempSync(join(tmpdir(), "rgaa-eval-851-"));
-    for (const c of CASES.filter((x) => x.test === "8.5.1")) writeCase(only, c);
-    const r = await evaluate({ corpus: loadCorpus(only), plugin: loadRgaa412(), providers: [stub], browser });
-    expect(r.summaryNote).toBeNull();
-    expect(EvaluationSummarySchema.safeParse(r.summary).success).toBe(true);
-    expect(r.summary?.entries[0]?.level).toBe("full");
-    expect(r.summary?.links).toHaveLength(2);
-    expect(r.summary?.corpus.hash).toBe(r.corpus.hash);
-  }, 60_000);
 });
 
 describe("corpus loading", () => {
@@ -221,6 +212,26 @@ describe("measures and phrasing", () => {
     const m = measures([{ expected: { status: "failed" }, actual: { kind: "crash", message: "x" }, missingObservations: [] }]);
     expect(m.missedFault).toEqual({ x: 1, n: 1 });
     expect(m.unexpectedError).toEqual({ x: 1, n: 1 });
+  });
+  const finding = (status: "passed" | "not_applicable" | "failed" | "needs_review") =>
+    ({ kind: "finding", status, complete: true }) as const;
+  it("false assurance counts a swap: expected passed, got not_applicable", () => {
+    const m = measures([{ expected: { status: "passed" }, actual: finding("not_applicable"), missingObservations: [] }]);
+    expect(m.falseAssurance).toEqual({ x: 1, n: 1 });
+  });
+  it("false assurance counts the reverse swap: expected not_applicable, got passed", () => {
+    const m = measures([{ expected: { status: "not_applicable" }, actual: finding("passed"), missingObservations: [] }]);
+    expect(m.falseAssurance).toEqual({ x: 1, n: 1 });
+  });
+  it("false assurance counts a passed where failed or needs_review was expected, and not a matching passed", () => {
+    const m = measures([
+      { expected: { status: "failed" }, actual: finding("passed"), missingObservations: [] },
+      { expected: { status: "needs_review" }, actual: finding("not_applicable"), missingObservations: [] },
+      { expected: { status: "passed" }, actual: finding("passed"), missingObservations: [] },
+      { expected: { status: "not_applicable" }, actual: finding("not_applicable"), missingObservations: [] },
+      { expected: { status: "passed" }, actual: finding("failed"), missingObservations: [] },
+    ]);
+    expect(m.falseAssurance).toEqual({ x: 2, n: 5 });
   });
   it("an expected not_tested is not an unexpected error", () => {
     const m = measures([
