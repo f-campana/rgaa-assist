@@ -101,7 +101,7 @@ M2 is done when all of this is true:
 - Tests, typecheck and coverage validation are green.
 - Both run files validate against the run-file schema, with their manifests complete.
 - The Aubay comparison with the dry run is written, with every difference explained.
-- First working-set numbers are reported, as counts with their population ("x of n cases on corpus X", 10.3), per link and per check. Never as a rate, a score or a verdict.
+- First working-set numbers are reported, as counts with their population ("x of n cases on corpus X", 10.3), per test and per check outcome. Never as a rate, a score or a verdict. Per-link measurement is not part of M2 (Q56): a properly defined one is M5 work, required before any entry is enabled.
 - Every implemented check matches its registry record, and every mismatch is reported to Fabien.
 - Codex has reviewed the gate. Its findings are answered or listed as open.
 - You have reviewed every diff, and `docs/m2-status.md` says where things stand.
