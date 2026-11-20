@@ -1,0 +1,6 @@
+{
+  "project": { "name": "PremiumShot", "ruleset": "rgaa-4.1.2", "regime": "to_confirm", "reportLanguage": "en" },
+  "pages": [
+    { "id": "home", "url": "https://premiumshot.app/", "kinds": ["home"] }
+  ]
+}
