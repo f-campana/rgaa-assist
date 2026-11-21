@@ -8,7 +8,8 @@ export interface HostChain {
   ariaHidden: boolean;
   inert: boolean;
   opacityZero: boolean;
-  visible: boolean;
+  /** false: no part at least 4 px square visible; null: unknown (an unmeasured clip-path). */
+  visible: boolean | null;
 }
 
 export interface ScanArg {
@@ -26,7 +27,8 @@ export interface HostFacts {
   ariaHidden: boolean;
   inert: boolean;
   opacityZero: boolean;
-  visible: boolean;
+  /** false: no part at least 4 px square visible; null: unknown (an unmeasured clip-path). */
+  visible: boolean | null;
 }
 
 export interface ElementBase {
@@ -80,7 +82,8 @@ export interface SelectRecord {
   ariaHidden: boolean;
   inert: boolean;
   opacityZero: boolean;
-  visible: boolean;
+  /** false: no part at least 4 px square visible; null: unknown (an unmeasured clip-path). */
+  visible: boolean | null;
   ax: number | null;
 }
 

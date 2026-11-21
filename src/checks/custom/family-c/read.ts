@@ -290,7 +290,8 @@ export async function readPage(ctx: CheckContext): Promise<PageRead> {
           ariaHidden: p.ariaHidden || f.ariaHidden,
           inert: p.inert || f.inert,
           opacityZero: p.opacityZero || f.opacityZero,
-          visible: p.visible && f.visible,
+          // false wins, then null (unknown), then true
+          visible: p.visible === false || f.visible === false ? false : p.visible === null || f.visible === null ? null : true,
         };
         read.prefix = parent.prefix === "" ? f.locator : `${parent.prefix} >>> ${f.locator}`;
       } catch (e) {

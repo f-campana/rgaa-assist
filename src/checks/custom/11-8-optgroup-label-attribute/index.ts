@@ -14,8 +14,11 @@
  * (7) otherwise: fault.
  *
  * RECORD: "inside every clipping ancestor" is computed from overflow (and paint containment) of
- * the ancestors in S's containing-block chain, the CSS clip property, and clip-path inset(); other
- * clip-path shapes are not computed and do not count as clipping.
+ * the ancestors in S's containing-block chain, the CSS clip property, and clip-path inset(). Any
+ * other clip-path (circle, ellipse, polygon, path, rect, xywh, url, a box keyword, a shape with a
+ * box keyword, an unparsed value) on S, any flat-tree ancestor or a hosting frame element is not
+ * measured: visibility is then unknown and step (2) gives cannot_tell (Q57), unless the measured
+ * part is already under 4 pixels square.
  * RECORD: for S inside a frame, the frame elements that host its document count as ancestors for
  * opacity, and S is not visible when such a frame element is not visible by the same rule. The
  * record speaks of "the page's scrollable area" without saying how frames enter it.
@@ -30,7 +33,7 @@ export const CHECK_ID = "custom/11-8-optgroup-label-attribute" as CheckId;
 
 export const definition: CheckDefinition = {
   id: CHECK_ID,
-  version: "1.0.0",
+  version: "1.0.1",
   defaultOptions: { listCap: 50 },
 };
 
@@ -65,7 +68,14 @@ export function derive(read: PageRead, options: Readonly<Record<string, unknown>
         v("cannot_tell", `Step (2): ${sAt} is not visible (computed opacity 0 on it or an ancestor).`);
         continue;
       }
-      if (!s.visible) {
+      if (s.visible === null) {
+        v(
+          "cannot_tell",
+          `Step (2): whether ${sAt} is visible is not known: a clip-path the check does not measure (a shape other than inset(), a box keyword, url(), or an unparsed value) is on it, an ancestor or a hosting frame element.`,
+        );
+        continue;
+      }
+      if (s.visible === false) {
         v("cannot_tell", `Step (2): ${sAt} is not visible (no part at least 4 pixels square inside the page's scrollable area and every clipping ancestor).`);
         continue;
       }

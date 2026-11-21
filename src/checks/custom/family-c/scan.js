@@ -170,6 +170,9 @@ export function familyC(a, b) {
   // scrollable area and inside every clipping ancestor.
   // -------------------------------------------------------------------------
 
+  /** Three-valued "and": false wins, then null (unknown), then true. */
+  const and3 = (x, y) => (x === false || y === false ? false : x === null || y === null ? null : true);
+
   function parseClipRect(value, box) {
     // `rect(t, r, b, l)` offsets from the border box's top left; `auto` is the edge.
     const m = /^rect\((.*)\)$/.exec(value.trim());
@@ -198,7 +201,17 @@ export function familyC(a, b) {
     return { left: box.left + vals[3], top: box.top + vals[0], right: box.right - vals[1], bottom: box.bottom - vals[2] };
   }
 
+  /**
+   * true: a part at least 4 px square lies inside the page's scrollable area
+   * and every clipping ancestor. false: none does. null (unknown): the
+   * measured part is large enough, but a clip-path the helper does not
+   * measure (anything but none or a parsed inset(): circle, ellipse,
+   * polygon, path, rect, xywh, url, a shape with a box keyword, a box keyword
+   * alone, anything unparsed) is on the element or a flat-tree ancestor. A
+   * clip-path only ever removes area, so an area already too small stays false.
+   */
   function visibleArea(el) {
+    let unknown = false;
     const r = el.getBoundingClientRect();
     const box = { left: r.left, top: r.top, right: r.right, bottom: r.bottom };
     const cut = (c) => {
@@ -228,13 +241,22 @@ export function familyC(a, b) {
         if (c !== null) cut(c);
       }
     };
+    // A clip-path clips every descendant whatever its containing block, so an
+    // unmeasured one counts on every flat-tree ancestor, in the chain or not.
+    const unmeasuredClipPath = (n, st) => {
+      if (!st.clipPath || st.clipPath === "none") return false;
+      const nr = n.getBoundingClientRect();
+      return parseInset(st.clipPath, { left: nr.left, top: nr.top, right: nr.right, bottom: nr.bottom, width: nr.width, height: nr.height }) === null;
+    };
 
     const own = style(el);
+    if (unmeasuredClipPath(el, own)) unknown = true;
     ownClips(el, own);
     let mode = own.position;
     for (let n = flatParent(el); n !== null && n !== undefined; n = flatParent(n)) {
       if (n.nodeType !== 1) break;
       const st = style(n);
+      if (unmeasuredClipPath(n, st)) unknown = true;
       const fixedCb =
         st.transform !== "none" ||
         st.perspective !== "none" ||
@@ -263,7 +285,8 @@ export function familyC(a, b) {
       ownClips(n, st);
       mode = st.position;
     }
-    return box.right - box.left >= 4 && box.bottom - box.top >= 4;
+    if (!(box.right - box.left >= 4 && box.bottom - box.top >= 4)) return false;
+    return unknown ? null : true;
   }
 
   // -------------------------------------------------------------------------
@@ -712,7 +735,7 @@ export function familyC(a, b) {
             ariaHidden: host.ariaHidden || ariaHiddenOnOrAbove(s),
             inert: host.inert || inertOnOrAbove(s),
             opacityZero: host.opacityZero || opacityZeroOnOrAbove(s),
-            visible: host.visible && visibleArea(s),
+            visible: and3(host.visible, visibleArea(s)),
             ax: null,
           };
           if (rec.inForm && !rec.notRendered && !rec.ariaHidden && !rec.inert && !rec.opacityZero && rec.visible && host.known) rec.ax = askAx(s);

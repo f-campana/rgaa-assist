@@ -91,6 +91,15 @@ describe(ID, () => {
     expect(o.fingerprint).toMatch(/^custom\/2-1-frame-title-attribute:iframe\[src=http:\/\/127\.0\.0\.1:\d+\/f\.html\]\.map$/);
   });
 
+  it("step (5): the record has no visibility step, so the visibility helper is not used: a clipped untitled iframe is still a fault (Q57 leaves it)", async () => {
+    const o = await check({
+      "index.html": page(`<div style="clip-path:circle(0px)"><iframe src="f.html"></iframe></div><iframe src="f.html" style="clip-path:polygon(0 0,0 0,0 0)"></iframe>`),
+      "f.html": inner,
+    });
+    expect(o.outcome).toBe("fault");
+    expect(o.evidence.filter((e) => e.kind === "dom_node")).toHaveLength(2);
+  });
+
   it("step (5): aria-label, aria-labelledby and role do not replace the title attribute", async () => {
     const o = await check({
       "index.html": page(`<p id="l">Carte</p><iframe src="f.html" aria-label="Carte" aria-labelledby="l" role="region"></iframe>`),
