@@ -78,6 +78,84 @@ describe(ID, () => {
     });
   });
 
+  describe("step (2): a clip-path other than inset() makes visibility unknown, so cannot_tell (Q57)", () => {
+    const UNKNOWN = "is not known: a clip-path";
+
+    // Codex's fixtures (full pass of 2026-11-21): the list is fully clipped, so no fault.
+    for (const clip of ["circle(0px)", "polygon(0 0,0 0,0 0)"]) {
+      it(`${clip} on an ancestor`, async () => {
+        const o = await one(`<form><div style="clip-path:${clip}"><select><optgroup><option>Choice</option></optgroup></select></div></form>`);
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain(UNKNOWN);
+      });
+
+      it(`${clip} on the select itself`, async () => {
+        const o = await one(`<form><select style="clip-path:${clip}"><optgroup><option>Choice</option></optgroup></select></form>`);
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain(UNKNOWN);
+      });
+    }
+
+    it("never no_fault either: a labelled optgroup under an unmeasured clip-path is cannot_tell", async () => {
+      const o = await one(`<form><div style="clip-path:circle(50%)">${sel("", G)}</div></form>`);
+      expect(o.outcome).toBe("cannot_tell");
+      expect(notes(o)).toContain(UNKNOWN);
+    });
+
+    it("every other unmeasured value: ellipse, path, url, a box keyword alone or with a shape, an inset() not parsed", async () => {
+      const values = ["ellipse(0px 0px)", 'path("M0 0")', "url(#none)", "border-box", "circle(50%) margin-box", "inset(0px) content-box", "inset(calc(1% + 1px))"];
+      const o = await one(`<form>${values.map((c) => `<div style='clip-path:${c}'>${sel("", NOLABEL)}</div>`).join("")}</form>`);
+      expect(o.outcome).toBe("cannot_tell");
+      expect(notes(o).split(UNKNOWN).length - 1).toBe(values.length);
+    });
+
+    it("rect() and xywh() compute to inset() in Chromium, so they are measured", async () => {
+      const o = await one(`<form><div style="clip-path:rect(0px 0px 0px 0px)">${sel("", NOLABEL)}</div><div style="clip-path:xywh(0 0 0 0)">${sel("", NOLABEL)}</div></form>`);
+      expect(o.outcome).toBe("cannot_tell");
+      expect(notes(o).match(/no part at least 4 pixels square/g)?.length).toBe(2);
+      expect(notes(o)).not.toContain(UNKNOWN);
+    });
+
+    it("on an ancestor outside the containing-block chain of an absolutely positioned list", async () => {
+      const o = await one(`<form><div style="clip-path:circle(0px)">${sel('style="position:absolute;top:10px;left:10px"', NOLABEL)}</div></form>`);
+      expect(o.outcome).toBe("cannot_tell");
+      expect(notes(o)).toContain(UNKNOWN);
+    });
+
+    it("on the frame element hosting the list's document", async () => {
+      const o = await check({
+        "index.html": page(`<div style="clip-path:polygon(0 0,0 0,0 0)"><iframe title="f" src="f.html"></iframe></div>`),
+        "f.html": page(`<form>${sel("", NOLABEL)}</form>`),
+      });
+      expect(o.outcome).toBe("cannot_tell");
+      expect(notes(o)).toContain(UNKNOWN);
+    });
+
+    it("an area already under 4 pixels square stays 'not visible', whatever the clip-path", async () => {
+      const o = await one(`<form><div style="overflow:hidden;height:0;clip-path:circle(0px)">${sel("", NOLABEL)}</div></form>`);
+      expect(o.outcome).toBe("cannot_tell");
+      expect(notes(o)).toContain("no part at least 4 pixels square");
+      expect(notes(o)).not.toContain(UNKNOWN);
+    });
+
+    it("control: inset() is still measured, so a fully inset list is not visible and a slightly inset one is decided", async () => {
+      const hidden = await one(`<form><div style="clip-path:inset(50%)">${sel("", NOLABEL)}</div>${sel('style="clip-path:inset(0 100% 0 0)"', NOLABEL)}</form>`);
+      expect(hidden.outcome).toBe("cannot_tell");
+      expect(notes(hidden).match(/no part at least 4 pixels square/g)?.length).toBe(2);
+      expect(notes(hidden)).not.toContain(UNKNOWN);
+      const shown = await one(
+        `<form><div style="clip-path:inset(1px round 2px)">${sel("", NOLABEL)}</div>${sel('style="clip-path:inset(0)"', NOLABEL)}<div style="clip-path:inset(10% 5%)">${sel("", NOLABEL)}</div></form>`,
+      );
+      expect(shown.outcome).toBe("fault");
+      expect(shown.evidence.filter((e) => e.kind === "dom_node")).toHaveLength(3);
+    });
+
+    it("clip-path none is no clipping", async () => {
+      const o = await one(`<form><div style="clip-path:none">${sel("", NOLABEL)}</div></form>`);
+      expect(o.outcome).toBe("fault");
+    });
+  });
+
   it("step (3): an optgroup whose parent is not the select is cannot_tell", async () => {
     const o = await one(
       `<form>${sel('id="s"', "<option>a</option>")}</form><script>const d = document.createElement('div'); const g = document.createElement('optgroup'); d.append(g); document.getElementById('s').append(d);</script>`,

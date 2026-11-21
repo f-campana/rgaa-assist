@@ -81,6 +81,12 @@ describe(ID, () => {
       expect(faults(o)).toBe(11);
     });
 
+    it("the record has no visibility step, so the visibility helper is not used: a clipped field is still a fault (Q57 leaves it)", async () => {
+      const o = await one(`<div style="clip-path:circle(0px)"><input></div><input style="clip-path:polygon(0 0,0 0,0 0)">`);
+      expect(o.outcome).toBe("fault");
+      expect(faults(o)).toBe(2);
+    });
+
     it("a placeholder is not a mechanism", async () => {
       const o = await one(`<input type="search" placeholder="Rechercher">`);
       expect(o.outcome).toBe("fault");

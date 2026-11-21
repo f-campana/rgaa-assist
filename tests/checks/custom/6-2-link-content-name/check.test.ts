@@ -127,6 +127,12 @@ describe(ID, () => {
       const o = await one(`<svg ${SVG} width="10" height="10"><a href="/a"><rect width="5" height="5"/></a></svg>`);
       expect(o.outcome).toBe("fault");
     });
+
+    it("the record has no visibility step, so the visibility helper is not used: a clipped empty link is still a fault (Q57 leaves it)", async () => {
+      const o = await one(`<div style="clip-path:circle(0px)"><a href="/a"> </a></div><a href="/b" style="clip-path:polygon(0 0,0 0,0 0)"> </a>`);
+      expect(o.outcome).toBe("fault");
+      expect(o.evidence.filter((e) => e.kind === "dom_node")).toHaveLength(2);
+    });
   });
 
   it("page result: a fault wins over links the check abstains on", async () => {
