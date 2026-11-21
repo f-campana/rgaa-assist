@@ -65,8 +65,8 @@ The dry run (`docs/m1/dry-run-aubay.md`, 2026-11-18) applied the ten check recor
 
 **Counts, out of ten checks:**
 - Same outcome as the dry run: 10 of 10.
-- Same outcome and the same elements: 8 of 10 (10.1.2 has one more faulty element since Q59, `height` on `table`, which the dry run had noted as an abstention) (8.5.1, 10.1.1, 10.1.2, 11.8.2, 8.3.1, 8.4.1, 11.1.1, 8.2.1; the frame-dependent three hold because the frame was read).
-- Same outcome, more elements or another step: 2 of 10 (2.1.1: a frame inside the cross-origin frame; 6.2.1: step (3) instead of (4), plus closed-menu links).
+- Same outcome and the same elements: 7 of 10 (8.5.1, 10.1.1, 11.8.2, 8.3.1, 8.4.1, 11.1.1, 8.2.1; the frame-dependent three hold because the frame was read).
+- Same outcome, more elements or another step: 3 of 10 (2.1.1: a frame inside the cross-origin frame; 6.2.1: step (3) instead of (4), plus closed-menu links; 10.1.2: since Q59 it also faults `height` on a `table`, which the dry run saw and classed as an abstention) (Q60).
 - Departures of the code from a record: none found.
 - Changes in the page since 2026-11-18 that changed an outcome: none found.
 
