@@ -201,17 +201,96 @@ export function familyC(a, b) {
     return { left: box.left + vals[3], top: box.top + vals[0], right: box.right - vals[1], bottom: box.bottom - vals[2] };
   }
 
+  /** A clip-path the helper measures: none, or an inset() it parses (Chromium computes rect() and xywh() to inset()). */
+  const measuredClipPath = (n, st) => {
+    if (!st.clipPath || st.clipPath === "none") return true;
+    const nr = n.getBoundingClientRect();
+    return parseInset(st.clipPath, { left: nr.left, top: nr.top, right: nr.right, bottom: nr.bottom, width: nr.width, height: nr.height }) !== null;
+  };
+
+  const present = (v) => typeof v === "string" && v.trim() !== "" && v.trim() !== "none";
+
+  /** A mask: mask-image (set by the mask shorthand), -webkit-mask-image, -webkit-mask-box-image. */
+  const hasMask = (st) => ["mask-image", "-webkit-mask-image", "-webkit-mask-box-image-source"].some((p) => present(st.getPropertyValue(p)));
+
+  /** filter or backdrop-filter, any value but none. */
+  const hasFilter = (st) => present(st.filter) || present(st.getPropertyValue("backdrop-filter")) || present(st.getPropertyValue("-webkit-backdrop-filter"));
+
   /**
-   * true: a part at least 4 px square lies inside the page's scrollable area
-   * and every clipping ancestor. false: none does. null (unknown): the
-   * measured part is large enough, but a clip-path the helper does not
-   * measure (anything but none or a parsed inset(): circle, ellipse,
-   * polygon, path, rect, xywh, url, a shape with a box keyword, a box keyword
-   * alone, anything unparsed) is on the element or a flat-tree ancestor. A
-   * clip-path only ever removes area, so an area already too small stays false.
+   * A transform the bounding rectangle does not fully reflect: anything but
+   * an axis-aligned 2D matrix (translation and scale). So rotation, skew, any
+   * 3D transform (where backface-visibility and the viewer's position decide
+   * what shows), the rotate property, a 3D translate or scale, a motion path.
    */
-  function visibleArea(el) {
-    let unknown = false;
+  function unresolvedTransform(st) {
+    const t = st.transform;
+    if (present(t)) {
+      const m2 = /^matrix\(([^)]*)\)$/.exec(t.trim());
+      const m3 = /^matrix3d\(([^)]*)\)$/.exec(t.trim());
+      if (m2 !== null) {
+        const v = m2[1].split(",").map((x) => Number.parseFloat(x));
+        if (v.length !== 6 || v.some((x) => Number.isNaN(x)) || v[1] !== 0 || v[2] !== 0) return true;
+      } else if (m3 !== null) {
+        const v = m3[1].split(",").map((x) => Number.parseFloat(x));
+        if (v.length !== 16 || v.some((x) => Number.isNaN(x))) return true;
+        // Column-major: an axis-aligned 2D matrix has only v[0], v[5] (scale) and v[12], v[13] (translation).
+        if ([1, 2, 3, 4, 6, 7, 8, 9, 11, 14].some((i) => v[i] !== 0) || v[10] !== 1 || v[15] !== 1) return true;
+      } else {
+        return true;
+      }
+    }
+    if (present(st.rotate)) return true;
+    if (present(st.scale) && st.scale.trim().split(/\s+/).length > 2) return true;
+    if (present(st.translate) && st.translate.trim().split(/\s+/).length > 2) return true;
+    if (present(st.getPropertyValue("offset-path"))) return true;
+    return false;
+  }
+
+  /** The frame element's scrolling attribute turns scrolling off (HTML: no, off, noscroll, ASCII case-insensitive). */
+  const scrollingOff = (el) =>
+    (isHtml(el, "iframe") || isHtml(el, "frame")) && ["no", "off", "noscroll"].includes((el.getAttribute("scrolling") ?? "").trim().toLowerCase());
+
+  /**
+   * Which axes of the document's viewport cannot scroll: overflow hidden or
+   * clip on the root (or on the body when the root's is visible, as CSS
+   * propagates it to the viewport), or a hosting frame element whose
+   * scrolling attribute turns scrolling off.
+   */
+  function viewportLocked(doc, docHost) {
+    if (docHost && docHost.frameNoScroll) return { x: true, y: true };
+    const root = doc.documentElement;
+    if (root === null) return { x: false, y: false };
+    const locked = (v) => v === "hidden" || v === "clip";
+    const rs = style(root);
+    const body = doc.body;
+    const bs = body !== null && body.parentNode === root ? style(body) : null;
+    const axis = (prop) => (rs[prop] !== "visible" ? locked(rs[prop]) : bs !== null && locked(bs[prop]));
+    return { x: axis("overflowX"), y: axis("overflowY") };
+  }
+
+  /**
+   * Visibility needs positive evidence (Q59). Returns `visible`:
+   * - false: no part at least 4 px square lies inside the page's scrollable
+   *   area and every clipping ancestor (whatever else applies: hiding only
+   *   ever removes area);
+   * - null (unknown): the measured part is large enough, but `unmeasured`
+   *   names what could still hide it, on the element or a flat-tree ancestor:
+   *   `clip-path` (anything but none or a parsed inset()); `off-chain` (a
+   *   clip-path, inset() included, or clip on an ancestor outside the
+   *   containing-block chain: they clip every descendant, but are measured
+   *   only along the chain); `mask`; `filter` (filter or backdrop-filter);
+   *   `opacity` (below 1 and above 0; opacity 0 is "not visible", read
+   *   separately); `transform` (see `unresolvedTransform`); `fixed` (fixed
+   *   to the viewport, with no part 4 px square inside it); `no-scroll` (the
+   *   part lies outside the visible part of a viewport that cannot scroll);
+   *   `partial-frame` (the viewport cannot scroll and a hosting frame
+   *   element is itself shown only in part, so its visible part is not known);
+   * - true otherwise.
+   * `whole`: nothing cut the element's box (read for frame elements).
+   * `docHost`: the host chain of the element's document.
+   */
+  function geometry(el, docHost) {
+    const unmeasured = new Set();
     const r = el.getBoundingClientRect();
     const box = { left: r.left, top: r.top, right: r.right, bottom: r.bottom };
     const cut = (c) => {
@@ -241,22 +320,25 @@ export function familyC(a, b) {
         if (c !== null) cut(c);
       }
     };
-    // A clip-path clips every descendant whatever its containing block, so an
-    // unmeasured one counts on every flat-tree ancestor, in the chain or not.
-    const unmeasuredClipPath = (n, st) => {
-      if (!st.clipPath || st.clipPath === "none") return false;
-      const nr = n.getBoundingClientRect();
-      return parseInset(st.clipPath, { left: nr.left, top: nr.top, right: nr.right, bottom: nr.bottom, width: nr.width, height: nr.height }) === null;
+    // Effects that apply to every descendant whatever its containing block,
+    // so they count on every flat-tree ancestor, in the chain or not.
+    const effects = (n, st) => {
+      if (!measuredClipPath(n, st)) unmeasured.add("clip-path");
+      if (hasMask(st)) unmeasured.add("mask");
+      if (hasFilter(st)) unmeasured.add("filter");
+      const op = Number.parseFloat(st.opacity);
+      if (op > 0 && op < 1) unmeasured.add("opacity");
+      if (unresolvedTransform(st)) unmeasured.add("transform");
     };
 
     const own = style(el);
-    if (unmeasuredClipPath(el, own)) unknown = true;
+    effects(el, own);
     ownClips(el, own);
     let mode = own.position;
     for (let n = flatParent(el); n !== null && n !== undefined; n = flatParent(n)) {
       if (n.nodeType !== 1) break;
       const st = style(n);
-      if (unmeasuredClipPath(n, st)) unknown = true;
+      effects(n, st);
       const fixedCb =
         st.transform !== "none" ||
         st.perspective !== "none" ||
@@ -267,7 +349,11 @@ export function familyC(a, b) {
       if (mode === "fixed") inChain = fixedCb;
       else if (mode === "absolute") inChain = st.position !== "static" || fixedCb;
       else inChain = true;
-      if (!inChain) continue;
+      if (!inChain) {
+        const clipped = (st.position === "absolute" || st.position === "fixed") && st.clip && st.clip !== "auto";
+        if ((st.clipPath && st.clipPath !== "none") || clipped) unmeasured.add("off-chain");
+        continue;
+      }
       const nr = n.getBoundingClientRect();
       const left = nr.left + n.clientLeft;
       const top = nr.top + n.clientTop;
@@ -285,8 +371,27 @@ export function familyC(a, b) {
       ownClips(n, st);
       mode = st.position;
     }
-    if (!(box.right - box.left >= 4 && box.bottom - box.top >= 4)) return false;
-    return unknown ? null : true;
+    const big = (b) => b.right - b.left >= 4 && b.bottom - b.top >= 4;
+    if (!big(box)) return { visible: false, unmeasured: [], whole: false };
+
+    // Fixed to the viewport (the containing-block chain ends at it): scrolling
+    // never brings a part outside the viewport into view.
+    if (mode === "fixed") {
+      const seen = { left: Math.max(box.left, 0), top: Math.max(box.top, 0), right: Math.min(box.right, win.innerWidth), bottom: Math.min(box.bottom, win.innerHeight) };
+      if (!big(seen)) unmeasured.add("fixed");
+    }
+    // A viewport that cannot scroll shows only its current visible part.
+    const lock = viewportLocked(doc, docHost);
+    if (lock.x || lock.y) {
+      if (lock.x) cut({ left: 0, top: -Infinity, right: win.innerWidth, bottom: Infinity });
+      if (lock.y) cut({ left: -Infinity, top: 0, right: Infinity, bottom: win.innerHeight });
+      if (!big(box)) unmeasured.add("no-scroll");
+      if (docHost && docHost.partial) unmeasured.add("partial-frame");
+    }
+    const whole = box.left <= r.left + 0.5 && box.top <= r.top + 0.5 && box.right >= r.right - 0.5 && box.bottom >= r.bottom - 0.5;
+    const order = ["clip-path", "off-chain", "mask", "filter", "opacity", "transform", "fixed", "no-scroll", "partial-frame"];
+    const list = order.filter((x) => unmeasured.has(x));
+    return { visible: list.length > 0 ? null : true, unmeasured: list, whole };
   }
 
   // -------------------------------------------------------------------------
@@ -392,13 +497,17 @@ export function familyC(a, b) {
 
   if (hostMode) {
     const el = a;
+    const g = geometry(el, arg.host);
     return {
       locator: locatorOf(el),
       notRendered: notRendered(el),
       ariaHidden: ariaHiddenOnOrAbove(el),
       inert: inertOnOrAbove(el),
       opacityZero: opacityZeroOnOrAbove(el),
-      visible: visibleArea(el),
+      visible: g.visible,
+      unmeasured: g.unmeasured,
+      whole: g.whole,
+      noScroll: scrollingOff(el),
     };
   }
 
@@ -735,9 +844,13 @@ export function familyC(a, b) {
             ariaHidden: host.ariaHidden || ariaHiddenOnOrAbove(s),
             inert: host.inert || inertOnOrAbove(s),
             opacityZero: host.opacityZero || opacityZeroOnOrAbove(s),
-            visible: and3(host.visible, visibleArea(s)),
+            visible: true,
+            unmeasured: [],
             ax: null,
           };
+          const g = geometry(s, host);
+          rec.visible = and3(host.visible, g.visible);
+          rec.unmeasured = rec.visible === null ? [...new Set([...host.unmeasured, ...g.unmeasured])] : [];
           if (rec.inForm && !rec.notRendered && !rec.ariaHidden && !rec.inert && !rec.opacityZero && rec.visible && host.known) rec.ax = askAx(s);
           si = selects.length;
           selects.push(rec);

@@ -37,19 +37,19 @@ async function run(files: FixtureFiles | string, pageName?: string): Promise<Obs
 const notes = (o: Observation): string => o.evidence.map((e) => `${e.note ?? ""} ${e.locator ?? ""} ${e.snippet ?? ""}`).join("\n");
 
 describe("definition", () => {
-  it("declares version 1.0.2 and records the version of its lists", () => {
-    expect(attributesDefinition.version).toBe("1.0.2");
-    expect(attributesDefinition.defaultOptions["listsVersion"]).toBe("1.0.2");
+  it("declares version 1.0.3 and records the version of its lists", () => {
+    expect(attributesDefinition.version).toBe("1.0.3");
+    expect(attributesDefinition.defaultOptions["listsVersion"]).toBe("1.0.3");
     expect(ATTRIBUTE_LISTS.presentationAttributes).toHaveLength(24);
   });
 
-  it("keeps every defined pair the record gives as an example, and not height on table", () => {
+  it("keeps every defined pair the record gives as an example, height on table included (Q59)", () => {
     const d = ATTRIBUTE_LISTS.definedPairs;
     const examples: [string, string[]][] = [
       ["align", ["div", "p", "h1", "h2", "h3", "h4", "h5", "h6", "img", "table", "td", "caption"]],
       ["alink", ["body"]], ["link", ["body"]], ["text", ["body"]], ["vlink", ["body"]],
       ["background", ["body", "table", "tr", "td", "th"]], ["bgcolor", ["body", "table", "tr", "td", "th"]],
-      ["border", ["table", "img", "object"]], ["cellpadding", ["table"]], ["cellspacing", ["table"]],
+      ["border", ["table", "img", "object", "input"]], ["cellpadding", ["table"]], ["cellspacing", ["table"]],
       ["char", ["col", "colgroup", "tbody", "thead", "tfoot", "tr", "td", "th"]],
       ["charoff", ["col", "colgroup", "tbody", "thead", "tfoot", "tr", "td", "th"]],
       ["valign", ["col", "colgroup", "tbody", "thead", "tfoot", "tr", "td", "th"]],
@@ -57,10 +57,9 @@ describe("definition", () => {
       ["compact", ["dl", "ol", "ul", "menu", "dir"]],
       ["frameborder", ["iframe", "frame"]], ["marginheight", ["iframe", "frame", "body"]], ["marginwidth", ["iframe", "frame", "body"]],
       ["hspace", ["img", "object", "embed", "iframe", "input"]], ["vspace", ["img", "object", "embed", "iframe", "input"]],
-      ["width", ["hr", "pre", "table", "col", "colgroup", "td", "th"]], ["height", ["td", "th", "tr"]],
+      ["width", ["hr", "pre", "table", "col", "colgroup", "td", "th"]], ["height", ["table", "thead", "tbody", "tfoot", "td", "th", "tr"]],
     ];
     for (const [attr, els] of examples) for (const el of els) expect(d[attr], `${attr} on ${el}`).toContain(el);
-    expect(d["height"]).not.toContain("table");
     expect(d["color"]).not.toContain("link");
   });
 });
@@ -95,7 +94,16 @@ describe("(1) fault", () => {
     expect(o.fingerprint).toBe(`${ATTRIBUTES_CHECK_ID}:body@bgcolor,body@text,br@clear,hr@size,input@size,tr@height,tr@valign,ul@compact`);
   });
 
-  it("(1) border on input and height on thead, tbody and tfoot fault (obsolete features of the HTML standard, Q57)", async () => {
+  it("(1) height on table faults (an obsolete feature of the HTML standard; Q59 replaces Q50's abstention)", async () => {
+    const o = await run(page("<table height='29'><tr><td>x</td></tr></table>"));
+    expect(o.outcome).toBe("fault");
+    expect(o.fingerprint).toBe(`${ATTRIBUTES_CHECK_ID}:table@height`);
+    const nodes = o.evidence.filter((e) => e.kind === "dom_node");
+    expect(nodes[0]).toMatchObject({ locator: "html > body > table", snippet: '<table height="29">' });
+    expect(nodes[0]?.note).toContain("height on table");
+  });
+
+  it("(1) border on input and height on thead, tbody and tfoot still fault (obsolete features of the HTML standard, Q57)", async () => {
     const pairs: [string, string][] = [
       ["<input type='text' border='0' aria-label='x'>", "input@border"],
       ["<table><thead height='20'><tr><th>a</th></tr></thead></table>", "thead@height"],
@@ -207,11 +215,12 @@ describe("(2) cannot tell", () => {
     expect(ATTRIBUTE_LISTS.definedPairs["align"]).toContain("embed");
   });
 
-  it("(2) height on table abstains (the standard lists it as obsolete, but M1's gate package chose abstention, Q50)", async () => {
-    const o = await run(page("<table height='29'><tr><td>x</td></tr></table>"));
-    expect(o.outcome).toBe("cannot_tell");
-    expect(notes(o)).toContain("defines no such attribute");
-    expect(notes(o)).toContain('<table height="29">');
+  it("(2) width or height on picture > source still abstains, never no_fault (Q59 item 3)", async () => {
+    for (const attrs of ["width='40'", "height='40'", "width='40' height='40'"]) {
+      const o = await run({ "index.html": page(`<picture><source srcset='logo.svg' ${attrs}><img src='logo.svg' alt='Logo'></picture>`), "logo.svg": LOGO });
+      expect(o.outcome, attrs).toBe("cannot_tell");
+      expect(notes(o)).toContain("width or height on iframe, video, input or source");
+    }
   });
 
   it("(2) width or height on iframe, video, input or source abstains", async () => {

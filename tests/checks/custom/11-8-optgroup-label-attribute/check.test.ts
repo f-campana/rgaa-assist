@@ -156,6 +156,255 @@ describe(ID, () => {
     });
   });
 
+  describe("step (2): visibility needs positive evidence, so hiding the check does not measure gives cannot_tell (Q59)", () => {
+    const UNKNOWN = "is visible is not known";
+    const count = (o: Observation, s: string): number => notes(o).split(s).length - 1;
+    // Each route: the unlabelled list gives cannot_tell (never a fault), and a labelled one never no_fault.
+    async function unknownBoth(wrap: (list: string) => string, reason: string, n = 1): Promise<void> {
+      for (const groups of [NOLABEL, G]) {
+        const o = await one(wrap(sel("", groups)));
+        expect(o.outcome).toBe("cannot_tell");
+        expect(count(o, UNKNOWN)).toBe(n);
+        expect(notes(o)).toContain(reason);
+      }
+    }
+    const MASK = "a mask on it";
+    const FILTER = "a filter or backdrop-filter";
+    const OPACITY = "an opacity below 1";
+    const TRANSFORM = "a transform the check does not resolve";
+    const OFF_CHAIN = "outside its containing-block chain";
+    const NO_SCROLL = "outside the visible part of a document that cannot scroll";
+    const PARTIAL = "a hosting frame element is shown only in part";
+
+    describe("masks", () => {
+      const masks = [
+        "mask-image:linear-gradient(transparent,transparent)",
+        "-webkit-mask-image:linear-gradient(transparent,transparent)",
+        "mask:linear-gradient(transparent,transparent)",
+        "-webkit-mask:linear-gradient(transparent,transparent)",
+        "mask:url(#empty)",
+        "mask-image:linear-gradient(#000,#000);mask-size:0",
+        "-webkit-mask-box-image:linear-gradient(transparent,transparent) 0",
+      ];
+      const svg = `<svg width="0" height="0" style="position:absolute"><mask id="empty"></mask></svg>`;
+      for (const m of masks) {
+        it(`${m} on an ancestor`, async () => {
+          await unknownBoth((list) => `${svg}<form><div style="${m}">${list}</div></form>`, MASK);
+        });
+      }
+
+      it("on the select itself", async () => {
+        await unknownBoth((list) => `<form>${list.replace("<select ", `<select style="mask-image:linear-gradient(transparent,transparent)" `)}</form>`, MASK);
+      });
+
+      it("on the frame element hosting the list's document (and under an empty SVG mask)", async () => {
+        for (const style of ["mask-image:linear-gradient(transparent,transparent)", "mask:url(#empty)"]) {
+          const o = await check({
+            "index.html": page(`<svg width="0" height="0" style="position:absolute"><mask id="empty"></mask></svg><iframe title="f" src="f.html" style="${style}"></iframe>`),
+            "f.html": page(`<form>${sel("", NOLABEL)}</form>`),
+          });
+          expect(o.outcome).toBe("cannot_tell");
+          expect(notes(o)).toContain(MASK);
+        }
+      });
+    });
+
+    describe("filter and backdrop-filter", () => {
+      for (const f of ["filter:opacity(0)", "filter:blur(1px)", "backdrop-filter:blur(1px)", "filter:url(#none)"]) {
+        it(`${f} on an ancestor`, async () => {
+          await unknownBoth((list) => `<form><div style="${f}">${list}</div></form>`, FILTER);
+        });
+      }
+
+      it("filter: opacity(0) on the select and on the hosting frame element", async () => {
+        await unknownBoth((list) => `<form>${list.replace("<select ", `<select style="filter:opacity(0)" `)}</form>`, FILTER);
+        const o = await check({
+          "index.html": page(`<iframe title="f" src="f.html" style="filter:opacity(0)"></iframe>`),
+          "f.html": page(`<form>${sel("", NOLABEL)}</form>`),
+        });
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain(FILTER);
+      });
+    });
+
+    describe("opacity below 1", () => {
+      for (const op of ["0.001", "0.5", "0.99"]) {
+        it(`opacity ${op} on an ancestor`, async () => {
+          await unknownBoth((list) => `<form><div style="opacity:${op}">${list}</div></form>`, OPACITY);
+        });
+      }
+
+      it("on the select and on the hosting frame element; opacity 0 stays 'not visible'", async () => {
+        await unknownBoth((list) => `<form>${list.replace("<select ", `<select style="opacity:0.001" `)}</form>`, OPACITY);
+        const framed = await check({
+          "index.html": page(`<iframe title="f" src="f.html" style="opacity:0.01"></iframe>`),
+          "f.html": page(`<form>${sel("", NOLABEL)}</form>`),
+        });
+        expect(framed.outcome).toBe("cannot_tell");
+        expect(notes(framed)).toContain(OPACITY);
+        const zero = await one(`<form><div style="opacity:0">${sel("", NOLABEL)}</div></form>`);
+        expect(zero.outcome).toBe("cannot_tell");
+        expect(notes(zero)).toContain("computed opacity 0");
+      });
+    });
+
+    describe("transforms the bounding rectangle does not reflect", () => {
+      const routes = [
+        "transform:rotateY(180deg);backface-visibility:hidden",
+        "rotate:y 180deg;backface-visibility:hidden",
+        "transform:perspective(100px) translateZ(200px)",
+        "transform:rotate(45deg)",
+        "transform:skewX(30deg)",
+        "scale:1 1 -1;backface-visibility:hidden",
+        "offset-path:path('M0 0 L100 100')",
+      ];
+      for (const t of routes) {
+        it(`${t} on the select`, async () => {
+          await unknownBoth((list) => `<form>${list.replace("<select ", `<select style="${t}" `)}</form>`, TRANSFORM);
+        });
+      }
+
+      it("rotateY(180deg) with backface-visibility hidden on an ancestor, and on the hosting frame element", async () => {
+        await unknownBoth((list) => `<form><div style="transform:rotateY(180deg);backface-visibility:hidden">${list}</div></form>`, TRANSFORM);
+        const o = await check({
+          "index.html": page(`<iframe title="f" src="f.html" style="transform:rotateY(180deg);backface-visibility:hidden"></iframe>`),
+          "f.html": page(`<form>${sel("", NOLABEL)}</form>`),
+        });
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain(TRANSFORM);
+      });
+
+      it("control: an axis-aligned translation or scale is measured, so the list is decided", async () => {
+        const o = await one(
+          // transform-origin 0 0: scaled about the centre of a page-wide block, the list would leave the page
+          `<form><div style="transform:translate(10px,20px)">${sel("", NOLABEL)}</div><div style="transform:scale(2);transform-origin:0 0">${sel("", NOLABEL)}</div>` +
+            `<div style="transform:translateZ(0)">${sel("", NOLABEL)}</div><div style="translate:5px 5px;scale:1.5;transform-origin:0 0">${sel("", NOLABEL)}</div></form>`,
+        );
+        expect(o.outcome).toBe("fault");
+        expect(o.evidence.filter((e) => e.kind === "dom_node")).toHaveLength(4);
+      });
+
+      it("control: scale(0) is measured as under 4 pixels square", async () => {
+        const o = await one(`<form><div style="transform:scale(0)">${sel("", NOLABEL)}</div></form>`);
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain("no part at least 4 pixels square");
+      });
+    });
+
+    describe("clip-path inset() or clip on an ancestor off the containing-block chain", () => {
+      it("inset(50%) on a static ancestor of an absolutely positioned list", async () => {
+        await unknownBoth((list) => `<form><div style="clip-path:inset(50%)">${list.replace("<select ", '<select style="position:absolute;top:10px;left:10px" ')}</div></form>`, OFF_CHAIN);
+      });
+
+      it("inset(50%) on a positioned ancestor of a fixed list, and clip on an absolute ancestor of a fixed list", async () => {
+        await unknownBoth(
+          (list) => `<form><div style="position:relative;clip-path:inset(50%)">${list.replace("<select ", '<select style="position:fixed;top:10px;left:10px" ')}</div></form>`,
+          OFF_CHAIN,
+        );
+        await unknownBoth(
+          (list) => `<form><div style="position:absolute;clip:rect(0,0,0,0)">${list.replace("<select ", '<select style="position:fixed;top:10px;left:10px" ')}</div></form>`,
+          OFF_CHAIN,
+        );
+      });
+
+      it("control: inset() on the chain is still measured", async () => {
+        const o = await one(`<form><div style="position:relative;clip-path:inset(50%)">${sel('style="position:absolute;top:10px;left:10px"', NOLABEL)}</div></form>`);
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain("no part at least 4 pixels square");
+      });
+    });
+
+    describe("a list outside the visible part of a document that cannot scroll", () => {
+      const doc = (htmlStyle: string, body: string): string =>
+        `<!doctype html><html lang="fr" style="${htmlStyle}"><head><title>f</title></head><body style="margin:0">${body}</body></html>`;
+      const below = (list: string): string => `<div style="height:2000px"></div><form>${list}</form>`;
+
+      for (const [where, style] of [
+        ["overflow hidden on the frame's root", "overflow:hidden"],
+        ["overflow clip on the frame's root", "overflow:clip"],
+      ] as const) {
+        it(`${where}, the list below the frame's viewport`, async () => {
+          for (const groups of [NOLABEL, G]) {
+            const o = await check({ "index.html": page(`<iframe title="f" src="f.html"></iframe>`), "f.html": doc(style, below(sel("", groups))) });
+            expect(o.outcome).toBe("cannot_tell");
+            expect(notes(o)).toContain(NO_SCROLL);
+          }
+        });
+      }
+
+      it("overflow hidden on the frame's body, propagated to its viewport", async () => {
+        const o = await check({
+          "index.html": page(`<iframe title="f" src="f.html"></iframe>`),
+          "f.html": `<!doctype html><html lang="fr"><head><title>f</title></head><body style="overflow:hidden">${below(sel("", NOLABEL))}</body></html>`,
+        });
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain(NO_SCROLL);
+      });
+
+      it('scrolling="no" on the frame element', async () => {
+        const o = await check({ "index.html": page(`<iframe title="f" src="f.html" scrolling="NO"></iframe>`), "f.html": doc("", below(sel("", NOLABEL))) });
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain(NO_SCROLL);
+      });
+
+      it("the top-level page itself when it cannot scroll", async () => {
+        const o = await check({ "index.html": doc("overflow:hidden", below(sel("", NOLABEL))) });
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain(NO_SCROLL);
+      });
+
+      it("a frame that cannot scroll, shown only in part by its frame element", async () => {
+        const o = await check({
+          "index.html": page(`<div style="overflow:hidden;width:60px;height:40px"><iframe title="f" src="f.html"></iframe></div>`),
+          "f.html": doc("overflow:hidden", `<form>${sel('style="margin-left:200px"', NOLABEL)}</form>`),
+        });
+        expect(o.outcome).toBe("cannot_tell");
+        expect(notes(o)).toContain(PARTIAL);
+      });
+
+      it("control: in the visible part of a frame that cannot scroll, or below the viewport of one that can, the list is decided", async () => {
+        const shown = await check({ "index.html": page(`<iframe title="f" src="f.html"></iframe>`), "f.html": doc("overflow:hidden", `<form>${sel("", NOLABEL)}</form>`) });
+        expect(shown.outcome).toBe("fault");
+        const scrollable = await check({ "index.html": page(`<iframe title="f" src="f.html"></iframe>`), "f.html": doc("", below(sel("", NOLABEL))) });
+        expect(scrollable.outcome).toBe("fault");
+        const top = await check({ "index.html": doc("overflow-x:hidden", below(sel("", NOLABEL))) });
+        expect(top.outcome).toBe("fault");
+      });
+    });
+
+    it("a list fixed to the viewport and outside it, on a page that scrolls (found by this builder)", async () => {
+      await unknownBoth(
+        (list) => `<div style="height:3000px"></div><form>${list.replace("<select ", '<select style="position:fixed;top:2000px;left:10px" ')}</form>`,
+        "fixed to the viewport and lies outside it",
+      );
+      const shown = await one(`<div style="height:3000px"></div><form>${sel('style="position:fixed;top:10px;left:10px"', NOLABEL)}</form>`);
+      expect(shown.outcome).toBe("fault");
+    });
+
+    it("a definite fault elsewhere on the page still wins", async () => {
+      const o = await one(`<form><div style="mask-image:linear-gradient(transparent,transparent)">${sel("", NOLABEL)}</div>${sel("", NOLABEL)}</form>`);
+      expect(o.outcome).toBe("fault");
+      expect(o.evidence.filter((e) => e.kind === "dom_node")).toHaveLength(1);
+      expect(o.evidence[0]?.locator).toBe("html > body > form > select > optgroup");
+    });
+
+    it("control: a plainly visible list still faults, or passes when labelled", async () => {
+      expect((await one(`<form>${sel("", NOLABEL)}</form>`)).outcome).toBe("fault");
+      expect((await one(`<form>${sel("", G)}</form>`)).outcome).toBe("no_fault");
+    });
+
+    it("2.1.1, 6.2.1 and 11.1.1 do not change: a frame, link and field under a mask, a filter, opacity 0.5 or a 3D flip still fault", async () => {
+      const hide = ["mask-image:linear-gradient(transparent,transparent)", "filter:opacity(0)", "opacity:0.5", "transform:rotateY(180deg);backface-visibility:hidden"];
+      const body = hide.map((h) => `<div style="${h}"><iframe src="about:blank"></iframe><a href="/x"></a><input type="text"></div>`).join("");
+      const obs = await observe(familyCProvider, { "index.html": page(body) }, { browser });
+      for (const id of ["custom/2-1-frame-title-attribute", "custom/6-2-link-content-name", "custom/11-1-field-label-mechanism"]) {
+        const o = obs.find((x) => x.checkId === id);
+        expect(o?.outcome, id).toBe("fault");
+        expect(o?.evidence.filter((e) => e.kind === "dom_node"), id).toHaveLength(hide.length);
+      }
+    });
+  });
+
   it("step (3): an optgroup whose parent is not the select is cannot_tell", async () => {
     const o = await one(
       `<form>${sel('id="s"', "<option>a</option>")}</form><script>const d = document.createElement('div'); const g = document.createElement('optgroup'); d.append(g); document.getElementById('s').append(d);</script>`,

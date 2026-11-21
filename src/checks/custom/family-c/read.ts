@@ -45,8 +45,18 @@ export interface PageRead {
   frames: FrameRead[];
 }
 
-const MAIN_HOST: HostChain = { known: true, notRendered: false, ariaHidden: false, inert: false, opacityZero: false, visible: true };
-const UNKNOWN_HOST: HostChain = { known: false, notRendered: false, ariaHidden: false, inert: false, opacityZero: false, visible: true };
+const MAIN_HOST: HostChain = {
+  known: true,
+  notRendered: false,
+  ariaHidden: false,
+  inert: false,
+  opacityZero: false,
+  visible: true,
+  unmeasured: [],
+  partial: false,
+  frameNoScroll: false,
+};
+const UNKNOWN_HOST: HostChain = { ...MAIN_HOST, known: false };
 
 interface DomNode {
   nodeType: number;
@@ -144,10 +154,10 @@ async function prepareSession(state: SessionState, key: string, signal: AbortSig
   }
 }
 
-async function hostFacts(info: FrameInfo, key: string, signal: AbortSignal): Promise<HostFacts> {
+async function hostFacts(info: FrameInfo, parentHost: HostChain, key: string, signal: AbortSignal): Promise<HostFacts> {
   const handle = await abortable(info.frame.frameElement(), signal);
   try {
-    const arg: ScanArg = { key, frameIndex: -1, host: MAIN_HOST, snippetMax: SNIPPET_MAX };
+    const arg: ScanArg = { key, frameIndex: -1, host: parentHost, snippetMax: SNIPPET_MAX };
     return await abortable(
       handle.evaluate(familyC as unknown as (el: unknown, a: ScanArg) => HostFacts, arg),
       signal,
@@ -282,8 +292,8 @@ export async function readPage(ctx: CheckContext): Promise<PageRead> {
       const parent = parentIndex === undefined ? undefined : reads[parentIndex];
       if (parent === undefined || parent.unread !== undefined) continue; // host stays unknown
       try {
-        const f = await hostFacts(read.info, key, signal);
         const p = parent.host;
+        const f = await hostFacts(read.info, p, key, signal);
         read.host = {
           known: p.known,
           notRendered: p.notRendered || f.notRendered,
@@ -292,6 +302,9 @@ export async function readPage(ctx: CheckContext): Promise<PageRead> {
           opacityZero: p.opacityZero || f.opacityZero,
           // false wins, then null (unknown), then true
           visible: p.visible === false || f.visible === false ? false : p.visible === null || f.visible === null ? null : true,
+          unmeasured: [...new Set([...p.unmeasured, ...f.unmeasured])],
+          partial: p.partial || !f.whole,
+          frameNoScroll: f.noScroll,
         };
         read.prefix = parent.prefix === "" ? f.locator : `${parent.prefix} >>> ${f.locator}`;
       } catch (e) {

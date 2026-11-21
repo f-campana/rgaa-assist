@@ -32,7 +32,7 @@ export interface AttributeLists {
 // RECORD: the record defines a "defined pair" by reference to HTML 4.01 and the
 // HTML standard and gives examples. `lists.json` pins the full table: every
 // example, completed from those two texts as the builder knew them, with no
-// source downloaded to confirm the additions (align on embed and fieldset,
+// source downloaded to confirm the additions (align on embed,
 // background on thead, tbody and tfoot, align, hspace, vspace and width on
 // applet, which Chromium treats as unknown anyway). A pair missing from the
 // table gives cannot_tell, never a fault. "Case variant": a name that "becomes
@@ -42,7 +42,7 @@ export const ATTRIBUTE_LISTS = JSON.parse(readFileSync(join(import.meta.dirname,
 
 export const attributesDefinition: CheckDefinition = {
   id: ATTRIBUTES_CHECK_ID,
-  version: "1.0.2",
+  version: "1.0.3",
   defaultOptions: Object.freeze({
     listsVersion: ATTRIBUTE_LISTS.version,
     /** Instances listed per abstention (and locators in a no_fault scope). */
