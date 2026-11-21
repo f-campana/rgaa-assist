@@ -13,7 +13,7 @@ function (C, arg) {
   var doc = document;
   var win = doc.defaultView;
   var body = doc.body;
-  var stats = { textNodes: 0, notTwoLetters: 0, font: 0, paint: 0, contrast: 0, geometry: 0, elementsNotEntered: 0 };
+  var stats = { editable: 0, textNodes: 0, notTwoLetters: 0, font: 0, paint: 0, contrast: 0, geometry: 0, elementsNotEntered: 0 };
   var nodes = [];
   var items = [];
   var result = { nodes: nodes, data: { items: items, stats: stats, done: true, bodyEligible: false } };
@@ -285,6 +285,19 @@ function (C, arg) {
     return false;
   }
 
+  // A text node with an editable ancestor, or inside a field, is a field's
+  // value under the record: never a witness, and its text never reaches a
+  // snippet (Q60). Editable: a contenteditable attribute whose value is not
+  // false (any case), or designMode "on" in this document. Open shadow hosts
+  // are never entered, so the walk below stays in one tree.
+  function editableAttr(el) {
+    var v = C.namedAttributeAnyCase(el, "contenteditable");
+    return v !== null && v.trim().toLowerCase() !== "false";
+  }
+  function fieldElement(el) {
+    return C.isHtml(el) && (el.localName === "input" || el.localName === "textarea" || el.localName === "select");
+  }
+  var designMode = String(doc.designMode).toLowerCase() === "on";
   var found = 0;
   function test(textNode, parent) {
     stats.textNodes++;
@@ -317,20 +330,27 @@ function (C, arg) {
       });
     }
   }
-  function visit(el) {
+  function visit(el, editable) {
+    editable = editable || editableAttr(el) || fieldElement(el);
     for (var ch = el.firstChild; ch !== null; ch = ch.nextSibling) {
       if (ch.nodeType === 3 || ch.nodeType === 4) {
+        if (editable) {
+          stats.editable++;
+          continue;
+        }
         test(ch, el);
         if (nodes.length >= arg.limit) return true;
       } else if (ch.nodeType === 1) {
         if (C.isHtml(ch) && ALLOWED.has(ch.localName) && !excluded(ch)) {
-          if (visit(ch)) return true;
+          if (visit(ch, editable)) return true;
         } else stats.elementsNotEntered++;
       }
     }
     return false;
   }
-  result.data.done = !visit(body);
+  var startEditable = designMode;
+  for (var up = body.parentElement; up !== null; up = up.parentElement) if (editableAttr(up)) startEditable = true;
+  result.data.done = !visit(body, startEditable);
   if (typeof range.detach === "function") range.detach();
   return result;
 }

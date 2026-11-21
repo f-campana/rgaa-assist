@@ -29,7 +29,7 @@ export const CHECK_ID = "custom/11-1-field-label-mechanism" as CheckId;
 
 export const definition: CheckDefinition = {
   id: CHECK_ID,
-  version: "1.0.1",
+  version: "1.0.2",
   defaultOptions: { listCap: 50 },
 };
 

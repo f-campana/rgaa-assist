@@ -15,7 +15,7 @@ import type { EvaluationReport } from "../../src/evaluation/evaluate.ts";
 import { formatReport } from "../../src/evaluation/format.ts";
 import { utcStamp } from "../../src/evaluation/main.ts";
 import { loadRgaa412 } from "../../src/rulesets/rgaa-4.1.2/index.ts";
-import { WHAT_THIS_IS_NOT } from "../../src/schema/index.ts";
+import { WHAT_THIS_IS_NOT, caseMatches } from "../../src/schema/index.ts";
 import type { CheckId } from "../../src/schema/index.ts";
 
 const RATIONALE = {
@@ -212,6 +212,14 @@ describe("measures and phrasing", () => {
     const m = measures([{ expected: { status: "failed" }, actual: { kind: "crash", message: "x" }, missingObservations: [] }]);
     expect(m.missedFault).toEqual({ x: 1, n: 1 });
     expect(m.unexpectedError).toEqual({ x: 1, n: 1 });
+  });
+  it("counts a missing observation whose expected reason differs (Codex's probe), and not one whose reason is expected", () => {
+    const actual = { kind: "finding", status: "not_tested", reason: "missing_observation", complete: false } as const;
+    const differs = measures([{ expected: { status: "not_tested", reason: "check_error" }, actual, missingObservations: ["custom/example"] }]);
+    expect(differs.unexpectedError).toEqual({ x: 1, n: 1 });
+    expect(caseMatches({ status: "not_tested", reason: "check_error" }, actual)).toBe(false);
+    const control = measures([{ expected: { status: "not_tested", reason: "missing_observation" }, actual, missingObservations: ["custom/example"] }]);
+    expect(control.unexpectedError).toEqual({ x: 0, n: 1 });
   });
   const finding = (status: "passed" | "not_applicable" | "failed" | "needs_review") =>
     ({ kind: "finding", status, complete: true }) as const;

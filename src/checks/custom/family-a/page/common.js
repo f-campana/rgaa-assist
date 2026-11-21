@@ -109,6 +109,39 @@
     return false;
   }
 
+  /**
+   * A snippet that carries text of `el` or below. When `el` has an editable
+   * ancestor (contenteditable other than false, in the flat tree; or the
+   * document's designMode on), the text is wrapped in that ancestor's start
+   * tag so that the sanitiser masks it and counts the redaction (Q60). Without
+   * the ancestor's tag the sanitiser could not see that the text is a value.
+   */
+  function guardEditable(el, html) {
+    var outer = null;
+    var node = el;
+    for (;;) {
+      var p = node.assignedSlot || node.parentNode;
+      if (p === null || p === undefined) break;
+      if (p.nodeType === 11 && p.host) p = p.host;
+      if (p.nodeType !== 1) break;
+      var v = namedAttributeAnyCase(p, "contenteditable");
+      if (v !== null && asciiLower(v.trim()) !== "false") outer = p;
+      node = p;
+    }
+    if (outer !== null) return openTag(outer) + html + "</" + asciiLower(outer.localName) + ">";
+    if (el.ownerDocument && String(el.ownerDocument.designMode).toLowerCase() === "on") return '<div contenteditable="true">' + html + "</div>";
+    return html;
+  }
+
+  /** The value of the attribute in no namespace whose name is `name` in any ASCII case, or null. */
+  function namedAttributeAnyCase(el, name) {
+    for (var i = 0; i < el.attributes.length; i++) {
+      var a = el.attributes[i];
+      if (a.namespaceURI === null && asciiLower(a.name) === name) return a.value;
+    }
+    return null;
+  }
+
   /** The value of the attribute in no namespace named exactly `name`, or null. */
   function namedAttribute(el, name) {
     for (var i = 0; i < el.attributes.length; i++) {
@@ -183,6 +216,8 @@
     locator: locator,
     isLangAttribute: isLangAttribute,
     hasLangInAnyForm: hasLangInAnyForm,
+    namedAttributeAnyCase: namedAttributeAnyCase,
+    guardEditable: guardEditable,
     docInfo: docInfo,
     isXmlViewer: isXmlViewer,
     qualifies: qualifies,
