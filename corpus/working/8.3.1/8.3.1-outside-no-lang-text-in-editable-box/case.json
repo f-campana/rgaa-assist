@@ -1,0 +1,46 @@
+{
+  "id": "8.3.1-outside-no-lang-text-in-editable-box",
+  "kind": "test",
+  "test": "8.3.1",
+  "branch": "outside_support",
+  "routes": [
+    "html-element-lang",
+    "every-text-element-lang"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "alternative_unresolved"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Sonnet 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "No element carries a language indication, and the only text in the page is inside an editable box (contenteditable), which holds what a visitor typed. By the wording the html element has no indication; whether the text of an editable box is a text element of the page, or only a field's value, is not settled by the wording. Under the record (Q60, item 2) that text is a field's value, so it is not a witness and cannot ground a fault. The custom check therefore finds no uncovered witness and answers cannot_tell (step 4: the only text without a language source is a field's value); only the record supports this branch, and the tool leaves it to a human. Before the builder's fix the code may take the text as a witness and fault, so this case may not match the current code. axe's html-has-lang faults through an evidence-only link, so the reason at full is alternative_unresolved; at fail_only, needs_review, not_enabled.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 2,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée pour l’élément `html`"
+      },
+      {
+        "source": "test",
+        "test": "8.3.1",
+        "line": 3,
+        "quote": "L’indication de la langue de la page (attribut `lang` et/ou `xml:lang`) est donnée sur chaque élément de texte ou sur l’un des éléments parents."
+      }
+    ]
+  }
+}
