@@ -1,6 +1,6 @@
 # M2 runs: PremiumShot home page, and Aubay's careers page compared with the dry run
 
-**2026-11-20, rerun 2026-11-21.** Written by the M2 orchestrator. Both runs were first made with `rgaa-assist audit` at main `e2b4ae7` (a `.dirty` tool version: the sample files were not yet committed). After the Q56 corrections (`custom/10-1-presentation-attributes` 1.0.1, editable boxes dropped from snippets), both were run again at `3d80b49`, tool version `0.0.0+git.3d80b49…` with no `.dirty`, and once more after the Q57 fixes at `49a0987` (11.8.2 abstains on an unmeasured `clip-path`; four 10.1.2 pairs added). Every rerun file validates; every observation outcome, every finding count and every redaction count below is unchanged by the rerun. Each page was loaded once, as a visitor, in a fresh Chromium context: no steps, no cookie choice, no form submitted, no saved session.
+**2026-11-20, rerun 2026-11-21.** Written by the M2 orchestrator. Both runs were first made with `rgaa-assist audit` at main `e2b4ae7` (a `.dirty` tool version: the sample files were not yet committed). After the Q56 corrections (`custom/10-1-presentation-attributes` 1.0.1, editable boxes dropped from snippets), both were run again at `3d80b49`, tool version `0.0.0+git.3d80b49…` with no `.dirty`, once more after the Q57 fixes at `49a0987` (11.8.2 abstains on an unmeasured `clip-path`; four 10.1.2 pairs added), and after the Q59 fixes at `a7e7851` (11.8.2 needs positive evidence of visibility; `height` on `table` is a 10.1.2 fault). Every rerun file validates; every observation outcome, every finding count and every redaction count below is unchanged by the rerun. Each page was loaded once, as a visitor, in a fresh Chromium context: no steps, no cookie choice, no form submitted, no saved session.
 
 Nothing is enabled (every entry `enabled: none`), so every finding of both runs is `needs_review` or `not_tested`. That is the expected result, not a defect. Nothing here says anything about the conformance of either site. Status letters are not used.
 
@@ -54,7 +54,7 @@ The dry run (`docs/m1/dry-run-aubay.md`, 2026-11-18) applied the ten check recor
 |---|---|---|---|---|
 | `custom/8-5-page-title-present` (8.5.1) | no_fault, if the engine reads the reCAPTCHA frame | no_fault | yes | The engine read the frame (see below); its title qualifies. |
 | `custom/10-1-presentation-elements` (10.1.1) | no_fault, if the frame is read | no_fault | yes | Nothing listed in the four documents read. |
-| `custom/10-1-presentation-attributes` (10.1.2) | fault: `frameborder="0"` on the reCAPTCHA `iframe` | fault: `frameborder` on `html > body > div:nth-of-type(4) > div > div:nth-of-type(1) > iframe` | yes | Same element. The fault wins over the abstentions also present (`width`/`height` on that `iframe`), as Q49 and the record say. |
+| `custom/10-1-presentation-attributes` (10.1.2) | fault: `frameborder="0"` on the reCAPTCHA `iframe` | fault: `frameborder` on `html > body > div:nth-of-type(4) > div > div:nth-of-type(1) > iframe`; since Q59 (run at `a7e7851`), also `height` on a `table` | yes | Same element. The fault wins over the abstentions also present (`width`/`height` on that `iframe`), as Q49 and the record say. The `height` on `table` the dry run noted (it then expected an abstention, per the gate package) is a fault since Q59; the outcome is the same. |
 | `custom/11-8-optgroup-label-attribute` (11.8.2) | inapplicable, if the frame is read | inapplicable | yes | No `optgroup` in a `select` in the four documents. |
 | `custom/8-3-default-lang-present` (8.3.1) | no_fault (`lang="fr-FR"` on `html`) | no_fault | yes | Step 1; the one rendered frame was read and did not change it. |
 | `custom/8-4-default-lang-code-valid` (8.4.1) | no_fault (`fr` in ISO 639-1) | no_fault | yes | |
@@ -65,7 +65,7 @@ The dry run (`docs/m1/dry-run-aubay.md`, 2026-11-18) applied the ten check recor
 
 **Counts, out of ten checks:**
 - Same outcome as the dry run: 10 of 10.
-- Same outcome and the same elements: 8 of 10 (8.5.1, 10.1.1, 10.1.2, 11.8.2, 8.3.1, 8.4.1, 11.1.1, 8.2.1; the frame-dependent three hold because the frame was read).
+- Same outcome and the same elements: 8 of 10 (10.1.2 has one more faulty element since Q59, `height` on `table`, which the dry run had noted as an abstention) (8.5.1, 10.1.1, 10.1.2, 11.8.2, 8.3.1, 8.4.1, 11.1.1, 8.2.1; the frame-dependent three hold because the frame was read).
 - Same outcome, more elements or another step: 2 of 10 (2.1.1: a frame inside the cross-origin frame; 6.2.1: step (3) instead of (4), plus closed-menu links).
 - Departures of the code from a record: none found.
 - Changes in the page since 2026-11-18 that changed an outcome: none found.

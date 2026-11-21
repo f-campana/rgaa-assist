@@ -7,12 +7,12 @@
   "corpus": {
     "name": "working",
     "set": "working",
-    "hash": "4af844930cd2f649e1e5d9d10193664a1ebd51d55d40809b68c9064950ced583",
-    "label": "working@4af844930cd2",
-    "cases": 94
+    "hash": "4fd8b3e8438353138898ed577485f40433e2191a0450808497f349194b36936c",
+    "label": "working@4fd8b3e84383",
+    "cases": 95
   },
-  "toolVersion": "0.0.0+git.49a0987b5ca069440415a015e899df4c30d433d6",
-  "createdAt": "2026-11-21T14:53:15.409Z",
+  "toolVersion": "0.0.0+git.a7e78518fd1ea81eb3b3cecd26d5ddd40300a014",
+  "createdAt": "2026-11-21T16:19:35.976Z",
   "checkVersions": {
     "axe/area-alt": "axe-core@4.14.0+adapter.1",
     "axe/aria-allowed-attr": "axe-core@4.14.0+adapter.1",
@@ -81,10 +81,10 @@
     "axe/th-has-data-cells": "axe-core@4.14.0+adapter.1",
     "axe/valid-lang": "axe-core@4.14.0+adapter.1",
     "axe/video-caption": "axe-core@4.14.0+adapter.1",
-    "custom/10-1-presentation-attributes": "1.0.2",
+    "custom/10-1-presentation-attributes": "1.0.3",
     "custom/10-1-presentation-elements": "1.0.0",
     "custom/11-1-field-label-mechanism": "1.0.1",
-    "custom/11-8-optgroup-label-attribute": "1.0.1",
+    "custom/11-8-optgroup-label-attribute": "1.0.2",
     "custom/2-1-frame-title-attribute": "1.0.1",
     "custom/6-2-link-content-name": "1.0.1",
     "custom/8-2-id-duplicate": "1.0.0",
@@ -339,6 +339,26 @@
     },
     {
       "case": "10.1.2-invalid-frameborder-on-third-party-iframe",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "fault"
+      }
+    },
+    {
+      "case": "10.1.2-invalid-height-on-table",
       "test": "10.1.2",
       "kind": "test",
       "branch": "invalid_fault_proves_failure",
@@ -2698,7 +2718,7 @@
           },
           "failed": {
             "passed": 0,
-            "failed": 6,
+            "failed": 7,
             "not_applicable": 0,
             "needs_review": 0,
             "not_tested": 0,
@@ -2730,16 +2750,16 @@
           }
         },
         "missingObservations": 0,
-        "cases": 13
+        "cases": 14
       },
       "measures": {
         "falseAssurance": {
           "x": 0,
-          "n": 13
+          "n": 14
         },
         "missedFault": {
           "x": 0,
-          "n": 6
+          "n": 7
         },
         "falseAlarm": {
           "x": 0,
@@ -2747,12 +2767,12 @@
         },
         "unexpectedError": {
           "x": 0,
-          "n": 13
+          "n": 14
         }
       },
       "matched": {
-        "x": 13,
-        "n": 13
+        "x": 14,
+        "n": 14
       }
     },
     {
@@ -3060,10 +3080,10 @@
     {
       "check": "custom/10-1-presentation-attributes",
       "built": true,
-      "checkVersion": "1.0.2",
-      "cases": 13,
+      "checkVersion": "1.0.3",
+      "cases": 14,
       "outcomes": {
-        "fault": 6,
+        "fault": 7,
         "no_fault": 4,
         "inapplicable": 0,
         "cannot_tell": 3,
@@ -3102,7 +3122,7 @@
     {
       "check": "custom/11-8-optgroup-label-attribute",
       "built": true,
-      "checkVersion": "1.0.1",
+      "checkVersion": "1.0.2",
       "cases": 9,
       "outcomes": {
         "fault": 3,
@@ -3211,7 +3231,7 @@
         },
         "failed": {
           "passed": 0,
-          "failed": 34,
+          "failed": 35,
           "not_applicable": 0,
           "needs_review": 0,
           "not_tested": 0,
@@ -3243,16 +3263,16 @@
         }
       },
       "missingObservations": 0,
-      "cases": 94
+      "cases": 95
     },
     "measures": {
       "falseAssurance": {
         "x": 0,
-        "n": 94
+        "n": 95
       },
       "missedFault": {
         "x": 0,
-        "n": 34
+        "n": 35
       },
       "falseAlarm": {
         "x": 0,
@@ -3260,12 +3280,12 @@
       },
       "unexpectedError": {
         "x": 0,
-        "n": 94
+        "n": 95
       }
     },
     "matched": {
-      "x": 94,
-      "n": 94
+      "x": 95,
+      "n": 95
     }
   },
   "summary": null,
