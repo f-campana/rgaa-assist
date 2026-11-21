@@ -191,8 +191,9 @@ export function familyC(a, b) {
   function parseInset(value, box) {
     const m = /^inset\(([^)]*)\)$/.exec(value.trim());
     if (m === null) return null;
-    const body = m[1].split(/\s+round\s+/)[0];
-    const parts = body.split(/\s+/).filter((x) => x.length > 0);
+    // A `round` part rounds the corners: the rectangle then over-states the visible area, so it is not measured (Q60).
+    if (/(^|\s)round(\s|$)/.test(m[1])) return null;
+    const parts = m[1].split(/\s+/).filter((x) => x.length > 0);
     if (parts.length < 1 || parts.length > 4) return null;
     const [t, r = t, bt = t, l = r] = parts;
     const len = (s, size) => (s.endsWith("%") ? (Number.parseFloat(s) / 100) * size : Number.parseFloat(s));

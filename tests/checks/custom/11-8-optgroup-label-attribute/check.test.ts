@@ -138,13 +138,23 @@ describe(ID, () => {
       expect(notes(o)).not.toContain(UNKNOWN);
     });
 
+    it("an inset() with a round part is unmeasured: cannot_tell, never a fault or no_fault (Q60, Codex's fixture)", async () => {
+      const box = (lab: string) =>
+        `<form><div style="position:relative;width:200px;height:200px;clip-path:inset(0 round 100px)"><select style="position:absolute;left:0;top:0;width:10px;height:10px;padding:0;border:0">${lab}</select></div></form>`;
+      const bad = await one(box("<optgroup><option>A</option></optgroup>"));
+      expect(bad.outcome).toBe("cannot_tell");
+      expect(notes(bad)).toContain(UNKNOWN);
+      const good = await one(box('<optgroup label="G"><option>A</option></optgroup>'));
+      expect(good.outcome).toBe("cannot_tell");
+    });
+
     it("control: inset() is still measured, so a fully inset list is not visible and a slightly inset one is decided", async () => {
       const hidden = await one(`<form><div style="clip-path:inset(50%)">${sel("", NOLABEL)}</div>${sel('style="clip-path:inset(0 100% 0 0)"', NOLABEL)}</form>`);
       expect(hidden.outcome).toBe("cannot_tell");
       expect(notes(hidden).match(/no part at least 4 pixels square/g)?.length).toBe(2);
       expect(notes(hidden)).not.toContain(UNKNOWN);
       const shown = await one(
-        `<form><div style="clip-path:inset(1px round 2px)">${sel("", NOLABEL)}</div>${sel('style="clip-path:inset(0)"', NOLABEL)}<div style="clip-path:inset(10% 5%)">${sel("", NOLABEL)}</div></form>`,
+        `<form><div style="clip-path:inset(1px)">${sel("", NOLABEL)}</div>${sel('style="clip-path:inset(0)"', NOLABEL)}<div style="clip-path:inset(10% 5%)">${sel("", NOLABEL)}</div></form>`,
       );
       expect(shown.outcome).toBe("fault");
       expect(shown.evidence.filter((e) => e.kind === "dom_node")).toHaveLength(3);
