@@ -1,0 +1,42 @@
+{
+  "id": "10.1.2-invalid-height-on-table-sections",
+  "kind": "test",
+  "test": "10.1.2",
+  "branch": "invalid_fault_proves_failure",
+  "routes": [
+    "attributes-absent"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "failed"
+    },
+    "full": {
+      "status": "failed"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Sonnet 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "A thead, a tbody and a tfoot each carry height. The test forbids presentation attributes in the generated source, and the methodology lists height with an exception only for img, object, embed, canvas and svg. The pairs (height on thead, tbody, tfoot) are defined by the HTML standard's list of obsolete features. The custom check faults these defined pairs through a link whose fault means failure, so the finding is failed at both levels.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "10.1.2",
+        "line": 1,
+        "quote": "les attributs servant à la présentation de l’information ne doivent pas être présents dans le code source généré des pages"
+      },
+      {
+        "source": "methodology",
+        "test": "10.1.2",
+        "quote": "Vérifier l’absence des attributs de présentation : `align`, `alink`, `background`, `bgcolor`, `border`, `cellpadding`, `cellspacing`, `char`, `charoff`, `clear`, `color`, `compact`, `frameborder`, `hspace`, `link`, `marginheight`, `marginwidth`, `text`, `valign`, `vlink`, `vspace`,"
+      }
+    ]
+  }
+}
