@@ -1,5 +1,11 @@
 /** Types of `scan.js`, the in-page reader of family C. */
 
+/**
+ * What could hide an element that the visibility helper cannot measure (Q59: visibility needs
+ * positive evidence). See `geometry` in `scan.js`.
+ */
+export type Unmeasured = "clip-path" | "off-chain" | "mask" | "filter" | "opacity" | "transform" | "fixed" | "no-scroll" | "partial-frame";
+
 /** What the caller knows about the frame elements that host this document. */
 export interface HostChain {
   /** False when a hosting frame element could not be read: nothing in the document may be faulted. */
@@ -8,14 +14,21 @@ export interface HostChain {
   ariaHidden: boolean;
   inert: boolean;
   opacityZero: boolean;
-  /** false: no part at least 4 px square visible; null: unknown (an unmeasured clip-path). */
+  /** false: no part at least 4 px square visible; null: unknown (see `unmeasured`). */
   visible: boolean | null;
+  /** Why `visible` is null, over every hosting frame element. */
+  unmeasured: Unmeasured[];
+  /** A hosting frame element is shown only in part (something cuts its box). */
+  partial: boolean;
+  /** The frame element hosting this document turns scrolling off (scrolling="no"). */
+  frameNoScroll: boolean;
 }
 
 export interface ScanArg {
   /** `Symbol.for(key)` on `globalThis` holds closed shadow roots and the accessibility look-ups. */
   key: string;
   frameIndex: number;
+  /** The host chain of the document scanned (in host mode: of the frame element's document). */
   host: HostChain;
   snippetMax: number;
 }
@@ -27,8 +40,13 @@ export interface HostFacts {
   ariaHidden: boolean;
   inert: boolean;
   opacityZero: boolean;
-  /** false: no part at least 4 px square visible; null: unknown (an unmeasured clip-path). */
+  /** false: no part at least 4 px square visible; null: unknown (see `unmeasured`). */
   visible: boolean | null;
+  unmeasured: Unmeasured[];
+  /** Nothing cuts the frame element's box. */
+  whole: boolean;
+  /** Its scrolling attribute turns scrolling off in the hosted document. */
+  noScroll: boolean;
 }
 
 export interface ElementBase {
@@ -82,8 +100,10 @@ export interface SelectRecord {
   ariaHidden: boolean;
   inert: boolean;
   opacityZero: boolean;
-  /** false: no part at least 4 px square visible; null: unknown (an unmeasured clip-path). */
+  /** false: no part at least 4 px square visible; null: unknown (see `unmeasured`). */
   visible: boolean | null;
+  /** Why `visible` is null (on the select, an ancestor or a hosting frame element); empty otherwise. */
+  unmeasured: Unmeasured[];
   ax: number | null;
 }
 

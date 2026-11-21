@@ -14,11 +14,16 @@
  * (7) otherwise: fault.
  *
  * RECORD: "inside every clipping ancestor" is computed from overflow (and paint containment) of
- * the ancestors in S's containing-block chain, the CSS clip property, and clip-path inset(). Any
- * other clip-path (circle, ellipse, polygon, path, rect, xywh, url, a box keyword, a shape with a
- * box keyword, an unparsed value) on S, any flat-tree ancestor or a hosting frame element is not
- * measured: visibility is then unknown and step (2) gives cannot_tell (Q57), unless the measured
- * part is already under 4 pixels square.
+ * the ancestors in S's containing-block chain, the CSS clip property, and clip-path inset().
+ * Visibility needs positive evidence (Q59): any style that can hide S and that the check does not
+ * measure makes visibility unknown, so step (2) gives cannot_tell, unless the measured part is
+ * already under 4 pixels square. On S, any flat-tree ancestor or a hosting frame element: a
+ * clip-path other than inset() (Q57); a clip-path (inset() included) or clip on an ancestor off
+ * the containing-block chain; a mask; filter or backdrop-filter; opacity below 1; a transform
+ * other than an axis-aligned translation or scale (rotation, skew, 3D, rotate, motion path). Also
+ * S fixed to the viewport and outside it, S outside the visible part of a document whose viewport cannot scroll (overflow hidden or clip
+ * on its root or body, scrolling="no" on its frame element), and S in such a document when a
+ * hosting frame element is shown only in part.
  * RECORD: for S inside a frame, the frame elements that host its document count as ancestors for
  * opacity, and S is not visible when such a frame element is not visible by the same rule. The
  * record speaks of "the page's scrollable area" without saying how frames enter it.
@@ -28,13 +33,27 @@ import type { CheckId } from "../../../schema/index.ts";
 import type { PageRead } from "../family-c/read.ts";
 import { assemble, exposure, partsOf } from "../family-c/result.ts";
 import type { Verdict } from "../family-c/result.ts";
+import type { Unmeasured } from "../family-c/scan.js";
 
 export const CHECK_ID = "custom/11-8-optgroup-label-attribute" as CheckId;
 
 export const definition: CheckDefinition = {
   id: CHECK_ID,
-  version: "1.0.1",
+  version: "1.0.2",
   defaultOptions: { listCap: 50 },
+};
+
+/** What step (2) says for each style or situation the check does not measure. */
+const UNMEASURED: Record<Unmeasured, string> = {
+  "clip-path": "a clip-path the check does not measure (a shape other than inset(), a box keyword, url(), or an unparsed value) on it, an ancestor or a hosting frame element",
+  "off-chain": "a clip-path or clip on an ancestor outside its containing-block chain (or that of a hosting frame element), not measured there",
+  mask: "a mask on it, an ancestor or a hosting frame element",
+  filter: "a filter or backdrop-filter on it, an ancestor or a hosting frame element",
+  opacity: "an opacity below 1 on it, an ancestor or a hosting frame element",
+  transform: "a transform the check does not resolve (rotation, skew, 3D, rotate, motion path) on it, an ancestor or a hosting frame element",
+  fixed: "it or a hosting frame element is fixed to the viewport and lies outside it, where scrolling never brings it",
+  "no-scroll": "it or a hosting frame element lies outside the visible part of a document that cannot scroll",
+  "partial-frame": "its document cannot scroll and a hosting frame element is shown only in part",
 };
 
 export function derive(read: PageRead, options: Readonly<Record<string, unknown>>): CheckResult {
@@ -69,10 +88,8 @@ export function derive(read: PageRead, options: Readonly<Record<string, unknown>
         continue;
       }
       if (s.visible === null) {
-        v(
-          "cannot_tell",
-          `Step (2): whether ${sAt} is visible is not known: a clip-path the check does not measure (a shape other than inset(), a box keyword, url(), or an unparsed value) is on it, an ancestor or a hosting frame element.`,
-        );
+        const why = s.unmeasured.map((u) => UNMEASURED[u]).join("; ") || "a style the check does not measure";
+        v("cannot_tell", `Step (2): whether ${sAt} is visible is not known: ${why}.`);
         continue;
       }
       if (s.visible === false) {
