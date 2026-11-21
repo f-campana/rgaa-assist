@@ -34,9 +34,10 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 
 ## In flight
 
-- Q56 corrections merged (`3d80b49`); both audits rerun at `3d80b49`, outcomes unchanged.
-- Codex's full pass requested on the bridge (`docs/m2/request-codex-full-pass.md`). Waiting for Fabien to prompt Codex.
-- Then: answer its findings, the gate report to Fabien with the cost log and a proposed M3 ceiling.
+- Codex's full pass in progress (working record `rgaa-m2-full-pass-2026-11-21.md`). Two findings so far, both approved by Fabien as fixes (Q57): family C clipping (a gate blocker: `clip-path` other than `inset()` ignored, so a fully clipped list could fault) and four 10.1.2 pairs missing (`border` on `input`, `height` on `thead`, `tbody`, `tfoot`).
+- Briefs ready: `docs/m2/brief-corrections-2.md` (code: Opus, high) and `docs/m2/brief-case-q57.md` (case: Sonnet, a different agent).
+- **No builder before the weekly reset (2026-11-21 16:00 UTC) and Fabien's budget for the new week.** Usage 89% against Q55's 90% cap.
+- After the merges: `pnpm evaluate`, rerun both audits, ask Codex's full pass to re-check Q57.
 
 ## Decisions taken by the orchestrator
 
