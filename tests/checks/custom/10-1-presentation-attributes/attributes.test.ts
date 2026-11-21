@@ -37,9 +37,9 @@ async function run(files: FixtureFiles | string, pageName?: string): Promise<Obs
 const notes = (o: Observation): string => o.evidence.map((e) => `${e.note ?? ""} ${e.locator ?? ""} ${e.snippet ?? ""}`).join("\n");
 
 describe("definition", () => {
-  it("declares version 1.0.1 and records the version of its lists", () => {
-    expect(attributesDefinition.version).toBe("1.0.1");
-    expect(attributesDefinition.defaultOptions["listsVersion"]).toBe("1.0.1");
+  it("declares version 1.0.2 and records the version of its lists", () => {
+    expect(attributesDefinition.version).toBe("1.0.2");
+    expect(attributesDefinition.defaultOptions["listsVersion"]).toBe("1.0.2");
     expect(ATTRIBUTE_LISTS.presentationAttributes).toHaveLength(24);
   });
 
@@ -93,6 +93,20 @@ describe("(1) fault", () => {
     );
     expect(o.outcome).toBe("fault");
     expect(o.fingerprint).toBe(`${ATTRIBUTES_CHECK_ID}:body@bgcolor,body@text,br@clear,hr@size,input@size,tr@height,tr@valign,ul@compact`);
+  });
+
+  it("(1) border on input and height on thead, tbody and tfoot fault (obsolete features of the HTML standard, Q57)", async () => {
+    const pairs: [string, string][] = [
+      ["<input type='text' border='0' aria-label='x'>", "input@border"],
+      ["<table><thead height='20'><tr><th>a</th></tr></thead></table>", "thead@height"],
+      ["<table><tbody height='20'><tr><td>a</td></tr></tbody></table>", "tbody@height"],
+      ["<table><tfoot height='20'><tr><td>a</td></tr></tfoot></table>", "tfoot@height"],
+    ];
+    for (const [body, pair] of pairs) {
+      const o = await run(page(body));
+      expect(o.outcome, pair).toBe("fault");
+      expect(o.fingerprint, pair).toBe(`${ATTRIBUTES_CHECK_ID}:${pair}`);
+    }
   });
 
   it("(1) frameborder on an iframe inserted by a third-party script faults (Q49)", async () => {
