@@ -7,12 +7,12 @@
   "corpus": {
     "name": "working",
     "set": "working",
-    "hash": "112aadc59374be05778a8c78d557a6329714851c08a46f0ea227872800db6b8c",
-    "label": "working@112aadc59374",
-    "cases": 92
+    "hash": "4af844930cd2f649e1e5d9d10193664a1ebd51d55d40809b68c9064950ced583",
+    "label": "working@4af844930cd2",
+    "cases": 94
   },
-  "toolVersion": "0.0.0+git.b946b6b4dd8d7d7e08c70a7dfc074b4657a01b2b.dirty",
-  "createdAt": "2026-11-20T23:51:24.652Z",
+  "toolVersion": "0.0.0+git.49a0987b5ca069440415a015e899df4c30d433d6",
+  "createdAt": "2026-11-21T14:53:15.409Z",
   "checkVersions": {
     "axe/area-alt": "axe-core@4.14.0+adapter.1",
     "axe/aria-allowed-attr": "axe-core@4.14.0+adapter.1",
@@ -81,12 +81,12 @@
     "axe/th-has-data-cells": "axe-core@4.14.0+adapter.1",
     "axe/valid-lang": "axe-core@4.14.0+adapter.1",
     "axe/video-caption": "axe-core@4.14.0+adapter.1",
-    "custom/10-1-presentation-attributes": "1.0.1",
+    "custom/10-1-presentation-attributes": "1.0.2",
     "custom/10-1-presentation-elements": "1.0.0",
-    "custom/11-1-field-label-mechanism": "1.0.0",
-    "custom/11-8-optgroup-label-attribute": "1.0.0",
-    "custom/2-1-frame-title-attribute": "1.0.0",
-    "custom/6-2-link-content-name": "1.0.0",
+    "custom/11-1-field-label-mechanism": "1.0.1",
+    "custom/11-8-optgroup-label-attribute": "1.0.1",
+    "custom/2-1-frame-title-attribute": "1.0.1",
+    "custom/6-2-link-content-name": "1.0.1",
     "custom/8-2-id-duplicate": "1.0.0",
     "custom/8-3-default-lang-present": "1.0.0",
     "custom/8-4-default-lang-code-valid": "1.0.0",
@@ -318,7 +318,47 @@
       }
     },
     {
+      "case": "10.1.2-invalid-border-on-input",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "fault"
+      }
+    },
+    {
       "case": "10.1.2-invalid-frameborder-on-third-party-iframe",
+      "test": "10.1.2",
+      "kind": "test",
+      "branch": "invalid_fault_proves_failure",
+      "level": "full",
+      "expected": {
+        "status": "failed"
+      },
+      "actual": {
+        "kind": "finding",
+        "status": "failed",
+        "complete": true
+      },
+      "missingObservations": [],
+      "matched": true,
+      "outcomes": {
+        "custom/10-1-presentation-attributes": "fault"
+      }
+    },
+    {
+      "case": "10.1.2-invalid-height-on-table-sections",
       "test": "10.1.2",
       "kind": "test",
       "branch": "invalid_fault_proves_failure",
@@ -2658,7 +2698,7 @@
           },
           "failed": {
             "passed": 0,
-            "failed": 4,
+            "failed": 6,
             "not_applicable": 0,
             "needs_review": 0,
             "not_tested": 0,
@@ -2690,16 +2730,16 @@
           }
         },
         "missingObservations": 0,
-        "cases": 11
+        "cases": 13
       },
       "measures": {
         "falseAssurance": {
           "x": 0,
-          "n": 11
+          "n": 13
         },
         "missedFault": {
           "x": 0,
-          "n": 4
+          "n": 6
         },
         "falseAlarm": {
           "x": 0,
@@ -2707,12 +2747,12 @@
         },
         "unexpectedError": {
           "x": 0,
-          "n": 11
+          "n": 13
         }
       },
       "matched": {
-        "x": 11,
-        "n": 11
+        "x": 13,
+        "n": 13
       }
     },
     {
@@ -3020,10 +3060,10 @@
     {
       "check": "custom/10-1-presentation-attributes",
       "built": true,
-      "checkVersion": "1.0.1",
-      "cases": 11,
+      "checkVersion": "1.0.2",
+      "cases": 13,
       "outcomes": {
-        "fault": 4,
+        "fault": 6,
         "no_fault": 4,
         "inapplicable": 0,
         "cannot_tell": 3,
@@ -3048,7 +3088,7 @@
     {
       "check": "custom/11-1-field-label-mechanism",
       "built": true,
-      "checkVersion": "1.0.0",
+      "checkVersion": "1.0.1",
       "cases": 10,
       "outcomes": {
         "fault": 4,
@@ -3062,7 +3102,7 @@
     {
       "check": "custom/11-8-optgroup-label-attribute",
       "built": true,
-      "checkVersion": "1.0.0",
+      "checkVersion": "1.0.1",
       "cases": 9,
       "outcomes": {
         "fault": 3,
@@ -3076,7 +3116,7 @@
     {
       "check": "custom/2-1-frame-title-attribute",
       "built": true,
-      "checkVersion": "1.0.0",
+      "checkVersion": "1.0.1",
       "cases": 10,
       "outcomes": {
         "fault": 5,
@@ -3090,7 +3130,7 @@
     {
       "check": "custom/6-2-link-content-name",
       "built": true,
-      "checkVersion": "1.0.0",
+      "checkVersion": "1.0.1",
       "cases": 10,
       "outcomes": {
         "fault": 3,
@@ -3171,7 +3211,7 @@
         },
         "failed": {
           "passed": 0,
-          "failed": 32,
+          "failed": 34,
           "not_applicable": 0,
           "needs_review": 0,
           "not_tested": 0,
@@ -3203,16 +3243,16 @@
         }
       },
       "missingObservations": 0,
-      "cases": 92
+      "cases": 94
     },
     "measures": {
       "falseAssurance": {
         "x": 0,
-        "n": 92
+        "n": 94
       },
       "missedFault": {
         "x": 0,
-        "n": 32
+        "n": 34
       },
       "falseAlarm": {
         "x": 0,
@@ -3220,12 +3260,12 @@
       },
       "unexpectedError": {
         "x": 0,
-        "n": 92
+        "n": 94
       }
     },
     "matched": {
-      "x": 92,
-      "n": 92
+      "x": 94,
+      "n": 94
     }
   },
   "summary": null,
