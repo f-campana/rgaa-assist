@@ -59,7 +59,7 @@ export const PLAIN_CONTENT_ELEMENTS: readonly string[] = [
 
 export const definition: CheckDefinition = {
   id: ID,
-  version: "1.0.0",
+  version: "1.0.1",
   defaultOptions: { textFonts: { version: fontList.version, families: fontList.families } },
 };
 

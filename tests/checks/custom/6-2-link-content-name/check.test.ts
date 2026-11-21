@@ -195,3 +195,18 @@ describe(ID, () => {
     expect(notes(fault)).toContain("Not read");
   });
 });
+
+describe(`${ID}: a link inside an editable box (Q60)`, () => {
+  it("its snippet carries the editable ancestor's start tag, so the text is masked and counted", async () => {
+    const MARKER = "Synthetic private visitor words";
+    const o = await one(`<div contenteditable="true"><a href="/x"><span aria-hidden="true">${MARKER}</span></a></div>`);
+    expect(o.outcome).toBe("fault");
+    expect(JSON.stringify(o)).not.toContain(MARKER);
+    expect(o.evidence.some((e) => (e.redactions ?? 0) > 0)).toBe(true);
+  });
+
+  it("the same link outside an editable box keeps its snippet", async () => {
+    const o = await one(`<div><a href="/x"><span aria-hidden="true">Visible words</span></a></div>`);
+    expect(JSON.stringify(o)).toContain("Visible words");
+  });
+});

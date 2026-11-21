@@ -28,7 +28,7 @@ async function run(files: Record<string, string>, page?: string): Promise<Observ
   const o = obs[0];
   if (o === undefined) throw new Error("no observation");
   expect(o.checkId).toBe(ID);
-  expect(o.checkVersion).toBe("1.0.0");
+  expect(o.checkVersion).toBe("1.0.1");
   return o;
 }
 
@@ -387,5 +387,42 @@ describe("custom/8-3-default-lang-present: a large page", () => {
     }));
     expect(o.outcome).toBe("cannot_tell");
     expect(o.evidence[0]?.note).toMatch(/ \d+ not exposed in the accessibility tree/);
+  });
+});
+
+describe("custom/8-3-default-lang-present: editable text is never a witness and never reaches the run (Q60)", () => {
+  const MARKER = "Synthetic private visitor words";
+  const noLang = (body: string, head = ""): Record<string, string> => ({
+    "index.html": `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Boulangerie</title>${head}<style>${BASE_STYLE}</style></head><body>${body}</body></html>`,
+  });
+
+  it("the control: the same text outside an editable box is a witness and gives a fault", async () => {
+    const o = await run(noLang(`<div><span>${MARKER}</span></div>`));
+    expect(o.outcome).toBe("fault");
+  });
+
+  // Under the record the text of an editable box is a field's value, so it grounds no fault: with no other
+  // text there is no witness, and step 4 answers cannot_tell.
+  for (const [name, body, head] of [
+    ["contenteditable=true", `<div contenteditable="true"><span>${MARKER}</span></div>`, ""],
+    ["contenteditable empty and in capitals", `<div CONTENTEDITABLE=""><span>${MARKER}</span></div>`, ""],
+    ["plaintext-only", `<div contenteditable="plaintext-only"><p><em>${MARKER}</em></p></div>`, ""],
+    ["contenteditable=false inside an editable box", `<div contenteditable="true"><div contenteditable="false"><span>${MARKER}</span></div></div>`, ""],
+    ["a shadow host inside an editable box", `<div contenteditable="true"><div id="h"></div></div><script>document.getElementById("h").attachShadow({mode:"open"}).innerHTML="<p>${MARKER}</p>"</script>`, ""],
+    ["designMode on", `<div><span>${MARKER}</span></div>`, `<script>document.designMode="on"</script>`],
+    ["a textarea", `<textarea>${MARKER}</textarea>`, ""],
+  ] as const) {
+    it(`${name}: no fault from that text, and the marker is nowhere in the observation`, async () => {
+      const o = await run(noLang(body, head));
+      expect(o.outcome).toBe("cannot_tell");
+      expect(o.evidence[0]?.note).toMatch(/^Step 4: /);
+      expect(JSON.stringify(o)).not.toContain(MARKER);
+    });
+  }
+
+  it("an editable box beside ordinary text: the ordinary text is the witness and the box stays out of the snippet", async () => {
+    const o = await run(noLang(`<div contenteditable="true"><span>${MARKER}</span></div><p>Texte ordinaire</p>`));
+    expect(o.outcome).toBe("fault");
+    expect(JSON.stringify(o)).not.toContain(MARKER);
   });
 });

@@ -467,7 +467,34 @@ export function familyC(a, b) {
 
   function snippetOf(el) {
     const h = el.outerHTML ?? "";
-    return h.length > SNIPPET_MAX ? `${h.slice(0, SNIPPET_MAX)}…` : h;
+    const s = h.length > SNIPPET_MAX ? `${h.slice(0, SNIPPET_MAX)}…` : h;
+    return guardEditable(el, s);
+  }
+
+  /**
+   * An element with an editable ancestor (contenteditable other than false,
+   * in the flat tree; or designMode on) has its snippet wrapped in that
+   * ancestor's start tag, so that the sanitiser masks the text it carries and
+   * counts the redaction (Q60).
+   */
+  function guardEditable(el, html) {
+    let outer = null;
+    let node = el;
+    for (;;) {
+      let p = node.assignedSlot ?? node.parentNode;
+      if (p === null || p === undefined) break;
+      if (p.nodeType === 11 && p.host) p = p.host;
+      if (p.nodeType !== 1) break;
+      const v = p.getAttributeNames().find((n) => asciiLower(n) === "contenteditable");
+      if (v !== undefined && asciiLower((p.getAttribute(v) ?? "").trim()) !== "false") outer = p;
+      node = p;
+    }
+    if (outer !== null) {
+      const shell = outer.cloneNode(false).outerHTML;
+      return `${shell.slice(0, shell.lastIndexOf("</"))}${html}${shell.slice(shell.lastIndexOf("</"))}`;
+    }
+    if (String(el.ownerDocument.designMode).toLowerCase() === "on") return `<div contenteditable="true">${html}</div>`;
+    return html;
   }
 
   /** What the element is, without page-specific ids: for fingerprints. */

@@ -158,8 +158,12 @@ export function measures(rows: readonly Row[]): Measures {
       m.falseAlarm.n += 1;
       if (actual === "failed") m.falseAlarm.x += 1;
     }
-    const unexpected =
-      actual === "crash" || (actual === "not_tested" && expected !== "not_tested") || (r.missingObservations.length > 0 && expected !== "not_tested");
+    // A missing observation the case did not expect: the expected status differs, or the expected reason is
+    // given and differs from the actual one (spec 10.3, Q60).
+    const expectedReason = r.expected.reason;
+    const actualReason = r.actual.kind === "finding" ? r.actual.reason : undefined;
+    const missingUnexpected = r.missingObservations.length > 0 && (expected !== "not_tested" || (expectedReason !== undefined && expectedReason !== actualReason));
+    const unexpected = actual === "crash" || (actual === "not_tested" && expected !== "not_tested") || missingUnexpected;
     if (unexpected) m.unexpectedError.x += 1;
   }
   return m;

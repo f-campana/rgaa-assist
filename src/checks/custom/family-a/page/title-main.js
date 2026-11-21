@@ -52,7 +52,7 @@ function (C, arg) {
       qualifies: C.qualifies(textContent, arg.blank),
       text: C.clip(textContent, 200),
       locator: C.locator(t),
-      snippet: C.openTag(t) + C.clip(textContent, 200),
+      snippet: C.guardEditable(t, C.openTag(t) + C.clip(textContent, 200)),
     };
   }
   return out;

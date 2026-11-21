@@ -28,7 +28,7 @@ async function run(files: Record<string, string>, page?: string): Promise<Observ
   const o = obs[0];
   if (o === undefined) throw new Error("no observation");
   expect(o.checkId).toBe(ID);
-  expect(o.checkVersion).toBe("1.0.0");
+  expect(o.checkVersion).toBe("1.0.1");
   return o;
 }
 
@@ -279,5 +279,14 @@ describe("custom/8-5-page-title-present", () => {
   it("step 4: the first title is empty and a second one is filled: cannot_tell", async () => {
     const o = await run({ "index.html": doc("<title></title><title>Second titre</title>") });
     expect(o.outcome).toBe("cannot_tell");
+  });
+});
+
+describe("custom/8-5-page-title-present: a title inside an editable box (Q60)", () => {
+  it("its text is masked in the snippet and counted as a redaction", async () => {
+    const MARKER = "Synthetic private visitor words";
+    const o = await run({ "index.html": `<!DOCTYPE html><html lang="fr"><head></head><body><div contenteditable="true"><title>${MARKER}</title></div></body></html>` });
+    expect(JSON.stringify(o)).not.toContain(MARKER);
+    expect(o.evidence.some((e) => (e.redactions ?? 0) > 0)).toBe(true);
   });
 });

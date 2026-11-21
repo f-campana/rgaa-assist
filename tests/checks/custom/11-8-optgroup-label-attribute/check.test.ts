@@ -493,3 +493,11 @@ describe(ID, () => {
     expect(fault.outcome).toBe("fault");
   });
 });
+
+describe("custom/11-8-optgroup-label-attribute: a select inside an editable box (Q60)", () => {
+  it("the option text never reaches the observation (evidence carries the optgroup start tag only)", async () => {
+    const MARKER = "Synthetic private visitor words";
+    const o = await one(`<form><div contenteditable="true"><select><optgroup><option>${MARKER}</option></optgroup></select></div></form>`);
+    expect(JSON.stringify(o)).not.toContain(MARKER);
+  });
+});

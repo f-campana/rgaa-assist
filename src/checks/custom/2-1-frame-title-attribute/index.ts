@@ -20,7 +20,7 @@ export const CHECK_ID = "custom/2-1-frame-title-attribute" as CheckId;
 
 export const definition: CheckDefinition = {
   id: CHECK_ID,
-  version: "1.0.1",
+  version: "1.0.2",
   defaultOptions: { listCap: 50 },
 };
 
