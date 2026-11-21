@@ -114,4 +114,4 @@ Three Opus high builders running together filled about 85% of a 5-hour window in
 | 2026-11-20 17:45 | Both audits run (about 3 s and 4 s), run files validated, Aubay comparison written, Codex's review requested | 81% | About 1 point of orchestrator time. 5-hour window at 18%. |
 | 2026-11-20 23:50 | Codex review read (hold, four findings); Q56 recorded; one corrections builder launched (Sonnet medium) | 85% | Weekly rose 81% to 85% since the runs, outside M2. 5-hour window at 24%. |
 | 2026-11-21 00:10 | Q56 corrections merged (`3d80b49`; Sonnet medium, about 150k tokens; 840 tests); evaluate and both audits rerun; full-pass request sent | 87% | Under the 90% cap (Q55). The weekly window resets 2026-11-21 16:00 UTC. |
-| 2026-11-21 15:00 | Q57 fixes merged (Opus high about 193k tokens; case writer Sonnet about 93k); 856 tests; working set 94 of 94; both audits rerun | see usage | Q58 lifted the 90% cap for these fixes. |
+| 2026-11-21 15:00 | Q57 fixes merged (Opus high about 193k tokens; case writer Sonnet about 93k); 856 tests; working set 94 of 94; both audits rerun | 93% | Q58 lifted the 90% cap for these fixes. The weekly window resets 16:00 UTC today. |
