@@ -1,0 +1,44 @@
+{
+  "id": "11.8.2-outside-rounded-clip-hides-select",
+  "kind": "test",
+  "test": "11.8.2",
+  "branch": "outside_support",
+  "routes": [
+    "label-attribute"
+  ],
+  "expected": {
+    "fail_only": {
+      "status": "needs_review",
+      "reason": "not_enabled"
+    },
+    "full": {
+      "status": "needs_review",
+      "reason": "cannot_tell"
+    }
+  },
+  "source": {
+    "kind": "planted",
+    "author": "Claude Sonnet 5.5"
+  },
+  "licence": "Planted for rgaa-assist; no third-party material.",
+  "adaptation": null,
+  "files": [
+    "index.html"
+  ],
+  "rationale": {
+    "text": "The select sits in a form, in the top-left corner of a 200 by 200 box clipped by inset(0 round 100px). The rounded corner has a radius of 100 pixels, so no part of the 10 by 10 select, at least 4 pixels square, lies inside the clip: the select is not visible, and it holds an optgroup without a label attribute. The test gives no exception for hidden lists, but it does not say whether a list invisible this way is one it covers. The custom check answers cannot_tell at step 2 (not visible: no part at least 4 pixels square inside every clipping ancestor); the form is found at step 1, so that step does not decide. Only the record supports this branch; the tool leaves it to a human. Q60 (item 1) rules that an inset() with a round part is unmeasured, so visibility is unknown and the answer is cannot_tell, never a fault; before the builder's fix the code measures the rectangle and may fault, so this case may not match the current code. The finding is needs_review at both levels: not_enabled at fail_only, cannot_tell at full.",
+    "citations": [
+      {
+        "source": "test",
+        "test": "11.8.2",
+        "line": 1,
+        "quote": "Dans chaque balise `<select>`, chaque balise `<optgroup>` possède-t-elle un attribut `label` ?"
+      },
+      {
+        "source": "methodology",
+        "test": "11.8.2",
+        "quote": "Retrouver dans le document les listes de sélection (élément `<select>`) qui possèdent des éléments `<optgroup>` ;"
+      }
+    ]
+  }
+}
