@@ -34,9 +34,9 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 
 ## In flight
 
-- Codex's final full pass on `1c58636`: hold, five items; Fabien approved all five (Q60, weekly under 8%).
-- Q60 cases merged (`3b4b2eb`) and Q60 code merged (`727e269`, 914 tests; Sonnet medium builders, for the budget). Working set: matched 97 of 97 cases on corpus working@c08d0a84f819 (`corpus/results/working-20261121T190737Z.json`); false assurance 0 of 97, missed fault 0 of 35, false alarm 0 of 62, unexpected error 0 of 97. Both audits rerun at `6e53a70`: valid, same outcomes, same finding and redaction counts.
-- Codex's focused recheck requested (`docs/m2/request-codex-recheck-q60.md`). Then the gate report to Fabien, with usage and a proposed M3 ceiling.
+- Codex's focused recheck of Q60 on `f9254fd`: hold, one blocker (a `role="textbox"` ancestor not guarded in snippets); Fabien approved the fix (Q61, weekly cap 12%).
+- Q61 merged (`373fb38`, 922 tests; Sonnet medium builder). Working set: matched 97 of 97 cases on corpus working@c08d0a84f819 (`corpus/results/working-20261122T150554Z.json`); false assurance 0 of 97, missed fault 0 of 35, false alarm 0 of 62, unexpected error 0 of 97. Both audits rerun at `1aa611d`: valid, same outcomes, finding and redaction counts.
+- Codex's focused recheck of Q61 requested (`docs/m2/request-codex-recheck-q61.md`). Then the gate report to Fabien, with usage and a proposed M3 ceiling.
 
 ## Decisions taken by the orchestrator
 
@@ -75,6 +75,8 @@ Also logged on the bridge, channel `rgaa-assist`.
 - **Q60, as built:** 11.8.2 (1.0.3): an `inset()` with `round` is unmeasured, so `cannot_tell`; only 11.8.2 reads visibility, so 2.1.1, 6.2.1 and 11.1.1 are not affected by it. 8.3.1 (1.0.1): text under an editable ancestor (`contenteditable` not `false`, any case, or `designMode` on) or in a field is never a witness; the marker never reaches the observation. Sweep: 8.5.1's title snippet (1.0.1) and family C's element snippets (2.1.1, 6.2.1, 11.1.1 1.0.2; 11.8.2 1.0.3) wrap text from inside an editable box in its start tag, so the sanitiser masks it and counts a redaction; every other snippet carries start tags only. Evaluate: a missing observation counts as unexpected when the expected reason is given and differs. 6.2.1 record: hidden-subtree sentence reworded (Q60), code unchanged. Not tested: `designMode` in a framed document; 2.1.1 and 11.1.1 snippets inside an editable box (shared code, tested through 6.2.1); the saved run file itself (the marker test reads the observation).
 - **For Fabien (case writer, Q60):** the 8.3.1 record's witness conditions (a) name role, `aria-hidden`, `hidden` and `inert`, not `contenteditable`; editable text is excluded only through the record's "a field's value". Q60 reads it that way; naming `contenteditable` in the record would make it explicit.
 - **Other records (Q60 item 4):** 2.1.1, 11.1.1 and 11.8.2 say "computed visibility hidden or collapse" of the element itself, which is its own computed value (a `visible` override counts), so they already read as the amended 6.2.1 does; no change proposed.
+
+- **Q61, as built:** the textbox-like roles are in `src/engine/editable-box.json`, read by the sanitiser and passed to the in-page guards (family A `C.textboxRoles`, family C `ScanArg.textboxRoles`); the contenteditable and role rules are repeated in the page scripts and pinned by an agreement test (12 start tags, sanitiser against the family A guard; family C covered through `runAudit` tests). **Beyond the brief's file list:** the axe adapter leaked the same way (axe's `node.html` has no ancestors), so `src/checks/axe/editable.ts` wraps any axe snippet found inside an editable box's markup in that box's start tag; adapter version 1 to 2, all axe checks now `axe-core@4.14.0+adapter.2`. It matches on markup, so it can over-redact a twin outside a box, never under-redact; the wrapper always closes with `</div>` whatever the box's element (the sanitiser then masks to the end of the snippet: safe, cosmetic). Versions: 2.1.1, 6.2.1, 11.1.1 1.0.3; 11.8.2 1.0.4; 8.5.1 1.0.2. Tests read the saved `run.json` (textbox, searchbox, combobox, `presentation TextBox`, contenteditable; control outside a box).
 
 ## Errors in the orchestrator's own work
 
