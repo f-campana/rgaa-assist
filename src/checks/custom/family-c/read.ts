@@ -56,8 +56,10 @@ const MAIN_HOST: HostChain = {
   unmeasured: [],
   partial: false,
   frameNoScroll: false,
+  editable: false,
 };
-const UNKNOWN_HOST: HostChain = { ...MAIN_HOST, known: false };
+// Unknown host: nothing may be faulted, and any text is masked rather than leaked (Q63).
+const UNKNOWN_HOST: HostChain = { ...MAIN_HOST, known: false, editable: true };
 
 interface DomNode {
   nodeType: number;
@@ -306,6 +308,7 @@ export async function readPage(ctx: CheckContext): Promise<PageRead> {
           unmeasured: [...new Set([...p.unmeasured, ...f.unmeasured])],
           partial: p.partial || !f.whole,
           frameNoScroll: f.noScroll,
+          editable: p.editable || f.editable,
         };
         read.prefix = parent.prefix === "" ? f.locator : `${parent.prefix} >>> ${f.locator}`;
       } catch (e) {
