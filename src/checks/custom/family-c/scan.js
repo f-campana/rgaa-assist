@@ -471,9 +471,16 @@ export function familyC(a, b) {
     return guardEditable(el, s);
   }
 
+  /** A role token in the shared list (arg.textboxRoles, from editable-box.json), as the sanitiser reads the role attribute (Q61). */
+  function hasTextboxRole(p) {
+    const n = p.getAttributeNames().find((x) => asciiLower(x) === "role");
+    if (n === undefined) return false;
+    return (p.getAttribute(n) ?? "").split(/[\t\n\f\r ]+/).some((t) => arg.textboxRoles.includes(asciiLower(t)));
+  }
+
   /**
    * An element with an editable ancestor (contenteditable other than false,
-   * in the flat tree; or designMode on) has its snippet wrapped in that
+   * in the flat tree; a textbox-like role; or designMode on) has its snippet wrapped in that
    * ancestor's start tag, so that the sanitiser masks the text it carries and
    * counts the redaction (Q60).
    */
@@ -487,6 +494,7 @@ export function familyC(a, b) {
       if (p.nodeType !== 1) break;
       const v = p.getAttributeNames().find((n) => asciiLower(n) === "contenteditable");
       if (v !== undefined && asciiLower((p.getAttribute(v) ?? "").trim()) !== "false") outer = p;
+      else if (hasTextboxRole(p)) outer = p;
       node = p;
     }
     if (outer !== null) {

@@ -28,7 +28,7 @@ async function run(files: Record<string, string>, page?: string): Promise<Observ
   const o = obs[0];
   if (o === undefined) throw new Error("no observation");
   expect(o.checkId).toBe(ID);
-  expect(o.checkVersion).toBe("1.0.1");
+  expect(o.checkVersion).toBe("1.0.2");
   return o;
 }
 

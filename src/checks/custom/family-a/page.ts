@@ -8,6 +8,7 @@
  */
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { TEXTBOX_ROLE_LIST } from "../../../engine/sanitise.ts";
 import type { CDPSession, Frame } from "playwright";
 
 export type PageScript = "doc-info" | "frame-doc" | "title-main" | "ids" | "witness";
@@ -27,9 +28,14 @@ function source(name: PageScript | "common"): string {
   return s;
 }
 
+/** The helpers of `page/common.js`, with the shared textbox role list (Q61) handed in. */
+export function helpersExpression(): string {
+  return `(function (C) { C.textboxRoles = ${JSON.stringify(TEXTBOX_ROLE_LIST)}; return C; })(${source("common")})`;
+}
+
 /** The expression that runs `script` with the helpers and `arg`. */
 export function pageExpression(script: PageScript, arg: unknown = null): string {
-  return `(${source(script)})(${source("common")}, ${JSON.stringify(arg)})`;
+  return `(${source(script)})(${helpersExpression()}, ${JSON.stringify(arg)})`;
 }
 
 /** Run a page script in a frame through Playwright and return its JSON result. */

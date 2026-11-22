@@ -31,6 +31,8 @@ export interface ScanArg {
   /** The host chain of the document scanned (in host mode: of the frame element's document). */
   host: HostChain;
   snippetMax: number;
+  /** Role tokens that make an ancestor an editable box (engine/editable-box.json). */
+  textboxRoles: readonly string[];
 }
 
 /** Facts about one frame element (iframe, frame, object, embed) as a host. */

@@ -11,11 +11,12 @@ import type { AxeResults } from "axe-core";
 import { AxeBuilder } from "@axe-core/playwright";
 import type { CheckId } from "../../schema/index.ts";
 import type { CheckContext, CheckDefinition, CheckFailure, CheckProvider, CheckRunResult } from "../types.ts";
+import { guardEditableSnippets } from "./editable.ts";
 import { blockUnscriptableFrames } from "./frames.ts";
 import { SCOPE_PROBE_RULE, mapRule, testedFrameCount, untestedFramesOf } from "./map.ts";
 import type { ScopeGap } from "./map.ts";
 
-export const ADAPTER_VERSION = 1;
+export const ADAPTER_VERSION = 2;
 
 interface AxeRuleFile {
   axeVersion: string;
@@ -84,6 +85,7 @@ async function runAxe(ctx: CheckContext, timeoutMs: number): Promise<{ results: 
     // If the abort wins, the analysis may still settle later; its outcome is ignored.
     run.catch(() => undefined);
     const results = await Promise.race([run, aborted]);
+    await guardEditableSnippets(results, ctx.frames);
     return { results, blockedGaps: blocked.gaps };
   } finally {
     blocked.restore();

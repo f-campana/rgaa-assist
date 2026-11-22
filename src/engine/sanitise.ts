@@ -49,6 +49,8 @@
  * This is pattern matching. It cannot prove that no secret gets through
  * (spec 8.7); the full channel tests are the M3 gate.
  */
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 /** The one mask string, used everywhere. */
 export const MASK = "[redacted]";
@@ -190,10 +192,12 @@ const TEXTAREA = /(<textarea\b(?:[^>"']|"[^"]*"|'[^']*')*>)([\s\S]*?)(<\/textare
 const START_TAG = /<([a-zA-Z][^\s/>]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g;
 const ATTRIBUTE = /[\s/]([^\s"'<>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
 const VOID_ELEMENTS = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"]);
-const TEXTBOX_ROLES = new Set(["textbox", "searchbox", "combobox"]);
+/** The shared definition of the textbox-like roles: also handed to the in-page snippet guards (Q61). */
+export const TEXTBOX_ROLE_LIST: readonly string[] = (JSON.parse(readFileSync(join(import.meta.dirname, "editable-box.json"), "utf8")) as { textboxRoles: string[] }).textboxRoles;
+const TEXTBOX_ROLES = new Set(TEXTBOX_ROLE_LIST);
 
 /** True when the start tag's attributes make the element an editable box. */
-function isEditableBox(attributes: string): boolean {
+export function isEditableBox(attributes: string): boolean {
   let editable = false;
   let seenEditable = false;
   let roleSeen = false;

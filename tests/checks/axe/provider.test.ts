@@ -52,7 +52,7 @@ describe("declared checks", () => {
       expect(c.version).toBe(CHECK_VERSION);
       expect(c.defaultOptions).toBe(DEFAULT_OPTIONS);
     }
-    expect(CHECK_VERSION).toBe("axe-core@4.14.0+adapter.1");
+    expect(CHECK_VERSION).toBe("axe-core@4.14.0+adapter.2");
     expect(DEFAULT_OPTIONS["rules"]).toEqual(AXE_RULE_IDS);
   });
 });

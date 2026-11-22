@@ -1,0 +1,4 @@
+{
+  "note": "Roles that make an element an editable box (spec 8.7, Q56, Q61). Read by the sanitiser and passed to the in-page snippet guards; matched case-insensitively against the tokens of the first role attribute.",
+  "textboxRoles": ["textbox", "searchbox", "combobox"]
+}

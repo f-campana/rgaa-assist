@@ -39,7 +39,7 @@ export const CHECK_ID = "custom/11-8-optgroup-label-attribute" as CheckId;
 
 export const definition: CheckDefinition = {
   id: CHECK_ID,
-  version: "1.0.3",
+  version: "1.0.4",
   defaultOptions: { listCap: 50 },
 };
 

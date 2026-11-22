@@ -43,7 +43,7 @@ export const BLANK_CODE_POINTS: readonly number[] = blankList.codePoints.map((u)
 
 export const definition: CheckDefinition = {
   id: ID,
-  version: "1.0.1",
+  version: "1.0.2",
   defaultOptions: { blankCharacters: { version: blankList.version, codePoints: blankList.codePoints } },
 };
 
