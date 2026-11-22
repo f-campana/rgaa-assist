@@ -22,6 +22,11 @@ export interface HostChain {
   partial: boolean;
   /** The frame element hosting this document turns scrolling off (scrolling="no"). */
   frameNoScroll: boolean;
+  /**
+   * The document sits inside an editable box (Q63): a hosting frame element, or one further up
+   * the chain, has an editable ancestor or is in a designMode document. True when unknown.
+   */
+  editable: boolean;
 }
 
 export interface ScanArg {
@@ -37,6 +42,8 @@ export interface ScanArg {
 
 /** Facts about one frame element (iframe, frame, object, embed) as a host. */
 export interface HostFacts {
+  /** The frame element has an editable ancestor, or its document is editable (inherited state included). */
+  editable: boolean;
   locator: string;
   notRendered: boolean;
   ariaHidden: boolean;

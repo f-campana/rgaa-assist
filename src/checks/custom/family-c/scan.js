@@ -485,6 +485,17 @@ export function familyC(a, b) {
    * counts the redaction (Q60).
    */
   function guardEditable(el, html) {
+    const outer = editableAncestor(el);
+    if (outer !== null) {
+      const shell = outer.cloneNode(false).outerHTML;
+      return `${shell.slice(0, shell.lastIndexOf("</"))}${html}${shell.slice(shell.lastIndexOf("</"))}`;
+    }
+    if (documentEditable(el)) return `<div contenteditable="true">${html}</div>`;
+    return html;
+  }
+
+  /** The outermost editable ancestor of `el` in its own document's flat tree, or null. */
+  function editableAncestor(el) {
     let outer = null;
     let node = el;
     for (;;) {
@@ -497,12 +508,12 @@ export function familyC(a, b) {
       else if (hasTextboxRole(p)) outer = p;
       node = p;
     }
-    if (outer !== null) {
-      const shell = outer.cloneNode(false).outerHTML;
-      return `${shell.slice(0, shell.lastIndexOf("</"))}${html}${shell.slice(shell.lastIndexOf("</"))}`;
-    }
-    if (String(el.ownerDocument.designMode).toLowerCase() === "on") return `<div contenteditable="true">${html}</div>`;
-    return html;
+    return outer;
+  }
+
+  /** The element's document is in designMode, or sits inside an editable box through its hosting frame chain (Q63; arg.host.editable, true when unknown). */
+  function documentEditable(el) {
+    return String(el.ownerDocument.designMode).toLowerCase() === "on" || arg.host.editable === true;
   }
 
   /** What the element is, without page-specific ids: for fingerprints. */
@@ -535,6 +546,7 @@ export function familyC(a, b) {
     const el = a;
     const g = geometry(el, arg.host);
     return {
+      editable: editableAncestor(el) !== null || documentEditable(el),
       locator: locatorOf(el),
       notRendered: notRendered(el),
       ariaHidden: ariaHiddenOnOrAbove(el),
