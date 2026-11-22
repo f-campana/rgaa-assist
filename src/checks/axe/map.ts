@@ -6,6 +6,7 @@
 import { createHash } from "node:crypto";
 import type { AxeResults, NodeResult, Result } from "axe-core";
 import type { CheckId } from "../../schema/index.ts";
+import { UNRESOLVED } from "./editable.ts";
 import type { CheckFailure, CheckResult, CheckRunResult, RawEvidence } from "../types.ts";
 
 /**
@@ -90,7 +91,8 @@ function messagesOf(node: NodeResult): string {
 
 function nodeEvidence(node: NodeResult, note: string): RawEvidence {
   const e: RawEvidence = { kind: "dom_node", locator: locatorOf(node.target), snippet: node.html };
-  if (note) e.note = note;
+  const full = [note, UNRESOLVED.has(node) ? "Editable ancestry could not be resolved: snippet masked." : ""].filter((x) => x !== "").join(" ");
+  if (full) e.note = full;
   return e;
 }
 
