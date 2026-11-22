@@ -16,7 +16,7 @@ import { blockUnscriptableFrames } from "./frames.ts";
 import { SCOPE_PROBE_RULE, mapRule, testedFrameCount, untestedFramesOf } from "./map.ts";
 import type { ScopeGap } from "./map.ts";
 
-export const ADAPTER_VERSION = 2;
+export const ADAPTER_VERSION = 3;
 
 interface AxeRuleFile {
   axeVersion: string;
