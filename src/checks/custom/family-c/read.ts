@@ -17,6 +17,7 @@
 import type { CDPSession } from "playwright";
 import type { CheckContext, FrameInfo } from "../../types.ts";
 import { familyC } from "./scan.js";
+import { TEXTBOX_ROLE_LIST } from "../../../engine/sanitise.ts";
 import type { HostChain, HostFacts, ScanArg, ScanResult } from "./scan.js";
 
 /** Longest raw snippet the scan returns; the engine sanitises and caps again. */
@@ -157,7 +158,7 @@ async function prepareSession(state: SessionState, key: string, signal: AbortSig
 async function hostFacts(info: FrameInfo, parentHost: HostChain, key: string, signal: AbortSignal): Promise<HostFacts> {
   const handle = await abortable(info.frame.frameElement(), signal);
   try {
-    const arg: ScanArg = { key, frameIndex: -1, host: parentHost, snippetMax: SNIPPET_MAX };
+    const arg: ScanArg = { key, frameIndex: -1, host: parentHost, snippetMax: SNIPPET_MAX, textboxRoles: TEXTBOX_ROLE_LIST };
     return await abortable(
       handle.evaluate(familyC as unknown as (el: unknown, a: ScanArg) => HostFacts, arg),
       signal,
@@ -317,7 +318,7 @@ export async function readPage(ctx: CheckContext): Promise<PageRead> {
     for (const read of reads) {
       if (read.unread !== undefined) continue;
       throwIfAborted(signal);
-      const arg: ScanArg = { key, frameIndex: read.index, host: read.host, snippetMax: SNIPPET_MAX };
+      const arg: ScanArg = { key, frameIndex: read.index, host: read.host, snippetMax: SNIPPET_MAX, textboxRoles: TEXTBOX_ROLE_LIST };
       try {
         read.scan = await abortable(read.info.frame.evaluate(familyC as unknown as (a: ScanArg) => ScanResult, arg), signal);
         read.url = read.scan.url || read.url;

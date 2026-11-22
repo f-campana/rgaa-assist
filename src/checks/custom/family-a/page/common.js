@@ -126,11 +126,21 @@
       if (p.nodeType !== 1) break;
       var v = namedAttributeAnyCase(p, "contenteditable");
       if (v !== null && asciiLower(v.trim()) !== "false") outer = p;
+      else if (hasTextboxRole(p)) outer = p;
       node = p;
     }
     if (outer !== null) return openTag(outer) + html + "</" + asciiLower(outer.localName) + ">";
     if (el.ownerDocument && String(el.ownerDocument.designMode).toLowerCase() === "on") return '<div contenteditable="true">' + html + "</div>";
     return html;
+  }
+
+  /** A role token in the shared list (api.textboxRoles, from engine/editable-box.json), as the sanitiser reads the first role attribute (Q61). */
+  function hasTextboxRole(el) {
+    var r = namedAttributeAnyCase(el, "role");
+    if (r === null) return false;
+    var toks = r.split(/[\t\n\f\r ]+/);
+    for (var i = 0; i < toks.length; i++) if (api.textboxRoles.indexOf(asciiLower(toks[i])) !== -1) return true;
+    return false;
   }
 
   /** The value of the attribute in no namespace whose name is `name` in any ASCII case, or null. */
@@ -204,7 +214,8 @@
     }
   }
 
-  return {
+  var api = {
+    textboxRoles: [],
     XHTML: XHTML,
     SVG: SVG,
     MATHML: MATHML,
@@ -223,4 +234,5 @@
     qualifies: qualifies,
     forEachElementDeep: forEachElementDeep,
   };
+  return api;
 })()
