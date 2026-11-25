@@ -118,11 +118,12 @@ Three Opus high builders running together filled about 85% of a 5-hour window in
 | 2026-11-21 16:20 | Q59 fixes merged (Opus high about 204k tokens; case writer Sonnet about 90k); 899 tests; working set 95 of 95; both audits rerun | 1% (new week) | The weekly window reset at 16:00 UTC during this step; the old window closed at about 95%. 5-hour window at 52%. No budget set for the new week (Q58). |
 | 2026-11-21 18:55 | Codex final pass read (hold, five items); Q60 recorded (budget: weekly under 8%); briefs written; runs.md counts fixed; code builder and case writer launched (both Sonnet medium, for the budget) | 3% | 5-hour window at 66%, resets 19:10 UTC. Stop line 8% weekly. |
 | 2026-11-21 19:10 | Q60 merged (code Sonnet medium about 164k tokens; cases Sonnet medium about 103k); 914 tests; working set 97 of 97; both audits rerun, unchanged; Codex recheck requested | 5% | Under the 8% stop line (Q60). 5-hour window at 80%, resetting. |
-| 2026-11-22 15:10 | Q61 recorded and merged (Sonnet medium, about 147k tokens); 922 tests; working set 97 of 97; both audits rerun, unchanged; Codex recheck requested | 9% | Cap 12% (Q61). Weekly was 7% at the start, after Codex's Q60 recheck and other work. 5-hour window at 21%. |
+| 2026-11-22 15:10 | Q61 recorded and merged (Sonnet medium, about 147k tokens); 922 tests; working set 97 of 97; both audits rerun, unchanged; Codex recheck requested | 9% | Cap 12% (Q61). Weekly was 7% at the start, after the M1 session's relays and other work (Codex does not use this plan). 5-hour window at 21%. |
 | 2026-11-22 15:50 | Q62 recorded and merged (Sonnet medium, about 124k tokens); 928 tests; working set 97 of 97; both audits rerun (Aubay 2 more redactions, outcomes unchanged); Codex recheck requested | 10% | Cap 12% (Q61, Q62). 5-hour window at 31%. |
 | 2026-11-22 17:50 | Q63 recorded and merged (Sonnet medium, about 126k tokens); 939 tests; working set 97 of 97; both audits rerun, as recorded; Codex recheck requested | 14% | Cap 15% (Q63) covers the gate report too: not enough left for it, so stopped here. 5-hour window at 60%. |
 | 2026-11-25 17:20 | Gate report started (Q64) | 34% | Cap 38%. The rise from 14% on 2026-11-22 came while M2 was idle: not booked to M2. 5-hour window at 24%. |
 | 2026-11-25 17:30 | Gate report written, no builder launched; tests, type check, coverage and working set rerun on `b69b717` (939 tests, matched 97 of 97) | 35% | About 1 point at this reading. 5-hour window at 33%. |
+| 2026-11-25 17:37 | M2 accepted (Q65); report corrected, documentation only | 37% | 36% when the step was sent, after the M1 session reran the checks on `ee99ba0`. Cap 38%. |
 
 ### At the gate (2026-11-25)
 
@@ -131,9 +132,9 @@ Three Opus high builders running together filled about 85% of a 5-hour window in
 | Orchestrator | Opus 5.5, high | not measured | not separable |
 | Core builders, first build: engine, checks A, B, C, working set | Opus 5.5, high (working set medium) | 273k, 357k, 264k, 319k, 315k | in the 23 points of the first build |
 | Module builders, first build: axe adapter, CLI and harness | Sonnet 5.5, medium | 155k, 210k | in the same 23 points |
-| Correction builders: Q57, Q59 | Opus 5.5, high | 193k, 204k | Q57 at most 6, Q59 3 |
+| Correction builders: Q57, Q59 | Opus 5.5, high | 193k, 204k | Q57 about 6 (includes idle time), Q59 3 |
 | Correction builders: Q56, Q60, Q61, Q62, Q63 | Sonnet 5.5, medium | 150k, 164k, 147k, 124k, 126k | 2, 2, 2, 1, 2 |
 | Case writers: Q57, Q59, Q60 | Sonnet 5.5, medium | 93k, 90k, 103k | in the same steps |
 | Reviewer | Codex | Codex's own plan | not counted |
 
-M2's total: at most 44 points before the gate report, between about 34 and 44 without idle time; about 1 more for the report at the 35% reading. Against Q51's 40 and the later limits: `docs/m2/gate-report.md`, section 5. API-equivalent cost: not recorded.
+M2's total, an estimate: about 44 points before the gate report and about 1 for it. Not a maximum: some of those points include idle time or other work, and intervals left out include M1-session work for M2. M2 may have exceeded Q51's 40. Against Q51's 40 and the later limits: `docs/m2/gate-report.md`, section 5. API-equivalent cost: not recorded.

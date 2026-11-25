@@ -1,5 +1,7 @@
 # M2 gate report
 
+**M2 accepted by Fabien on 2026-11-25 (Q65), at `ee99ba0`.** The criterion "every check matches its record" is knowingly unmet; items 1 to 5 of section 4 stay open and are settled before the entries concerned are enabled. No item is individually ruled, nothing is enabled, the M3 ceiling is not approved and M3 is not started. The text below was written before the acceptance and corrected after it (approval, cost, open item 1, the M1 session's rerun).
+
 **2026-11-25, main `b69b717`.** Written by the M2 orchestrator under Q64, for Fabien. This step changed no code, record or spec. Nothing is enabled: all 258 entries are `enabled: none`. Every number is a count on a named population; nothing here says anything about the conformance of a site.
 
 **In short.** M2's criteria are met, with one exception and three limits.
@@ -7,9 +9,9 @@
 - **Limit 1:** Codex's last full pass was at `1c58636`. Its later passes covered only each correction. Nobody independent has rerun the whole suite or corpus since.
 - **Limit 2:** the working set is cases this project wrote. It shows that the checks do what their records and cases say, not that the records are right.
 - **Limit 3:** the API-equivalent cost that spec 14.3 asks for was not recorded.
-- **Recommendation:** accept M2 as it stands. Decide items 1 to 5 before any of those entries is enabled, not before M3. The decision, and the start of M3, are Fabien's.
+- **Recommendation (taken, Q65):** accept M2 as it stands. Decide items 1 to 5 before any of those entries is enabled, not before M3.
 
-Spec 14.1 marks M2 as needing no approval from Fabien. Fabien keeps approval here (Q64).
+Spec 14.1 requires no approval by Fabien for M2. Fabien was asked because a gate failed twice is a hard stop (14.4).
 
 ## 1. Criteria
 
@@ -47,6 +49,10 @@ Who ran what: **O** is the orchestrator, on `b69b717`, 2026-11-25, unless anothe
 | Every check matches its record, every mismatch reported | **Not to the letter; reported** | Section 4, items 1 to 5. Codex classified every `RECORD:` point at `1c58636` |
 | Codex's findings answered or open | Yes | Section 3 |
 | Every diff reviewed, `m2-status.md` current | Yes | Updated with this report |
+
+### Rerun by the M1 orchestration session
+
+On `ee99ba0`, 2026-11-25: 939 of 939 tests, type check, coverage validation, the working set (97 of 97 on corpus working@c08d0a84f819), and both run files against `RunFileSchema` with the counts of section 2. It is the same model as the orchestrator, so this is a rerun, not an independent review: limit 1 stands.
 
 ## 2. Measures (O, `b69b717`, corpus working@c08d0a84f819)
 
@@ -104,7 +110,7 @@ Each one: what it is, recommendation, what happens if left. While nothing is ena
 
 **Checks and records.**
 
-1. **11.8.2, three list-hiding cases still fault:** an opaque sibling covering the list, transparent colours, `text-indent: -9999px`. They are outside the record's wording. *Recommend:* leave for now; before enabling 11.8.2 (a `full` candidate), either add them to the record as unmeasured or accept them on the record's literal wording. *If left:* a hidden list could be reported as a fault.
+1. **11.8.2, three list-hiding cases still fault:** an opaque sibling covering the list, transparent colours, `text-indent: -9999px`. They are outside the record's wording. Q59 item 1 says any style that can hide the list and that the helper cannot measure gives `cannot_tell`, so transparent colours and `text-indent` look like unfinished Q59 work; the opaque sibling less clearly. *Recommend (the M1 session's, which replaces the orchestrator's first one):* `cannot_tell` for all three before 11.8.2 (a `full` candidate) is enabled. Fabien has not ruled on it. *If left:* a hidden list could be reported as a fault.
 2. **11.8.2, the "can't scroll" rule on the top-level page** (`overflow: hidden` on `html` or `body`) goes beyond the brief and the record. *Recommend:* keep it and write it into the record at the next record change. *If left:* it only removes faults, so more `cannot_tell`.
 3. **8.3.1 record does not name `contenteditable`.** Q60 reads editable text as "a field's value". *Recommend:* authorise naming it. *If left:* behaviour is unchanged; the record stays less explicit than the code.
 4. **Differences from the record's literal text that Codex classed as widening or departure.** *Recommend:* write each into its record (or change the code) at one record pass before enabling; that pass needs your authorisation. They are:
@@ -128,7 +134,7 @@ Each one: what it is, recommendation, what happens if left. While nothing is ena
 14. **A full privacy-channel sweep stays M3 work** (Q62; you have seen this). *Recommend:* begin M3 with it: every channel of spec 8.7 and every snippet source, planted values, an orchestrator-read saved run file. Five findings in a row (Q56, Q60 to Q63) were one family of leak, found one route at a time. *If left:* another route may exist.
 15. **Token masking** may hide long generated class names or ids. *Recommend:* check it in the M3 sweep. *If left:* some locators may be hard to read.
 16. **Not tested:** `designMode` in a framed document beyond Codex's synthetic case; axe nodes targeted at frame level on a real page beyond that fixture. *Recommend:* add both to the M3 sweep.
-17. **Q57's leftover hiding routes** in the 11.8.2 helper were answered by Q59 item 1 except the three in item 1 here. 2.1.1, 6.2.1 and 11.1.1 stay without a visibility step (Q59 item 2). *Recommend:* nothing to do.
+17. **Q57's leftover hiding routes** in the 11.8.2 helper: answered by Q59 item 1, except the three in item 1 here, which stay open. 2.1.1, 6.2.1 and 11.1.1 stay without a visibility step (Q59 item 2). *Recommend:* nothing beyond item 1.
 
 **Other.**
 
@@ -151,7 +157,7 @@ Each one: what it is, recommendation, what happens if left. While nothing is ena
 | Q63 | Weekly cap 15%, gate report included | 14%; report did not fit and waited |
 | Q64 | Weekly cap 38% | 35% at the last reading before committing; 34% when started. The 14% to 34% rise is not M2's |
 
-**M2's total, in points of the weekly all-models limit.** Taken from the readings at each step; the plan does not separate sessions, and Fabien's other work and Codex rechecks moved the meter between steps.
+**M2's total, in points of the weekly all-models limit.** Taken from the readings at each step; the plan does not separate sessions, and other use of Fabien's plan moved the meter between steps. Codex does not use that plan.
 
 | Part | Points |
 |---|---|
@@ -165,10 +171,10 @@ Each one: what it is, recommendation, what happens if left. While nothing is ena
 | Q61, 7% to 9% | 2 |
 | Q62, 9% to 10% | 1 |
 | Q63, 12% to 14% | 2 |
-| **Total before this report** | **at most 44** |
+| **Estimate before this report** | **about 44** |
 | This report (Q64), 34% to 35% at the last reading before committing | 1 |
 
-About 10 of the 44 points fall in readings that include idle time or other work (49% to 51% during the first pause, Q57, the 1% to 3% step) and cannot be separated. The count without idle time is therefore between about 34 and 44, against Q51's 40. Excluded as not M2's: 63% to 80%, 81% to 85%, 5% to 7%, 10% to 12%, 14% to 34%. Builders' own token counts: about 1.89 million for the first build, 1.39 million for the corrections. The corrections took about half of M2's points. API-equivalent cost (spec 14.3) was not recorded: the counts do not split input, cached and output tokens, so it cannot be worked out from them.
+This is an estimate, not a maximum, and it can be wrong in both directions. About 10 of the 44 points fall in readings that include idle time or other work (49% to 51% during the first pause, Q57, the 1% to 3% step). On the other side, the intervals left out (63% to 80%, 81% to 85%, 5% to 7%, 10% to 12%, 14% to 34%) include work for M2 that was not measured apart: the M1 orchestration session's relays and verification, in 5% to 7% and 10% to 12% for example. **M2 may have exceeded Q51's 40 points.** Builders' own token counts: about 1.89 million for the first build, 1.39 million for the corrections. The corrections took about half of M2's points. API-equivalent cost (spec 14.3) was not recorded: the counts do not split input, cached and output tokens, so it cannot be worked out from them.
 
 ## 6. Proposed M3 ceiling
 

@@ -1,6 +1,8 @@
 # M2 status
 
-Kept current by the orchestrator. If you are taking over, read `docs/decisions.md` (Q64 is the latest), then `docs/m2-kickoff.md`, then this file, then the M2 part of `docs/cost-log.md`.
+**M2 accepted on 2026-11-25 (Q65).**
+
+Kept current by the orchestrator. If you are taking over, read `docs/decisions.md` (Q65 is the latest), then `docs/m2-kickoff.md`, then this file, then the M2 part of `docs/cost-log.md`.
 
 **Orchestrator:** a fresh Opus 5.5 session at high effort (Q52), started 2026-11-18 from the M1 orchestrator's session after Fabien said "Push and start M2". Q39 carries over: the orchestrator does what the spec gives Fable.
 **Ceiling (Q51, amended by Q55):** baseline 40% (2026-11-18 14:56 UTC); check-in reached at 62%. Fabien (Q55, 2026-11-20): continue, staying **under 90% weekly** in this window. The weekly window resets 2026-11-21 16:00 UTC.
@@ -20,7 +22,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | 8 | Wiring and CLI (`audit`, `coverage`) | Done 2026-11-18: `audit`, `coverage`, `check-sample`, `report` (placeholder, exit 2); `allProviders()`; harness `pnpm evaluate`. 549 tests pass. |
 | 9 | Two runs, Aubay comparison | Done 2026-11-20 (`docs/m2/runs.md`). Both run files valid, manifests complete, no `error` observation. Aubay: same outcome as the dry run on 10 of 10 checks; the engine read the reCAPTCHA frame (finding 6). Run folders in gitignored `work/m2/runs/`. |
 | 10 | Check-in at 20 points (60%) | Reached 2026-11-18 20:00 UTC at 62%. Fabien: continue, under 90% weekly (Q55, 2026-11-20). |
-| 11 | Codex's review, corrections, gate | Codex held the gate on 2026-11-20 and 2026-11-21, then rechecked each correction (Q56, Q57, Q59 to Q63); the last recheck (`b69b717`) found no further blocker within its scope. Gate report written 2026-11-25 (`docs/m2/gate-report.md`). Fabien decides. |
+| 11 | Codex's review, corrections, gate | Codex held the gate on 2026-11-20 and 2026-11-21, then rechecked each correction (Q56, Q57, Q59 to Q63); the last recheck (`b69b717`) found no further blocker within its scope. Gate report 2026-11-25 (`docs/m2/gate-report.md`). **M2 accepted (Q65).** |
 
 ## Builders
 
@@ -34,7 +36,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 
 ## In flight
 
-- **Nothing is running. The gate report is written: `docs/m2/gate-report.md` (2026-11-25, Q64).** It waits for Fabien: accepting M2, the open items, the M3 ceiling, and the word to start M3.
+- **M2 is accepted (Q65, Fabien, 2026-11-25, "Accept M2"), at `ee99ba0`.** Nothing is running. The criterion "every check matches its record" is knowingly unmet: items 1 to 5 of the gate report (`docs/m2/gate-report.md`, section 4) stay open and are settled before the entries concerned are enabled. No item is individually ruled, nothing is enabled, the M3 ceiling is not approved, and M3 is not started.
 - Codex's focused recheck of Q63 on `b69b717`: the cross-frame concern is closed, no further blocker found within that recheck. It did not rerun the 939 tests or the 97 cases.
 - Rerun by the orchestrator on `b69b717`, 2026-11-25: 939 of 939 tests, type check, 258 of 258 entries, matched 97 of 97 cases on corpus working@c08d0a84f819. Both Q63 run files still validate.
 - The corrections since Codex's full pass (`1c58636`) were rechecked one by one only. A full privacy-channel sweep stays M3 work (Q62).
