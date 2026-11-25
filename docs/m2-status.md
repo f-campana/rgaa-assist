@@ -1,6 +1,6 @@
 # M2 status
 
-Kept current by the orchestrator. If you are taking over, read `docs/decisions.md` (Q50 to Q53 are the latest), then `docs/m2-kickoff.md`, then this file, then the M2 part of `docs/cost-log.md`.
+Kept current by the orchestrator. If you are taking over, read `docs/decisions.md` (Q64 is the latest), then `docs/m2-kickoff.md`, then this file, then the M2 part of `docs/cost-log.md`.
 
 **Orchestrator:** a fresh Opus 5.5 session at high effort (Q52), started 2026-11-18 from the M1 orchestrator's session after Fabien said "Push and start M2". Q39 carries over: the orchestrator does what the spec gives Fable.
 **Ceiling (Q51, amended by Q55):** baseline 40% (2026-11-18 14:56 UTC); check-in reached at 62%. Fabien (Q55, 2026-11-20): continue, staying **under 90% weekly** in this window. The weekly window resets 2026-11-21 16:00 UTC.
@@ -20,7 +20,7 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 | 8 | Wiring and CLI (`audit`, `coverage`) | Done 2026-11-18: `audit`, `coverage`, `check-sample`, `report` (placeholder, exit 2); `allProviders()`; harness `pnpm evaluate`. 549 tests pass. |
 | 9 | Two runs, Aubay comparison | Done 2026-11-20 (`docs/m2/runs.md`). Both run files valid, manifests complete, no `error` observation. Aubay: same outcome as the dry run on 10 of 10 checks; the engine read the reCAPTCHA frame (finding 6). Run folders in gitignored `work/m2/runs/`. |
 | 10 | Check-in at 20 points (60%) | Reached 2026-11-18 20:00 UTC at 62%. Fabien: continue, under 90% weekly (Q55, 2026-11-20). |
-| 11 | Codex's review, corrections, gate | Codex's review 2026-11-20: **hold** (four findings). Fabien decided them (Q56, 2026-11-21). Corrections merged as `3d80b49` (840 tests; working set 92 of 92 matched, false assurance 0 of 92 over all cases; `corpus/results/working-20261120T235124Z.json`); both audits rerun, outcomes unchanged. Codex's full pass requested (`docs/m2/request-codex-full-pass.md`). **Fabien needs to prompt Codex.** Then the gate. |
+| 11 | Codex's review, corrections, gate | Codex held the gate on 2026-11-20 and 2026-11-21, then rechecked each correction (Q56, Q57, Q59 to Q63); the last recheck (`b69b717`) found no further blocker within its scope. Gate report written 2026-11-25 (`docs/m2/gate-report.md`). Fabien decides. |
 
 ## Builders
 
@@ -34,9 +34,10 @@ Kept current by the orchestrator. If you are taking over, read `docs/decisions.m
 
 ## In flight
 
-- Codex's focused recheck of Q62 on `2c79177`: the axe fix confirmed; one leak predating it (a link in a frame hosted inside an editable box, through 6.2.1). Fabien approved the fix (Q63, weekly cap 15%, gate report included).
-- Q63 merged (`0994af4`, 939 tests; Sonnet medium builder). Working set: matched 97 of 97 cases on corpus working@c08d0a84f819 (`corpus/results/working-20261122T174424Z.json`); false assurance 0 of 97, missed fault 0 of 35, false alarm 0 of 62, unexpected error 0 of 97. Both audits rerun at `28f0027`: valid; observation outcomes, finding counts and redaction counts (PremiumShot 1, Aubay 59) as recorded at Q62.
-- Codex's focused recheck of Q63 requested (`docs/m2/request-codex-recheck-q63.md`). Weekly use reached 14% of the 15% cap with it: **the gate report needs Fabien's budget**. A full privacy-channel sweep stays M3 work (Q62).
+- **Nothing is running. The gate report is written: `docs/m2/gate-report.md` (2026-11-25, Q64).** It waits for Fabien: accepting M2, the open items, the M3 ceiling, and the word to start M3.
+- Codex's focused recheck of Q63 on `b69b717`: the cross-frame concern is closed, no further blocker found within that recheck. It did not rerun the 939 tests or the 97 cases.
+- Rerun by the orchestrator on `b69b717`, 2026-11-25: 939 of 939 tests, type check, 258 of 258 entries, matched 97 of 97 cases on corpus working@c08d0a84f819. Both Q63 run files still validate.
+- The corrections since Codex's full pass (`1c58636`) were rechecked one by one only. A full privacy-channel sweep stays M3 work (Q62).
 
 ## Decisions taken by the orchestrator
 
@@ -88,7 +89,7 @@ Also logged on the bridge, channel `rgaa-assist`.
 
 ## Open points for Fabien
 
-- **Prompt Codex** to do the M2 gate review (`docs/m2/request-codex-review.md`).
+- **The current list is section 4 of `docs/m2/gate-report.md`.** What follows is kept as history.
 - **PremiumShot, 10.1.2:** the record abstains on `width`/`height` on `source`, so a responsive-image page gets "needs review" on 10.1.2 (`docs/m2/runs.md`).
 - **Check-in (62%, 22 of 40 points), answered by Q55.**
   - Merged: engine, sanitiser, run file, axe adapter, working set (92 cases), CLI and harness, checks of families B and C (6 of the 10 custom checks). 685 tests pass.

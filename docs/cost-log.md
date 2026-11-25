@@ -121,3 +121,19 @@ Three Opus high builders running together filled about 85% of a 5-hour window in
 | 2026-11-22 15:10 | Q61 recorded and merged (Sonnet medium, about 147k tokens); 922 tests; working set 97 of 97; both audits rerun, unchanged; Codex recheck requested | 9% | Cap 12% (Q61). Weekly was 7% at the start, after Codex's Q60 recheck and other work. 5-hour window at 21%. |
 | 2026-11-22 15:50 | Q62 recorded and merged (Sonnet medium, about 124k tokens); 928 tests; working set 97 of 97; both audits rerun (Aubay 2 more redactions, outcomes unchanged); Codex recheck requested | 10% | Cap 12% (Q61, Q62). 5-hour window at 31%. |
 | 2026-11-22 17:50 | Q63 recorded and merged (Sonnet medium, about 126k tokens); 939 tests; working set 97 of 97; both audits rerun, as recorded; Codex recheck requested | 14% | Cap 15% (Q63) covers the gate report too: not enough left for it, so stopped here. 5-hour window at 60%. |
+| 2026-11-25 17:20 | Gate report started (Q64) | 34% | Cap 38%. The rise from 14% on 2026-11-22 came while M2 was idle: not booked to M2. 5-hour window at 24%. |
+| 2026-11-25 17:30 | Gate report written, no builder launched; tests, type check, coverage and working set rerun on `b69b717` (939 tests, matched 97 of 97) | 35% | About 1 point at this reading. 5-hour window at 33%. |
+
+### At the gate (2026-11-25)
+
+| Role | Model, effort | Tokens (builders' own counts) | Share of plan used |
+|---|---|---|---|
+| Orchestrator | Opus 5.5, high | not measured | not separable |
+| Core builders, first build: engine, checks A, B, C, working set | Opus 5.5, high (working set medium) | 273k, 357k, 264k, 319k, 315k | in the 23 points of the first build |
+| Module builders, first build: axe adapter, CLI and harness | Sonnet 5.5, medium | 155k, 210k | in the same 23 points |
+| Correction builders: Q57, Q59 | Opus 5.5, high | 193k, 204k | Q57 at most 6, Q59 3 |
+| Correction builders: Q56, Q60, Q61, Q62, Q63 | Sonnet 5.5, medium | 150k, 164k, 147k, 124k, 126k | 2, 2, 2, 1, 2 |
+| Case writers: Q57, Q59, Q60 | Sonnet 5.5, medium | 93k, 90k, 103k | in the same steps |
+| Reviewer | Codex | Codex's own plan | not counted |
+
+M2's total: at most 44 points before the gate report, between about 34 and 44 without idle time; about 1 more for the report at the 35% reading. Against Q51's 40 and the later limits: `docs/m2/gate-report.md`, section 5. API-equivalent cost: not recorded.
