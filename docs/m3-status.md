@@ -10,14 +10,14 @@
 - Q68 recorded (Fabien, "Yes, revise it"): form-field values defined; the design was revised along all six findings (`a17b64f`).
 - Second review request: `docs/m3/request-codex-privacy-design-2.md`. Codex put a second HOLD on the design before build (three points, plus answers to four open points).
 - Q69 recorded (Fabien, "Yes, revise again"); the design was revised a second time (`66a00f1`): providers give sources and typed derivations, and the engine reads every page-derived piece itself.
-- Third review request: `docs/m3/request-codex-privacy-design-3.md`.
+- Third review request: `docs/m3/request-codex-privacy-design-3.md`. Codex put a third HOLD on the design (short values, composites, Q70 not reflected).
+- Q70 (Fabien, "Drop for v1"): no screenshots in v1, recorded by the M1 session.
+- Q71 (Fabien, "Yes, 3 more"): stop line 53%. Design revised a fourth time by the orchestrator (`2e05b15`).
+- Fourth review request: `docs/m3/request-codex-privacy-design-4.md`.
 
 ## Waiting
 
-- **Codex's third review of the design.** Fabien prompts Codex. No code is written before it is read.
-- **For Fabien:**
-  - **Q66 item 4 against no screenshots in v1.** The design estimates step 6 at 8 to 12 points, against about 1 point for no screenshots (design section 6.6).
-  - **The PNG codec**, if screenshots stay: an in-house codec or a dependency, and none is authorised.
+- **Codex's fourth review of the design.** Fabien prompts Codex. No code is written before it is read.
 
 ## Found by reading
 
@@ -25,4 +25,4 @@ Routes of the M2 leak family, in design section 1. Two of them were confirmed in
 
 ## Next
 
-After Codex's third review: answer it, then kickoff step 3 (design section 8, large). **M3 is paused:** weekly usage is 50%, so 8 of Q67's 10 points are used. Step 3 waits for the reset (2026-11-28 16:00 UTC) or for Fabien's word.
+After Codex's fourth review: answer it, then kickoff step 3 (design section 8, large). **M3 is paused** at 51% weekly, 9 of the 13 points allowed (Q67 + Q71). Step 3 waits for the reset (2026-11-28 16:00 UTC) or for Fabien's word.
