@@ -157,3 +157,4 @@ Q67 counts from this baseline: **pause at 52% all-models**, and start nothing ne
 | When (UTC) | After | All models | Notes |
 |---|---|---|---|
 | 2026-11-26 10:46 | Baseline | 42% | 5-hour window at 18%. |
+| 2026-11-26 10:56 | Privacy-sweep design merged (`56874a1`; Opus 5.5 medium, about 195k tokens); Codex review request written | 44% | 2 points of Q67's 10. No other work ran in between. 5-hour window at 32%, resets 13:10 UTC. |
