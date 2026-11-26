@@ -1,0 +1,30 @@
+# M3 brief: privacy-sweep design (kickoff step 2)
+
+You are a core builder on rgaa-assist, a TypeScript tool that examines web pages against RGAA 4.1.2 and reports evidence, never conformance. You work in your own git worktree. Your task is **one design document**, `docs/m3/privacy-design.md`. You write no code, no test and no fixture: Codex reviews this design before anything is built (Q66 item 8). The budget is tight (Q67): read what the design needs, no more, and do not run the test suite.
+
+## Read first
+
+1. `docs/decisions.md`: Q56, Q60, Q61, Q62, Q63 (the leak family found one route at a time), Q66 items 4 and 8, Q67.
+2. `docs/spec.md` sections 7.1 to 7.5, 8.5, 8.7 and 8.8.
+3. `docs/m2/gate-report.md` section 4, items 13 to 16.
+4. `docs/m3-kickoff.md`, "Order of work" step 2, and the steps after it (the design must leave room for steps, states, sessions and screenshots, which M3 adds later).
+5. The code where text reaches the run folder: `src/engine/` (`sanitise.ts`, `run-file.ts`, `run.ts`, `target.ts`, `run-checks.ts`, `sample.ts`, `editable-box.json`), `src/checks/types.ts`, `src/checks/axe/` (notably `editable.ts`), `src/checks/custom/` (family A, B and C guards), `src/cli/`. Existing privacy tests: `tests/engine/editable-*.test.ts`, `tests/engine/sanitise.test.ts`.
+
+## What the document contains
+
+1. **Inventory.** Every place where text from a page, a URL, an error or the sample file can enter the run folder or the console: each provider (axe adapter, each custom family, the engine itself), each evidence field (`snippet`, `note`, `locator`, and any other free-text field you find), target records and `TargetExecution`, step errors and `expect` results (not built yet: say where they will enter), the sanitised sample copy, sample warnings, the manifest, CLI output and logs, file names and paths, screenshots (M3), the model payload (refused in M3). One row per route: source, field, the guard that applies today (file and function), whether a test covers it (test file), and the gap if any. Name files and functions precisely; do not guess. If a route is not reachable today, say so and why.
+2. **Contexts.** The contexts a text can come from, and for each, how today's guards decide editable or not: form fields (values, `placeholder`, `<option>`, `<textarea>`, `<select>`), editable boxes by `contenteditable`, by the roles of `editable-box.json`, by `designMode`; open and closed shadow trees; slots and assigned nodes; same-origin, cross-origin and nested frames; combinations (an editable host around a frame around a shadow tree, and so on). Say which combinations no guard can resolve (closed shadow roots, cross-origin frames the page cannot read) and what happens then.
+3. **Where the guard lives.** Compare (a) the present guards, spread over family A, family C, the axe adapter and the sanitiser, sharing only the role list, with (b) one guard in the engine that resolves the context of every evidence item itself and masks what it cannot resolve. Cover: what the engine would need from each check (a node reference, a frame chain, a locator?), whether `src/checks/types.ts` changes, whether any frozen schema changes (if (b) needs a frozen-schema change beyond Q66 items 4 and 7, say so plainly: the orchestrator must stop and ask Fabien), the effect on check versions and records (checks and records do not change except where a guard moves), over-masking (gate-report item 15: token masking of generated names), the reCAPTCHA case (item 13), and how screenshots (Q66 item 4) would reuse the same definition. Recommend one, with reasons. A hybrid is fine if argued.
+4. **The harness.** A design, not code: a fixture set served by the existing local test servers (both origins) that plants a **distinct synthetic marker in every context and every channel** of the inventory, runs the real `runAudit` (and the CLI path where output differs), and searches **every byte of the run folder** (and captured stdout/stderr), not only observations. Each marker states in advance where it **may** and **may not** appear (a small expectation table: marker, context, channel, allowed places). Include **controls**: ordinary text outside any editable box that must survive, so a guard that masks everything fails. Include gate-report item 16 (`designMode` in a framed document; axe nodes targeted at frame level). Say how the harness extends to steps, `expect`, states, saved sessions (synthetic storage-state file, never a real one) and screenshots when they land (kickoff step 10), including the two session cases of spec 8.7 (a public page showing personal content when logged in; a state that navigates to an account page). Say how a failure is reported (which marker, which file, which byte offset) without writing the marker's surrounding page content anywhere else.
+5. **Limits.** What the harness cannot prove (spec 8.7: pattern tests cannot show that no secret ever reaches the run folder), and the routes left untested with the reason.
+6. **Build plan.** The order of work for kickoff step 3, split so that one writer owns each directory, and which parts a separate agent writes (10.5: the writer of a planted fixture never writes the code it tests). Estimate the size of each part (small, medium, large).
+
+Keep it readable: short sentences, tables for the inventory and the expectations, no padding. Aim for a document a reviewer can check against the code in one sitting.
+
+## You own
+
+`docs/m3/privacy-design.md` only. Touch nothing else: no source, test, fixture, record, coverage entry, spec, decision or other doc. No dependency, no download, no real site, no real saved session. Do not read `corpus/acceptance/`.
+
+## When done
+
+`git merge --ff-only main` first if your branch is behind; commit the document on your branch with a message ending `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Do not push. Report: the branch and commit, your recommendation in three lines, any frozen-schema change it would need, any point where the code differs from what the spec or the kickoff assumes (hard stop 5), and your token count if you can see it.
