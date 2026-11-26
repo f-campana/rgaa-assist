@@ -6,7 +6,8 @@
 **Amended after approval, on 2026-11-16, by Fabien's decisions:** the M1 ceiling is counted from the usage baseline (Q38, 14.3). Opus 5.5 takes over as orchestrator if Fable 5.2 becomes unavailable (Q39, 14.2). The third official data file is named `methodologies.json` (13). Codex has not re-checked these lines.
 **Amended on 2026-11-17, by Fabien's decision Q40:** `applicability` gains a third value, `always` (6.1, 8.3, 10.4), after Codex's cross-check of the pilot entries. Decisions Q41 and Q42 change how M1 is run, not this text.
 **Amended on 2026-11-17, by Fabien's decision Q43:** on an `always` entry, one inapplicable requirement is enough for "needs review", not only all of them (8.3 step 4), after Codex's re-check of the corrections.
-**Inputs:** `docs/decisions.md` (decisions Q1 to Q43). Where this spec and that file disagree, the decisions file wins and the disagreement is a defect in this spec.
+**Amended on 2026-11-26, by Fabien's decision Q66:** screenshots also black out form fields and editable boxes, and `capture.screenshots: false` turns them off on a target examined without the saved session (7.1, 8.7). The M3 gate tests that nothing is sent to a model; the payload test stays with M6 (8.7, 14.1). Codex has not re-checked these lines.
+**Inputs:** `docs/decisions.md` (decisions Q1 to Q43, and later decisions where an amendment line names them). Where this spec and that file disagree, the decisions file wins and the disagreement is a defect in this spec.
 
 ---
 
@@ -268,7 +269,7 @@ A JSON file written by a human (Q10), validated against a JSON Schema that ships
   - Every other page is examined in a browser context without the session, as a logged-out visitor.
   - **The saved session is the only supported way to be logged in (Q17).** A sample must not log in by other means: no address that carries a credential, no one-time login link, no steps that complete a login. The tool cannot detect such inputs, and their content would not be protected as authenticated.
   - The flag describes how the page is examined, not whether its address requires a login. A public page that shows personal content to a logged-in user must be marked `authenticated` to be examined that way, and then gets the same protections (8.7).
-- **`pages[].capture`**: section 8.7.
+- **`pages[].capture`**: section 8.7. Left unset, `capture.screenshots` follows the session: on without it, off with it (Q66).
 - **`safeQueryParams`**: optional list of query-string parameter names whose values may be kept in outputs. All others are masked (section 8.7).
 - A sample with no pages is invalid.
 
@@ -523,13 +524,13 @@ One sanitiser runs on everything before it is written to disk or sent to a model
 | Locators and step values | Stored as written. The sample schema warns that they must not contain secrets. |
 | Error messages | Passed through the sanitiser. |
 | Text snippets and DOM | Values of form fields are dropped. Token-shaped strings are masked. |
-| Screenshots | On targets examined without the saved session: on. On targets examined with it: off unless `capture.screenshots` is `true` for that page. Regions listed in `capture.mask` are blacked out. |
+| Screenshots | On targets examined without the saved session: on, unless `capture.screenshots` is `false` for that page. On targets examined with it: off unless `capture.screenshots` is `true` for that page. Regions listed in `capture.mask` are blacked out, and so are form fields and editable boxes, by the definition the snippets use. When that region cannot be determined, no screenshot is taken (Q66). |
 | Model payloads | Sanitised evidence only. Nothing from a target examined with the saved session unless `model.allowAuthenticated` is `true`. |
 
 - **Protection follows the session, not the address.** A target is treated as authenticated when the saved session was loaded into its context (`sessionLoaded`). That covers a public page examined with the session and every address the target's steps lead to.
 - For a target examined without the session, the tool guarantees one thing: no saved session is loaded (7.4). It does not detect a login made by other means. Addresses that carry a credential, one-time login links and login steps are unsupported in v1 (7.1, 15). If they are supported later, their content must be classified before anything is captured or sent.
 - Every redaction is counted and recorded on the evidence item.
-- The M3 gate tests each channel above with planted values. It includes a public page that shows personal content when logged in, and a state that navigates to an account page, both with the model switches off. It does not claim that no secret can ever reach the run folder: pattern tests cannot prove that.
+- The M3 gate tests each channel above with planted values. For model payloads, it tests that nothing is sent and that model use is still refused; what may be sent is tested at M6 (Q66). It includes a public page that shows personal content when logged in, and a state that navigates to an account page, both with the model switches off. It does not claim that no secret can ever reach the run folder: pattern tests cannot prove that.
 - The report notes when a target was examined with the saved session.
 
 ### 8.8 The run file
@@ -716,7 +717,7 @@ Every gate needs: tests green, the corpus bar met where it applies, Codex's inde
 | M1 | The candidate coverage map: 258 entries with requirements, routes, links and rationale. The minimum useful set. All schemas and types, including target execution, processes and `expect`. The ruleset contract with contract tests. | Every entry cites the official text. Nothing is enabled. Codex has cross-checked the entries. The contract tests include the cases of 8.3, the approval case of 6.3 and the mixed process case of 8.4. | **Yes** |
 | M2 | Engine on one page in its initial state. Axe adapter. Derivation and reduction for RGAA 4.1.2. A run on one PremiumShot page (Q20), and one on the page of the M1 dry run (Q53). | Run files validate. First working-set numbers reported. The second run compared with the dry run, check by check. | No |
 | M5 | Corpus, harness, evaluation summaries. Starts with M2 and stays open. | From M2 on, the v1 bar gates every milestone for the entries enabled so far. | Enabling any `full` entry, or changing one (Q36) |
-| M3 | Steps, `expect`, fresh context per target, saved sessions, capture policy, sample check. | The engine cases of 10.2 return their expected results. Each capture channel is tested with planted values, including the two session cases of 8.7. | No |
+| M3 | Steps, `expect`, fresh context per target, saved sessions, capture policy, sample check. | The engine cases of 10.2 return their expected results. Each capture channel is tested with planted values, including the two session cases of 8.7. For model payloads, only that nothing is sent (Q66). | No |
 | M4 | `grid.csv`, `report.html`, evidence folder. | The three statements and the legend are present in every output, proven by test. The report passes its own audit and the manual review. | No |
 | M6 | Model interface, no-model default, Claude provider, MCP server. | A model answer cannot change a status, proven by test. Nothing from a target examined with the saved session is sent without the second switch, proven by test. | No |
 | M7 | The skill. The trial of 10.6. | Trial pass criteria met. | **Yes** (final v1) |
