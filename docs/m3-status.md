@@ -6,19 +6,21 @@
 
 - Q67 recorded; kickoff budget lines amended; baseline in `docs/cost-log.md` (`e37f420`).
 - Kickoff step 2: `docs/m3/privacy-design.md` (`56874a1`), written by a core builder from `docs/m3/brief-privacy-design.md` and reviewed by the orchestrator.
-- Review request for Codex: `docs/m3/request-codex-privacy-design.md`.
+- Review request for Codex: `docs/m3/request-codex-privacy-design.md`. Codex put a HOLD on the design before build (six findings).
+- Q68 recorded (Fabien, "Yes, revise it"): form-field values defined; the design was revised along all six findings (`a17b64f`).
+- Second review request: `docs/m3/request-codex-privacy-design-2.md`.
 
 ## Waiting
 
-- **Codex's review of the design.** Fabien prompts Codex. No harness or guard code is written before the review is read (Q66 item 8).
-- **A definition question for Fabien after the review:** whether option text, `selected` and `checked` count as form-field values under spec 8.7 (design section 2.1).
+- **Codex's second review of the design.** Fabien prompts Codex. No harness or guard code is written before it is read (Q66 item 8, Q68 item 3).
+- **For Fabien, at step 6 only:** decoding and encoding PNG for screenshot masking needs either a small in-house codec or a dependency, and none is authorised.
 
-## Found by reading (not yet confirmed by a run)
+## Found by reading
 
-Possible leak routes of the M2 family, listed in design section 1: family B has no editable guard; 8.2.1 duplicate-id evidence is unguarded; locators and notes are never guarded for editable context; the axe fingerprint hashes raw markup; the stderr routes C1 and C4. The harness (step 3) checks each one.
+Routes of the M2 leak family, in design section 1: family B has no editable guard; the 8.2.1 evidence and fingerprint carry id values; locators, locator lists and notes are never guarded; the axe fingerprint hashes raw markup; raw messages reach stderr. Two of these were confirmed in the code by the M1 session (the 8.2.1 fingerprint, `scope_examined` locator lists). The harness baseline on `4d4b224` will show the rest.
 
 ## Next
 
-After Codex's review: answer its findings, then kickoff step 3. Test agent A builds the harness and fixtures, and core builder B builds `src/engine/editable-context.ts`, in parallel; providers follow. Step 3 is medium to large, and it won't fit in the 8 points left without risking a stop partway. Starting it needs either the reset (2026-11-28 16:00 UTC) or Fabien's word for more points.
+After Codex's second review: answer it, then kickoff step 3 (design section 8). It is large, and it won't fit in what is left of Q67's 10 points. It waits for the reset (2026-11-28 16:00 UTC) or for Fabien's word.
 
-Usage: 44% weekly (2 of 10 points used).
+Usage: 47% weekly (5 of 10 points used; stop line 52%).

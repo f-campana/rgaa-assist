@@ -158,3 +158,4 @@ Q67 counts from this baseline: **pause at 52% all-models**, and start nothing ne
 |---|---|---|---|
 | 2026-11-26 10:46 | Baseline | 42% | 5-hour window at 18%. |
 | 2026-11-26 10:56 | Privacy-sweep design merged (`56874a1`; Opus 5.5 medium, about 195k tokens); Codex review request written | 44% | 2 points of Q67's 10. No other work ran in between. 5-hour window at 32%, resets 13:10 UTC. |
+| 2026-11-26 11:14 | Q68 recorded; design revised after Codex's hold (`a17b64f`; same builder resumed, Opus 5.5 medium, about 80k more tokens, about 240k in all); second Codex request written | 47% | 5 points of Q67's 10. The M1 session's relay of Codex's review ran in between. 5-hour window at 54%, resets 13:10 UTC. |
