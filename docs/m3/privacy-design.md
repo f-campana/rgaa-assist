@@ -1,5 +1,7 @@
 # M3 privacy-sweep design
 
+**Fourth version (Q71), 2026-11-26.** Answers Codex's third review and reconciles the design with Q70 (no screenshots in v1). Changes from the third version: no short-value exception (2.1), composite derivations guarded recursively (3.4a), Q70 in the inventory, harness and build plan (R9, C8, 4.9, 4.10, 8), and section 6 marked as superseded history. Written by the orchestrator, documentation only.
+
 Kickoff step 2. The first version, `56874a1`, was held by Codex. The second, `a17b64f`, revised it after that hold (Q68) and was held again (`rgaa-m3-privacy-design-review-2-2026-11-26.md`). This third version answers the second hold under Q69. A third Codex review comes before any code (Q69 item 5). Section 9 maps every finding, from both reviews, to its answer.
 
 Code references are to main `797871f`. Its code is the same as `4d4b224`. I opened every file and function named here; where reading could not settle a point, the text says so.
@@ -56,7 +58,7 @@ Every route by which page-derived text reaches the run folder (today, `run.json`
 | R6 | `expect` | expect | booleans; not reachable | none | — |
 | R7 | not-established reason (`firstLine`, `text`) | console; run file (Q66 item 7) | `text` | Browser error text | 5 |
 | R8 | manifest, statements, findings, reduced results | — | no page text | none | — |
-| R9 | evidence files, screenshots | `evidenceFiles`, `file` | not reachable | Enters at step 6 | 6 |
+| R9 | evidence files, screenshots | `evidenceFiles`, `file` | not reachable | **Q70: no screenshots in v1.** No capture and no image write on any target; `evidenceFiles` stays empty. Tested (4.10) | 4.10 |
 | R10 | model payload | — | refused by `parseSample` | Stays refused (Q66 item 3) | 4.7 |
 
 ### 1.3 Console and other output
@@ -70,7 +72,7 @@ Every route by which page-derived text reaches the run folder (today, `run.json`
 | C5 | `check-sample` output | stdout | ids only | none | — |
 | C6 | Playwright debug logging | stderr | outside the tool | — | 7 |
 | C7 | storage-state file (step 5) | — | not reachable | Same JSON-excerpt trap as C1 | 5 |
-| C8 | temporary and crash output | disk | none written today | Screenshots, partial files, Playwright artifact folders | 5, 6 |
+| C8 | temporary and crash output | disk | none written today | Partial files and Playwright artifact folders (traces, videos, downloads, screenshots on failure): none may hold an image or page content. Tested (4.10) | 5, 4.10 |
 
 ## 2. Contexts
 
@@ -79,14 +81,15 @@ Every route by which page-derived text reaches the run folder (today, `run.json`
 The engine derives a field's pieces itself (3.2). On a field element:
 - **Start tag, allow-list.** Attribute values are kept only for attributes on a fixed list: `type`, `name`, `id`, `class`, `form`, `list`, `autocomplete`, `inputmode`, `required`, `disabled`, `readonly`, `multiple`, `size`, `minlength`, `maxlength`, `min`, `max`, `step`, `pattern`, `accept`, `alt`, `src`, `width`, `height`, `title`, `placeholder` (Q68), `role`, `tabindex`, `hidden`, `lang`, `dir`, `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-required`, `aria-invalid`, `aria-hidden`, `aria-autocomplete`, `aria-controls`, `aria-expanded`. Every other attribute (`value`, `aria-valuetext`, `aria-valuenow`, `data-*`, `style`, unknown attributes) keeps its name and has its value withheld. `checked` and `selected` are dropped altogether, name included.
 - **Contents.** A `textarea`'s text, and every `option`'s text, `label` and `value`, are withheld, wherever the option sits (`select`, `datalist`).
-- **Live-value match.** In the same in-page evaluation that reads the pieces, the engine reads the field's values: `value`, `defaultValue`, `checked`, and the text, `label` and `value` of every option. Any piece derived from the field (an allow-listed attribute value, its locator, a note slot, a fingerprint part) that **contains** one of those values is withheld. Matching is case-folded with whitespace collapsed. Values shorter than 3 characters match only a whole attribute value or a whole class or id token, so that short common values do not withhold everything.
+- **Live-value match.** In the same in-page evaluation that reads the pieces, the engine reads the field's values: `value`, `defaultValue`, `checked`, and the text, `label` and `value` of every option. Any piece derived from the field (an allow-listed attribute value, its locator, a note slot, a fingerprint part) that **contains** one of those values is withheld. **Normalisation:** Unicode NFC, case-folded, runs of whitespace collapsed to one space, leading and trailing whitespace trimmed, applied to both the value and the piece. **Empty values** (empty after normalisation) are never matched, so a field with no value withholds nothing by this rule. **Every non-empty value matches, whatever its length (Q71):** there is no short-value exception, so a one- or two-character value inside a longer allow-listed value withholds that value. The engine keeps an allow-listed value only when it establishes independence, which in v1 means only that the value does not contain any current non-empty value after normalisation. No other proof of independence is attempted. **Counting:** one redaction per withheld piece, however many values it matched. The cost of this rule is that a short value (`a`, `1`, `on`) can withhold many attribute values of its own field. It is measured by the controls (qx207 to qx210), not narrowed. A narrower policy would go to Fabien.
 - **Accessible names and values.** A piece of kind `accname` or `accvalue` is withheld if its node is, or contains, a form field or an editable box: accname embeds control values.
 - **`placeholder`.** Kept (Q68). Limit: a page can generate it from user data. Inside protected context it is withheld like everything else, and the live-value match applies to it.
 
-**What this identifies.** The field's own values, echoed verbatim (modulo case and whitespace) into the field's own attributes, locator, note slots or fingerprint parts, and any value held in an attribute that is not on the allow-list.
-**What it does not.** A transformed echo (hashed, reformatted, truncated below the match); an echo on another element, or in ordinary text, which is ordinary page text by spec 8.7; a value that differs from the current one (an earlier value left in an allow-listed attribute); a value of 1 or 2 characters inside a longer string. These are stated in section 7, not tested as protected.
+**What this identifies.** Current values the engine can read and compare: the field's own non-empty current values, echoed verbatim (after normalisation) into the field's own attributes, locator, note slots or fingerprint parts, whatever their length, and any value held in an attribute that is not on the allow-list.
+**What it does not.** Values the engine cannot compare: a transformed echo (hashed, reformatted, encoded, truncated); a previous value that differs from the current one (an earlier value left in an allow-listed attribute); an echo on another element, or in ordinary text, which is ordinary page text by spec 8.7. An unknowable origin is not proof of safety: these are stated as limits in section 7 and are not claimed as protected.
+**Interaction with `placeholder` (Q68).** `placeholder` is on the allow-list, so outside protected context it is kept unless it contains a current non-empty value of its field, in which case it is withheld like any other allow-listed value. Inside protected context it is withheld.
 
-**Cost.** Benign `data-*` and `aria-*` values on fields are withheld too. The controls measure that cost (4.3, qx207 to qx209).
+**Cost.** Benign `data-*` and `aria-*` values on fields are withheld too, and so are allow-listed values that happen to contain a short current value. The controls measure that cost (4.3, qx207 to qx210).
 
 ### 2.2 How today's guards decide
 
@@ -155,7 +158,7 @@ One guard in the engine (`src/engine/editable-context.ts`): **providers give ref
 
 | Piece | Plain | Otherwise |
 |---|---|---|
-| snippet | field rule (2.1), then sanitiser | withheld |
+| snippet | field rule (2.1); a composite is guarded node by node (3.4a); then sanitiser | withheld |
 | locator | field rule, then `text` | withheld |
 | each list member | field rule, then `text` | that member withheld; the list keeps its length |
 | note slot (derived) | field rule, then `text` or `Sanitiser.url` for `frameUrl` | slot withheld |
@@ -163,6 +166,17 @@ One guard in the engine (`src/engine/editable-context.ts`): **providers give ref
 | fingerprint part | 3.6 | 3.6 |
 
 Required scope evidence is kept: a `scope_examined` item keeps its template note, and its list keeps its length, with withheld members. When an item's main source fails, its note becomes a fixed engine note that keeps the reason ("Element in protected context: fields withheld." or "Element whose context could not be established (<code>): fields withheld."). Outcomes are untouched.
+
+### 3.4a Composite derivations (Q71)
+
+A derivation is **composite** when its output includes more than its source node's own start tag and text: `outer` (the whole subtree), `startTagAndText` (8.3.1: the parent's start tag and one text node), and `textRange` when the range spans descendants. A composite is judged node by node, not by its source alone.
+
+- **Recursive guard.** The engine builds a composite itself, in the same in-page evaluation, by walking the source's subtree. For each contained node, it applies that node's own context and the field rule (2.1): a contained form field is serialised with the field rule (allow-list, contents withheld, live-value match on its own values, `checked` and `selected` dropped); a contained editable box, or any node in protected context, is replaced whole by `[redacted]`, subtree included; text and attributes of plain descendants are kept, then the sanitiser runs. The live-value match of every contained field also applies to every other attribute and text in the composite, because a page can reflect a field's value onto a neighbour inside the same subtree.
+- **What the walk covers.** Light-DOM descendants only, which is all that `outerHTML` serialises. Open and closed shadow roots, slotted content and frame documents are **not** part of `outerHTML`, so they cannot appear in a composite. The engine states this boundary and does not add them. A `<template>`'s content and `<noscript>` text are walked as inert markup: fields and boxes in them follow the same rule. `startTagAndText` includes one text node, guarded by its parent's context, and that parent's own start tag goes through the field rule if the parent is a field. `textRange` over descendants applies the context of each descendant whose text it includes.
+- **When the walk cannot finish.** Any contained node whose context cannot be established (a timeout, a node removed during the walk, a document event logged during the evaluation, a subtree over the size cap before the cap is applied) withholds the **whole** composite. No partial composite is written.
+- **Truncation comes after the guard.** The snippet cap applies to the guarded composite, never to the raw subtree.
+- **Fingerprints.** A markup fingerprint part (axe `outer`, family C descriptors read from a subtree) is the guarded composite, built by the same walk, before the sanitiser and before hashing (3.6). A composite that is withheld gives a `[withheld]` part.
+- **Counts.** One redaction per contained node replaced or field value withheld, plus one if the whole composite is withheld. Asserted on the saved file.
 
 ### 3.5 Replacement and counts
 
@@ -177,7 +191,7 @@ A fingerprint is built only from declared labels and plain parts, after the cont
 - `CheckResult.fingerprint` is `{ label, parts: Derivation[] }`. Each plain part is derived and sanitised; each other part becomes `[withheld]`. The text `<checkId>:<label>:<parts joined>` is hashed (SHA-256, 16 hex digits) only when it is longer than 200 characters.
 - **8.2.1 (F1).** One part, the `id` of the first element of the pair. If either element of the pair is not plain, the part is withheld.
 - **Family C (F2).** `descriptorOf` becomes parts (tag, type, role, two classes, `frameUrl` origin and path) tied to the element.
-- **axe (E5).** The label is the failing check ids. The parts are each node's `outer` derivation, under 3.3.
+- **axe (E5).** The label is the failing check ids. The parts are each node's `outer` derivation, under 3.3, guarded as a composite (3.4a).
 - `no_fault`, `inapplicable` and `cannot_tell` keep `<checkId>:<outcome>`.
 - **Differential tests (4.5):** fixtures that differ only in a protected value give byte-identical fingerprints; plain controls that differ in value give different ones.
 
@@ -230,7 +244,11 @@ A fingerprint is built only from declared labels and plain parts, after the cont
 | **qx031** | **plain `input`**, live value typed by script, reflected into `aria-valuetext` and `data-current` | 11.1.1 and axe snippets | none | 1 per attribute |
 | **qx032** | plain `input`, live value reflected into `id` and `class` | locator, family C fingerprint parts, 8.2.1 if duplicated | none | locator 1, fingerprint 1 each |
 | **qx033** | plain `input`, live value reflected into `title` (allow-listed) | snippet | none (live-value match) | 1 |
-| **qx034** | plain `input`, 2-character live value, `class="ab-wrapper"` | snippet, locator | `ab-wrapper` kept (no whole-token match) | 0 |
+| **qx034** | plain `input`, 2-character live value `qx`, reflected inside `class="qx034-wrapper"` and `title="qx034 hint"` | snippet, locator | none: both values withheld (no short-value exception, Q71) | 1 per value |
+| **qx036** | plain `input`, 1-character live value `z` inside an allow-listed `title` | snippet | value withheld | 1 |
+| **qx037** | **composite**: a plain link containing a plain `input` whose live value is reflected into its own `data-current` and into the link's `title` | 6.2.1 and axe snippets, axe fingerprint part | none; the input is serialised by the field rule and the link's `title` withheld by the live-value match | per piece |
+| **qx038** | **composite**: a plain `div` (8.2.1 duplicate id, family B `<font>`) containing a `contenteditable` descendant with marker text | 8.2.1 and 10.1 snippets, fingerprint parts | none; the descendant replaced whole | 1 per descendant |
+| qx039 | composite whose subtree changes during the walk (a script mutates a descendant) | snippet, fingerprint | whole composite withheld | 1 |
 | qx030 | 8.2.1 differential pair, protected | fingerprint | identical across the pair | — |
 | qx035 | axe and family C differential pairs, protected | fingerprint | identical | — |
 | qx040 | missing source (test provider) | all pieces | none | 1 per piece |
@@ -256,6 +274,8 @@ A fingerprint is built only from declared labels and plain parts, after the cont
 | qx206 | **control**: plain differential pair | fingerprint | differs | — |
 | qx207–208 | **controls**: plain `input` with no live value, `title="qx207-hint"`, `name="qx208-field"` | snippet, locator | present | 0 |
 | qx209 | **cost**: plain `input` with benign `data-testid="qx209-x"` | snippet | value withheld, by the allow-list | 1 |
+| qx210 | **control and cost**: plain `input` with an empty value and `class="qx210-plain"`; then the same with live value `xy` not present in any attribute | snippet, locator | `qx210-plain` present in both | 0 |
+| qx211–212 | **controls for composites**: a plain link containing a plain `input` with no value and benign text `qx211`; a plain `div` containing plain text `qx212` and no box | snippets, fingerprints | present | 0 |
 | G1–G3 | generated names that trip the detector, on plain elements | locators | measured and reported | — |
 
 ### 4.4 Adversarial provider tests
@@ -282,7 +302,7 @@ The baseline runner uses only `runAudit`, `runCli` and the byte search. It impor
 - **control ok / control failed**, for the positive rows.
 No baseline row ever counts as passing. The baseline must show **leak seen** for the leaks the code shows: qx003, qx002, qx011, qx017, qx019, qx022 to qx025, qx031, qx032, qx060, qx062, qx064, and the differential pairs qx030 and qx035 (which differ at baseline). The adversarial rows qx040 to qx043 need the new provider interface and do not run at baseline. The result is recorded with the revision hash.
 
-### 4.9 Steps, sessions, screenshots (step 10)
+### 4.9 Steps and sessions (step 10)
 
 - **Steps, after step 4:**
   - a `fill` with `qx070`, then a failing `click` on an element carrying `qx071`: a fixed step message and the locator as written; no value, no call-log markup;
@@ -293,7 +313,16 @@ No baseline row ever counts as passing. The baseline must show **leak seen** for
   - Case 1, a public page showing personal content when logged in: `qx083` ordinary text allowed in observations (Q66 item 5), `qx084` field value none, `qx085` token none, and none of them without the session.
   - Case 2, a state that navigates to `/account?ref=qx086`: `sessionLoaded` true, `qx086` none.
   - A missing, unreadable or invalid file (`qx087` inside): exit 2, path and code only.
-- **Screenshots, after step 6:** section 6.5.
+- No screenshot rows: see 4.10 (Q70).
+
+### 4.10 No image files (Q70)
+
+v1 takes no screenshots on any target. The harness asserts it:
+- **Settings.** Four samples on the same fixture: `capture.screenshots` unset; `true`; `false`; `capture.mask` set. Each on a target without the session, and (after step 5) the same four with a synthetic session. In all eight: no capture call and no image file, and `capture.screenshots` and `capture.mask` have no effect on outcomes or evidence.
+- **Warning.** When either setting is present, the sample check (`check-sample` and `runAudit`'s `sampleWarnings`) emits the Q70 warning, built from ids only. No warning when both are absent.
+- **No capture.** The test context wraps `page.screenshot`, `locator.screenshot`, `elementHandle.screenshot` and CDP `Page.captureScreenshot` and `Page.startScreencast`, and fails the run if any is called.
+- **Locations.** After each run, and after the error paths (an invalid sample, a target not established, a provider that throws, the process killed mid-run): no file with an image extension or an image signature (PNG, JPEG, WebP, GIF magic bytes) in the run folder, its temporary folder, the system temporary folder entries created during the run, or Playwright's artifact folders (`tracesDir`, video, downloads). The browser is launched with no trace, no video and no downloads.
+- **Run file.** `evidenceFiles` is empty and no `Evidence.file` is set.
 
 ## 5. Errors
 
@@ -312,7 +341,9 @@ Every message is classified where it is caught. Only fixed messages and engine-b
 - Unknown origin is treated as `page`. `firstLine(e)` on browser errors is removed.
 - This replaces the earlier "known weak point" (qx062 must pass).
 
-## 6. Screenshots (step 6)
+## 6. Screenshots (superseded by Q70, kept as history)
+
+**Not a build instruction.** Q70 drops screenshots from v1: nothing in this section is built in M3. It records the third version's design, and the cost estimate that led Fabien to Q70, in case screenshots return after v1 with a new decision. The active rules are R9, C8 and 4.10.
 
 ### 6.1 Policy
 
@@ -368,7 +399,8 @@ Step 6 is now **disproportionately large**. It needs the in-memory codec (or a d
 ## 7. Limits
 
 - Pattern and marker tests cannot show that no secret ever reaches the run folder (spec 8.7). They show that the planted contexts and channels behave as stated.
-- Field values echoed in transformed form, on other elements, in ordinary text, or values shorter than 3 characters inside longer strings, are not identified (2.1). A page-generated `placeholder` outside protected context is kept.
+- Field values the engine cannot compare are not identified: transformed echoes, previous values, and echoes on elements outside the field and outside any composite that contains it, or in ordinary text (2.1). An unknowable origin is not proof of safety; it is a stated limit. A page-generated `placeholder` outside protected context is kept unless it contains a current value of its field.
+- Composites cover light-DOM descendants only, because `outerHTML` serialises nothing else (3.4a).
 - Trust boundary (3.2): a provider can report the wrong node (a correctness risk), and numbers or enumeration choices could encode page data (a covert channel left to review).
 - axe evidence depends on a conditional selector identity (3.3). Without the condition, it is withheld.
 - Pages that patch DOM methods can make in-page reads lie. Stability, frame identity and backend ids come from CDP, not from page scripts.
@@ -383,14 +415,14 @@ One writer per directory. The fixture, oracle and adversarial tests are never wr
 | Part | Directory | Writer | Size |
 |---|---|---|---|
 | 1. Harness runner: capture of output and temporary locations, escaped and prefix search, oracle comparison, probe use, diagnostics; separate baseline mode (4.8) | `tests/privacy/` | test agent A | medium |
-| 2. Fixtures, oracle tables (4.3), differential pairs (4.5), adversarial providers (4.4) | `tests/privacy/fixtures/` | test agent A | large |
+| 2. Fixtures, oracle tables (4.3, composites included), differential pairs (4.5), adversarial providers (4.4) | `tests/privacy/fixtures/` | test agent A | large |
 | 3. Baseline on `4d4b224`, three-way verdicts recorded | — | orchestrator | small |
 | 4. `editable-context.ts` (sources, derivations, association, `FrameKey`, DOM and frame log, axe condition with its CDP validation tests, field rule, counts, fingerprints, probe seam); `types.ts`; `run-checks.ts`; form rule in `sanitise.ts`; error classes in `target.ts`, `run.ts`, `sample.ts`, `main.ts` | `src/engine/`, `src/checks/types.ts`, `src/cli/` | core builder B | large |
 | 5. Providers emit sources, derivations, declared templates and error classes; in-page guards removed; 8.3.1 on the shared predicate; versions bumped | `src/checks/` | builder C, after part 4's interface | large |
 | 6. Static check, supplemental (4.6) | `tests/privacy/` | test agent A | small |
 | 7. Harness rerun, generated-name measurement, correction rounds | — | orchestrator, B, C | medium |
 | 8. Step and session extensions (4.9) | `tests/privacy/` | test agent A | medium |
-| 9. Screenshots (section 6), only if Fabien keeps Q66 item 4 and rules on the codec | `src/engine/` + `tests/privacy/` | B, then A for tests | large (6.6) |
+| 9. Q70: no capture and no image write; the sample warning for `capture.screenshots` and `capture.mask`; no trace, video or download in the browser launch. Tests 4.10 by A | `src/engine/` (B), `tests/privacy/` (A) | B, then A | small |
 
 Existing tests (`tests/engine/editable-*.test.ts`, `tests/checks/axe/editable-resolved.test.ts`) stay. Assertions that expect the box's start tag around the mask, or check-specific locator syntax, move to the fixed replacement and the engine syntax; each change is logged with its reason.
 
@@ -421,3 +453,11 @@ Existing tests (`tests/engine/editable-*.test.ts`, `tests/checks/axe/editable-re
 | Open point: CLI stacks | fixed class, message and opaque code, no stack frames, no debug bypass (5; qx064) |
 | Static test | supplemental; the proof is the typed derivation boundary (3.2, 4.6) |
 | Baseline | independent runner, frozen fixtures, three verdicts, nothing counts as passing (4.8) |
+
+**Third review**
+
+| Point | Answer |
+|---|---|
+| 1. Short-value exception | removed: every known non-empty current value matches, whatever its length; normalisation, empty values and counting defined; independence established only by absence of a match; current versus uncomparable values distinguished; `placeholder` interaction stated (2.1); qx034 is now negative, with qx036 and controls qx207 to qx210 (4.3) |
+| 2. Composites | recursive guard by each contained node's context and the field rule, or the whole composite withheld; covered boundary (light DOM only); truncation after the guard; fingerprints from the guarded composite (3.4a, 3.6); qx037 to qx039, controls qx211 to qx212 (4.3) |
+| Q70 | inventory R9 and C8, harness 4.10 (settings, warning, no capture call, locations including error paths and browser artifacts), build plan part 9; section 6 marked as superseded history |
