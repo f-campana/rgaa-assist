@@ -13,11 +13,15 @@
 - Third review request: `docs/m3/request-codex-privacy-design-3.md`. Codex put a third HOLD on the design (short values, composites, Q70 not reflected).
 - Q70 (Fabien, "Drop for v1"): no screenshots in v1, recorded by the M1 session.
 - Q71 (Fabien, "Yes, 3 more"): stop line 53%. Design revised a fourth time by the orchestrator (`2e05b15`).
-- Fourth review request: `docs/m3/request-codex-privacy-design-4.md`.
+- Fourth review request: `docs/m3/request-codex-privacy-design-4.md`. Codex's fourth review is **GO WITH CHANGES**, with five conditions (`rgaa-m3-privacy-design-review-4-2026-11-26.md`).
+- Q72 (Fabien, "Yes, that plan"):
+  1. Fold the five conditions into the design and the build handoff.
+  2. Build after the reset under Q66's 45-point ceiling, counted from 42%.
+  3. Ask Fabien before resuming.
 
 ## Waiting
 
-- **Codex's fourth review of the design.** Fabien prompts Codex. No code is written before it is read.
+- **Folding Codex's five conditions (Q72 item 1).** This has not started: weekly use was already at the 53% stop line when Q72 arrived. It needs Fabien's word on more points (about 1 to 2), or it runs first after the reset, once Fabien gives the go-ahead (Q72 item 3).
 
 ## Found by reading
 
@@ -25,4 +29,7 @@ Routes of the M2 leak family, in design section 1. Two of them were confirmed in
 
 ## Next
 
-After Codex's fourth review: answer it, then kickoff step 3 (design section 8, large). **M3 is paused** at 51% weekly, 9 of the 13 points allowed (Q67 + Q71). Step 3 waits for the reset (2026-11-28 16:00 UTC) or for Fabien's word.
+1. Fold the five conditions into the design.
+2. Kickoff step 3 (design section 8, large), under the 45-point ceiling from 42%. Points spent so far count toward it.
+
+**M3 is paused at 53% weekly**, with 13 of the 13 points allowed under Q67 and Q71 used. Nothing resumes without Fabien's word. The reset is 2026-11-28 16:00 UTC.

@@ -222,3 +222,16 @@ Codex held M2 on `1c58636` (report `rgaa-m2-full-pass-2026-11-21.md` in `~/Docum
   2. **Composite derivations.** `outer` and the like are guarded recursively: every contained node, field, attribute and protected subtree is judged by its own context and the field rule, or the whole composite is withheld. The same holds before markup becomes a fingerprint part. Cases cover a plain ancestor containing an input with a reflected marker and one containing an editable descendant, with controls.
   3. **Q70 reconciled.** The inventory, harness and build plan implement no capture and no image write on any target, for both capture settings, with the sample warning, checking the run, temporary and browser-artifact locations, error paths included. Section 6 is marked as superseded history.
   A fourth Codex review comes before any code.
+- **Plan after Codex's fourth review (Q72).** Fabien, 2026-11-26: "Yes, that plan", relayed by the M1 orchestration session, on Codex's fourth review of the privacy design (`rgaa-m3-privacy-design-review-4-2026-11-26.md`, **GO WITH CHANGES**; a design review, not a gate attempt, enabling nothing).
+  1. **Fold Codex's five conditions into `docs/m3/privacy-design.md` and the build handoff, within Q71:**
+     1. Correct the slot wording: walk the nodes the derivation actually emits, judged by flat-tree and slot ancestry. Add a fixture with a slotted light-DOM child inside an editable shadow element (composite and fingerprint withheld) and a no-shadow control.
+     2. Traversal and encoding: walk template content deliberately and handle `noscript` by its parsed form. Compare decoded values before escaping, guard before truncation and hashing, and fail closed on anything the guard cannot traverse.
+     3. All or nothing: withhold the whole composite and count it once. Use an independent fixture oracle.
+     4. Check non-composite channels on their own.
+     5. Keep Q70 active in tests: wrap capture calls, turn artifacts off, and limit the claim to tool-controlled locations.
+     
+     Replace "independence established" with "absence of a literal normalized match is not proof of independent origin". That limit goes to the gate report.
+  2. **After the reset (2026-11-28 16:00 UTC), resume the build under Q66's 45-point ceiling, counted from M3's baseline (42%).** Points already spent on the design count toward it. The check-in stays at 22 points.
+  3. **Ask Fabien before resuming.** Q67 requires their word, and this yes does not replace it.
+  
+  **State when recorded:** weekly all-models use was already at 53%, the Q71 stop line, so item 1 could not run within Q71. It waits for Fabien's word on more points, or for the reset together with the go-ahead under item 3.
