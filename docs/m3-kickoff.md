@@ -1,6 +1,6 @@
 # M3 kickoff brief
 
-**2026-11-25, choices answered 2026-11-26.** Written by the M1 orchestration session after Fabien accepted M2 (Q65). Fabien took every recommendation (Q66, "Take recommendations"); see "Confirmed with Fabien" at the end. M3 starts after the reset of 2026-11-28 16:00 UTC, and only on Fabien's word. Record the baseline first.
+**2026-11-25, choices answered 2026-11-26.** Written by the M1 orchestration session after Fabien accepted M2 (Q65). Fabien took every recommendation (Q66, "Take recommendations"); see "Confirmed with Fabien" at the end. M3 started on 2026-11-26 on Fabien's word (Q67), before the 2026-11-28 16:00 UTC reset, with 10 points of the weekly limit; it then pauses until the reset or until Fabien allows more. Record the baseline first.
 
 You are starting milestone M3 of rgaa-assist. You split the work, brief the builders, review every diff and run the gate. You write no feature code, no check and no test fixture.
 
@@ -94,7 +94,8 @@ For several of these the expected result is `not_tested`. Returning it is the ca
 
 ## Budget and stops
 
-- **Ceiling: 45 points of the weekly all-models limit, counted from the baseline**, with up to 25 for the build and 20 kept for correction rounds. It is an estimate: M2 took about 45, and may have taken more or less.
+- **Permission: 10 points of the weekly all-models limit from the baseline (Q67).** Then pause and wait for the reset or for Fabien to allow more. With less than about 2 points left, start nothing new.
+- **Estimate: 45 points for the milestone**, with up to 25 for the build and 20 kept for correction rounds (Q66). It is an estimate, not permission: M2 took about 45, and may have taken more or less.
 - **Check-in at 22 points.** Pause the builders, then report what is merged, what remains, usage so far, and whether the rest fits. Do not cut scope to make it fit.
 - **Count each step** from a reading just before and one just after it, and say when other work ran in between. Ask the M1 session and Fabien for nothing that can be read from the repo: relays cost points too.
 - **Log tokens per role** at the check-in and the gate. Spec 14.3 also asks for an API-equivalent cost; M2 did not record the split needed. Record it if the tooling gives it, otherwise say so.
@@ -145,7 +146,7 @@ You report the gate to Fabien, with the cost log and a proposed ceiling for M4.
 
 On 2026-11-26 Fabien took the recommendation for each choice (Q66, "Take recommendations"):
 
-1. **Ceiling and start.** 45 points of the weekly all-models limit from the baseline, check-in at 22, starting after the reset of 2026-11-28 16:00 UTC, on Fabien's word.
+1. **Ceiling and start.** 45 points of the weekly all-models limit from the baseline, check-in at 22, starting after the reset of 2026-11-28 16:00 UTC, on Fabien's word. Amended by Q67: M3 started on 2026-11-26 with 10 points of permission; 45 and 22 remain the estimate.
 2. **Who orchestrates, and how.** A fresh Opus 5.5 session at high effort with spawned agents; Q39 carries over. Builders commit on their own branches; you merge and may push `main` after a merge whose checks pass. Never a builder branch, never a force push.
 3. **The model-payload channel (amends spec 14.1 and 8.7).** M3 tests that nothing is sent and that `model.enabled: true` is still refused. The payload test stays with M6.
 4. **What screenshots show (amends spec 7.1 and 8.7).** Every screenshot also blacks out form fields and editable boxes, using the snippets' definition. When that region cannot be determined, no screenshot is taken. On a target without the session, `capture.screenshots: false` turns screenshots off; left unset, they are on. The schema change this needs is authorised. Cost: a screenshot says less about a field.

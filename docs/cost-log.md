@@ -138,3 +138,22 @@ Three Opus high builders running together filled about 85% of a 5-hour window in
 | Reviewer | Codex | Codex's own plan | not counted |
 
 M2's total, an estimate: about 44 points before the gate report and about 1 for it. Not a maximum: some of those points include idle time or other work, and intervals left out include M1-session work for M2. M2 may have exceeded Q51's 40. Against Q51's 40 and the later limits: `docs/m2/gate-report.md`, section 5. API-equivalent cost: not recorded.
+
+## M3
+
+### Baseline, 2026-11-26 10:46 UTC
+
+Read by the M1 orchestration session just before starting the M3 orchestrator, and again by the M3 orchestrator (fresh Opus 5.5 session) before any M3 work; both readings agree.
+
+| Limit | Used | Resets |
+|---|---|---|
+| 5-hour | 18% | 2026-11-26 13:10 UTC |
+| Weekly, all models | 42% | 2026-11-28 16:00 UTC |
+
+Q67 counts from this baseline: **pause at 52% all-models**, and start nothing new above about 50%. Q66's 45 points (check-in at 22) are the milestone's estimate, not permission. The usage card shows no per-model weekly line.
+
+### Usage by step
+
+| When (UTC) | After | All models | Notes |
+|---|---|---|---|
+| 2026-11-26 10:46 | Baseline | 42% | 5-hour window at 18%. |
