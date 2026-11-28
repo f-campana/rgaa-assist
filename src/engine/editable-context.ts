@@ -64,7 +64,12 @@ export type WithheldReason =
   | "bad-range"
   | "closed-shadow"
   | "timeout"
-  | "contains-field-or-box";
+  | "contains-field-or-box"
+  | "axe-identity-unavailable"
+  | "axe-not-unique"
+  | "axe-frame-identity"
+  | "axe-document-changed"
+  | "frame-identity-changed";
 
 /** What the in-page evaluation returns. `probe` is the resolved node's `data-probe` value, only when asked (tests). */
 export type InPageResult =
@@ -442,6 +447,8 @@ export interface PrivacyProbe {
   record(entry: ProbeEntry): void;
   readonly forceCompositeWalkFailure?: { readonly atNode: number };
   readonly forceCompositeWalkTimeout?: { readonly atNode: number };
+  /** Test-only: runs after the in-page read and before the second frame-identity read (to re-navigate a frame). */
+  readonly betweenReads?: () => Promise<void>;
 }
 
 /** Options for the guard. */
@@ -450,6 +457,173 @@ export interface DeriveOptions {
   readonly probe?: PrivacyProbe;
   /** Guard timeout per piece; default `GUARD_TIMEOUT_MS` (250 ms when a forced timeout is set). */
   readonly timeoutMs?: number;
+  /** The DOM event log of the run window; required to accept an `axeTarget` source (3.3). */
+  readonly domLog?: DomEventLog;
+}
+
+/* The axe identity condition (3.3): conditional, never called proven. */
+
+/** The CDP events that end selector identity for a document (3.3), plus character data. */
+export const LOGGED_EVENTS: readonly string[] = [
+  "DOM.childNodeInserted",
+  "DOM.childNodeRemoved",
+  "DOM.childNodeCountUpdated",
+  "DOM.attributeModified",
+  "DOM.attributeRemoved",
+  "DOM.characterDataModified",
+  "DOM.shadowRootPushed",
+  "DOM.shadowRootPopped",
+  "DOM.pseudoElementAdded",
+  "DOM.documentUpdated",
+  "Page.frameNavigated",
+  "Page.frameAttached",
+  "Page.frameDetached",
+];
+
+/**
+ * An engine-owned CDP DOM event log, one session per frame target, separate
+ * from `cdpFor`. Same-process frames share their page's session, so an event
+ * on that session marks every frame on it (conservative).
+ */
+export interface DomEventLog {
+  /** True when the frame's session logged an event, or its set-up failed, since `start`. */
+  changed(frame: Frame): boolean;
+  stop(): Promise<void>;
+}
+
+/** Start the log for every frame of the target: `DOM.enable`, a pierced `DOM.getDocument`, `Page.enable`, then the events. */
+export async function startDomEventLog(ctx: Pick<CheckContext, "frames" | "page">): Promise<DomEventLog> {
+  const sessions: CDPSession[] = [];
+  const sessionOf = new Map<Frame, CDPSession | null>();
+  const dirty = new Set<CDPSession>();
+  const context = ctx.page.context();
+  const open = async (target: Frame | null): Promise<CDPSession | null> => {
+    try {
+      const s = target === null ? await context.newCDPSession(ctx.page) : await context.newCDPSession(target);
+      sessions.push(s);
+      for (const ev of LOGGED_EVENTS) s.on(ev as never, () => dirty.add(s));
+      await s.send("DOM.enable");
+      await s.send("Page.enable");
+      await s.send("DOM.getDocument", { depth: -1, pierce: true });
+      return s;
+    } catch {
+      return null;
+    }
+  };
+  const main = await open(null);
+  for (const info of ctx.frames) {
+    if (info.parent === null) {
+      sessionOf.set(info.frame, main);
+      continue;
+    }
+    // An out-of-process frame needs its own session; a same-process one refuses and shares the page's.
+    let own: CDPSession | null = null;
+    try {
+      own = await context.newCDPSession(info.frame);
+      await own.detach();
+      own = await open(info.frame);
+    } catch {
+      own = main;
+    }
+    sessionOf.set(info.frame, own);
+  }
+  return {
+    changed(frame: Frame): boolean {
+      const s = sessionOf.get(frame);
+      return s === undefined || s === null || dirty.has(s);
+    },
+    async stop(): Promise<void> {
+      for (const s of sessions) await s.detach().catch(() => undefined);
+    },
+  };
+}
+
+/** Finds the one element an axe target entry names in this document (string, or shadow-piercing chain); else the match count. */
+const AXE_FIND_BODY = String.raw`
+var chain = typeof entry === "string" ? [entry] : entry;
+if (!Array.isArray(chain) || chain.length === 0) return -1;
+var roots = [document], found = [];
+for (var i = 0; i < chain.length; i++) {
+  if (typeof chain[i] !== "string") return -1;
+  found = [];
+  for (var r = 0; r < roots.length; r++) found = found.concat(Array.prototype.slice.call(roots[r].querySelectorAll(chain[i])));
+  if (i < chain.length - 1) roots = found.map(function (m) { return m.shadowRoot; }).filter(function (x) { return x; });
+}
+return found.length === 1 ? found[0] : found.length;
+`;
+const axeFind = new Function("entry", AXE_FIND_BODY);
+const sameNode = new Function("a", "b", "return a === b;");
+
+/**
+ * Resolve an axe target under the identity condition: every frame entry and
+ * the last entry name exactly one element; each frame element is the child
+ * frame's own `frameElement()`; and no frame of the chain logged an event.
+ */
+export async function resolveAxeTarget(
+  target: readonly unknown[],
+  ctx: Pick<CheckContext, "frames">,
+  log: DomEventLog | undefined,
+): Promise<{ frame: FrameKey; handle: import("playwright").ElementHandle } | WithheldReason> {
+  if (log === undefined) return "axe-identity-unavailable";
+  const main = ctx.frames.find((f) => f.parent === null)?.frame;
+  if (main === undefined || target.length === 0) return "axe-not-unique";
+  let frame: Frame = main;
+  const chain: Frame[] = [main];
+  try {
+    for (let i = 0; i < target.length; i++) {
+      const h = await frame.evaluateHandle(axeFind as never, target[i] as never);
+      const el = h.asElement();
+      if (el === null) {
+        await h.dispose();
+        return "axe-not-unique";
+      }
+      if (i === target.length - 1) {
+        for (const f of chain) if (log.changed(f)) return "axe-document-changed";
+        return { frame: { frame }, handle: el };
+      }
+      const child = await el.contentFrame();
+      if (child === null || !ctx.frames.some((f) => f.frame === child)) return "axe-frame-identity";
+      const owner = await child.frameElement();
+      const same = (await el.evaluate(sameNode as never, owner as never)) as boolean;
+      await owner.dispose();
+      if (!same) return "axe-frame-identity";
+      frame = child;
+      chain.push(child);
+    }
+  } catch {
+    return "axe-identity-unavailable";
+  }
+  return "axe-not-unique";
+}
+
+/* Frame identity stability (3.3): frameId and loaderId before and after each read. */
+
+/** The frame's CDP `frameId` and `loaderId`, from `Page.getFrameTree`, matched by child position and URL; null when not established. */
+export async function readFrameIdentity(frame: Frame): Promise<{ frameId: string; loaderId: string } | null> {
+  const path: number[] = [];
+  for (let cur: Frame = frame; cur.parentFrame() !== null; ) {
+    const parent = cur.parentFrame();
+    if (parent === null) break;
+    path.unshift(parent.childFrames().indexOf(cur));
+    cur = parent;
+  }
+  let session: CDPSession | undefined;
+  try {
+    session = await frame.page().context().newCDPSession(frame.page());
+    type Tree = { frame: { id: string; loaderId: string; url: string }; childFrames?: Tree[] };
+    let tree = ((await session.send("Page.getFrameTree")) as { frameTree: Tree }).frameTree;
+    for (const i of path) {
+      const next = i < 0 ? undefined : tree.childFrames?.[i];
+      if (next === undefined) return null;
+      tree = next;
+    }
+    if (tree.frame.url.split("#")[0] !== frame.url().split("#")[0]) return null;
+    return { frameId: tree.frame.id, loaderId: tree.frame.loaderId };
+  } catch {
+    return null;
+  } finally {
+    await session?.detach().catch(() => undefined);
+  }
 }
 
 function hookFor(probe: PrivacyProbe | undefined, timeoutMs: number): InPageRequest["hook"] | undefined {
@@ -663,7 +837,26 @@ export async function closedSlotted(frame: Frame): Promise<{ path: PathStep[]; n
   return out;
 }
 
-async function evaluateOn(ref: NodeRef, req: InPageRequest, ctx: GuardCtx): Promise<InPageResult> {
+/**
+ * The read, between two frame-identity reads (3.3): `frameId` and `loaderId`
+ * before must equal the key's (when it carries them) and the reading after.
+ */
+async function evaluateOn(ref: NodeRef, req: InPageRequest, ctx: GuardCtx, options: DeriveOptions = {}): Promise<InPageResult> {
+  if (!("frame" in ref)) return { ok: false, reason: "unsupported-source" };
+  const key = ref.frame;
+  const before = await readFrameIdentity(key.frame);
+  if (before === null) return { ok: false, reason: "stale-frame" };
+  if ((key.frameId !== undefined && key.frameId !== before.frameId) || (key.loaderId !== undefined && key.loaderId !== before.loaderId)) {
+    return { ok: false, reason: "frame-identity-changed" };
+  }
+  const r = await evaluateOnce(ref, req, ctx);
+  if (options.probe?.betweenReads !== undefined) await options.probe.betweenReads();
+  const after = key.frame.isDetached() ? null : await readFrameIdentity(key.frame);
+  if (after === null || after.frameId !== before.frameId || after.loaderId !== before.loaderId) return { ok: false, reason: "frame-identity-changed", ...(r.probe === undefined ? {} : { probe: r.probe }) };
+  return r;
+}
+
+async function evaluateOnce(ref: NodeRef, req: InPageRequest, ctx: GuardCtx): Promise<InPageResult> {
   if (!("frame" in ref)) return { ok: false, reason: "unsupported-source" };
   if (!frameUsable(ref.frame, ctx)) return { ok: false, reason: "stale-frame" };
   const frame = ref.frame.frame;
@@ -774,8 +967,21 @@ async function deriveRaw(d: Derivation, ctx: GuardCtx, sanitiser: Sanitiser, opt
   const req = requestFor(d, { ...probeKey, ...(hook === undefined ? {} : { hook }) });
   if (req === null) return { piece: withheld("unsupported-kind"), probeKey: null };
   if (!("node" in d.source)) return { piece: withheld("unsupported-source"), probeKey: null };
-  const ref = d.source.node;
-  const r = await evaluateOn(ref, req, ctx).catch((): InPageResult => ({ ok: false, reason: "evaluation-failed" }));
+  let ref: NodeRef = d.source.node;
+  if ("axeTarget" in ref) {
+    // Accepted only under the identity condition (3.3), never treated as proven.
+    const resolved = await resolveAxeTarget(ref.axeTarget, ctx, options.domLog);
+    if (typeof resolved === "string") return { piece: withheld(resolved), probeKey: null };
+    ref = resolved;
+  }
+  const r = await evaluateOn(ref, req, ctx, options).catch((): InPageResult => ({ ok: false, reason: "evaluation-failed" }));
+  if (r.ok && "axeTarget" in d.source.node && options.domLog !== undefined) {
+    // The log is read again after the derivation: an event during it also withholds.
+    const f = (ref as { frame: FrameKey }).frame.frame;
+    for (let cur: Frame | null = f; cur !== null; cur = cur.parentFrame()) {
+      if (options.domLog.changed(cur)) return { piece: withheld("axe-document-changed"), probeKey: r.probe ?? null };
+    }
+  }
   const key = r.probe ?? null;
   if (!r.ok) return { piece: withheld(r.reason), probeKey: key };
   if (d.kind === "locator" && "frame" in ref) {

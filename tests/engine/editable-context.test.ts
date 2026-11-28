@@ -280,7 +280,8 @@ describe("editable-context: decoding, escaping, failure", () => {
       const s = await derivePiece({ source: { node: { frame: { frame }, handle } }, kind: "snippet", shape: "outer" }, { ...ctx, frames: [] }, sanitiser);
       return [a, s];
     });
-    expect(axe).toMatchObject({ value: MASK, redactions: 1, reason: "unsupported-source" });
+    // Without the run's DOM event log, the axe identity condition is unavailable (slice 3).
+    expect(axe).toMatchObject({ value: MASK, redactions: 1, reason: "axe-identity-unavailable" });
     expect(stale).toMatchObject({ value: MASK, redactions: 1, reason: "stale-frame" });
   });
 
