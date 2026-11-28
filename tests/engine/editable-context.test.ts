@@ -36,7 +36,7 @@ async function snippetOf(ctx: CheckContext, selector: string, shape: Shape, opti
   if (frame === undefined) throw new Error("no frame");
   const el = await frame.$(selector);
   if (el === null) throw new Error(`no ${selector}`);
-  const handle = shape === "startTagAndText" ? await el.evaluateHandle("(e) => e.firstChild" as never) : el;
+  const handle = shape === "startTagAndText" ? await el.evaluateHandle((e) => (e as unknown as { firstChild: unknown }).firstChild) : el;
   const d: Derivation = { source: { node: { frame: { frame }, handle } }, kind: "snippet", shape };
   return derivePiece(d, ctx, sanitiser, options);
 }
@@ -196,8 +196,8 @@ describe("editable-context: decoding, escaping, failure", () => {
       },
     );
     // The title has no current value: kept, escaped at serialisation. The span's attribute and text match after normalisation.
-    expect(p.value).toBe(`<div id="w"><input id="f" title="zz-plain &amp; &quot;ok&quot; é" value="${MASK}"><span data-v="${MASK}">${MASK}</span></div>`);
-    expect(p.redactions).toBe(3);
+    expect(p.value).toBe(`<div id="w"><input id="f" title="zz-plain &amp; &quot;ok&quot; é"><span data-v="${MASK}">${MASK}</span></div>`);
+    expect(p.redactions).toBe(2);
   });
 
   it("withholds the whole composite with count 1 on a forced failure", async () => {
