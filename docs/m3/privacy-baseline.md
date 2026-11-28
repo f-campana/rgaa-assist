@@ -72,3 +72,31 @@ qx214	control ok	qx214- (prefix) in run/run.json at byte 269115, pointer /observ
 capture guard: no capture call; no image file or signature found
 No baseline row counts as passing.
 ```
+
+## Second slice (2026-11-28, `2e8b766`, rebased onto `77d1f38`)
+
+Test agent A added 36 rows (`tests/privacy/fixtures/rows2.ts`). Each row and variant runs separately. Every control now states its check and piece, and passes only on that piece's evidence. A marker found elsewhere in `run.json` no longer counts. A self-test requires every control to state its expectations. `pnpm typecheck` is clean and `pnpm test` passes 944 tests.
+
+| Verdict | Rows |
+|---|---|
+| leak seen | qx004 to qx010, qx012 to qx016, qx018, qx028, qx033, qx034, qx036, qx037, qx039, qx216 (HTML variant), qx218 |
+| not reached or unproven | qx020, qx021, qx027, qx029 (today's sanitiser masks `value=` and `placeholder` content); qx038, qx215, qx217 (not reached by the chosen carrier); qx063; tokens |
+| control ok | qx200 to qx212, qx214, qx219 |
+| Q70 | no capture call; no image file or signature |
+
+**Differences from the design:**
+- 8.2.1 and 10.1.1 snippets are start tags only, so composites are read through axe's `outer` on `div role="img"` carriers. qx038 therefore has no `<font>` outer.
+- qx018 and qx063 use the refused local port `127.0.0.1:1`.
+- qx215's detached-template case is not built.
+- qx216 is one row with HTML and XHTML variants.
+- qx218's forced timeout is a `test.todo` naming the engine hook `forceCompositeWalkTimeout`, which part 4 must provide.
+
+**Orchestrator's note.** qx038, qx215 and qx217 must be reached, meaning they show a leak at baseline or are proven by the probe, before the post-build run can count them.
+
+**Still not built:**
+- the provider and probe rows, qx040 to qx049;
+- the redirect case;
+- qx052 to qx056;
+- steps and sessions;
+- the static check;
+- G1 to G3.
