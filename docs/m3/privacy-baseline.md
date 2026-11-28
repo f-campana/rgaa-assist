@@ -122,3 +122,19 @@ Written by core builder B. The guard is not wired into `run-checks.ts` yet, so r
 - **New limit:** a light-DOM child slotted into an editable element inside a **closed** shadow root is judged plain, because `assignedSlot` is null there. This needs CDP. It is to be fixed or added to section 7 before the gate.
 - **Left:** wiring, with references stripped before validation; the axe identity condition with the CDP DOM event log; `loaderId` stability; the probe seam and the `forceCompositeWalkTimeout` hook; error classes (section 5); the `locator`, `accname`, `accvalue` and `frameUrl` derivations; note templates and `locatorList`; the per-provider timeout.
 - **Flaky test:** `tests/checks/axe/editable-resolved.test.ts` timed out once at 5 s under full-suite load, in two separate runs. It passes on its own and on reruns.
+
+## Engine guard, second slice (part 4, `07f713f`)
+
+The guard is still not wired in.
+- **Closed shadow roots** are read through `DOM.getDocument` with `pierce`, in the guard's own CDP session. A child slotted into an editable element inside a closed root is now withheld, and anything that can't be established fails closed.
+- **Probe seam:** in memory only, with the hooks `forceCompositeWalkFailure` and `forceCompositeWalkTimeout` (qx218). `failAt` is removed. The guard timeout per piece is 5 s.
+- **Derivations** now cover `locator`, `accname`, `accvalue` and `frameUrl`.
+- **Notes and lists:** note templates and slots are checked against what the check declared, the fixed engine notes of 3.4 are in place, and `locatorList` is guarded member by member.
+- `pnpm test` passes 979 tests.
+- **Where it differs from the design:**
+  - `accname` and `accvalue` need a CDP backend-id source, and their check and their read are two separate tasks.
+  - The check for a field or box inside an `accname` does not look inside closed roots.
+  - Closed-root paths assume CDP leaves out whitespace-only text nodes. If it doesn't, the piece fails closed.
+  - Frame documents are matched by URL, so a duplicate URL withholds the piece.
+  - A failed source counts each derived note slot as one withheld piece.
+  - `locatorList` is returned beside the evidence; how it is written is left to the wiring.
