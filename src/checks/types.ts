@@ -18,7 +18,7 @@
  * Types only. The engine implements the context (`src/engine/`); each check
  * family implements providers (`src/checks/axe/`, `src/checks/custom/`).
  */
-import type { CDPSession, Frame, Page } from "playwright";
+import type { CDPSession, Frame, JSHandle, Page } from "playwright";
 import type { CheckId, Evidence, Outcome } from "../schema/index.ts";
 
 /**
@@ -47,6 +47,13 @@ export interface CheckResult {
    * For outcomes other than `fault`, the check id followed by the outcome.
    */
   fingerprint: string;
+  /**
+   * M3 (privacy design 3.2), optional until providers emit sources (build
+   * part 5): evidence and fingerprint as references and typed derivations.
+   * The engine reads, judges and writes every page-derived piece itself
+   * (`src/engine/editable-context.ts`). Not yet read by `run-checks.ts`.
+   */
+  sourced?: SourcedResult;
 }
 
 /**
@@ -116,6 +123,12 @@ export interface CheckDefinition {
   version: string;
   /** Options used when the run gives none. Recorded in the observation and the manifest. */
   defaultOptions: Readonly<Record<string, unknown>>;
+  /**
+   * M3 (privacy design 3.2): check-owned text, declared before any page
+   * exists: note templates, fingerprint labels and enumeration values a
+   * sourced result may use. The engine refuses anything not declared here.
+   */
+  declared?: DeclaredText;
 }
 
 /**
@@ -132,4 +145,84 @@ export interface CheckProvider {
   readonly name: string;
   readonly checks: readonly CheckDefinition[];
   run(ctx: CheckContext): Promise<ReadonlyMap<CheckId, CheckRunResult>>;
+}
+
+/* M3 sources and derivations (privacy design 3.2). Additions only: nothing
+ * here reaches the run file, and no frozen schema changes. */
+
+/**
+ * Frame identity (3.3): the Playwright frame and, when known, its CDP
+ * `frameId` and its document's `loaderId`. A detached frame, a frame not in
+ * `ctx.frames`, or a different `loaderId` is stale.
+ */
+export interface FrameKey {
+  readonly frame: Frame;
+  readonly frameId?: string;
+  readonly loaderId?: string;
+}
+
+/** A reference to one node (3.2): a CDP backend id, a Playwright handle, or an axe target (3.3). */
+export type NodeRef =
+  | { readonly frame: FrameKey; readonly backendNodeId: number }
+  | { readonly frame: FrameKey; readonly handle: JSHandle }
+  | { readonly axeTarget: readonly unknown[] };
+
+/** The source of one piece. */
+export type Source = { readonly node: NodeRef } | { readonly frame: FrameKey };
+
+/**
+ * Snippet shapes (3.2, 3.4a). `outer`, `startTagAndText` and `textRange` are
+ * composites. For `startTagAndText` the source is the text node and the start
+ * tag is its parent's. For `textRange` the range counts characters of the
+ * concatenated text of the source's emitted text nodes.
+ */
+export type SnippetShape = "outer" | "startTag" | "startTagAndText" | "textRange";
+
+/** One typed derivation, tied to its own source (3.2). */
+export type Derivation =
+  | { readonly source: Source; readonly kind: "snippet"; readonly shape: "outer" | "startTag" | "startTagAndText" }
+  | { readonly source: Source; readonly kind: "snippet"; readonly shape: "textRange"; readonly start: number; readonly end: number }
+  | { readonly source: Source; readonly kind: "locator" }
+  | { readonly source: Source; readonly kind: "attr"; readonly name: string }
+  | { readonly source: Source; readonly kind: "id" }
+  | { readonly source: Source; readonly kind: "accname" }
+  | { readonly source: Source; readonly kind: "accvalue" }
+  | { readonly source: Source; readonly kind: "frameUrl" };
+
+/** A note slot: a number, a declared enumeration value, or a derivation (3.2). */
+export type NoteSlot = number | { readonly enumeration: string; readonly value: string } | Derivation;
+
+/** A note as a declared template and its slots (3.2). */
+export interface SourcedNote {
+  readonly template: string;
+  readonly slots: readonly NoteSlot[];
+}
+
+/** An evidence item as references and derivations (3.2). */
+export interface SourcedEvidence {
+  readonly kind: Evidence["kind"];
+  readonly snippet?: Derivation;
+  readonly locator?: Derivation;
+  /** Each member is its own derivation with its own source. */
+  readonly locatorList?: readonly Derivation[];
+  readonly note?: SourcedNote;
+}
+
+/** A fingerprint as a declared label and derived parts (3.6). */
+export interface SourcedFingerprint {
+  readonly label: string;
+  readonly parts: readonly Derivation[];
+}
+
+/** The sourced form of a result's evidence and fingerprint. */
+export interface SourcedResult {
+  readonly evidence?: readonly SourcedEvidence[];
+  readonly fingerprint?: SourcedFingerprint;
+}
+
+/** Check-owned constants, declared on the definition at load time (3.2). */
+export interface DeclaredText {
+  readonly templates?: readonly string[];
+  readonly fingerprintLabels?: readonly string[];
+  readonly enumerations?: Readonly<Record<string, readonly string[]>>;
 }
