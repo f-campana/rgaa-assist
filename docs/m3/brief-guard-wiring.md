@@ -23,7 +23,7 @@ Status on 2026-11-28 at 15:50 UTC, main `0aa6b20`. This brief is for the next co
    - Start `startDomEventLog` before the providers run, and stop it after the last piece is derived.
    - For a result with `sourced`, derive every piece through the guard, attribute fingerprint withholding, then validate. Strip references before schema validation.
    - Withhold legacy raw strings when a result is sourced. While providers have not moved (part 5), keep today's path for unsourced results, so nothing regresses before part 5.
-2. **`runAudit`:** a test-only `privacyProbe` option, in memory, never written to disk. Its hooks are reachable only through it.
+2. **`runAudit`:** a test-only `privacyProbe` option, in memory, never written to disk. Its hooks are reachable only through it. **Done in `495064a`:** the option is passed down to `runProvider`, and it isn't passed to `derivePiece` yet.
 3. **Timeouts:** the guard timeout per provider (design 3.3), with every unfinished piece withheld.
 4. **Tests:** engine tests with a sourced test provider, without touching `src/checks/`. `pnpm test` stays green.
 
