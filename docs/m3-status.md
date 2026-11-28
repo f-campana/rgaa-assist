@@ -18,10 +18,11 @@
   1. Fold the five conditions into the design and the build handoff.
   2. Build after the reset under Q66's 45-point ceiling, counted from 42%.
   3. Ask Fabien before resuming.
+- Q73 (Fabien, "5 points allowed"): baseline 88%, stop line 93%. Codex's five conditions are folded into the design, with the build handoff in section 8.1 and new rows qx213 to qx219.
 
 ## Waiting
 
-- **Folding Codex's five conditions (Q72 item 1).** This has not started: weekly use was already at the 53% stop line when Q72 arrived. It needs Fabien's word on more points (about 1 to 2), or it runs first after the reset, once Fabien gives the go-ahead (Q72 item 3).
+- **Fabien's word to start the build (Q72 item 3).** Nothing is built before it.
 
 ## Found by reading
 
@@ -29,7 +30,4 @@ Routes of the M2 leak family, in design section 1. Two of them were confirmed in
 
 ## Next
 
-1. Fold the five conditions into the design.
-2. Kickoff step 3 (design section 8, large), under the 45-point ceiling from 42%. Points spent so far count toward it.
-
-**M3 is paused at 53% weekly**, with 13 of the 13 points allowed under Q67 and Q71 used. Nothing resumes without Fabien's word. The reset is 2026-11-28 16:00 UTC.
+Kickoff step 3 (design section 8, with the handoff in 8.1), under Q66's 45-point ceiling counted from the 42% baseline. Design points count toward it. **M3 is paused** until Fabien gives the word.
