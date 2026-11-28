@@ -6,12 +6,21 @@
  * first and the axe provider last. Providers run one at a time, in that
  * order, each aborted through `ctx.signal` after the provider timeout.
  */
+import type { PrivacyProbe } from "./editable-context.ts";
 import { ObservationSchema } from "../schema/index.ts";
 import type { CheckId, Evidence, Observation } from "../schema/index.ts";
 import type { CheckContext, CheckDefinition, CheckProvider, CheckRunResult, RawEvidence } from "../checks/types.ts";
 import type { Sanitiser } from "./sanitise.ts";
 import type { ExaminableTarget } from "./target.ts";
 import { PAGE_FAILURE, classifyPageOrBrowser, recognisedBrowserError, zodIssueText } from "./error-class.ts";
+
+/** Input shared by `runProvider` and `runProviders`. `privacyProbe` is test-only and in memory, never serialised. */
+export interface RunProvidersInput {
+  runOptions?: RunCheckOptions;
+  timeoutMs: number;
+  sanitiser: Sanitiser;
+  privacyProbe?: PrivacyProbe;
+}
 
 /** Options given for a run, by check id. They override the definition's defaults key by key. */
 export type RunCheckOptions = Readonly<Record<string, Readonly<Record<string, unknown>>>>;
@@ -162,7 +171,7 @@ class ProviderTimeout extends Error {}
 export async function runProvider(
   target: ExaminableTarget,
   provider: CheckProvider,
-  input: { runOptions?: RunCheckOptions; timeoutMs: number; sanitiser: Sanitiser },
+  input: RunProvidersInput,
 ): Promise<Observation[]> {
   const { sanitiser, timeoutMs } = input;
   const options = new Map<CheckId, Record<string, unknown>>(
@@ -237,7 +246,7 @@ export async function runProvider(
 export async function runProviders(
   target: ExaminableTarget,
   providers: readonly CheckProvider[],
-  input: { runOptions?: RunCheckOptions; timeoutMs: number; sanitiser: Sanitiser },
+  input: RunProvidersInput,
 ): Promise<Observation[]> {
   const out: Observation[] = [];
   for (const provider of providers) out.push(...(await runProvider(target, provider, input)));

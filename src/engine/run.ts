@@ -18,6 +18,7 @@ import { CONTEXT_SETTINGS, effectiveTimeouts, launchBrowser } from "./browser.ts
 import type { EngineTimeouts } from "./browser.ts";
 import { EngineBugError, effectiveOptions, runProviders, validateProviders } from "./run-checks.ts";
 import type { RunCheckOptions } from "./run-checks.ts";
+import type { PrivacyProbe } from "./editable-context.ts";
 import {
   buildStatements,
   installedVersion,
@@ -55,6 +56,7 @@ export async function examineTarget(
     timeouts: EngineTimeouts;
     sanitiser: Sanitiser;
     runOptions?: RunCheckOptions;
+    privacyProbe?: PrivacyProbe;
     prepareContext?: (context: BrowserContext) => Promise<void>;
   },
 ): Promise<TargetOutcome> {
@@ -76,6 +78,7 @@ export async function examineTarget(
       timeoutMs: input.timeouts.provider,
       sanitiser: input.sanitiser,
       ...(input.runOptions === undefined ? {} : { runOptions: input.runOptions }),
+      ...(input.privacyProbe === undefined ? {} : { privacyProbe: input.privacyProbe }),
     });
     return { execution: handle.execution, observations, settled: handle.settled };
   } finally {
@@ -91,6 +94,8 @@ export interface RunAuditInput {
   timeouts?: Partial<EngineTimeouts>;
   /** Options by check id, overriding each definition's defaults key by key. */
   checkOptions?: RunCheckOptions;
+  /** Test-only, in memory: never serialised or written to disk. */
+  privacyProbe?: PrivacyProbe;
 }
 
 export interface RunAuditResult {
@@ -145,6 +150,7 @@ export async function runAudit(input: RunAuditInput): Promise<RunAuditResult> {
         timeouts,
         sanitiser,
         ...(input.checkOptions === undefined ? {} : { runOptions: input.checkOptions }),
+        ...(input.privacyProbe === undefined ? {} : { privacyProbe: input.privacyProbe }),
       });
       outcomes.push(outcome);
       if (outcome.execution.established) {

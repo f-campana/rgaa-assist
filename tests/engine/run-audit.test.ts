@@ -197,6 +197,18 @@ describe("runAudit exit codes", () => {
     expect(new Set(run.findings.map((f) => f.status))).toEqual(new Set(["needs_review", "not_tested"]));
   }, 120_000);
 
+  it("accepts a privacy probe in memory and writes none of it to the run file", async () => {
+    const samplePath = writeSample("probe", {
+      project: { name: "Probe", ruleset: "rgaa-4.1.2" },
+      pages: [{ id: "home", url: server.url("index.html"), kinds: ["home"] }],
+    });
+    const privacyProbe = { record: () => {}, forceCompositeWalkFailure: { atNode: 987654 } };
+    const r = await runAudit({ samplePath, outDir: join(dir, "probe-out"), providers: [], timeouts: { settle: 500 }, privacyProbe });
+    expect(r.exitCode).toBe(0);
+    const text = readFileSync(r.runFilePath ?? "", "utf8");
+    expect(text).not.toMatch(/privacyProbe|forceCompositeWalk|987654/);
+  }, 120_000);
+
   it("exits 2 on invalid input and writes nothing", async () => {
     const samplePath = writeSample("bad", {
       project: { name: "Bad", ruleset: "rgaa-4.1.2" },
