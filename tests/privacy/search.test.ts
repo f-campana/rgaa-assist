@@ -40,12 +40,19 @@ describe("privacy harness search", () => {
     const seen = new Set<string>();
     for (const row of ROWS) {
       for (const m of row.markers) {
-        if (/^qx10[123]-/.test(m)) continue; // the escaping markers hold punctuation by design
+        if (/^qx(10[123]|216)-/.test(m)) continue; // the escaping markers hold punctuation by design
         expect(m, row.id).toMatch(/^qx\d{3}-[a-z]+$/);
         expect(m.length, row.id).toBeLessThan(32);
       }
       expect(seen.has(row.id), `duplicate row ${row.id}`).toBe(false);
       seen.add(row.id);
+    }
+  });
+
+  it("every control states the pieces it expects, per check and piece", () => {
+    for (const row of ROWS.filter((r) => r.oracle.saved.kind === "text")) {
+      expect((row.oracle.expect ?? []).length, row.id).toBeGreaterThan(0);
+      for (const e of row.oracle.expect ?? []) expect(e.contains ?? e.equals, row.id).toBeTruthy();
     }
   });
 

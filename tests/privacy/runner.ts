@@ -83,7 +83,7 @@ export async function execute(row: Row, variant: Variant): Promise<RunOutcome> {
       row.rawSample ??
         JSON.stringify({
           project: { name: "Fixture", ruleset: "rgaa-4.1.2" },
-          pages: [{ id: "home", url: `${server.url("index.html")}${variant.urlSuffix ?? ""}`, kinds: ["home"] }],
+          pages: [{ id: "home", url: variant.pageUrl ?? `${server.url(variant.page ?? "index.html")}${variant.urlSuffix ?? ""}`, kinds: ["home"] }],
         }),
     );
     let out = outDir;
@@ -174,4 +174,22 @@ export function fingerprintsOf(runJson: unknown, checks: readonly string[]): str
     .filter((o) => checks.includes(o.checkId) && o.outcome === "fault")
     .map((o) => `${o.checkId}\u0000${o.fingerprint}`)
     .sort();
+}
+
+type Expect = import("./fixtures/types.ts").PieceExpect;
+
+/** The saved values of one piece of one check: only these may satisfy an expectation. */
+export function pieceValues(runJson: unknown, check: string, piece: Expect["piece"]): string[] {
+  const obs = observationsOf(runJson).filter((o) => o.checkId === check);
+  if (piece === "fingerprint") return obs.map((o) => o.fingerprint);
+  const items = obs.flatMap((o) => o.evidence);
+  if (piece === "scope_examined") {
+    return items.filter((e) => e.kind === "scope_examined").flatMap((e) => [e.locator, e.note, e.snippet]).filter((v): v is string => v !== undefined);
+  }
+  return items.filter((e) => e.kind !== "scope_examined").map((e) => e[piece]).filter((v): v is string => v !== undefined);
+}
+
+/** Does the run satisfy this expectation, in that piece of that check and nowhere else? */
+export function expectMet(runJson: unknown, e: Expect): boolean {
+  return pieceValues(runJson, e.check, e.piece).some((v) => (e.equals !== undefined ? v === e.equals : v.includes(e.contains ?? "\u0000")));
 }

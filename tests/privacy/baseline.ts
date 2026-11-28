@@ -20,7 +20,7 @@
 import { spawnSync } from "node:child_process";
 import { ROWS } from "./fixtures/rows.ts";
 import type { Row } from "./fixtures/types.ts";
-import { execute, finish, fingerprintsOf } from "./runner.ts";
+import { execute, expectMet, finish, fingerprintsOf } from "./runner.ts";
 import type { RunOutcome } from "./runner.ts";
 import { describeHit } from "./search.ts";
 
@@ -42,11 +42,10 @@ function verdictOf(row: Row, outcomes: RunOutcome[]): { verdict: Verdict; where:
       where: differ ? [...where, "fingerprints differ across the pair"] : [comparable ? "fingerprints identical" : "no fault fingerprint on one side"],
     };
   }
-  // control: every expected text found in the saved run folder, in every variant
-  const present = row.oracle.saved.kind === "text" ? row.oracle.saved.present : row.markers;
-  const ok = outcomes.every((o) =>
-    present.every((m) => o.hits.some((h) => h.file.startsWith("run/") && row.markers[h.marker] === m && h.form === "raw")),
-  );
+  // control: every expected plain piece is in that piece of that check, in every variant. A marker found
+  // elsewhere in the run never counts.
+  const expects = row.oracle.expect ?? [];
+  const ok = expects.length > 0 && outcomes.every((o) => expects.every((e) => expectMet(o.runJson, e)));
   return { verdict: ok ? "control ok" : "control failed", where: ok ? where : [] };
 }
 

@@ -18,7 +18,7 @@
 import { describe, expect, it } from "vitest";
 import { ROWS } from "./fixtures/rows.ts";
 import type { Row } from "./fixtures/types.ts";
-import { execute, finish, fingerprintsOf, observationsOf } from "./runner.ts";
+import { execute, expectMet, finish, fingerprintsOf, observationsOf } from "./runner.ts";
 import type { RunOutcome } from "./runner.ts";
 import { describeHit } from "./search.ts";
 
@@ -67,11 +67,12 @@ function problemsFor(row: Row, outcomes: RunOutcome[]): string[] {
       }
     }
     if (oracle.saved.kind === "text") {
-      const strings = obs.flatMap((x) => [x.fingerprint, ...x.evidence.flatMap((e) => [e.snippet, e.locator, e.note])]).filter((s): s is string => s !== undefined);
-      for (const text of oracle.saved.present) {
-        if (!strings.some((s) => s.includes(text))) problems.push(`${o.variant}: expected plain text ${text.slice(0, 6)}… not present`);
-        if (items.length > 0 && oracle.items !== null && items.length !== oracle.items) problems.push(`${o.variant}: ${items.length} evidence items, expected ${oracle.items}`);
+      // Each expected piece is matched in that piece of that check only (a marker elsewhere never counts).
+      for (const e of oracle.expect ?? []) {
+        if (!expectMet(o.runJson, e)) problems.push(`${o.variant}: expected plain ${e.piece} of ${e.check} not present`);
       }
+      if ((oracle.expect ?? []).length === 0) problems.push(`${o.variant}: the control states no expected piece`);
+      if (oracle.items !== null && items.length !== oracle.items) problems.push(`${o.variant}: ${items.length} evidence items, expected ${oracle.items}`);
       const redactions = items.reduce((n, e) => n + (e.redactions ?? 0), 0);
       if (redactions !== 0) problems.push(`${o.variant}: ${redactions} redactions on a control, expected 0`);
     }
@@ -100,4 +101,10 @@ describe.each(ROWS.map((r) => [r.id, r] as const))("privacy row %s", (_id, row) 
 describe("probe check (part 4, not yet possible)", () => {
   it.todo("reach: the probe saw the expected node for the expected check and piece, for every protected row");
   it.todo("probe keys appear nowhere in the output");
+});
+
+// qx218 (Q72 condition 3): a forced failure during a composite walk, a test hook that times out on one descendant,
+// must withhold the whole composite and count exactly 1. It needs an engine hook that does not exist yet.
+describe("qx218 forced timeout (needs the engine test hook `forceCompositeWalkTimeout`, builder B)", () => {
+  it.todo("a timeout on one descendant withholds the whole composite: snippet and fingerprint part `[redacted]`/`[withheld]`, redactions exactly 1, nothing from the abandoned walk counted");
 });

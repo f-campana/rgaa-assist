@@ -17,7 +17,23 @@ export type Saved =
   /** Differential pair: the fingerprints of the named checks, run on the two variants. */
   | { kind: "fingerprints"; relation: "identical" | "differ" };
 
+/**
+ * One expected plain value, stated from the fixture source. It names the check, the piece and the text, and is
+ * matched only against that piece of that check's evidence (`scope_examined`: the locator or note of a
+ * scope_examined item; `fingerprint`: the observation's). A marker found anywhere else in the run never counts.
+ */
+export interface PieceExpect {
+  check: string;
+  piece: "snippet" | "locator" | "note" | "scope_examined" | "fingerprint";
+  /** Present in that piece as a substring. */
+  contains?: string;
+  /** Or: that piece is exactly this. */
+  equals?: string;
+}
+
 export interface Oracle {
+  /** Plain pieces expected, per piece and element (controls). Required for every row whose `saved` is `text`. */
+  expect?: readonly PieceExpect[];
   /** Ids of the checks that must report the planted element. Empty for console rows. */
   checks: readonly string[];
   rgaa?: string;
@@ -35,6 +51,10 @@ export interface Variant {
   name: string;
   /** Files served on both origins. `__CROSS_ORIGIN__` is replaced by the cross origin. The page is `index.html`. */
   files: Readonly<Record<string, string>>;
+  /** The page to load, default `index.html`. */
+  page?: string;
+  /** A full page URL for the sample, instead of the fixture server's (qx063). */
+  pageUrl?: string;
   /** Appended to the page URL in the sample (query and fragment). */
   urlSuffix?: string;
 }

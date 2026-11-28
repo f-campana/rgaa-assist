@@ -11,6 +11,7 @@
  * adversarial providers (4.4), the probe, step and session rows (4.9), the
  * static check (4.6).
  */
+import { MORE_ROWS } from "./rows2.ts";
 import type { Row, Variant } from "./types.ts";
 
 /** Escaping markers (4.2). */
@@ -37,7 +38,7 @@ const C_FRAME = "custom/2-1-frame-title-attribute";
 const typed = (marker: string, reflect: string): string =>
   `<script>const i=document.getElementById("f");i.value=${JSON.stringify(marker)};${reflect}</script>`;
 
-export const ROWS: readonly Row[] = [
+const BASE_ROWS: readonly Row[] = [
   // ---- Baseline leak rows -------------------------------------------------
   {
     id: "qx001",
@@ -340,7 +341,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx200-hiddentext", "qx200-linkid"],
     variants: one(`<a href="/x.html" id="qx200-linkid"><span aria-hidden="true">qx200-hiddentext</span></a>`),
-    oracle: { checks: [AXE_LINK], rgaa: "6.2.1", pieces: ["snippet", "locator"], items: 1, saved: { kind: "text", present: ["qx200-hiddentext", "qx200-linkid"] }, allowed: "present" },
+    oracle: { expect: [{ check: AXE_LINK, piece: "snippet", contains: `<a href="/x.html" id="qx200-linkid"><span aria-hidden="true">qx200-hiddentext</span></a>` }, { check: AXE_LINK, piece: "locator", contains: "qx200-linkid" }], checks: [AXE_LINK], rgaa: "6.2.1", pieces: ["snippet", "locator"], items: 1, saved: { kind: "text", present: ["qx200-hiddentext", "qx200-linkid"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -351,7 +352,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx201-dupid"],
     variants: one(`<p id="qx201-dupid">a</p><p id="qx201-dupid">b</p>`),
-    oracle: { checks: [C_ID], rgaa: "8.2.1", pieces: ["snippet", "locator", "note", "fingerprint"], items: 2, saved: { kind: "text", present: ["qx201-dupid"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_ID, piece: "snippet", contains: `<p id="qx201-dupid">a</p>` }, { check: C_ID, piece: "note", contains: "qx201-dupid" }, { check: C_ID, piece: "fingerprint", contains: "qx201-dupid" }], checks: [C_ID], rgaa: "8.2.1", pieces: ["snippet", "locator", "note", "fingerprint"], items: 2, saved: { kind: "text", present: ["qx201-dupid"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -370,7 +371,7 @@ export const ROWS: readonly Row[] = [
         },
       },
     ],
-    oracle: { checks: [C_FRAME], rgaa: "2.1.1", pieces: ["snippet", "locator"], items: 1, saved: { kind: "text", present: ["qx202-frameid"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_FRAME, piece: "snippet", contains: `id="qx202-frameid"` }, { check: C_FRAME, piece: "locator", contains: "qx202-frameid" }], checks: [C_FRAME], rgaa: "2.1.1", pieces: ["snippet", "locator"], items: 1, saved: { kind: "text", present: ["qx202-frameid"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -381,7 +382,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx203-fonttitle"],
     variants: one(`<font title="qx203-fonttitle" id="qx203-fontid">x</font>`),
-    oracle: { checks: [C_FONT], rgaa: "10.1.1", pieces: ["snippet", "locator"], items: 1, saved: { kind: "text", present: ["qx203-fonttitle"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_FONT, piece: "snippet", contains: `<font title="qx203-fonttitle" id="qx203-fontid">x</font>` }], checks: [C_FONT], rgaa: "10.1.1", pieces: ["snippet", "locator"], items: 1, saved: { kind: "text", present: ["qx203-fonttitle"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -392,7 +393,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx204-passlink"],
     variants: one(`<a href="/x.html" id="qx204-passlink">fine</a>`),
-    oracle: { checks: [AXE_LINK], pieces: ["scope_examined"], items: null, saved: { kind: "text", present: ["qx204-passlink"] }, allowed: "present" },
+    oracle: { expect: [{ check: AXE_LINK, piece: "scope_examined", contains: "qx204-passlink" }], checks: [AXE_LINK], pieces: ["scope_examined"], items: null, saved: { kind: "text", present: ["qx204-passlink"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -403,7 +404,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx205-samplehint"],
     variants: one(`<input type="text" placeholder="qx205-samplehint" id="qx205-fieldid">`),
-    oracle: { checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet"], items: 1, saved: { kind: "text", present: ["qx205-samplehint"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_FIELD, piece: "snippet", contains: `placeholder="qx205-samplehint"` }], checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet"], items: 1, saved: { kind: "text", present: ["qx205-samplehint"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -428,7 +429,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx207-hinttitle"],
     variants: one(`<input type="text" title="qx207-hinttitle" id="qx207-fieldid">`),
-    oracle: { checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet", "locator"], items: null, saved: { kind: "text", present: ["qx207-hinttitle"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_FIELD, piece: "snippet", contains: `title="qx207-hinttitle"` }], checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet", "locator"], items: null, saved: { kind: "text", present: ["qx207-hinttitle"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -439,7 +440,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx208-fieldname"],
     variants: one(`<input type="text" name="qx208-fieldname" id="qx208-fieldid">`),
-    oracle: { checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet", "locator"], items: null, saved: { kind: "text", present: ["qx208-fieldname"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_FIELD, piece: "snippet", contains: `name="qx208-fieldname"` }], checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet", "locator"], items: null, saved: { kind: "text", present: ["qx208-fieldname"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -450,7 +451,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx209-testid"],
     variants: one(`<input type="text" data-testid="qx209-testid" id="qx209-fieldid">`),
-    oracle: { checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet"], items: null, saved: { kind: "redacted", count: 1 }, allowed: "baseline: present (a control); after the build: withheld by the allow-list, a cost" },
+    oracle: { expect: [{ check: C_FIELD, piece: "snippet", contains: `data-testid="qx209-testid"` }], checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet"], items: null, saved: { kind: "redacted", count: 1 }, allowed: "baseline: present (a control); after the build: withheld by the allow-list, a cost" },
     baselineLeakExpected: false,
   },
   {
@@ -464,7 +465,7 @@ export const ROWS: readonly Row[] = [
       { name: "empty", files: { "index.html": html(`<input type="text" class="qx210-plain" id="f">`) } },
       { name: "livevalue", files: { "index.html": html(`<input type="text" class="qx210-plain" id="f"><script>document.getElementById("f").value="xy"</script>`) } },
     ],
-    oracle: { checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet", "locator"], items: null, saved: { kind: "text", present: ["qx210-plain"] }, allowed: "present in both variants" },
+    oracle: { expect: [{ check: C_FIELD, piece: "snippet", contains: `class="qx210-plain"` }], checks: [C_FIELD], rgaa: "11.1.1", pieces: ["snippet", "locator"], items: null, saved: { kind: "text", present: ["qx210-plain"] }, allowed: "present in both variants" },
     baselineLeakExpected: false,
   },
   {
@@ -475,7 +476,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx211-benign"],
     variants: one(`<a href="/x.html" id="qx211-linkid"><input type="text"><span aria-hidden="true">qx211-benign</span></a>`),
-    oracle: { checks: [AXE_LINK, "custom/6-2-link-content-name"], rgaa: "6.2.1", pieces: ["snippet", "locator"], items: null, saved: { kind: "text", present: ["qx211-benign"] }, allowed: "present" },
+    oracle: { expect: [{ check: AXE_LINK, piece: "snippet", contains: `<span aria-hidden="true">qx211-benign</span>` }], checks: [AXE_LINK, "custom/6-2-link-content-name"], rgaa: "6.2.1", pieces: ["snippet", "locator"], items: null, saved: { kind: "text", present: ["qx211-benign"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -486,7 +487,7 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx212-plaintext"],
     variants: one(`<div id="qx212-divid">qx212-plaintext</div><div id="qx212-divid">b</div>`),
-    oracle: { checks: [C_ID], rgaa: "8.2.1", pieces: ["snippet", "fingerprint"], items: 2, saved: { kind: "text", present: ["qx212-plaintext"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_ID, piece: "snippet", contains: `<div id="qx212-divid">qx212-plaintext</div>` }], checks: [C_ID], rgaa: "8.2.1", pieces: ["snippet", "fingerprint"], items: 2, saved: { kind: "text", present: ["qx212-plaintext"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
 
@@ -520,10 +521,12 @@ export const ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx214-slottext"],
     variants: one(`<div id="host" role="img"><span data-note="qx214-slotdata">qx214-slottext</span></div><div id="host"></div>`),
-    oracle: { checks: [C_ID, "axe/role-img-alt"], rgaa: "8.2.1", pieces: ["snippet", "fingerprint"], items: null, saved: { kind: "text", present: ["qx214-slottext"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_ID, piece: "snippet", contains: `data-note="qx214-slotdata">qx214-slottext</span>` }], checks: [C_ID, "axe/role-img-alt"], rgaa: "8.2.1", pieces: ["snippet", "fingerprint"], items: null, saved: { kind: "text", present: ["qx214-slottext"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
 ];
+
+export const ROWS: readonly Row[] = [...BASE_ROWS, ...MORE_ROWS];
 
 export function rowById(id: string): Row {
   const r = ROWS.find((x) => x.id === id);
