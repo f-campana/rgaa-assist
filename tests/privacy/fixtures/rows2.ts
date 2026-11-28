@@ -350,7 +350,7 @@ export const MORE_ROWS: readonly Row[] = [
     baselineLeakExpected: false,
   },
   {
-    id: "qx038",
+    id: "qx038s",
     title: "composite: a plain element with a duplicated id, around a contenteditable descendant",
     role: "leak",
     table: "4.3 qx038",
@@ -375,7 +375,7 @@ export const MORE_ROWS: readonly Row[] = [
     baselineLeakExpected: false,
   },
   {
-    id: "qx215",
+    id: "qx215s",
     title: "template content: an input value and a contenteditable inside a template in a plain composite",
     role: "leak",
     table: "4.3 qx215",
@@ -415,7 +415,7 @@ export const MORE_ROWS: readonly Row[] = [
     baselineLeakExpected: false,
   },
   {
-    id: "qx217",
+    id: "qx217s",
     title: "noscript content that looks like input markup, inside a plain composite",
     role: "leak",
     table: "4.3 qx217",

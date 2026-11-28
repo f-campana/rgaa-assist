@@ -12,6 +12,7 @@
  * static check (4.6).
  */
 import { MORE_ROWS } from "./rows2.ts";
+import { COMPOSITE_PAIRS } from "./rows3.ts";
 import type { Row, Variant } from "./types.ts";
 
 /** Escaping markers (4.2). */
@@ -526,7 +527,7 @@ const BASE_ROWS: readonly Row[] = [
   },
 ];
 
-export const ROWS: readonly Row[] = [...BASE_ROWS, ...MORE_ROWS];
+export const ROWS: readonly Row[] = [...BASE_ROWS, ...MORE_ROWS, ...COMPOSITE_PAIRS];
 
 export function rowById(id: string): Row {
   const r = ROWS.find((x) => x.id === id);
