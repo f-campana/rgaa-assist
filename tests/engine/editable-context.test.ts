@@ -221,6 +221,49 @@ describe("editable-context: decoding, escaping, failure", () => {
     expect(p.redactions).toBe(1);
   });
 
+  it("derives a textRange, replacing a protected descendant's text and keeping plain text", async () => {
+    const p = await run(`<div id="w">zzab<span contenteditable>zzcd</span>zzef</div>`, (ctx) =>
+      deriveOn(ctx, "#w", (source) => ({ source, kind: "snippet", shape: "textRange", start: 2, end: 10 })),
+    );
+    expect(p).toEqual({ value: `ab${MASK}zz`, redactions: 1, withheld: false });
+    const bad = await run(`<div id="w">zz</div>`, (ctx) =>
+      deriveOn(ctx, "#w", (source) => ({ source, kind: "snippet", shape: "textRange", start: 0, end: 50 })),
+    );
+    expect(bad).toMatchObject({ value: MASK, withheld: true, reason: "bad-range" });
+  });
+
+  it("resolves a CDP backend node id in its own object group", async () => {
+    const [plain, prot] = await run(`<p id="a">zzcdp</p><div contenteditable><p id="b">zzcdpbox</p></div>`, async (ctx) => {
+      const frame = ctx.frames[0]?.frame;
+      if (frame === undefined) throw new Error("no frame");
+      const cdp = await ctx.cdpFor(frame);
+      const { root } = (await cdp.send("DOM.getDocument", { depth: 0 })) as { root: { nodeId: number } };
+      const idOf = async (sel: string): Promise<number> => {
+        const { nodeId } = (await cdp.send("DOM.querySelector", { nodeId: root.nodeId, selector: sel })) as { nodeId: number };
+        const { node } = (await cdp.send("DOM.describeNode", { nodeId })) as { node: { backendNodeId: number } };
+        return node.backendNodeId;
+      };
+      const d = (backendNodeId: number): Derivation => ({ source: { node: { frame: { frame }, backendNodeId } }, kind: "snippet", shape: "outer" });
+      return [await derivePiece(d(await idOf("#a")), ctx, sanitiser), await derivePiece(d(await idOf("#b")), ctx, sanitiser)];
+    });
+    expect(plain).toEqual({ value: `<p id="a">zzcdp</p>`, redactions: 0, withheld: false });
+    expect(prot).toMatchObject({ value: MASK, withheld: true, reason: "protected" });
+  });
+
+  it("withholds an axe target source and a stale frame", async () => {
+    const [axe, stale] = await run(`<p id="p">zz</p>`, async (ctx) => {
+      const frame = ctx.frames[0]?.frame;
+      if (frame === undefined) throw new Error("no frame");
+      const a = await derivePiece({ source: { node: { axeTarget: ["#p"] } }, kind: "snippet", shape: "outer" }, ctx, sanitiser);
+      const handle = await frame.$("#p");
+      if (handle === null) throw new Error("no #p");
+      const s = await derivePiece({ source: { node: { frame: { frame }, handle } }, kind: "snippet", shape: "outer" }, { ...ctx, frames: [] }, sanitiser);
+      return [a, s];
+    });
+    expect(axe).toMatchObject({ value: MASK, redactions: 1, reason: "unsupported-source" });
+    expect(stale).toMatchObject({ value: MASK, redactions: 1, reason: "stale-frame" });
+  });
+
   it("withholds an unsupported derivation kind", async () => {
     const p = await run(`<p id="p">zz</p>`, (ctx) => deriveOn(ctx, "#p", (source) => ({ source, kind: "accname" })));
     expect(p).toMatchObject({ value: MASK, redactions: 1, withheld: true, reason: "unsupported-kind" });
