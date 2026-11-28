@@ -68,6 +68,12 @@ export interface CheckFailure {
   outcome: "error";
   kind: "check_error" | "scope_unreadable";
   message: string;
+  /**
+   * True only when `message` is check-owned constant text built from ids and
+   * enumerations. Otherwise the engine replaces it with a fixed class message
+   * (privacy design section 5), since it may carry page-thrown text.
+   */
+  declared?: true;
 }
 
 export type CheckRunResult = CheckResult | CheckFailure;

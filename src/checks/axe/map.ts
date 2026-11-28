@@ -120,7 +120,7 @@ export function mapRule(
 ): CheckRunResult {
   const reported = reportedIn(results, ruleId);
   if (reported.length === 0) {
-    const f: CheckFailure = { outcome: "error", kind: "check_error", message: `rule not reported: axe-core gave no result for ${ruleId} in any list` };
+    const f: CheckFailure = { outcome: "error", kind: "check_error", message: `rule not reported: axe-core gave no result for ${ruleId} in any list`, declared: true };
     return f;
   }
   const violations = nodesOf(results, ruleId, "violations");

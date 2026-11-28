@@ -77,9 +77,47 @@ describe("running providers", () => {
       outcome: "error",
       evidence: [],
       fingerprint: "custom/fail-a:error",
-      error: { kind: "scope_unreadable", message: `frame https://x.test/?k=${MASK} could not be read` },
+      error: { kind: "scope_unreadable", message: "the evaluation in the page failed" },
     });
-    expect(b?.error).toEqual({ kind: "check_error", message: "(no message)" });
+    expect(b?.error).toEqual({ kind: "check_error", message: "the evaluation in the page failed" });
+  });
+
+  it("keeps a declared check message, sanitised", async () => {
+    const p = provider("custom/declared", ["custom/declared-a"], async () =>
+      new Map<CheckId, CheckRunResult>([
+        ["custom/declared-a", { outcome: "error", kind: "check_error", message: "rule not reported: custom/declared-a", declared: true }],
+      ]),
+    );
+    const [a] = await onPage((t) => runProvider(t, p, { timeoutMs: 5_000, sanitiser }));
+    expect(a?.error).toEqual({ kind: "check_error", message: "rule not reported: custom/declared-a" });
+  });
+
+  it("does not let a page-thrown message from a patched method reach error.message", async () => {
+    const p = provider("custom/patched", ["custom/patched-a", "custom/patched-b"], async (ctx) => {
+      await ctx.page.evaluate(() => {
+        const proto = (globalThis as unknown as { Element: { prototype: { getAttribute: () => never } } }).Element.prototype;
+        proto.getAttribute = () => {
+          throw new Error("zzMARKER-patched https://x.test/?k=zzMARKER");
+        };
+      });
+      let message = "";
+      try {
+        await ctx.page.locator("#nom").evaluate((el) => el.getAttribute("id"));
+      } catch (e) {
+        message = e instanceof Error ? e.message : String(e);
+      }
+      expect(message).toContain("zzMARKER");
+      return new Map<CheckId, CheckRunResult>([
+        ["custom/patched-a", { outcome: "error", kind: "check_error", message }],
+        ["custom/patched-b", { outcome: "error", kind: "scope_unreadable", message: `could not read: ${message}` }],
+      ]);
+    });
+    const obs = await onPage((t) => runProvider(t, p, { timeoutMs: 5_000, sanitiser }));
+    expect(obs).toHaveLength(2);
+    for (const o of obs) {
+      expect(o.error?.message).toBe("the evaluation in the page failed");
+      expect(JSON.stringify(o)).not.toContain("zzMARKER");
+    }
   });
 
   it("gives check_error for each check of a provider that throws", async () => {

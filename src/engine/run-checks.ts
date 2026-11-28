@@ -11,7 +11,7 @@ import type { CheckId, Evidence, Observation } from "../schema/index.ts";
 import type { CheckContext, CheckDefinition, CheckProvider, CheckRunResult, RawEvidence } from "../checks/types.ts";
 import type { Sanitiser } from "./sanitise.ts";
 import type { ExaminableTarget } from "./target.ts";
-import { classifyPageOrBrowser, zodIssueText } from "./error-class.ts";
+import { PAGE_FAILURE, classifyPageOrBrowser, recognisedBrowserError, zodIssueText } from "./error-class.ts";
 
 /** Options given for a run, by check id. They override the definition's defaults key by key. */
 export type RunCheckOptions = Readonly<Record<string, Readonly<Record<string, unknown>>>>;
@@ -122,7 +122,7 @@ export function toObservation(
   };
   if (result.outcome === "error") {
     const kind = result.kind === "scope_unreadable" ? "scope_unreadable" : "check_error";
-    return errorObservation(base, kind, typeof result.message === "string" ? result.message : String(result.message), sanitiser);
+    return errorObservation(base, kind, checkFailureMessage(result), sanitiser);
   }
   let candidate: unknown;
   try {
@@ -140,6 +140,15 @@ export function toObservation(
   if (parsed.success) return parsed.data;
   const issues = parsed.error.issues.map((i) => zodIssueText(i)).join("; ");
   return errorObservation(base, "check_error", `invalid observation: ${issues}`, sanitiser);
+}
+
+/**
+ * The one choke point for a check's own error message: kept only when the
+ * check declares it constant text; otherwise a fixed class message.
+ */
+export function checkFailureMessage(result: { message: unknown; declared?: unknown }): string {
+  if (result.declared === true && typeof result.message === "string") return result.message;
+  return recognisedBrowserError(new Error(typeof result.message === "string" ? result.message : "")) ?? PAGE_FAILURE;
 }
 
 class ProviderTimeout extends Error {}
