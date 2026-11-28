@@ -13,7 +13,7 @@ import {
   fingerprintNote,
   WITHHELD_PART,
 } from "../../src/engine/editable-context.ts";
-import type { DeriveOptions, Piece } from "../../src/engine/editable-context.ts";
+import type { DeriveOptions, Piece, PrivacyProbe, ProbeEntry } from "../../src/engine/editable-context.ts";
 import { createSanitiser, MASK } from "../../src/engine/sanitise.ts";
 import { withTarget } from "../../src/engine/testing/index.ts";
 
@@ -203,9 +203,29 @@ describe("editable-context: decoding, escaping, failure", () => {
   it("withholds the whole composite with count 1 on a forced failure", async () => {
     const p = await run(
       `<div id="w"><input value="zzv"><p>zzpartial</p><div contenteditable>zzbox</div></div>`,
-      (ctx) => snippetOf(ctx, "#w", "outer", { failAt: 3 }),
+      (ctx) => snippetOf(ctx, "#w", "outer", { probe: { record: () => undefined, forceCompositeWalkFailure: { atNode: 3 } } }),
     );
     expect(p).toEqual({ value: MASK, redactions: 1, withheld: true, reason: "evaluation-failed" });
+  });
+
+  it("withholds the whole composite with count 1 on a forced walk timeout, and the probe records it in memory", async () => {
+    const entries: ProbeEntry[] = [];
+    const probe: PrivacyProbe = { record: (e) => entries.push(e), forceCompositeWalkTimeout: { atNode: 4 } };
+    const p = await run(
+      `<div id="w" data-probe="zzpk-1"><div><input value="zzv"></div><p>zzpartial</p></div>`,
+      (ctx) => snippetOf(ctx, "#w", "outer", { probe }),
+    );
+    expect(p).toEqual({ value: MASK, redactions: 1, withheld: true, reason: "timeout" });
+    expect(entries).toEqual([{ pieceKind: "snippet:outer", verdict: "withheld", reason: "timeout", count: 1, probeKey: null }]);
+  });
+
+  it("probe reports kind, verdict, count and the resolved node's data-probe key; the nested field is withheld when the walk completes", async () => {
+    const entries: ProbeEntry[] = [];
+    const p = await run(`<div id="w" data-probe="zzpk-2"><div><input value="zzv"></div><p>zzkept</p></div>`, (ctx) =>
+      snippetOf(ctx, "#w", "outer", { probe: { record: (e) => entries.push(e) } }),
+    );
+    expect(p.value).toBe(`<div id="w" data-probe="zzpk-2"><div><input value="${MASK}"></div><p>zzkept</p></div>`);
+    expect(entries).toEqual([{ pieceKind: "snippet:outer", verdict: "plain", count: 1, probeKey: "zzpk-2" }]);
   });
 
   it("guards startTagAndText: the parent's start tag and one text node", async () => {
@@ -264,9 +284,11 @@ describe("editable-context: decoding, escaping, failure", () => {
     expect(stale).toMatchObject({ value: MASK, redactions: 1, reason: "stale-frame" });
   });
 
-  it("withholds an unsupported derivation kind", async () => {
+  it("withholds an accname from a handle source (CDP backend ids only) and an unknown derivation kind", async () => {
     const p = await run(`<p id="p">zz</p>`, (ctx) => deriveOn(ctx, "#p", (source) => ({ source, kind: "accname" })));
-    expect(p).toMatchObject({ value: MASK, redactions: 1, withheld: true, reason: "unsupported-kind" });
+    expect(p).toMatchObject({ value: MASK, redactions: 1, withheld: true, reason: "unsupported-source" });
+    const u = await run(`<p id="p">zz</p>`, (ctx) => deriveOn(ctx, "#p", (source) => ({ source, kind: "zzraw" }) as unknown as Derivation));
+    expect(u).toMatchObject({ value: MASK, redactions: 1, withheld: true, reason: "unsupported-kind" });
   });
 });
 

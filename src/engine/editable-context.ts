@@ -22,8 +22,8 @@
  * configuration has no DOM library.
  */
 import { createHash } from "node:crypto";
-import type { Frame } from "playwright";
-import type { CheckContext, Derivation, FrameKey, NodeRef, SourcedFingerprint } from "../checks/types.ts";
+import type { CDPSession, Frame } from "playwright";
+import type { CheckContext, DeclaredText, Derivation, FrameKey, NodeRef, NoteSlot, SourcedEvidence, SourcedFingerprint, SourcedNote } from "../checks/types.ts";
 import type { Evidence } from "../schema/index.ts";
 import { MASK, TEXTBOX_ROLE_LIST } from "./sanitise.ts";
 import type { Sanitiser } from "./sanitise.ts";
@@ -61,24 +61,34 @@ export type WithheldReason =
   | "frame-chain-changed"
   | "resolution-failed"
   | "evaluation-failed"
-  | "bad-range";
+  | "bad-range"
+  | "closed-shadow"
+  | "timeout"
+  | "contains-field-or-box";
 
-/** What the in-page evaluation returns. */
+/** What the in-page evaluation returns. `probe` is the resolved node's `data-probe` value, only when asked (tests). */
 export type InPageResult =
-  | { readonly ok: true; readonly value: string; readonly count: number }
-  | { readonly ok: false; readonly reason: WithheldReason };
+  | { readonly ok: true; readonly value: string; readonly count: number; readonly probe?: string | null }
+  | { readonly ok: false; readonly reason: WithheldReason; readonly probe?: string | null };
+
+/** A path from the document to one node, as the in-page code resolves it. */
+export type PathStep = { readonly e: number } | { readonly t: number } | { readonly s: 1 };
 
 /** The in-page request: what to derive from the node. */
 export interface InPageRequest {
-  readonly op: "verdict" | "outer" | "startTag" | "startTagAndText" | "textRange" | "attr" | "id";
+  readonly op: "verdict" | "outer" | "startTag" | "startTagAndText" | "textRange" | "attr" | "id" | "locator" | "accguard";
   readonly name?: string;
   readonly start?: number;
   readonly end?: number;
   readonly roles: readonly string[];
   readonly allow: readonly string[];
   readonly cap: number;
-  /** Tests only: make the walk fail at its n-th node (forced failure, 3.4a all or nothing). */
-  readonly failAt?: number;
+  /** Nodes slotted into a protected slot inside a closed shadow root, found through CDP. */
+  readonly closed?: readonly { readonly path: readonly PathStep[]; readonly name: string }[];
+  /** Test-only probe hook: a forced failure, or a forced timeout of `ms`, at the walk's n-th node. */
+  readonly hook?: { readonly at: number; readonly kind: "failure" | "timeout"; readonly ms: number };
+  /** Test-only: return the resolved node's `data-probe` value. */
+  readonly probe?: boolean;
 }
 
 /**
@@ -130,6 +140,7 @@ function verdict(n, templateOf) {
       cur = t; first = false; continue;
     }
     if (cur.nodeType === 9) break;
+    if (closedNodes.indexOf(cur) !== -1) return "protected";
     if (cur.nodeType === 1) {
       if (isBox(cur)) return "protected";
       if (isOption(cur)) return "protected";
@@ -205,7 +216,7 @@ function walkOuter(root, vals, st) {
   function visit(n, parentRaw) {
     st.nodes++;
     if (st.nodes > req.cap) throw new Fail("too-large");
-    if (req.failAt !== undefined && st.nodes === req.failAt) throw new Fail("evaluation-failed");
+    probeHook(st);
     if (n.nodeType === 3) {
       if (verdict(n, st.templates.of) === "protected") { if (n.data !== "") { out += MASK; st.count++; } return; }
       if (matches(vals, n.data)) { out += MASK; st.count++; return; }
@@ -254,10 +265,41 @@ function collectValues(root, vals) {
     for (var i = 0; i < n.childNodes.length; i++) stack.push(n.childNodes[i]);
   }
 }
+/* Nodes the engine found, through CDP, slotted into a protected slot inside a
+   closed shadow root (assignedSlot is null there). Each is given as a path
+   from the document: element index, non-whitespace text index, or entry into
+   an open shadow root; the node name must match. Unresolvable: fail closed. */
+function resolveClosed(doc) {
+  var out = [], list = req.closed || [];
+  for (var i = 0; i < list.length; i++) {
+    var cur = doc, path = list[i].path;
+    for (var j = 0; j < path.length; j++) {
+      var s = path[j], next = null;
+      if (s.s === 1) next = cur.shadowRoot || null;
+      else if (typeof s.e === "number") { var k = 0; for (var c = cur.firstChild; c; c = c.nextSibling) if (c.nodeType === 1) { if (k === s.e) { next = c; break; } k++; } }
+      else if (typeof s.t === "number") { var m = 0; for (var d = cur.firstChild; d; d = d.nextSibling) if (d.nodeType === 3 && /\S/.test(d.data)) { if (m === s.t) { next = d; break; } m++; } }
+      if (!next) throw new Fail("closed-shadow");
+      cur = next;
+    }
+    if (cur.nodeName !== list[i].name) throw new Fail("closed-shadow");
+    out.push(cur);
+  }
+  return out;
+}
+/* Test-only probe hook (design 4.2): a forced failure, or a forced timeout (busy wait) at the n-th walked node. */
+function probeHook(st) {
+  var h = req.hook;
+  if (!h || st.nodes !== h.at) return;
+  if (h.kind === "failure") throw new Fail("evaluation-failed");
+  var until = Date.now() + h.ms; while (Date.now() < until) { /* forced composite walk timeout */ }
+}
+var closedNodes = [];
+function main() {
 try {
   if (!node || (node.nodeType !== 1 && node.nodeType !== 3)) return { ok: false, reason: "not-element" };
   var doc = documentOf(node);
   checkDocument(doc);
+  closedNodes = resolveClosed(doc);
   var st = { count: 0, nodes: 0, templates: templateResolver(node) };
   var op = req.op;
   if (op === "startTagAndText") {
@@ -285,6 +327,42 @@ try {
     if (matches(own, v)) return { ok: false, reason: "value-match" };
     return { ok: true, value: v, count: 0 };
   }
+  if (op === "locator") {
+    /* Engine syntax: tag:nth-of-type chains, " >> " into a shadow root (frames are prefixed in Node with " >>> "). */
+    var segs = [], hostEl = node;
+    while (hostEl && hostEl.nodeType === 1) {
+      var chain = [], c = hostEl;
+      while (c && c.nodeType === 1) {
+        var k = 1; for (var sb = c.previousElementSibling; sb; sb = sb.previousElementSibling) if (sb.localName === c.localName) k++;
+        chain.unshift(local(c) + ":nth-of-type(" + k + ")");
+        c = c.parentNode;
+      }
+      segs.unshift(chain.join(" > "));
+      if (c && c.nodeType === 11) { if (!c.host) throw new Fail("detached"); hostEl = c.host; }
+      else if (c && c.nodeType === 9) hostEl = null;
+      else throw new Fail("detached");
+    }
+    var loc = segs.join(" >> ");
+    if (matches(own, loc)) return { ok: false, reason: "value-match" };
+    return { ok: true, value: loc, count: 0 };
+  }
+  if (op === "accguard") {
+    /* 2.1: an accessible name or value is withheld if its node is, or contains, a field or a box (light DOM, open shadow roots, template content). */
+    if (isField(node) || isBox(node)) return { ok: false, reason: "contains-field-or-box" };
+    var stk = [node];
+    if (node.shadowRoot) stk.push(node.shadowRoot);
+    while (stk.length) {
+      var sn = stk.pop();
+      for (var ch = sn.firstChild; ch; ch = ch.nextSibling) {
+        if (ch.nodeType !== 1) continue;
+        if (isField(ch) || isBox(ch)) return { ok: false, reason: "contains-field-or-box" };
+        stk.push(ch);
+        if (ch.shadowRoot) stk.push(ch.shadowRoot);
+        if (isHtml(ch) && local(ch) === "template" && ch.content) stk.push(ch.content);
+      }
+    }
+    return { ok: true, value: "", count: 0 };
+  }
   if (op === "outer") {
     var vals = []; collectValues(node, vals);
     return { ok: true, value: walkOuter(node, vals, st), count: st.count };
@@ -298,7 +376,7 @@ try {
     (function gather(n) {
       st.nodes++;
       if (st.nodes > req.cap) throw new Fail("too-large");
-      if (req.failAt !== undefined && st.nodes === req.failAt) throw new Fail("evaluation-failed");
+      probeHook(st);
       if (n.nodeType === 3) { texts.push(n); return; }
       for (var k = 0; k < n.childNodes.length; k++) gather(n.childNodes[k]);
     })(node);
@@ -319,6 +397,14 @@ try {
 } catch (e) {
   return { ok: false, reason: e instanceof Fail ? e.reason : "evaluation-failed" };
 }
+}
+var result = main();
+if (req.probe) {
+  var pk = null;
+  try { var pe = node && node.nodeType === 1 ? node : node && node.parentNode; pk = pe && pe.getAttribute ? pe.getAttribute("data-probe") : null; } catch (e) { pk = null; }
+  result.probe = pk;
+}
+return result;
 `;
 
 /** The in-page function, as Playwright and CDP `callFunctionOn` take it. */
@@ -330,19 +416,64 @@ function request(op: InPageRequest["op"], extra: Partial<InPageRequest> = {}): I
   return { op, roles: TEXTBOX_ROLE_LIST, allow: FIELD_ATTRIBUTE_ALLOW_LIST, cap: WALK_NODE_CAP, ...extra };
 }
 
-/** The request for a derivation, or null when the kind is not handled in this slice. */
-export function requestFor(d: Derivation, testing: { failAt?: number } = {}): InPageRequest | null {
-  const t = testing.failAt === undefined ? {} : { failAt: testing.failAt };
+/** Guard timeout per piece (3.3: a resolution past the guard timeout is withheld). */
+export const GUARD_TIMEOUT_MS = 5000;
+
+/** The kind of a piece, as the probe reports it. */
+export type PieceKind = `snippet:${"outer" | "startTag" | "startTagAndText" | "textRange"}` | Exclude<Derivation["kind"], "snippet">;
+
+export const pieceKind = (d: Derivation): PieceKind => (d.kind === "snippet" ? `snippet:${d.shape}` : d.kind);
+
+/** One probe entry (design 4.2): per piece, its kind, verdict, count, and the resolved node's `data-probe` key. */
+export interface ProbeEntry {
+  readonly pieceKind: PieceKind;
+  readonly verdict: "plain" | "withheld";
+  readonly reason?: WithheldReason;
+  readonly count: number;
+  readonly probeKey: string | null;
+}
+
+/**
+ * Test-only, in-memory probe seam (design 4.2). A measurement only: it never
+ * decides anything and is never written to disk. The two hooks force a
+ * failure, or a timeout, at the n-th node of a composite walk (3.4a, qx218).
+ */
+export interface PrivacyProbe {
+  record(entry: ProbeEntry): void;
+  readonly forceCompositeWalkFailure?: { readonly atNode: number };
+  readonly forceCompositeWalkTimeout?: { readonly atNode: number };
+}
+
+/** Options for the guard. */
+export interface DeriveOptions {
+  /** Test-only probe seam. */
+  readonly probe?: PrivacyProbe;
+  /** Guard timeout per piece; default `GUARD_TIMEOUT_MS` (250 ms when a forced timeout is set). */
+  readonly timeoutMs?: number;
+}
+
+function hookFor(probe: PrivacyProbe | undefined, timeoutMs: number): InPageRequest["hook"] | undefined {
+  if (probe?.forceCompositeWalkTimeout !== undefined) return { at: probe.forceCompositeWalkTimeout.atNode, kind: "timeout", ms: timeoutMs + 1000 };
+  if (probe?.forceCompositeWalkFailure !== undefined) return { at: probe.forceCompositeWalkFailure.atNode, kind: "failure", ms: 0 };
+  return undefined;
+}
+
+/** The in-page request for a derivation, or null when it is not an in-page op. */
+function requestFor(d: Derivation, extra: Partial<InPageRequest>): InPageRequest | null {
   switch (d.kind) {
     case "snippet":
-      if (d.shape === "textRange") return request("textRange", { start: d.start, end: d.end, ...t });
-      return request(d.shape, t);
+      if (d.shape === "textRange") return request("textRange", { start: d.start, end: d.end, ...extra });
+      return request(d.shape, extra);
     case "attr":
-      return request("attr", { name: d.name });
+      return request("attr", { name: d.name, ...extra });
     case "id":
-      return request("id");
+      return request("id", extra);
+    case "locator":
+      return request("locator", extra);
+    case "accname":
+    case "accvalue":
+      return request("accguard", extra);
     default:
-      // locator, accname, accvalue, frameUrl: not in this slice; withheld.
       return null;
   }
 }
@@ -358,6 +489,8 @@ export interface Piece {
 }
 
 const withheld = (reason: WithheldReason): Piece => ({ value: MASK, redactions: 1, withheld: true, reason });
+
+type GuardCtx = Pick<CheckContext, "frames" | "cdpFor">;
 
 /** True when the frame key is in the target's frames and not detached. */
 function frameUsable(key: FrameKey, ctx: Pick<CheckContext, "frames">): boolean {
@@ -391,7 +524,7 @@ async function frameChainVerdict(frame: Frame): Promise<"plain" | WithheldReason
   return "plain";
 }
 
-/** The main frame's document in `designMode` is judged in the page; this reads the chain twice around `fn` (3.3). */
+/** Reads the chain twice around `fn` (3.3). The documents' own `designMode` is judged in the page. */
 async function withFrameChain(frame: Frame, fn: () => Promise<InPageResult>): Promise<InPageResult> {
   const before = await frameChainVerdict(frame);
   if (before !== "plain") return { ok: false, reason: before };
@@ -401,14 +534,146 @@ async function withFrameChain(frame: Frame, fn: () => Promise<InPageResult>): Pr
   return r;
 }
 
-async function evaluateOn(ref: NodeRef, req: InPageRequest, ctx: Pick<CheckContext, "frames" | "cdpFor">): Promise<InPageResult> {
+/* Closed shadow roots, through CDP (`DOM.getDocument` with `pierce`). */
+
+interface CdpNode {
+  backendNodeId: number;
+  nodeType: number;
+  nodeName: string;
+  localName?: string;
+  nodeValue?: string;
+  attributes?: string[];
+  children?: CdpNode[];
+  shadowRoots?: CdpNode[];
+  shadowRootType?: string;
+  distributedNodes?: { backendNodeId: number }[];
+  assignedSlot?: { backendNodeId: number };
+  contentDocument?: CdpNode;
+  documentURL?: string;
+}
+
+function cdpEditable(n: CdpNode): boolean {
+  if (n.nodeType !== 1 || n.attributes === undefined) return false;
+  let ce: string | null = null;
+  let role: string | null = null;
+  for (let i = 0; i + 1 < n.attributes.length; i += 2) {
+    const name = (n.attributes[i] ?? "").toLowerCase();
+    if (name === "contenteditable" && ce === null) ce = n.attributes[i + 1] ?? "";
+    if (name === "role" && role === null) role = n.attributes[i + 1] ?? "";
+  }
+  if (ce !== null && ce.trim().toLowerCase() !== "false") return true;
+  return role !== null && role.split(/[\t\n\f\r ]+/).some((t) => t !== "" && TEXTBOX_ROLE_LIST.includes(t.toLowerCase()));
+}
+
+/** The frame's document in a pierced CDP tree: the root for the main frame, else the one document with the frame's URL; null when ambiguous. */
+function frameDocument(root: CdpNode, frame: Frame): CdpNode | null {
+  if (frame.parentFrame() === null) return root;
+  const found: CdpNode[] = [];
+  const visit = (n: CdpNode): void => {
+    if (n.nodeType === 9 && n.documentURL === frame.url()) found.push(n);
+    for (const c of [...(n.children ?? []), ...(n.shadowRoots ?? [])]) visit(c);
+    if (n.contentDocument !== undefined) visit(n.contentDocument);
+  };
+  visit(root);
+  return found.length === 1 ? (found[0] ?? null) : null;
+}
+
+/**
+ * Nodes assigned to a protected slot inside a closed shadow root, as paths
+ * from the frame's document. `null` when this cannot be established.
+ */
+export async function closedSlotted(frame: Frame): Promise<{ path: PathStep[]; name: string }[] | null> {
+  // The engine's own session, separate from `cdpFor`: `getDocument` resets the node ids a provider's session holds.
+  let root: CdpNode;
+  let session: CDPSession | undefined;
+  try {
+    const context = frame.page().context();
+    if (frame.parentFrame() === null) session = await context.newCDPSession(frame.page());
+    else session = await context.newCDPSession(frame).catch(() => context.newCDPSession(frame.page()));
+    root = ((await session.send("DOM.getDocument", { depth: -1, pierce: true })) as { root: CdpNode }).root;
+  } catch {
+    return null;
+  } finally {
+    await session?.detach().catch(() => undefined);
+  }
+  const doc = frameDocument(root, frame);
+  if (doc === null) return null;
+  const parent = new Map<CdpNode, CdpNode>();
+  const byBackend = new Map<number, CdpNode>();
+  const slots: CdpNode[] = [];
+  const assigned = new Map<number, Set<number>>();
+  const visit = (n: CdpNode, containing: CdpNode | null): void => {
+    byBackend.set(n.backendNodeId, n);
+    if (n.localName === "slot" && containing?.shadowRootType === "closed") slots.push(n);
+    if (n.assignedSlot !== undefined) {
+      const set = assigned.get(n.assignedSlot.backendNodeId) ?? new Set<number>();
+      set.add(n.backendNodeId);
+      assigned.set(n.assignedSlot.backendNodeId, set);
+    }
+    for (const sr of n.shadowRoots ?? []) {
+      parent.set(sr, n);
+      visit(sr, sr);
+    }
+    for (const c of n.children ?? []) {
+      parent.set(c, n);
+      visit(c, containing);
+    }
+    // Frame documents and template content are not entered here.
+  };
+  visit(doc, null);
+  const slotProtected = (slot: CdpNode): boolean => {
+    let cur: CdpNode | undefined = slot;
+    for (let guard = 0; cur !== undefined && guard < 10000; guard++) {
+      if (cur === doc) return false;
+      if (cdpEditable(cur)) return true;
+      if (cur.assignedSlot !== undefined) {
+        const next = byBackend.get(cur.assignedSlot.backendNodeId);
+        if (next === undefined) return true; // unknown: fail closed
+        cur = next;
+      } else cur = parent.get(cur);
+    }
+    return true; // never reached the document: fail closed
+  };
+  const pathOf = (n: CdpNode): PathStep[] | null => {
+    const steps: PathStep[] = [];
+    let cur = n;
+    while (cur !== doc) {
+      const p = parent.get(cur);
+      if (p === undefined) return null;
+      if ((p.shadowRoots ?? []).includes(cur)) steps.unshift({ s: 1 });
+      else if (cur.nodeType === 1) steps.unshift({ e: (p.children ?? []).filter((c) => c.nodeType === 1).indexOf(cur) });
+      else if (cur.nodeType === 3) steps.unshift({ t: (p.children ?? []).filter((c) => c.nodeType === 3 && /\S/.test(c.nodeValue ?? "")).indexOf(cur) });
+      else return null;
+      cur = p;
+    }
+    return steps;
+  };
+  const out: { path: PathStep[]; name: string }[] = [];
+  for (const slot of slots) {
+    const ids = new Set<number>([...(slot.distributedNodes ?? []).map((d) => d.backendNodeId), ...(assigned.get(slot.backendNodeId) ?? [])]);
+    if (ids.size === 0 || !slotProtected(slot)) continue;
+    for (const id of ids) {
+      const n = byBackend.get(id);
+      if (n === undefined) return null;
+      const path = pathOf(n);
+      if (path === null) return null;
+      out.push({ path, name: n.nodeName });
+    }
+  }
+  return out;
+}
+
+async function evaluateOn(ref: NodeRef, req: InPageRequest, ctx: GuardCtx): Promise<InPageResult> {
   if (!("frame" in ref)) return { ok: false, reason: "unsupported-source" };
   if (!frameUsable(ref.frame, ctx)) return { ok: false, reason: "stale-frame" };
   const frame = ref.frame.frame;
   return withFrameChain(frame, async () => {
+    const closed = await closedSlotted(frame);
+    if (closed === null) return { ok: false, reason: "closed-shadow" };
+    const full: InPageRequest = { ...req, closed };
     if ("handle" in ref) {
       try {
-        return (await ref.handle.evaluate(inPageFunction as never, req as never)) as InPageResult;
+        return (await ref.handle.evaluate(inPageFunction as never, full as never)) as InPageResult;
       } catch {
         return { ok: false, reason: "evaluation-failed" };
       }
@@ -428,7 +693,7 @@ async function evaluateOn(ref: NodeRef, req: InPageRequest, ctx: Pick<CheckConte
       const r = (await session.send("Runtime.callFunctionOn", {
         objectId,
         functionDeclaration: `function (req) { return (${IN_PAGE_FUNCTION_SOURCE})(this, req); }`,
-        arguments: [{ value: req }],
+        arguments: [{ value: full }],
         returnByValue: true,
       })) as { result?: { value?: unknown }; exceptionDetails?: unknown };
       if (r.exceptionDetails !== undefined) return { ok: false, reason: "evaluation-failed" };
@@ -441,36 +706,221 @@ async function evaluateOn(ref: NodeRef, req: InPageRequest, ctx: Pick<CheckConte
   });
 }
 
-/** Options for `derivePiece`. */
-export interface DeriveOptions {
-  /** Tests only: force the composite walk to fail at its n-th node. */
-  readonly failAt?: number;
+/** The engine-syntax locator of every hosting frame element, top first, each judged in its own frame. */
+async function frameLocatorPrefix(frame: Frame): Promise<string[] | WithheldReason> {
+  const out: string[] = [];
+  let cur: Frame | null = frame;
+  while (cur !== null && cur.parentFrame() !== null) {
+    let r: InPageResult;
+    try {
+      const el = await cur.frameElement();
+      try {
+        r = (await el.evaluate(inPageFunction as never, request("locator") as never)) as InPageResult;
+      } finally {
+        await el.dispose().catch(() => undefined);
+      }
+    } catch {
+      return "frame-chain";
+    }
+    if (!r.ok) return r.reason === "protected" ? "protected-frame" : r.reason;
+    out.unshift(r.value);
+    cur = cur.parentFrame();
+  }
+  return out;
+}
+
+/** The accessible name or value of a CDP-referenced node (`Accessibility.getPartialAXTree`). */
+async function axText(ref: NodeRef, which: "accname" | "accvalue", ctx: GuardCtx): Promise<string | null> {
+  if (!("backendNodeId" in ref)) return null;
+  try {
+    const session = await ctx.cdpFor(ref.frame.frame);
+    const { nodes } = (await session.send("Accessibility.getPartialAXTree", { backendNodeId: ref.backendNodeId, fetchRelatives: false })) as {
+      nodes: { backendDOMNodeId?: number; name?: { value?: unknown }; value?: { value?: unknown } }[];
+    };
+    const n = nodes.find((x) => x.backendDOMNodeId === ref.backendNodeId);
+    if (n === undefined) return null;
+    const v = which === "accname" ? n.name?.value : n.value?.value;
+    return v === undefined || v === null ? "" : String(v);
+  } catch {
+    return null;
+  }
+}
+
+function withTimeout<T>(p: Promise<T>, ms: number, onTimeout: T): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const t = new Promise<T>((resolve) => {
+    timer = setTimeout(() => resolve(onTimeout), ms);
+  });
+  return Promise.race([p, t]).finally(() => clearTimeout(timer));
+}
+
+async function deriveRaw(d: Derivation, ctx: GuardCtx, sanitiser: Sanitiser, options: DeriveOptions, timeoutMs: number): Promise<{ piece: Piece; probeKey: string | null }> {
+  const probeKey = options.probe === undefined ? {} : { probe: true };
+  if (d.kind === "frameUrl") {
+    let key: FrameKey | null = null;
+    if ("frame" in d.source) key = d.source.frame;
+    else if ("handle" in d.source.node) {
+      const f = await d.source.node.handle.asElement()?.contentFrame().catch(() => null);
+      key = f === null || f === undefined ? null : { frame: f };
+    }
+    if (key === null) return { piece: withheld("unsupported-source"), probeKey: null };
+    if (!frameUsable(key, ctx)) return { piece: withheld("stale-frame"), probeKey: null };
+    const v = await frameChainVerdict(key.frame);
+    if (v !== "plain") return { piece: withheld(v), probeKey: null };
+    const s = sanitiser.url(key.frame.url());
+    return { piece: { value: s.value, redactions: s.redactions, withheld: false }, probeKey: null };
+  }
+  const hook = d.kind === "snippet" && d.shape !== "startTag" ? hookFor(options.probe, timeoutMs) : undefined;
+  const req = requestFor(d, { ...probeKey, ...(hook === undefined ? {} : { hook }) });
+  if (req === null) return { piece: withheld("unsupported-kind"), probeKey: null };
+  if (!("node" in d.source)) return { piece: withheld("unsupported-source"), probeKey: null };
+  const ref = d.source.node;
+  const r = await evaluateOn(ref, req, ctx).catch((): InPageResult => ({ ok: false, reason: "evaluation-failed" }));
+  const key = r.probe ?? null;
+  if (!r.ok) return { piece: withheld(r.reason), probeKey: key };
+  if (d.kind === "locator" && "frame" in ref) {
+    const prefix = await frameLocatorPrefix(ref.frame.frame);
+    if (typeof prefix === "string") return { piece: withheld(prefix), probeKey: key };
+    const s = sanitiser.text([...prefix, r.value].join(" >>> "));
+    return { piece: { value: s.value, redactions: s.redactions, withheld: false }, probeKey: key };
+  }
+  if (d.kind === "accname" || d.kind === "accvalue") {
+    const text = await axText(ref, d.kind, ctx);
+    if (text === null) return { piece: withheld("unsupported-source"), probeKey: key };
+    const s = sanitiser.text(text);
+    return { piece: { value: s.value, redactions: s.redactions, withheld: false }, probeKey: key };
+  }
+  const s = d.kind === "snippet" && d.shape !== "textRange" ? sanitiser.snippet(r.value) : sanitiser.text(r.value);
+  return { piece: { value: s.value, redactions: r.count + s.redactions, withheld: false }, probeKey: key };
 }
 
 /**
  * Derive, judge and sanitise one piece (3.4). A withheld piece is exactly
  * `[redacted]` with 1 redaction; a kept composite carries its own count plus
  * the sanitiser's. Snippets go through `sanitiser.snippet` (the cap comes
- * after the guard), other pieces through `sanitiser.text`.
+ * after the guard), `frameUrl` through `sanitiser.url`, the rest through
+ * `sanitiser.text`. Past the guard timeout, the piece is withheld.
  */
-export async function derivePiece(
-  d: Derivation,
-  ctx: Pick<CheckContext, "frames" | "cdpFor">,
-  sanitiser: Sanitiser,
-  options: DeriveOptions = {},
-): Promise<Piece> {
-  const req = requestFor(d, options.failAt === undefined ? {} : { failAt: options.failAt });
-  if (req === null) return withheld("unsupported-kind");
-  if (!("node" in d.source)) return withheld("unsupported-source");
-  let r: InPageResult;
+export async function derivePiece(d: Derivation, ctx: GuardCtx, sanitiser: Sanitiser, options: DeriveOptions = {}): Promise<Piece> {
+  const timeoutMs = options.timeoutMs ?? (options.probe?.forceCompositeWalkTimeout !== undefined ? 250 : GUARD_TIMEOUT_MS);
+  let out: { piece: Piece; probeKey: string | null };
   try {
-    r = await evaluateOn(d.source.node, req, ctx);
+    out = await withTimeout(deriveRaw(d, ctx, sanitiser, options, timeoutMs), timeoutMs, { piece: withheld("timeout"), probeKey: null });
   } catch {
-    r = { ok: false, reason: "evaluation-failed" };
+    out = { piece: withheld("evaluation-failed"), probeKey: null };
   }
-  if (!r.ok) return withheld(r.reason);
-  const s = d.kind === "snippet" && d.shape !== "textRange" ? sanitiser.snippet(r.value) : sanitiser.text(r.value);
-  return { value: s.value, redactions: r.count + s.redactions, withheld: false };
+  options.probe?.record({
+    pieceKind: pieceKind(d),
+    verdict: out.piece.withheld ? "withheld" : "plain",
+    ...(out.piece.reason === undefined ? {} : { reason: out.piece.reason }),
+    count: out.piece.redactions,
+    probeKey: out.probeKey,
+  });
+  return out.piece;
+}
+
+/* Notes, evidence items and lists (3.2, 3.4). */
+
+/** Check-owned text that was not declared, or a slot of the wrong kind: a provider bug. */
+export class UndeclaredTextError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UndeclaredTextError";
+  }
+}
+
+/** Fixed engine notes (3.4). No page text. */
+export const PROTECTED_NOTE = "Element in protected context: fields withheld.";
+export const unestablishedNote = (code: WithheldReason): string => `Element whose context could not be established (${code}): fields withheld.`;
+
+const isDerivation = (s: NoteSlot): s is Derivation => typeof s === "object" && "source" in s && "kind" in s;
+
+/**
+ * A note from a declared template (`{0}`, `{1}`, … placeholders) and its
+ * slots: a finite number, a declared enumeration value, or a text derivation
+ * (not a snippet). Throws `UndeclaredTextError` for an undeclared template or
+ * enumeration value, a slot of another kind, or placeholders that do not
+ * match the slots. A withheld derived slot becomes `[redacted]`, counted 1.
+ */
+export async function deriveNote(note: SourcedNote, declared: DeclaredText | undefined, ctx: GuardCtx, sanitiser: Sanitiser, options: DeriveOptions = {}): Promise<{ value: string; redactions: number }> {
+  if (typeof note.template !== "string" || !(declared?.templates ?? []).includes(note.template)) throw new UndeclaredTextError("note template not declared");
+  const used = new Set<number>();
+  for (const m of note.template.matchAll(/\{(\d+)\}/g)) used.add(Number(m[1]));
+  if (used.size !== note.slots.length || [...used].some((i) => i >= note.slots.length)) throw new UndeclaredTextError("note slots do not match the template");
+  const values: string[] = [];
+  let redactions = 0;
+  for (const slot of note.slots) {
+    if (typeof slot === "number") {
+      if (!Number.isFinite(slot)) throw new UndeclaredTextError("note slot is not a finite number");
+      values.push(String(slot));
+    } else if (isDerivation(slot)) {
+      if (slot.kind === "snippet") throw new UndeclaredTextError("a snippet cannot fill a note slot");
+      const p = await derivePiece(slot, ctx, sanitiser, options);
+      values.push(p.value);
+      redactions += p.redactions;
+    } else if (typeof slot === "object" && slot !== null && typeof slot.enumeration === "string" && typeof slot.value === "string") {
+      if (!(declared?.enumerations?.[slot.enumeration] ?? []).includes(slot.value)) throw new UndeclaredTextError("enumeration value not declared");
+      values.push(slot.value);
+    } else throw new UndeclaredTextError("unknown note slot kind");
+  }
+  return { value: note.template.replace(/\{(\d+)\}/g, (_m, i: string) => values[Number(i)] ?? ""), redactions };
+}
+
+/** An evidence item after the guard: schema fields (without `id`) and the guarded list. */
+export interface DerivedEvidence {
+  readonly evidence: Omit<Evidence, "id">;
+  /** `locatorList`, member by member; withheld members keep the list's length. */
+  readonly locatorList?: readonly string[];
+}
+
+/** A reason that means the source itself failed (as opposed to the field rule withholding one value). */
+const sourceFailed = (p: Piece): boolean => p.withheld && p.reason !== "value-match" && p.reason !== "contains-field-or-box";
+
+/**
+ * Guard one evidence item (3.2 to 3.5). Each piece is judged on its own
+ * source. If the snippet's or locator's source fails, every piece of the item
+ * is withheld (each counted 1) and its note becomes a fixed engine note,
+ * except a `scope_examined` item, which keeps its template note and its list.
+ */
+export async function deriveEvidence(item: SourcedEvidence, declared: DeclaredText | undefined, ctx: GuardCtx, sanitiser: Sanitiser, options: DeriveOptions = {}): Promise<DerivedEvidence> {
+  const snippet = item.snippet === undefined ? undefined : await derivePiece(item.snippet, ctx, sanitiser, options);
+  const locator = item.locator === undefined ? undefined : await derivePiece(item.locator, ctx, sanitiser, options);
+  const failed = [snippet, locator].find((p): p is Piece => p !== undefined && sourceFailed(p));
+  const out: { kind: Evidence["kind"]; snippet?: string; locator?: string; note?: string; redactions: number } = { kind: item.kind, redactions: 0 };
+  if (failed !== undefined && item.kind !== "scope_examined") {
+    if (snippet !== undefined) out.snippet = MASK;
+    if (locator !== undefined) out.locator = MASK;
+    out.redactions = (snippet === undefined ? 0 : 1) + (locator === undefined ? 0 : 1);
+    if (item.note !== undefined) {
+      if (!(declared?.templates ?? []).includes(item.note.template)) throw new UndeclaredTextError("note template not declared");
+      out.redactions += item.note.slots.filter(isDerivation).length;
+    }
+    out.note = failed.reason === "protected" || failed.reason === "protected-frame" ? PROTECTED_NOTE : unestablishedNote(failed.reason ?? "evaluation-failed");
+    const list = item.locatorList?.map(() => MASK);
+    out.redactions += list?.length ?? 0;
+    return list === undefined ? { evidence: out } : { evidence: out, locatorList: list };
+  }
+  if (snippet !== undefined) {
+    out.snippet = snippet.value;
+    out.redactions += snippet.redactions;
+  }
+  if (locator !== undefined) {
+    out.locator = locator.value;
+    out.redactions += locator.redactions;
+  }
+  if (item.note !== undefined) {
+    const n = await deriveNote(item.note, declared, ctx, sanitiser, options);
+    out.note = n.value;
+    out.redactions += n.redactions;
+  }
+  if (item.locatorList === undefined) return { evidence: out };
+  const list: string[] = [];
+  for (const m of item.locatorList) {
+    const p = await derivePiece(m, ctx, sanitiser, options);
+    list.push(p.value);
+    out.redactions += p.redactions;
+  }
+  return { evidence: out, locatorList: list };
 }
 
 /** A fingerprint built from a declared label and its parts (3.6). */
@@ -489,14 +939,15 @@ export async function buildFingerprint(
   checkId: string,
   fp: SourcedFingerprint,
   declaredLabels: readonly string[],
-  ctx: Pick<CheckContext, "frames" | "cdpFor">,
+  ctx: GuardCtx,
   sanitiser: Sanitiser,
+  options: DeriveOptions = {},
 ): Promise<BuiltFingerprint> {
-  if (!declaredLabels.includes(fp.label)) throw new Error(`fingerprint label not declared by ${checkId}`);
+  if (!declaredLabels.includes(fp.label)) throw new UndeclaredTextError(`fingerprint label not declared by ${checkId}`);
   const parts: string[] = [];
   let withheldParts = 0;
   for (const d of fp.parts) {
-    const p = await derivePiece(d, ctx, sanitiser);
+    const p = await derivePiece(d, ctx, sanitiser, options);
     if (p.withheld) {
       withheldParts += 1;
       parts.push(WITHHELD_PART);
