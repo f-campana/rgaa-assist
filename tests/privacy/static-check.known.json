@@ -1,0 +1,28 @@
+{
+  "note": "Per-file hit counts of the static check on the recorded code. New hits beyond these fail the check.",
+  "total": 117,
+  "counts": {
+    "src/checks/axe/editable.ts": 4,
+    "src/checks/axe/frames.ts": 2,
+    "src/checks/axe/index.ts": 1,
+    "src/checks/axe/map.ts": 10,
+    "src/checks/custom/10-1-presentation-attributes/index.ts": 9,
+    "src/checks/custom/10-1-presentation-elements/index.ts": 9,
+    "src/checks/custom/11-1-field-label-mechanism/index.ts": 1,
+    "src/checks/custom/11-8-optgroup-label-attribute/index.ts": 1,
+    "src/checks/custom/8-2-id-duplicate/index.ts": 5,
+    "src/checks/custom/8-3-default-lang-present/index.ts": 13,
+    "src/checks/custom/8-4-default-lang-code-valid/derive.ts": 1,
+    "src/checks/custom/8-4-default-lang-code-valid/index.ts": 10,
+    "src/checks/custom/8-5-page-title-present/index.ts": 6,
+    "src/checks/custom/family-a/frames.ts": 1,
+    "src/checks/custom/family-a/page.ts": 2,
+    "src/checks/custom/family-a/page/common.js": 2,
+    "src/checks/custom/family-a/result.ts": 5,
+    "src/checks/custom/family-b/evidence.ts": 14,
+    "src/checks/custom/family-b/scan.ts": 1,
+    "src/checks/custom/family-c/read.ts": 3,
+    "src/checks/custom/family-c/result.ts": 13,
+    "src/checks/custom/family-c/scan.js": 4
+  }
+}
