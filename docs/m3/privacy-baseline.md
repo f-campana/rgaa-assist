@@ -100,3 +100,25 @@ Test agent A added 36 rows (`tests/privacy/fixtures/rows2.ts`). Each row and var
 - steps and sessions;
 - the static check;
 - G1 to G3.
+
+## Third slice (2026-11-28, `a1713cb`)
+
+Written by a second test agent.
+- qx038, qx215 and qx217 are now differential-fingerprint pairs in `rows3.ts`, alongside the XHTML pair `qx215x` and the plain pair control `qx219p`. Baseline: qx038, qx215 and qx215x show a **leak seen**, with fingerprints that differ across each pair. qx217 shows a **leak seen** in the snippet, through a `title=` inside `noscript`, and in the fingerprint. qx219p is **control ok**.
+- The old snippet versions, qx038s, qx215s and qx217s, are still **not reached or unproven**, because today's sanitiser masks them.
+- The detached-template case can't be planted from a fixture and needs engine support. A nested template stands in for it.
+- **Static check (4.6):** `tests/privacy/static-check.privacy.ts`, run under `pnpm test:privacy` only. It finds 117 hits in `src/checks/**` today, kept as a per-file known list (`static-check.known.json`). It is a heuristic, not a provenance proof.
+
+## Engine guard, first slice (part 4, `ce805f8`)
+
+Written by core builder B. The guard is not wired into `run-checks.ts` yet, so run output is unchanged.
+- **Files:** `src/engine/editable-context.ts`, the optional source and derivation types in `src/checks/types.ts`, and 23 unit tests in `tests/engine/editable-context.test.ts`.
+- **Where it differs from the design:**
+  - XHTML documents are withheld whole rather than walked. This fails closed.
+  - A `noscript` raw text node containing `<` or `&` is withheld.
+  - Options are always replaced whole.
+  - Fingerprint parts are joined with `|`.
+  - A test-only `failAt` option forces a walk failure. It must move behind the probe seam before wiring.
+- **New limit:** a light-DOM child slotted into an editable element inside a **closed** shadow root is judged plain, because `assignedSlot` is null there. This needs CDP. It is to be fixed or added to section 7 before the gate.
+- **Left:** wiring, with references stripped before validation; the axe identity condition with the CDP DOM event log; `loaderId` stability; the probe seam and the `forceCompositeWalkTimeout` hook; error classes (section 5); the `locator`, `accname`, `accvalue` and `frameUrl` derivations; note templates and `locatorList`; the per-provider timeout.
+- **Flaky test:** `tests/checks/axe/editable-resolved.test.ts` timed out once at 5 s under full-suite load, in two separate runs. It passes on its own and on reruns.
