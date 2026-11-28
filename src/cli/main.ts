@@ -6,6 +6,7 @@
  */
 import { realpathSync } from "node:fs";
 import { pathToFileURL } from "node:url";
+import { internalErrorLine } from "../engine/error-class.ts";
 import { runCli } from "./commands.ts";
 
 const script = process.argv[1];
@@ -19,7 +20,7 @@ if (isMain) {
       process.exitCode = code;
     },
     (e: unknown) => {
-      process.stderr.write(`rgaa-assist: internal error: ${e instanceof Error ? (e.stack ?? e.message) : String(e)}\n`);
+      process.stderr.write(`${internalErrorLine(e, "E-CLI-01")}\n`);
       process.exitCode = 70;
     },
   );

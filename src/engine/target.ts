@@ -14,12 +14,16 @@ import { CONTEXT_SETTINGS } from "./browser.ts";
 import type { EngineTimeouts } from "./browser.ts";
 import type { TargetSpec } from "./sample.ts";
 import type { Sanitiser } from "./sanitise.ts";
+import { browserFailure, classifyPageOrBrowser } from "./error-class.ts";
+
+/** The engine's own timeout: its message is engine-built text. */
+export class EngineTimeout extends Error {}
 
 /** Reject with `message` when `promise` has not settled within `ms`. */
 export async function withTimeout<T>(promise: Promise<T>, ms: number, message: string): Promise<T> {
   let timer: NodeJS.Timeout | undefined;
   const timeout = new Promise<never>((_, reject) => {
-    timer = setTimeout(() => reject(new Error(message)), ms);
+    timer = setTimeout(() => reject(new EngineTimeout(message)), ms);
   });
   try {
     return await Promise.race([promise, timeout]);
@@ -28,11 +32,6 @@ export async function withTimeout<T>(promise: Promise<T>, ms: number, message: s
   }
 }
 
-function firstLine(e: unknown): string {
-  const text = e instanceof Error ? e.message : String(e);
-  const line = text.split("\n").find((l) => l.trim().length > 0) ?? "";
-  return line.trim().length > 0 ? line.trim() : "unknown error";
-}
 
 // ---------------------------------------------------------------------------
 // CDP sessions
@@ -113,7 +112,7 @@ async function probeFrame(frame: Frame, ms: number): Promise<Probe> {
     );
     return { readable: true, origin };
   } catch (e) {
-    return { readable: false, origin: null, reason: `the evaluation failed: ${firstLine(e)}` };
+    return { readable: false, origin: null, reason: e instanceof EngineTimeout ? e.message : classifyPageOrBrowser(e).message };
   }
 }
 
@@ -265,7 +264,7 @@ export async function establishTarget(browser: Browser, spec: TargetSpec, option
       if (response === null) failure = "navigation gave no main response";
       else if (response.status() >= 400) failure = `the main response has status ${response.status()}`;
     } catch (e) {
-      failure = `navigation failed: ${firstLine(e)}`;
+      failure = `navigation failed: ${browserFailure(e)}`;
     }
 
     let settled = false;

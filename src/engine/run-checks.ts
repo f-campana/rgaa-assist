@@ -11,6 +11,7 @@ import type { CheckId, Evidence, Observation } from "../schema/index.ts";
 import type { CheckContext, CheckDefinition, CheckProvider, CheckRunResult, RawEvidence } from "../checks/types.ts";
 import type { Sanitiser } from "./sanitise.ts";
 import type { ExaminableTarget } from "./target.ts";
+import { classifyPageOrBrowser, zodIssueText } from "./error-class.ts";
 
 /** Options given for a run, by check id. They override the definition's defaults key by key. */
 export type RunCheckOptions = Readonly<Record<string, Readonly<Record<string, unknown>>>>;
@@ -132,12 +133,12 @@ export function toObservation(
       evidence,
       fingerprint: typeof result.fingerprint === "string" ? sanitiser.text(result.fingerprint).value : result.fingerprint,
     };
-  } catch (e) {
-    return errorObservation(base, "check_error", `invalid result: ${(e as Error).message}`, sanitiser);
+  } catch {
+    return errorObservation(base, "check_error", "invalid result: the evidence could not be read", sanitiser);
   }
   const parsed = ObservationSchema.safeParse(candidate);
   if (parsed.success) return parsed.data;
-  const issues = parsed.error.issues.map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`).join("; ");
+  const issues = parsed.error.issues.map((i) => zodIssueText(i)).join("; ");
   return errorObservation(base, "check_error", `invalid observation: ${issues}`, sanitiser);
 }
 
@@ -183,7 +184,7 @@ export async function runProvider(
     running.catch(() => undefined); // a late rejection after a timeout is not unhandled
     results = await Promise.race([running, timeout]);
   } catch (e) {
-    failure = e instanceof ProviderTimeout ? e.message : `provider ${provider.name} threw: ${e instanceof Error ? e.message : String(e)}`;
+    failure = e instanceof ProviderTimeout ? e.message : `provider ${provider.name} threw: ${classifyPageOrBrowser(e).message}`;
   } finally {
     clearTimeout(timer);
     if (!controller.signal.aborted) controller.abort(new Error("provider finished"));

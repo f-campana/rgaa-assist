@@ -90,7 +90,7 @@ describe("running providers", () => {
     expect(obs).toHaveLength(2);
     for (const o of obs) {
       expect(o.outcome).toBe("error");
-      expect(o.error).toEqual({ kind: "check_error", message: `provider custom/throws threw: boom at https://x.test/#${MASK}` });
+      expect(o.error).toEqual({ kind: "check_error", message: "provider custom/throws threw: the evaluation in the page failed" });
       expect(ObservationSchema.safeParse(o).success).toBe(true);
     }
   });
@@ -135,7 +135,7 @@ describe("running providers", () => {
       expect(o.error?.message).toMatch(/^invalid observation: /);
       expect(ObservationSchema.safeParse(o).success).toBe(true);
     }
-    expect(obs[0]?.error?.message).toMatch(/scope_examined/);
+    expect(obs[0]?.error?.message).toBe("invalid observation: evidence: custom");
   });
 
   it("refuses a result for an undeclared check id as a bug", async () => {

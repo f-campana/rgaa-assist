@@ -86,7 +86,7 @@ describe("establishing a target", () => {
     try {
       expect(handle.execution.established).toBe(false);
       expect(handle.execution.requestedUrl).toBe(`http://127.0.0.1:${port}/?token=${MASK}`);
-      expect(handle.notEstablishedReason).toMatch(/ERR_CONNECTION_REFUSED/);
+      expect(handle.notEstablishedReason).toBe("navigation failed: the connection was refused");
       expect(handle.notEstablishedReason).not.toMatch(/planted/);
       expect(TargetExecutionSchema.safeParse(handle.execution).success).toBe(true);
     } finally {

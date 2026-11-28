@@ -10,6 +10,7 @@
  */
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { zodIssueText } from "./error-class.ts";
 import { INITIAL_STATE_ID, SampleFileSchema } from "../schema/index.ts";
 import type { SampleFile, Size } from "../schema/index.ts";
 
@@ -30,14 +31,14 @@ export function parseSample(bytes: Buffer | string): SampleReadResult {
   let json: unknown;
   try {
     json = JSON.parse(buffer.toString("utf8")) as unknown;
-  } catch (e) {
-    return { ok: false, messages: [`sample: not valid JSON: ${(e as Error).message}`] };
+  } catch {
+    return { ok: false, messages: ["sample: not valid JSON"] };
   }
   const parsed = SampleFileSchema.safeParse(json);
   if (!parsed.success) {
     return {
       ok: false,
-      messages: parsed.error.issues.map((i) => `sample: ${i.path.length > 0 ? i.path.join(".") : "(root)"}: ${i.message}`),
+      messages: parsed.error.issues.map((i) => `sample: ${zodIssueText(i)}`),
     };
   }
   const sample = parsed.data;
@@ -66,7 +67,7 @@ export function readSample(path: string): SampleReadResult {
   try {
     bytes = readFileSync(path);
   } catch (e) {
-    return { ok: false, messages: [`sample: cannot read ${path}: ${(e as NodeJS.ErrnoException).code ?? (e as Error).message}`] };
+    return { ok: false, messages: [`sample: cannot read ${path}: ${(e as NodeJS.ErrnoException).code ?? "read error"}`] };
   }
   return parseSample(bytes);
 }
