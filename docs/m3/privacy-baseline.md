@@ -138,3 +138,13 @@ The guard is still not wired in.
   - Frame documents are matched by URL, so a duplicate URL withholds the piece.
   - A failed source counts each derived note slot as one withheld piece.
   - `locatorList` is returned beside the evidence; how it is written is left to the wiring.
+
+## Engine guard, CDP assumption tests (part 4, `d2a8a2a`)
+
+`tests/engine/editable-context-cdp.test.ts` has 9 tests on synthetic pages. Every assumption tested holds:
+- DOM, attribute, character-data, closed-shadow-attach and frame-navigation events are logged;
+- a whole-document read with `pierce` includes closed roots and leaves out whitespace-only text nodes;
+- `loaderId` changes after a navigation and `frameId` doesn't;
+- same-process frames share the page's log session, and a cross-origin frame has its own.
+
+No fix was needed. Two assumptions are still untested: `frameAttached` for a frame created after the log starts, and events in a framed document's closed roots. `pnpm test` passes 995 tests.

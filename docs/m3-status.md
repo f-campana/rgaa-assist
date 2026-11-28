@@ -22,6 +22,19 @@
 - Q74 (Fabien, "We can use 7 points right now before the reset"): the build started. Baseline 88%, stop line 95%.
 - Build plan parts 1 and 2, baseline slice: the privacy harness in `tests/privacy/`, by test agent A (`91209fd`).
 - Part 3: the baseline is recorded in `docs/m3/privacy-baseline.md`, with 17 leaks seen, 4 not reached, all controls ok, and no capture.
+- Q75 (Fabien: up to 100% weekly, stop before 16:00 UTC).
+- Harness second and third slices: 36 more rows; per-piece control expectations; fingerprint pairs for composites; the static check (4.6), 117 known hits.
+- Part 4, engine guard, slices 1 to 3, in `src/engine/editable-context.ts` (**not wired into `run-checks.ts`**):
+  - the in-page context and field rule, and the composite walk;
+  - closed-root slots through CDP;
+  - the in-memory probe seam with its hooks;
+  - the `locator`, `accname`, `accvalue` and `frameUrl` derivations;
+  - note templates and `locatorList`;
+  - the axe identity condition with the CDP DOM event log;
+  - `FrameKey` stability;
+  - the CDP assumption tests (`d2a8a2a`).
+
+  Details and the differences from the design are in `docs/m3/privacy-baseline.md`.
 
 ## Waiting
 
@@ -33,5 +46,15 @@ Routes of the M2 leak family, in design section 1. Two of them were confirmed in
 
 ## Next
 
-1. The remaining fixture rows (composites, encodings, the per-piece oracle), by test agent A.
-2. Part 4, the engine guard, by core builder B: large, and for after the reset on Fabien's word.
+**Part 4, what is left:**
+- wiring into `run-checks.ts`: the event-log window, references stripped before validation, and `privacyProbe` on `runAudit`;
+- error classes (section 5);
+- XHTML walking (withheld today);
+- the gaps against the design that `docs/m3/privacy-baseline.md` lists.
+
+**Then:**
+- part 5: providers emit sources (builder C);
+- the post-build privacy run (`pnpm test:privacy`) with the probe;
+- the adversarial rows qx040 to qx049.
+
+**M3 is paused before the 16:00 UTC reset (Q75).** Going on needs Fabien's word. Q66's check-in comes at 22 points; 17 are used so far.
