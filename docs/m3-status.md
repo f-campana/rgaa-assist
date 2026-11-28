@@ -19,10 +19,13 @@
   2. Build after the reset under Q66's 45-point ceiling, counted from 42%.
   3. Ask Fabien before resuming.
 - Q73 (Fabien, "5 points allowed"): baseline 88%, stop line 93%. Codex's five conditions are folded into the design, with the build handoff in section 8.1 and new rows qx213 to qx219.
+- Q74 (Fabien, "We can use 7 points right now before the reset"): the build started. Baseline 88%, stop line 95%.
+- Build plan parts 1 and 2, baseline slice: the privacy harness in `tests/privacy/`, by test agent A (`91209fd`).
+- Part 3: the baseline is recorded in `docs/m3/privacy-baseline.md`, with 17 leaks seen, 4 not reached, all controls ok, and no capture.
 
 ## Waiting
 
-- **Fabien's word to start the build (Q72 item 3).** Nothing is built before it.
+- Nothing.
 
 ## Found by reading
 
@@ -30,4 +33,5 @@ Routes of the M2 leak family, in design section 1. Two of them were confirmed in
 
 ## Next
 
-Kickoff step 3 (design section 8, with the handoff in 8.1), under Q66's 45-point ceiling counted from the 42% baseline. Design points count toward it. **M3 is paused** until Fabien gives the word.
+1. The remaining fixture rows (composites, encodings, the per-piece oracle), by test agent A.
+2. Part 4, the engine guard, by core builder B: large, and for after the reset on Fabien's word.
