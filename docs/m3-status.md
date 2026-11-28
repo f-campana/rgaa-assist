@@ -34,6 +34,8 @@
   - `FrameKey` stability;
   - the CDP assumption tests (`d2a8a2a`).
 
+- Error classes, design section 5 (`2fd7ea2`, `52fb117`). The baseline leaks at qx060 and qx064 are closed, and qx062 is out of `error.message`. qx062 still leaks through a check's note until the wiring lands.
+
   Details and the differences from the design are in `docs/m3/privacy-baseline.md`.
 
 ## Waiting
@@ -48,7 +50,7 @@ Routes of the M2 leak family, in design section 1. Two of them were confirmed in
 
 **Part 4, what is left:**
 - wiring into `run-checks.ts`: the event-log window, references stripped before validation, and `privacyProbe` on `runAudit`;
-- error classes (section 5);
+- family B notes (E16) and storage-state errors (C7);
 - XHTML walking (withheld today);
 - the gaps against the design that `docs/m3/privacy-baseline.md` lists.
 

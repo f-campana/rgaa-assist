@@ -148,3 +148,21 @@ The guard is still not wired in.
 - same-process frames share the page's log session, and a cross-origin frame has its own.
 
 No fix was needed. Two assumptions are still untested: `frameAttached` for a frame created after the log starts, and events in a framed document's closed roots. `pnpm test` passes 995 tests.
+
+## Error classes, design section 5 (`2fd7ea2`, `52fb117`)
+
+`src/engine/error-class.ts` classifies errors by origin. The CLI's internal-error line now shows the class, a fixed message and the code `E-CLI-01`, with no stack. Sample parsing gives "not valid JSON", or a schema path plus its zod issue code. `target.ts` and `run-checks.ts` give fixed page and browser messages, and `firstLine` is removed. A single engine choke point (`checkFailureMessage`) replaces any undeclared text in a check's `check_error` or `scope_unreadable` message with its fixed class message. Only messages marked `declared` keep their text, and so far only axe's "rule not reported" message is marked. `pnpm test` passes 1009 tests.
+
+**Baseline rerun at `52fb117`:**
+- qx060 and qx064 are now **not reached or unproven**. Their leaks are gone.
+- qx062 has left `error.message`, but it still shows a **leak seen** in a check's evidence note (`/observations/69/evidence/0/note`). That note route (E16) closes with the guard's wiring and part 5.
+- qx200 is still **control ok**.
+
+**Trade-off for Fabien.** Most checks' error messages, including families A, B and C and axe's index message, now read "the evaluation in the page failed" instead of their own text. Messages that are truly constant can be marked `declared` later to get their specific text back.
+
+**Where it differs from the design:**
+- The page message carries no frame index; the frame record already has it.
+- Browser messages carry no URL; `requestedUrl` is already on the record.
+- Some `net::` codes get their own fixed messages.
+- The `timeouts:` message in `run.ts` is left as it is, since the engine builds it.
+- The family B notes (E16) and storage-state errors (C7) are not done.
