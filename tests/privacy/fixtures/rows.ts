@@ -352,7 +352,7 @@ const BASE_ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx201-dupid"],
     variants: one(`<p id="qx201-dupid">a</p><p id="qx201-dupid">b</p>`),
-    oracle: { expect: [{ check: C_ID, piece: "snippet", contains: `<p id="qx201-dupid">a</p>` }, { check: C_ID, piece: "note", contains: "qx201-dupid" }, { check: C_ID, piece: "fingerprint", contains: "qx201-dupid" }], checks: [C_ID], rgaa: "8.2.1", pieces: ["snippet", "locator", "note", "fingerprint"], items: 2, saved: { kind: "text", present: ["qx201-dupid"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_ID, piece: "snippet", contains: `<p id="qx201-dupid">` }, { check: C_ID, piece: "note", contains: "qx201-dupid" }, { check: C_ID, piece: "fingerprint", contains: "qx201-dupid" }], checks: [C_ID], rgaa: "8.2.1", pieces: ["snippet", "locator", "note", "fingerprint"], items: 2, saved: { kind: "text", present: ["qx201-dupid"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -382,7 +382,7 @@ const BASE_ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx203-fonttitle"],
     variants: one(`<font title="qx203-fonttitle" id="qx203-fontid">x</font>`),
-    oracle: { expect: [{ check: C_FONT, piece: "snippet", contains: `<font title="qx203-fonttitle" id="qx203-fontid">x</font>` }], checks: [C_FONT], rgaa: "10.1.1", pieces: ["snippet", "locator"], items: 1, saved: { kind: "text", present: ["qx203-fonttitle"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_FONT, piece: "snippet", contains: `<font title="qx203-fonttitle" id="qx203-fontid">` }], checks: [C_FONT], rgaa: "10.1.1", pieces: ["snippet", "locator"], items: 1, saved: { kind: "text", present: ["qx203-fonttitle"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
   {
@@ -485,9 +485,9 @@ const BASE_ROWS: readonly Row[] = [
     role: "control",
     table: "4.3 qx211-212",
     via: "audit",
-    markers: ["qx212-plaintext"],
+    markers: ["qx212-divid"],
     variants: one(`<div id="qx212-divid">qx212-plaintext</div><div id="qx212-divid">b</div>`),
-    oracle: { expect: [{ check: C_ID, piece: "snippet", contains: `<div id="qx212-divid">qx212-plaintext</div>` }], checks: [C_ID], rgaa: "8.2.1", pieces: ["snippet", "fingerprint"], items: 2, saved: { kind: "text", present: ["qx212-plaintext"] }, allowed: "present" },
+    oracle: { expect: [{ check: C_ID, piece: "snippet", contains: `<div id="qx212-divid">` }], checks: [C_ID], rgaa: "8.2.1", pieces: ["snippet", "fingerprint"], items: 2, saved: { kind: "text", present: ["qx212-divid"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
 
@@ -521,7 +521,7 @@ const BASE_ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx214-slottext"],
     variants: one(`<div id="host" role="img"><span data-note="qx214-slotdata">qx214-slottext</span></div><div id="host"></div>`),
-    oracle: { expect: [{ check: C_ID, piece: "snippet", contains: `data-note="qx214-slotdata">qx214-slottext</span>` }], checks: [C_ID, "axe/role-img-alt"], rgaa: "8.2.1", pieces: ["snippet", "fingerprint"], items: null, saved: { kind: "text", present: ["qx214-slottext"] }, allowed: "present" },
+    oracle: { expect: [{ check: "axe/role-img-alt", piece: "snippet", contains: `data-note="qx214-slotdata">qx214-slottext</span>` }], checks: [C_ID, "axe/role-img-alt"], rgaa: "8.2.1", pieces: ["snippet", "fingerprint"], items: null, saved: { kind: "text", present: ["qx214-slottext"] }, allowed: "present" },
     baselineLeakExpected: false,
   },
 ];

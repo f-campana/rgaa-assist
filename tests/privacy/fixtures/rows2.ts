@@ -50,7 +50,7 @@ const typedInput = (marker: string, tail: string, attrs = ""): string =>
 const twin = (id: string): string => `<div id="${id}"></div>`;
 
 const COMPOSITE_ID: Oracle = {
-  checks: [C_ID],
+  checks: [C_ID, "axe/role-img-alt"],
   rgaa: "8.2.1",
   pieces: ["snippet", "fingerprint"],
   items: null,
@@ -351,13 +351,13 @@ export const MORE_ROWS: readonly Row[] = [
   },
   {
     id: "qx038",
-    title: "composite: a plain font with a duplicated id, around a contenteditable descendant",
+    title: "composite: a plain element with a duplicated id, around a contenteditable descendant",
     role: "leak",
     table: "4.3 qx038",
     via: "audit",
     markers: ["qx038-boxtext"],
-    variants: one(`<font id="cmp-outer"><span contenteditable="true">qx038-boxtext</span></font>${twin("cmp-outer")}`),
-    oracle: { checks: [C_ID, C_FONT], pieces: ["snippet", "fingerprint"], items: null, saved: { kind: "redacted", count: 1 }, allowed: "none; the descendant replaced whole: 1 per descendant" },
+    variants: one(`<div role="img" id="cmp-outer"><span contenteditable="true">qx038-boxtext</span></div>${twin("cmp-outer")}`),
+    oracle: { checks: [C_ID, "axe/role-img-alt"], pieces: ["snippet", "fingerprint"], items: null, saved: { kind: "redacted", count: 1 }, allowed: "none; the descendant replaced whole: 1 per descendant" },
     baselineLeakExpected: false,
   },
   {
@@ -368,10 +368,10 @@ export const MORE_ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx039-first", "qx039-second"],
     variants: one(
-      `<font id="cmp-outer"><span id="m">qx039-first</span></font>${twin("cmp-outer")}` +
+      `<div role="img" id="cmp-outer"><span id="m">qx039-first</span></div>${twin("cmp-outer")}` +
         `<script>const m=document.getElementById("m");let k=0;setInterval(()=>{m.textContent=(k++%2)?"qx039-first":"qx039-second"},1)</script>`,
     ),
-    oracle: { checks: [C_ID, C_FONT], pieces: ["snippet", "fingerprint"], items: null, saved: { kind: "redacted", count: 1 }, allowed: "none; the whole composite withheld, counted 1" },
+    oracle: { checks: [C_ID, "axe/role-img-alt"], pieces: ["snippet", "fingerprint"], items: null, saved: { kind: "redacted", count: 1 }, allowed: "none; the whole composite withheld, counted 1" },
     baselineLeakExpected: false,
   },
   {
@@ -382,7 +382,7 @@ export const MORE_ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx215-v", "qx215-b"],
     variants: one(
-      `<div id="cmp-outer"><template><input type="text" value="qx215-v"><div contenteditable="true">qx215-b</div></template></div>${twin("cmp-outer")}`,
+      `<div role="img" id="cmp-outer"><template><input type="text" value="qx215-v"><div contenteditable="true">qx215-b</div></template></div>${twin("cmp-outer")}`,
     ),
     oracle: { ...COMPOSITE_ID, allowed: "none; per node (the detached or unsupported template case is not built here)" },
     baselineLeakExpected: false,
@@ -397,7 +397,7 @@ export const MORE_ROWS: readonly Row[] = [
     variants: [
       ...one(
 
-      `<div id="cmp-outer"><input type="text" id="f"><a href="/x.html" id="lk">n</a></div>${twin("cmp-outer")}` +
+      `<div role="img" id="cmp-outer"><input type="text" id="f"><a href="/x.html" id="lk">n</a></div>${twin("cmp-outer")}` +
         `<script>const i=document.getElementById("f");i.value=${JSON.stringify(M216)};i.title=i.value;document.getElementById("lk").title=i.value</script>`,
       ),
       {
@@ -406,7 +406,7 @@ export const MORE_ROWS: readonly Row[] = [
         files: {
           "index.xhtml":
             `<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><title>qx page</title></head><body>` +
-            `<div id="cmp-outer"><input type="text" id="f"/><a href="/x.html" id="lk">n</a></div><div id="cmp-outer"></div>` +
+            `<div role="img" id="cmp-outer"><input type="text" id="f"/><a href="/x.html" id="lk">n</a></div><div role="img" id="cmp-outer"></div>` +
             `<script>//<![CDATA[\nconst i=document.getElementById("f");i.value=${JSON.stringify(M216)};i.title=i.value;document.getElementById("lk").title=i.value;\n//]]></script></body></html>`,
         },
       },
@@ -421,7 +421,7 @@ export const MORE_ROWS: readonly Row[] = [
     table: "4.3 qx217",
     via: "audit",
     markers: ["qx217-n"],
-    variants: one(`<div id="cmp-outer"><noscript><input type="text" value="qx217-n"></noscript></div>${twin("cmp-outer")}`),
+    variants: one(`<div role="img" id="cmp-outer"><noscript><input type="text" value="qx217-n"></noscript></div>${twin("cmp-outer")}`),
     oracle: { ...COMPOSITE_ID, allowed: "none; the fragment or the whole composite withheld" },
     baselineLeakExpected: false,
   },
@@ -433,7 +433,7 @@ export const MORE_ROWS: readonly Row[] = [
     via: "audit",
     markers: ["qx218-attr", "qx218-live"],
     variants: one(
-      `<div id="cmp-outer"><div><div><input type="text" id="f" value="qx218-attr"></div></div></div>${twin("cmp-outer")}` +
+      `<div role="img" id="cmp-outer"><div><div><input type="text" id="f" value="qx218-attr"></div></div></div>${twin("cmp-outer")}` +
         `<script>document.getElementById("f").value="qx218-live"</script>`,
     ),
     oracle: { ...COMPOSITE_ID, allowed: "none; the nested field withheld when the walk completes" },
@@ -446,10 +446,10 @@ export const MORE_ROWS: readonly Row[] = [
     table: "4.3 qx219",
     via: "audit",
     markers: ["qx219-plain"],
-    variants: one(`<div id="cmp-outer">qx219-plain</div>${twin("cmp-outer")}`),
+    variants: one(`<div role="img" id="cmp-outer">qx219-plain</div>${twin("cmp-outer")}`),
     oracle: {
-      expect: [{ check: C_ID, piece: "snippet", contains: `<div id="cmp-outer">qx219-plain</div>` }],
-      checks: [C_ID],
+      expect: [{ check: "axe/role-img-alt", piece: "snippet", contains: `<div role="img" id="cmp-outer">qx219-plain</div>` }],
+      checks: [C_ID, "axe/role-img-alt"],
       rgaa: "8.2.1",
       pieces: ["snippet", "fingerprint"],
       items: null,
